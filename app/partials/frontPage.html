@@ -1,0 +1,10 @@
+<h1 data-ng-bind="welcomeMsg"></h1>
+
+<h2>Use the calculator</h2><hr/>
+<h3>Calculator memory M1:{{calculatorMemory.M1}}</h3>
+</br>
+<label for="numbers">Numbers({{numbers}})</label>:<input type="text" data-ng-model="numbers"/>
+<button data-ng-click="sumClicked()">Sum numbers</button></br>
+
+<input type="number" readonly data-ng-model="memory" />
+<button data-ng-click="storeNumber()">Store number</button>
