@@ -2,7 +2,8 @@ angular.module('app.agoraService',['app.utilityService']).
 factory('AgoraService',['$http','$log','$q','$timeout','UtilityService',function($http,$log,$q,$timeout,UtilityService){
 	var internal={
 		url:"https://agora.uninett.no/api/secure/jsonws/",
-		companyId:undefined
+		companyId:undefined,
+		user:{}
 	}
 
 	return {
@@ -37,16 +38,18 @@ factory('AgoraService',['$http','$log','$q','$timeout','UtilityService',function
 			    url: internal.url+"company/get-company-by-virtual-host/virtual-host/agora.uninett.no",
 			    method: "GET",
 			    headers: {'Authorization': authToken}
-
+			//Defining success function
 			}).success(function(data, status, headers, config) {
-				alert("YEY");				
+				//Storing stuff
+				//TOD also store this in webstorage
 				internal.companyId = data.companyId;
-				alert(internal.companyId)
-				// $log.log("AgoraService:login():companyId stored:"+companId);
+				internal.user.username = username;
+				internal.user.password = password;
+				
+				$log.log("AgoraService:login():companyId stored:"+internal.companId);
 				deffered.resolve({data:data,status:status,headers:headers,config:config})
-
+			//Defining error function
 			}).error(function(data, status, headers, config) {
-			    alert("NO");
 			    deffered.reject({data:data,status:status,headers:headers,config:config})
 
 			});

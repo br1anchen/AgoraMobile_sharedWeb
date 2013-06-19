@@ -1,10 +1,9 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('app', ['ui.bootstrap','app.calculatorService','app.utilityService','app.agoraService'])
+var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.agoraService'])
 
 .config(['$routeProvider', function($routeProvider) {
-	$routeProvider.when('/frontPage', {templateUrl: 'partials/frontPage.html', controller: 'FrontPageCtrl'});
 	$routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
 	$routeProvider.otherwise({redirectTo: '/login'});
 }])
