@@ -1,5 +1,9 @@
 #iFrameDialog{
-	height:95%;
-	border-radius: 9px;
-	padding-top: 2.5%
+	height:100%;
+}
+.modal{
+	padding:5px;
+}
+iframe{
+	padding-top: 7px
 }

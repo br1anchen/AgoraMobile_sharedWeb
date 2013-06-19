@@ -35,7 +35,7 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 
-        //Bootstraps angular
+        //Bootstraps angular after phonegap is ready
         angular.element(document).ready(function() {
             angular.bootstrap(document);
         });

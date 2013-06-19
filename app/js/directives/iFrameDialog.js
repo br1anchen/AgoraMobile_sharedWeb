@@ -18,6 +18,7 @@ app.directive('iFrameDialog', function($dialog,$log) {
                     keyboard:true,
                     backdropClick:true,
                     template:
+                        '<button type="button" class="close" data-ng-click="close()">x</button>'+
                         '<div id="iFrameDialog">'+
                             '<iframe onLoad="loaded()" src="'+$scope.url+'" seamless height="100%" width="100%" >'+
                             '</iframe>'+
