@@ -5,7 +5,7 @@ app.controller('LoginCtrl',['$scope','$log','AgoraService','$location',function(
 			function(data){
 				alert("Login success!:"+JSON.stringify(data));
 			},function(reason){
-				alert("Login failed:"+JSON.stringify(reason))
+				alert("Login failed:"+JSON.stringify(reason));
 			}
 		);
 	}

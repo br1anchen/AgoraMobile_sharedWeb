@@ -6,6 +6,9 @@ files = [
   'app/lib/angular/angular.js',
   'app/lib/angular/angular-*.js',
   'test/lib/angular/angular-mocks.js',
+  'app/lib/angular-ui/*.js' ,
+  'app/lib/underscore.js' ,
+  'app.js/*',
   'app/js/**/*.js',
   'test/unit/**/*.js'
 ];
