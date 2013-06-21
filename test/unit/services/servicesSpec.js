@@ -26,9 +26,8 @@ describe('AgoraService', function() {
 		// //Invalid auth token
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
         	return headers['Authorization'] != 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false
-
         })
-        .respond(200,'{"exception":"Invalid authentication token"}'); 
+        .respond(401,'{"exception":"Invalid authentication token"}',{'WWW-Authenticate': 'Basic realm="PortalRealm"'}); 
 
 		// //Valid login for Brian
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
@@ -42,41 +41,38 @@ describe('AgoraService', function() {
 	  $httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('should try to login the user, returning a promise object beenin resolved or rejected.',inject(function(AgoraService){
+	it('Testing if the login function returns a promise object',inject(function(AgoraService){
 		var promise = AgoraService.login('br1anchen','Aptx4869');
-		promise.then(function(){
-			// expect(true).toBe(false);
-			dump('success');
-		},
-		function(){
-			// expect(true).toBe(false);
-			dump('feilet');
-		})
-		// var promise = AgoraService.login('br1anchen','Apt');
 		$httpBackend.flush();
 		expect(promise).not.toBe(undefined);
 
-		// promise.then(function(){
-			
-		// },
-		// function(){
-		// 	// dump('isEmpty:'+_.isEmpty(promise));
-		// })
-
-		
-
-	// 	// promise = AgoraService.login('br1anchen','Aptx48');
 	}));
 
-	// it('should try to login the user, returning a promise object beenin resolved or rejected.',inject(function(AgoraService){
-	// 	$httpBackend.flush();		
-	// }))
+	it('Testing if the login gets resolved with correct login info',inject(function(AgoraService){
+		var promise = AgoraService.login('br1anchen','Aptx4869');
+		var validRequest;
+		promise.then(function(){validRequest = true;})
+		
+		$httpBackend.flush();
+		expect(validRequest).toBe(true);
+	}));
+
+	it('Testing if the login get rejected with wrong login info',inject(function(AgoraService){
+		var promise = AgoraService.login('br1anchen','Aptx48');
+		var unvalidRequest;
+		promise.then(function(){unvalidRequest = true})
+		
+		$httpBackend.flush();
+		expect(unvalidRequest).toBe(undefined);
+	}));
 	
-
-
-	// describe('version', function() {
-	// 	it('should return current version', inject(function(version) {
-	// 	  expect(version).toEqual('0.1');
-	// 	}));
-	// });
+	it('Testing if the login get rejected with wrong login info',inject(function(AgoraService,StorageService){
+		StorageService.setUser('br1anchen','Aptx4869');
+		var promise = AgoraService.login();
+		var validRequest;
+		promise.then(function(){validRequest = true;})
+		
+		$httpBackend.flush();
+		expect(validRequest).toBe(true);
+	}));
 });
