@@ -6,7 +6,6 @@ describe('HttpService',function(){
 
 	var httpService;
 	var $httpBackend;
-	var $q;
 
 	beforeEach(module('app.httpService'));
 
@@ -58,7 +57,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login request returns a promise object',inject(function(HttpService){
 		//set request url and request method
-		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',"",'GET');
+		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
 		
 		$httpBackend.flush();
 
@@ -68,7 +67,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login gets resolved with correct login info',inject(function(HttpService){
 		//set request url customized authorization and request method
-		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',"Basic YnIxYW5jaGVuOkFwdHg0ODY5",'GET');
+		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic YnIxYW5jaGVuOkFwdHg0ODY5','GET');
 
 		var validRequest;
 		promise.then(function(data){validRequest = true;});
@@ -79,7 +78,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login get rejected with wrong login info',inject(function(HttpService){
 		//set request url customized authorization and request method
-		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',"Basic ",'GET');
+		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic ','GET');
 
 		var unvalidRequest;
 		promise.then(function(){unvalidRequest = true});
