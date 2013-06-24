@@ -8,16 +8,20 @@ factory('StorageService',['$log','$window',function($log,$window){
 		store: function(key, object) {
 	        if (object && _.isString(key) && key.length > 0) {
 	            $window.localStorage.setItem(key, JSON.stringify(object));
+	            return 'stored';
 	        }else{
 	        	invalidKey(key);
+	        	return 'failed';
 	        }
 	    },
 	    remove: function(key) {
 	        if (_.isString(key)) {
 	            $window.localStorage.removeItem(key);
+	            return 'removed';
 	        }
 	        else{
 	        	invalidKey(key);
+	        	return 'failed';
 	        }
 	    },
 	    get: function(key) {

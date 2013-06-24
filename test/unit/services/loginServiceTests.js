@@ -8,10 +8,12 @@ describe('LoginService',function(){
 	var testUser = {//testUser
 		screenName : "",
     	userId : "",
-      	password : ""
+      	password : "",
+      	companyId : ""
 	};
 
 	beforeEach(module('app.loginService'));
+	beforeEach(module('app.storageService'));
 
 	beforeEach(inject(function($injector){
 		$httpBackend = $injector.get('$httpBackend');
@@ -66,7 +68,7 @@ describe('LoginService',function(){
 
 	it('Testing login with incorrect screen name and password',inject(function(LoginService){
 		
-		//testUser as brian correct user info
+		//testUser as brian incorrect user info
 		testUser.screenName = "br1anchen";
 		testUser.password = "";
 
@@ -79,6 +81,25 @@ describe('LoginService',function(){
 
 		$httpBackend.flush();
 		expect(invalidUser).toBe(undefined);
+
+	}));
+
+	it('Testing after login store user screen name and auth',inject(function(LoginService){
+
+		//login with correct user info first
+		testUser.screenName = "br1anchen";
+		testUser.password = "Aptx4869";
+
+		var promise = LoginService.login('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',testUser);
+		var store;
+
+		promise.then(function(rep){
+			testUser.companyId = rep.data.data.companyId;
+			store = LoginService.requestStorage(testUser);
+		});
+
+		$httpBackend.flush();
+		expect(store).toBe('stored');
 
 	}));
 });
