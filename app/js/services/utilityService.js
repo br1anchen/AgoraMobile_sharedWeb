@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app.utilityService',[]).
 factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 
