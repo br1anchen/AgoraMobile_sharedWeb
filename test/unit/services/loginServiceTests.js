@@ -84,12 +84,15 @@ describe('LoginService',function(){
 
 	}));
 
-	it('Testing after login store user screen name and auth',inject(function(LoginService){
+	it('Testing after login store user screen name and auth',inject(function(LoginService,StorageService){
 
 		//login with correct user info first
 		testUser.screenName = "br1anchen";
 		testUser.password = "Aptx4869";
 
+		//delete stored user info
+		StorageService.remove(testUser.screenName);
+		
 		var promise = LoginService.login('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',testUser);
 		var store;
 
