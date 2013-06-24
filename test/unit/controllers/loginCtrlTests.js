@@ -2,7 +2,7 @@
 'use strict';
 
 describe('LoginController', function(){
-  //beforeEach(module(''));
+  //beforeEach(module('LoginCtrl'));
 
 
   it('should get username and password', inject(function() {

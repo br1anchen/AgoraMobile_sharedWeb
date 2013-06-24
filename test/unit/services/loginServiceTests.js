@@ -4,13 +4,6 @@ describe('LoginService',function(){
 
 	var loginService;
 	var $httpBackend;
-	var $q;
-	var testUser = {//testUser
-		screenName : "",
-    	userId : "",
-      	password : "",
-      	companyId : ""
-	};
 
 	beforeEach(module('app.loginService'));
 	beforeEach(module('app.storageService'));
@@ -51,10 +44,7 @@ describe('LoginService',function(){
 	it('Testing login with correct screen name and password',inject(function(LoginService){
 		
 		//testUser as brian correct user info
-		testUser.screenName = "br1anchen";
-		testUser.password = "Aptx4869";
-
-		var promise = LoginService.login('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',testUser);
+		var promise = LoginService.login('br1anchen','Aptx4869');
 
 		var validUser;
 		promise.then(function(){
@@ -69,10 +59,7 @@ describe('LoginService',function(){
 	it('Testing login with incorrect screen name and password',inject(function(LoginService){
 		
 		//testUser as brian incorrect user info
-		testUser.screenName = "br1anchen";
-		testUser.password = "";
-
-		var promise = LoginService.login('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',testUser);
+		var promise = LoginService.login('br1anchen','');
 
 		var invalidUser;
 		promise.then(function(){
@@ -86,19 +73,17 @@ describe('LoginService',function(){
 
 	it('Testing after login store user screen name and auth',inject(function(LoginService,StorageService){
 
-		//login with correct user info first
-		testUser.screenName = "br1anchen";
-		testUser.password = "Aptx4869";
+
 
 		//delete stored user info
-		StorageService.remove(testUser.screenName);
-		
-		var promise = LoginService.login('company/get-company-by-virtual-host/virtual-host/agora.uninett.no',testUser);
+		StorageService.remove('br1anchen');
+
+		//login with correct user info first
+		var promise = LoginService.login('br1anchen','Aptx4869');
 		var store;
 
 		promise.then(function(rep){
-			testUser.companyId = rep.data.data.companyId;
-			store = LoginService.requestStorage(testUser);
+			store = LoginService.requestStorage('br1anchen',rep.data.data.companyId);
 		});
 
 		$httpBackend.flush();
