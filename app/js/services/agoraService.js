@@ -1,3 +1,5 @@
+"use strict"
+
 angular.module('app.agoraService',['app.utilityService']).
 factory('AgoraService',['$http','$log','$q','$timeout','UtilityService',function($http,$log,$q,$timeout,UtilityService){
 	var internal={

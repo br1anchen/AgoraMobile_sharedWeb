@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
         <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 
         <script type="text/javascript" src="js/index.js"></script>
@@ -35,35 +35,76 @@
         <script src="lib/underscore.js"></script>
         <!--<script src="lib/zepto.js"></script>-->
         <script src="lib/jquery-1.10.1.js"></script>
+        
+        <!--<script src="lib/jquery.jpanelmenu.js"></script>-->
 
         <script src="lib/angular/angular.js"></script>
 
         <script src="lib/angular-ui/ui-bootstrap-tpls-0.3.0.js"></script>
         <link rel="stylesheet" href="lib/angular-ui/bootstrap-combined.min.css" />
 
+        <!--Font awesome-->
+        <link rel="stylesheet" href="lib/FontAwesome/css/font-awesome.min.css">
+        
+
         <!-- Our angular components -->
         
         <script src="js/services/utilityService.js"></script>
         <script src="js/services/agoraService.js"></script>
         <script src="js/services/storageService.js"></script>
+        <script src="js/services/activityService.js"></script>
 
         <script src="js/app.js"></script>
 
         <script src="js/directives/iFrameDialog.js"></script>
-        <link rel="stylesheet" href="js/directives/iFrameDialog/iFrameDialog.css" />
+        <!-- <link rel="stylesheet" href="js/directives/iFrameDialog/iFrameDialog.css" /> -->
         
         <script src="js/controllers/indexCtrl.js"></script>
         <script src="js/controllers/loginCtrl.js"></script>
 
+        <link rel="stylesheet" href="css/app.css" />
+
         <title>Hello World</title>
     </head>
     <body ng-controller="IndexCtrl">
-        <div>
-            <ul class="menu" >
-                <li><a href="#/login">Login</a></li>
-            </ul>            
-        </div>
+        <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
+          <a href="#">This</a>
+          <a href="#">Little</a>
+          <a href="#">Piggy</a>
+          <a href="#">Went</a>
+          <a href="#">To</a>
+          <a href="#">Market</a>
 
-          <div ng-view></div>
+<!--           <ul>
+                <li class="menu-trigger">
+                    <a href="#/login">Login</a>
+                </li>
+            </ul> -->
+
+
+        </nav>
+
+        <div class="page-wrap" data-ng-class="menuVar">
+
+          <header class="main-header">
+
+            <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
+            
+            <div id="mainFunctions">
+                <i class="icon-comments-alt icon-3x"></i>
+                <i class="icon-file-text-alt icon-3x"></i>
+                <i class="icon-edit icon-3x"></i>
+            </div>
+
+            <i class="icon-search icon-3x searchButton"></i>
+
+          </header>
+          
+          <div class="content">
+            bla bla
+            <div ng-view></div>
+          </div>
+          
+        </div>
     </body>
 </html>
