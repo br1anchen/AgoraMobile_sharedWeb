@@ -42,8 +42,11 @@ describe('GroupService',function(){
 	  	$httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('Testing fetch groups request with correct authentication',inject(function(GroupService){
+	it('Testing fetch groups request with first time correct authentication',inject(function(GroupService,StorageService){
 		
+		//delete all the groups data
+		StorageService.remove("GroupIDs");
+
 		//fetch request
 		var promise = GroupService.fetchGroups(auth);
 
@@ -74,4 +77,30 @@ describe('GroupService',function(){
 		expect(store).toBe('stored');
 	}));
 
+	it('Tesing not fetch groups because groups is stored',inject(function(GroupService,StorageService){
+
+		//delete all the groups data
+		StorageService.remove("GroupIDs");
+
+		//fetch request
+		var promise = GroupService.fetchGroups(auth);
+		var store;
+
+		promise.then(function(rep){
+			store = GroupService.requestStorage(rep);
+		});
+
+		$httpBackend.flush();
+
+		//fetch request again
+		var fetchAgain = GroupService.fetchGroups(auth);
+
+		var fetched;
+		fetchAgain.then(function(){
+			fetched = true;
+		});
+
+		expect(fetched).toBe(undefined);
+
+	}));
 });

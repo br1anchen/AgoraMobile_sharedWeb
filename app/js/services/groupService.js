@@ -10,14 +10,31 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
       name : "",
       type : "",
       site : ""
-    }
+    };
+
+    function checkStorage(){
+      if(!StorageService.get("GroupIDs")){
+        return false;
+      }
+      return true;
+    };
 
   	//return value from GroupService
   	return{
 
   		//fetch function
       fetchGroups : function(customizedAuth){
-        return  HttpService.request(apiUrl,customizedAuth,'GET');
+        var deffered = $q.defer();
+
+        //check if stored groupIds
+        var stored = checkStorage();
+
+        if(!stored){
+          return  HttpService.request(apiUrl,customizedAuth,'GET');
+        }
+
+        deffered.reject("not fetch");
+        return deffered.promise;
       },
 
       requestStorage : function(resp){
