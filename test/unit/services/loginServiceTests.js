@@ -14,7 +14,7 @@ describe('LoginService',function(){
 		// //Invalid auth token by Brian user info
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
-        		return headers['Authorization'] != 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false;
+        		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
         .respond(function(){
         	return [401,
@@ -26,7 +26,7 @@ describe('LoginService',function(){
 		// //Valid login for Brian
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
-        		return headers['Authorization'] == 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false;
+        		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
 		.respond(function(){
 			return [200,
@@ -43,8 +43,8 @@ describe('LoginService',function(){
 
 	it('Testing login with correct screen name and password',inject(function(LoginService){
 		
-		//testUser as brian correct user info
-		var promise = LoginService.login('br1anchen','Aptx4869');
+		//testUser correct user info
+		var promise = LoginService.login('testUser','demo');
 
 		var validUser;
 		promise.then(function(){
@@ -58,8 +58,8 @@ describe('LoginService',function(){
 
 	it('Testing login with incorrect screen name and password',inject(function(LoginService){
 		
-		//testUser as brian incorrect user info
-		var promise = LoginService.login('br1anchen','');
+		//testUser incorrect user info
+		var promise = LoginService.login('testUser','1234');
 
 		var invalidUser;
 		promise.then(function(){
@@ -76,14 +76,14 @@ describe('LoginService',function(){
 
 
 		//delete stored user info
-		StorageService.remove('br1anchen');
+		StorageService.remove('testUser');
 
 		//login with correct user info first
-		var promise = LoginService.login('br1anchen','Aptx4869');
+		var promise = LoginService.login('testUser','demo');
 		var store;
 
 		promise.then(function(rep){
-			store = LoginService.requestStorage('br1anchen',rep.data.data.companyId);
+			store = LoginService.requestStorage('testUser',rep.data.data.companyId);
 		});
 
 		$httpBackend.flush();

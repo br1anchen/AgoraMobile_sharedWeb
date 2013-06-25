@@ -25,10 +25,10 @@ describe('HttpService',function(){
         	]
     	});
 
-		// //Invalid auth token by Brian user info
+		// //Invalid auth token by test user info
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
-        		return headers['Authorization'] != 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false;
+        		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
         .respond(function(){
         	return [401,
@@ -37,10 +37,10 @@ describe('HttpService',function(){
         	]
         }); 
 
-		// //Valid login for Brian
+		// //Valid login for test
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
-        		return headers['Authorization'] == 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false;
+        		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
 		.respond(function(){
 			return [200,
@@ -67,7 +67,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login gets resolved with correct login info',inject(function(HttpService){
 		//set request url customized authorization and request method
-		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic YnIxYW5jaGVuOkFwdHg0ODY5','GET');
+		var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic dGVzdFVzZXI6ZGVtbw==','GET');
 
 		var validRequest;
 		promise.then(function(data){validRequest = true;});

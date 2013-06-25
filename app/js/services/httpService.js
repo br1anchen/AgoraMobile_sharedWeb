@@ -5,7 +5,7 @@ angular.module('app.httpService',['app.storageService'])
 
 	//class entity in HttpService
   	var domainUrl = "https://agora.uninett.no/api/secure/jsonws/";
-  	var authorization = "Basic YnIxYW5jaGVuOkFwdHg0ODY5"; //StorageService.get(userAuthorization);
+  	var authorization = "Basic dGVzdFVzZXI6ZGVtbw=="; //StorageService.get(userAuthorization);
 
   	//return value from HttpService
   	return{

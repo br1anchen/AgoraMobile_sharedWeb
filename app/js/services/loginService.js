@@ -7,7 +7,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
   	var serviceUser = {
       screenName : "",
       userId : "",
-      password : "",
+      auth : "",
       companyId : ""
     };
     var serviceLoginUrl = 'company/get-company-by-virtual-host/virtual-host/agora.uninett.no';
@@ -18,14 +18,13 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
   		//login function
   		login : function(screenName,password){
         serviceUser.screenName = screenName;
-        serviceUser.screenName = password;
         var authToken = "Basic " + UtilityService.base64.encode(screenName + ":" + password);
-        return HttpService.request(serviceLoginUrl,authToken,'GET');
+        serviceUser.auth = authToken;
+        return HttpService.request(serviceLoginUrl,serviceUser.auth,'GET');
   		},
 
       //request Storage Service to store screenName and authorization key
       requestStorage : function(screenName,companyId){
-        var authToken = "Basic " + UtilityService.base64.encode(serviceUser.screenName + ":" + serviceUser.password);
         if(StorageService.get(screenName) == undefined){
           return StorageService.store(serviceUser.screenName,serviceUser);
         }else{
