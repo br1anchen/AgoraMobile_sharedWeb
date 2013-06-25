@@ -5,7 +5,6 @@ angular.module('app.httpService',['app.storageService'])
 
 	//class entity in HttpService
   	var domainUrl = "https://agora.uninett.no/api/secure/jsonws/";
-  	var authorization = StorageService.get(StorageService.get('UserScreenName')).auth;//"Basic dGVzdFVzZXI6ZGVtbw=="; 
 
   	//return value from HttpService
   	return{
@@ -14,16 +13,22 @@ angular.module('app.httpService',['app.storageService'])
   		request : function(requestUrl,customizedAuthorization,requestMethod){
   			var deffered = $q.defer();
 
+        var authorization;
+
         if(!customizedAuthorization)
         {
-          customizedAuthorization = authorization;
+          if(StorageService.get('UserScreenName')){
+            authorization = StorageService.get(StorageService.get('UserScreenName')).auth;
+          }
+        }else{
+          authorization = customizedAuthorization;
         }
 
   			$http({//http request content
   				url : domainUrl + requestUrl,
   				method : requestMethod,
   				headers : {
-  					'Authorization' : customizedAuthorization,
+  					'Authorization' : authorization,
   					'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   				}
   			
