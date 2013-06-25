@@ -77,6 +77,7 @@ describe('LoginService',function(){
 
 		//delete stored user info
 		StorageService.remove('testUser');
+		StorageService.remove('UserScreenName');
 
 		//login with correct user info first
 		var promise = LoginService.login('testUser','demo');

@@ -8,6 +8,7 @@ describe('HttpService',function(){
 	var $httpBackend;
 
 	beforeEach(module('app.httpService'));
+	beforeEach(module('app.storageService'));
 
 	beforeEach(inject(function($injector){
 
@@ -85,6 +86,34 @@ describe('HttpService',function(){
 		
 		$httpBackend.flush();
 		expect(unvalidRequest).toBe(undefined);
+	}));
+
+	it('Testing using localStorage auth to do login request',inject(function(HttpService,StorageService){
+
+		//delete stored user info
+		StorageService.remove('testUser');
+		StorageService.remove('UserScreenName');
+
+		//
+		var testUser = {
+      		screenName : "testUser",
+      		userId : "",
+      		auth : "Basic dGVzdFVzZXI6ZGVtbw==",
+      		companyId : ""
+    	};
+
+    	//store all usefull info in local storage
+    	StorageService.store('UserScreenName','testUser');
+    	StorageService.store(testUser.screenName,testUser);
+
+    	var promise = HttpService.request('company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
+
+		var validRequest;
+		promise.then(function(data){validRequest = true;});
+		
+		$httpBackend.flush();
+		expect(validRequest).toBe(true);
+
 	}));
 
 });

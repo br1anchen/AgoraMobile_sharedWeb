@@ -25,6 +25,10 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
       //request Storage Service to store screenName and authorization key
       requestStorage : function(screenName,companyId){
+        //store user screen name
+        StorageService.store('UserScreenName',screenName);
+
+        //store user obj with screen name as index key
         if(StorageService.get(screenName) == undefined){
           return StorageService.store(serviceUser.screenName,serviceUser);
         }else{
