@@ -28,6 +28,9 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         //store user screen name
         StorageService.store('UserScreenName',screenName);
 
+        //set comapyId in userObj
+        serviceUser.companyId = companyId;
+
         //store user obj with screen name as index key
         if(StorageService.get(screenName) == undefined){
           return StorageService.store(serviceUser.screenName,serviceUser);
