@@ -1,0 +1,37 @@
+#menu{
+	color:white;
+}
+#menu h2{
+	height: 2em;
+	line-height: 2em;
+}
+#menu img{
+	border-radius: 0.1em;
+	width:2em;
+	float: left;
+	margin-left: 1em;
+}
+#menu p{
+	font-size: 1.7em;
+	padding:0.5em;
+	border-top-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	border:solid 1px white;
+	margin:0.7em;
+	margin-bottom: 1em
+}
+
+#menu .groups li, #menu .settings li{
+	line-height:2em;
+	font-size: 1.2em;
+}
+#menu .settings{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+
+#menu .groups>:first-child, #menu .settings>:first-child{
+	border-bottom: solid 1px;
+	font-weight: bold;
+}

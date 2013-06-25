@@ -60,25 +60,48 @@
         
         <script src="js/controllers/indexCtrl.js"></script>
         <script src="js/controllers/loginCtrl.js"></script>
+        <script src="js/controllers/menuCtrl.js"></script>
 
         <link rel="stylesheet" href="css/app.css" />
+        <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/menu.css" />
 
         <title>Agora Mobile</title>
     </head>
     <body ng-controller="IndexCtrl">
         <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
-          <a href="#">This</a>
+<!--           <a href="#">This</a>
           <a href="#">Little</a>
           <a href="#">Piggy</a>
           <a href="#">Went</a>
           <a href="#">To</a>
-          <a href="#">Market</a>
+          <a href="#">Market</a> -->
 
-<!--           <ul>
-                <li class="menu-trigger">
-                    <a href="#/login">Login</a>
+
+        <div id="menu" ng-controller="MenuCtrl">
+            <h2>
+                <img src="https://agora.uninett.no/image/user_male_portrait?img_id=10938&t=1372170678091"/>Bernt</h2>
+            <p>Activities</p>
+            <ul class="nav nav-list groups">
+                <li>
+                    Groups
                 </li>
-            </ul> -->
+                <li data-ng-repeat="group in groups">
+                    {{group}}
+                </li>
+            </ul>
+            <ul class="nav nav-list settings">
+                <li>
+                    Settings
+                </li>
+                <li >
+                    <i class="icon-signout"></i>Sign out
+                </li>
+                <li >
+                    <i class="icon-info-sign"></i>About
+                </li>
+            </ul>
+        </div>
 
 
         </nav>
@@ -100,7 +123,6 @@
           </header>
           
           <div class="content">
-            bla bla
             <div ng-view></div>
           </div>
           
