@@ -5,10 +5,11 @@
 describe('Testing ActivityService', function() {
 
 	var $httpBackend;
+	var LoginService;
 	
 	beforeEach(module('app.activityService'));
 	beforeEach(module('app.loginService'));
-	beforeEach(module('app.HTTPService'));
+	beforeEach(module('app.httpService'));
 
 	beforeEach(inject(function($injector){
 		$httpBackend = $injector.get('$httpBackend');
@@ -50,7 +51,7 @@ describe('Testing ActivityService', function() {
 	  $httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('Should test if the HTTPService.request is called',inject(function(HTTPService,ActivityService){
+	it('Should test if the HTTPService.request is called',inject(function(HttpService,ActivityService){
 		//TODO spy on HTTPService
 	}));
 
