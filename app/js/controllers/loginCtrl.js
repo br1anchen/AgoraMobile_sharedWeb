@@ -1,7 +1,7 @@
 'use strict';
-app.controller('LoginCtrl',['$scope','$log','AgoraService','$location',function($scope,$log,AgoraService,$location){
+app.controller('LoginCtrl',['$scope','$log','LoginService','$location',function($scope,$log,LoginService,$location){
 	$scope.login = function(){
-		AgoraService.login($scope.username,$scope.password).then(
+		LoginService.login($scope.username,$scope.password).then(
 			function(data){
 				alert("Login success!:"+JSON.stringify(data));
 			},function(reason){

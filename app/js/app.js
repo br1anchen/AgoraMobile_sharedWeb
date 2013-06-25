@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.agoraService','app.storageService','app.activityService'])
+var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.activityService','app.httpService'])
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
