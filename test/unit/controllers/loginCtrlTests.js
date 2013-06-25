@@ -1,4 +1,4 @@
-//loginController Unit Test
+/*//loginController Unit Test
 'use strict';
 
 describe('LoginController', function(){
@@ -12,4 +12,4 @@ describe('LoginController', function(){
   it('should ....', inject(function() {
     //spec body
   }));
-});
+});*/
