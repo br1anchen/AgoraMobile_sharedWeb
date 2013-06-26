@@ -4,7 +4,13 @@ describe('GroupService',function(){
 
 	var groupService;
 	var $httpBackend;
-	var auth = "Basic dGVzdFVzZXI6ZGVtbw==";
+	//test user info
+	var testUser = {
+      	screenName : "testUser",
+      	userId : "",
+      	auth : "Basic dGVzdFVzZXI6ZGVtbw==",
+      	companyId : ""
+   	};
 
 	beforeEach(module('app.groupService'));
 	beforeEach(module('app.storageService'));
@@ -42,65 +48,110 @@ describe('GroupService',function(){
 	  	$httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('Testing fetch groups request with first time correct authentication',inject(function(GroupService,StorageService){
+	it('Testing fetch groups with first time correct authentication',inject(function(GroupService,StorageService){
 		
-		//delete all the groups data
+		//drop all the groups data
 		StorageService.remove("GroupIDs");
+		StorageService.remove("TopGroup");
 
-		//fetch request
-		var promise = GroupService.fetchGroups(auth);
+		//delete stored user info
+		StorageService.remove('testUser');
+		StorageService.remove('UserScreenName');
 
-		var validUser;
-		promise.then(function(){
-			validUser = true;
+    	//store all usefull info in local storage
+    	StorageService.store('UserScreenName','testUser');
+    	StorageService.store(testUser.screenName,testUser);
+
+		//fetch groups
+		var groups;
+		var promise = GroupService.fetchGroups();
+		promise.then(function(rep){
+			groups = GroupService.getGroups();
 		});
 
 		$httpBackend.flush();
-		expect(validUser).toBe(true);
+		expect(groups).not.toBe(undefined);
 
 	}));
 
-	it('Tesing fetch groups and store groups to local storage',inject(function(GroupService,StorageService){
+	it('Tesing store groups to local storage',inject(function(GroupService,StorageService){
 		
-		//delete all the groups data
+		//drop all the groups data
 		StorageService.remove("GroupIDs");
+		StorageService.remove("TopGroup");
 
-		//fetch request
-		var promise = GroupService.fetchGroups(auth);
-		var store;
+		//delete stored user info
+		StorageService.remove('testUser');
+		StorageService.remove('UserScreenName');
 
+    	//store all usefull info in local storage
+    	StorageService.store('UserScreenName','testUser');
+    	StorageService.store(testUser.screenName,testUser);
+
+    	//get groups
+    	var topGroup;
+		var promise = GroupService.fetchGroups();
 		promise.then(function(rep){
-			store = GroupService.requestStorage(rep);
+			topGroup = StorageService.get('TopGroup');
 		});
 
 		$httpBackend.flush();
-		expect(store).toBe('stored');
+		expect(topGroup).not.toBe(undefined);
 	}));
 
-	it('Tesing not fetch groups because groups is stored',inject(function(GroupService,StorageService){
-
-		//delete all the groups data
+	it('Testing using stored groups data to fetch',inject(function(GroupService,StorageService){
+		//drop all the groups data
 		StorageService.remove("GroupIDs");
+		StorageService.remove("TopGroup");
 
-		//fetch request
-		var promise = GroupService.fetchGroups(auth);
-		var store;
+		//delete stored user info
+		StorageService.remove('testUser');
+		StorageService.remove('UserScreenName');
 
+    	//store all usefull info in local storage
+    	StorageService.store('UserScreenName','testUser');
+    	StorageService.store(testUser.screenName,testUser);
+
+    	var promise = GroupService.fetchGroups();
 		promise.then(function(rep){
-			store = GroupService.requestStorage(rep);
+			var promise = GroupService.fetchGroups();
+			promise.then(function(rep){
+				expect(rep).toBe('use stored');
+			});
 		});
+		$httpBackend.flush();
+	}));
+
+	it('Testing get new groups to update stored groups',inject(function(GroupService,StorageService){
+
+		//drop all the groups data
+		StorageService.remove("GroupIDs");
+		StorageService.remove("TopGroup");
+
+		//delete stored user info
+		StorageService.remove('testUser');
+		StorageService.remove('UserScreenName');
+
+    	//store all usefull info in local storage
+    	StorageService.store('UserScreenName','testUser');
+    	StorageService.store(testUser.screenName,testUser);
+
+		//remove one current group data
+		StorageService.remove("Group250926");
+		var groupIds = [];//remove one element in array
+		StorageService.store("GroupIDs",groupIds);
+
+		//update request
+		var promise = GroupService.updateGroups();
+		promise.then(function(rep){
+			groupIds = StorageService.get("GroupIDs");
+		});
+		
 
 		$httpBackend.flush();
-
-		//fetch request again
-		var fetchAgain = GroupService.fetchGroups(auth);
-
-		var fetched;
-		fetchAgain.then(function(){
-			fetched = true;
-		});
-
-		expect(fetched).toBe(undefined);
+		expect(groupIds.length).toBe(1);
 
 	}));
+
+
 });

@@ -5,53 +5,131 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
 
 	//class entity in HttpService
   	var apiUrl = "group/get-user-places/-class-names/max/10";
-    var tempGroup = {
-      id : "",
-      name : "",
-      type : "",
-      site : ""
-    };
 
-    function checkStorage(){
-      if(!StorageService.get("GroupIDs")){
-        return false;
-      }
-      return true;
+    var groupsHolder = {//reference obj to be used by controller
+      groups : []
     };
+    var groups = [];
+    var groupIds = [];
+    
+    
+
+    function fetchGroups(){//fetch data function
+      var deffered = $q.defer();
+
+      if(!StorageService.get("GroupIDs")){//no local storage then do request
+        
+        var promise = HttpService.request(apiUrl,'','GET');
+
+        promise.then(function(rep){
+          groups = requestStorage(rep.data);
+          groupsHolder.groups = groups;
+          deffered.resolve("fetched");
+        },function(err){
+          deffered.reject("error");
+        });
+
+      }else{
+        //droup all local variable
+        groups = [];
+        groupIds = [];
+        
+        angular.forEach(StorageService.get("GroupIDs"),function(gID,k){
+          var storedGroup = StorageService.get(gID);
+          groups.push(storedGroup);
+        });
+        groupsHolder.groups = groups;
+        deffered.resolve("use stored");
+      }
+      
+      return deffered.promise;
+    }
+
+    function requestStorage(data){//store the data of json from http response
+      var storedGroups = [];
+      var storedGroipIds = [];
+
+      angular.forEach(data, function(g, k){
+
+        if(g.site && g.type == 3){//type 3 as user group
+
+          var userGroup = JSON2Group(g);
+          storedGroups.push(userGroup);
+          storedGroipIds.push("Group"+userGroup.id);
+
+          StorageService.store("Group"+userGroup.id,userGroup);
+
+        }else if(g.site && g.type == 1){//type 1 as top guest group
+
+          var topGroup = JSON2Group(g);
+          StorageService.store("TopGroup",topGroup);
+        }
+
+      });
+        
+      StorageService.store("GroupIDs",storedGroipIds);
+      return storedGroups;
+    }
+
+    function JSON2Group(json){//parse json to group obj
+      return {
+        id : json.groupId,
+        name : json.name,
+        type : json.type,
+        site : json.site
+      }
+    }
 
   	//return value from GroupService
   	return{
 
-  		//fetch function
-      fetchGroups : function(customizedAuth){
-        var deffered = $q.defer();
-
-        //check if stored groupIds
-        var stored = checkStorage();
-
-        if(!stored){
-          return  HttpService.request(apiUrl,customizedAuth,'GET');
-        }
-
-        deffered.reject("not fetch");
-        return deffered.promise;
+      fetchGroups : function(){//fetch request from controller
+        return fetchGroups();
       },
 
-      requestStorage : function(resp){
-        var groupIds = [];
-        angular.forEach(resp.data, function(g, k){
+      getGroups : function(){//get groups request 
+        return groupsHolder.groups.length > 0 ? groupsHolder.groups : undefined;
+      },
 
-          tempGroup.id = g.groupId;
-          tempGroup.name = g.name;
-          tempGroup.type = g.type;
-          tempGroup.site = g.site;
+      updateGroups : function(){//update groups request
+        var deffered = $q.defer();
+
+        var promise = HttpService.request(apiUrl,'','GET');
+
+        promise.then(function(rep){
           
-          StorageService.store("Group"+tempGroup.id,tempGroup);
-          
-          groupIds.push("Group"+tempGroup.id);
+          //drop all old groups data
+          groups = [];
+          groupIds = [];
+
+          angular.forEach(rep.data, function(g,k){
+
+            if(g.site && g.type == 3){
+
+              var userGroup = JSON2Group(g);
+              groups.push(userGroup);
+              groupIds.push("Group"+userGroup.id);
+
+              //check if it is new group data and store
+              var needUpdate = jQuery.inArray("Group"+g.groupId, StorageService.get("GroupIDs"));
+              if(needUpdate == -1){
+                StorageService.store("Group"+userGroup.id,userGroup);
+              }
+            }
+
+          });
+
+          //update whole groups data
+          groupsHolder.groups = groups;
+          StorageService.store("GroupIDs",groupIds);
+
+          deffered.resolve("updated");
+
+        },function(err){
+          deffered.reject("error");
         });
-        
-        return StorageService.store("GroupIDs",groupIds);
+
+        return deffered.promise;
       }
   }
 }]);
