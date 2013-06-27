@@ -9,8 +9,8 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
     var groupsHolder = {//reference obj to be used by controller
       groups : []
     };
-    var groups = [];
-    var groupIds = [];
+    var groups = []; //local virable to store the group objs in array
+    var groupIds = []; //groups Ids array to fast index
     
     
 
