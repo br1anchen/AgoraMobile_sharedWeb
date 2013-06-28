@@ -1,3 +1,13 @@
 #login form{
+	margin-top: 2%; 
 	text-align: center;
+}
+
+#login label{
+	font-weight: bold;
+}
+
+#login #logo img{
+	display:block;
+    margin:auto;
 }
