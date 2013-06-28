@@ -24,53 +24,11 @@ body {
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
     width:100%;
-}
 
-.main-header {
-  background: #bf1527;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
-  background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
-  background: -moz-linear-gradient(top,#ed1c24,#be1527);
-  text-align: center;
-  color: white;
-  text-shadow: #222 0px -1px 1px;
-  position: relative;
-  left: 0;
-
-  a {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    color: white;
-    font-size: 32px;
-  }
-}
-.main-header, .searchButton, .menuButton{
-  padding:5px;
-}
-
-.menuButton .searchButton{
-  color:black;
-}
-.menuButton, .searchButton{
-  position: absolute;
-  top: 0;
-}
-.menuButton{
-  left:0;
-}
-.searchButton{
-  right: 0;
-}
-.menuButton:hover{
-  color:white;
-}
-
-#mainFunctions :nth-child(even){
-  padding-left:0.8em;
-  padding-right:0.8em;
+    /*To pervent semitransparent overlay on touch press/hold*/
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    tap-highlight-color: rgba(0,0,0,0);
 }
 
 .page-wrap{
@@ -105,4 +63,10 @@ body {
 }
 #main-nav.menu{
   margin-left:0%;
+}
+#view{
+  position: absolute;
+  width: 100%;
+  bottom: 3em;
+  top: 4em;
 }
