@@ -75,6 +75,7 @@
         <script src="js/controllers/documentsCtrl.js"></script>
         <script src="js/controllers/wikiCtrl.js"></script>
         <script src="js/controllers/activityFeedCtrl.js"></script>
+        <script src="js/controllers/mainCtrl.js"></script>
 
         <!-- customized css file -->
         <link rel="stylesheet" href="css/app.css" />
@@ -82,10 +83,11 @@
         <link rel="stylesheet" href="css/menu.css" />
         <link rel="stylesheet" href="css/notifications.css" />
         <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/headerFirstRow.css" />
+        <link rel="stylesheet" href="css/headerSecondRow.css" />
         <link rel="stylesheet" href="css/messageBoard.css" />
         <link rel="stylesheet" href="css/documents.css" />
         <link rel="stylesheet" href="css/wiki.css" />
-        <link rel="stylesheet" href="css/footer.css" />
         <link rel="stylesheet" href="css/view.css" />
 
         <script type="text/javascript">
@@ -93,62 +95,73 @@
 
         <title>Agora Mobile</title>
     </head>
-    <body data-ng-controller="IndexCtrl">
-        <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
-            <div id="menu" ng-controller="MenuCtrl">
-                <h2>
-                    <img src="https://agora.uninett.no/image/user_male_portrait?img_id=10938&t=1372170678091"/>Bernt</h2>
-                <p>Activities</p>
-                <ul class="nav nav-list groups">
-                    <li>
-                        Groups
-                    </li>
-                    <li data-ng-repeat="group in groups">
-                        {{group}}
-                    </li>
-                </ul>
-                <ul class="nav nav-list settings">
-                    <li>
-                        Settings
-                    </li>
-                    <li >
-                        <i class="icon-signout"></i>Sign out
-                    </li>
-                    <li >
-                        <i class="icon-info-sign"></i>About
-                    </li>
-                </ul>
+    <body data-ng-controller="MainCtrl">
+        <div data-ng-switch on="validUser">
+            <div data-ng-switch-when="true" data-ng-controller="IndexCtrl">
+                <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
+                    <div id="menu" ng-controller="MenuCtrl">
+                        <h2>
+                            <img src="https://agora.uninett.no/image/user_male_portrait?img_id=10938&t=1372170678091"/>Bernt</h2>
+                        <p>Activities</p>
+                        <ul class="nav nav-list groups">
+                            <li>
+                                Groups
+                            </li>
+                            <li data-ng-repeat="group in groups">
+                                {{group}}
+                            </li>
+                        </ul>
+                        <ul class="nav nav-list settings">
+                            <li>
+                                Settings
+                            </li>
+                            <li >
+                                <i class="icon-signout"></i>Sign out
+                            </li>
+                            <li >
+                                <i class="icon-info-sign"></i>About
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="page-wrap" data-ng-class="menuVar">
+
+                    <header>
+                        <div class="firstRow">
+                            <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
+
+                            <div id="mainFunctions">
+                                <i data-ng-click="path('messageBoard')" href="#messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('documents')" href="#documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('wiki')" href="#wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
+                            </div>
+
+                            <i class="icon-search icon-3x searchButton"></i>
+                        </div>
+                        <div class="secondRow" data-ng-click="goToGroup(groups.current)" data-ng-show="showGroup">
+                            <i class="icon-home icon-3x home"></i><span class="currentGroup"> {{groups.current}}</span>
+                        </div>
+
+                    </header>
+
+                    <div id="notifications">
+                        <div data-ng-controller="NotificationCtrl">
+                            <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
+                        </div>
+                    </div>
+                    <div id="view" data-ng-view></div>
+                </div>
             </div>
+            <div id="login" data-ng-switch-when="false" data-ng-controller="LoginCtrl">
+                <form data-ng-submit="login()">
+                    <p>
+                        <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
 
-        </nav>
-
-        <div class="page-wrap" data-ng-class="menuVar">
-
-            <header>
-
-                <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
-
-                <div id="mainFunctions">
-                    <i data-ng-click="path('messageBoard')" href="#messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
-                    <i data-ng-click="path('documents')" href="#documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
-                    <i data-ng-click="path('wiki')" href="#wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
-                </div>
-
-                <i class="icon-search icon-3x searchButton"></i>
-
-            </header>
-          
-
-            <div id="notifications">
-                <div data-ng-controller="NotificationCtrl">
-                    <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
-                </div>
-            </div>
-                <div id="view" data-ng-view></div>
-
-                <div class="footer" data-ng-click="goToGroup(groups.current)">
-                    {{groups.current}}
-                </div>
+                        <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
+                    </p>
+                    <input type="submit" value="Login" />
+                </form>
             </div>
         </div>
     </body>

@@ -1,0 +1,16 @@
+header .secondRow{
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+	height: 3em;
+	background-color: white;
+	line-height: 3em;
+}
+
+header .secondRow .home{
+	float:left;
+}
+
+header .secondRow .currentGroup{
+	font-size: 2em;
+}

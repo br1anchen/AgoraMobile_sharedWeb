@@ -16,4 +16,9 @@ app.controller('IndexCtrl',['$scope','$log','$location',function($scope,$log,$lo
     	//Hardcoded nav:
     	$location.path('/activityFeed');
     }
+    $scope.showGroup = true;
+
+    $scope.$on('updateScrollable', function() {
+
+    })
 }])

@@ -64,9 +64,3 @@ body {
 #main-nav.menu{
   margin-left:0%;
 }
-#view{
-  position: absolute;
-  width: 100%;
-  bottom: 3em;
-  top: 4em;
-}
