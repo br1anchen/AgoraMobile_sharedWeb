@@ -33,8 +33,12 @@
         
         <!--Third party lib:http://underscorejs.org/-->
         <script src="lib/underscore.js"></script>
+
         <!--<script src="lib/zepto.js"></script>-->
         <script src="lib/jquery-1.10.1.js"></script>
+
+        <!--Third party lib, for gestures:http://eightmedia.github.io/hammer.js/-->
+        <script src="lib/jquery.hammer.min.js"></script>
 
         <script src="lib/angular/angular.js"></script>
 
@@ -57,57 +61,94 @@
         <script src="js/app.js"></script>
 
         <script src="js/directives/iFrameDialog.js"></script>
+        <script src="js/directives/activeLink.js"></script>
+        <script src="js/directives/ng-infinite-scroll.js"></script>
+        <script src="js/directives/scrollable.js"></script>
         <!-- <link rel="stylesheet" href="js/directives/iFrameDialog/iFrameDialog.css" /> -->
         
         <script src="js/controllers/indexCtrl.js"></script>
         <script src="js/controllers/loginCtrl.js"></script>
+        <script src="js/controllers/menuCtrl.js"></script>
+        <script src="js/controllers/notificationCtrl.js"></script>
+        <script src="js/controllers/messageBoardCtrl.js"></script>
+        <script src="js/controllers/documentsCtrl.js"></script>
+        <script src="js/controllers/wikiCtrl.js"></script>
+        <script src="js/controllers/activityFeedCtrl.js"></script>
 
         <!-- customized css file -->
         <link rel="stylesheet" href="css/app.css" />
         <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/menu.css" />
+        <link rel="stylesheet" href="css/notifications.css" />
+        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/messageBoard.css" />
+        <link rel="stylesheet" href="css/documents.css" />
+        <link rel="stylesheet" href="css/wiki.css" />
+        <link rel="stylesheet" href="css/footer.css" />
+        <link rel="stylesheet" href="css/view.css" />
+
+        <script type="text/javascript">
+        </script>
 
         <title>Agora Mobile</title>
     </head>
-
-    <body ng-controller="IndexCtrl">
+    <body data-ng-controller="IndexCtrl">
         <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
-          <a href="#">This</a>
-          <a href="#">Little</a>
-          <a href="#">Piggy</a>
-          <a href="#">Went</a>
-          <a href="#">To</a>
-          <a href="#">Market</a>
-
-<!--           <ul>
-                <li class="menu-trigger">
-                    <a href="#/login">Login</a>
-                </li>
-            </ul> -->
-
+            <div id="menu" ng-controller="MenuCtrl">
+                <h2>
+                    <img src="https://agora.uninett.no/image/user_male_portrait?img_id=10938&t=1372170678091"/>Bernt</h2>
+                <p>Activities</p>
+                <ul class="nav nav-list groups">
+                    <li>
+                        Groups
+                    </li>
+                    <li data-ng-repeat="group in groups">
+                        {{group}}
+                    </li>
+                </ul>
+                <ul class="nav nav-list settings">
+                    <li>
+                        Settings
+                    </li>
+                    <li >
+                        <i class="icon-signout"></i>Sign out
+                    </li>
+                    <li >
+                        <i class="icon-info-sign"></i>About
+                    </li>
+                </ul>
+            </div>
 
         </nav>
 
         <div class="page-wrap" data-ng-class="menuVar">
 
-          <header class="main-header">
+            <header>
 
-            <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
-            
-            <div id="mainFunctions">
-                <i class="icon-comments-alt icon-3x"></i>
-                <i class="icon-file-text-alt icon-3x"></i>
-                <i class="icon-edit icon-3x"></i>
+                <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
+
+                <div id="mainFunctions">
+                    <i data-ng-click="path('messageBoard')" href="#messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
+                    <i data-ng-click="path('documents')" href="#documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
+                    <i data-ng-click="path('wiki')" href="#wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
+                </div>
+
+                <i class="icon-search icon-3x searchButton"></i>
+
+            </header>
+          
+
+            <div id="notifications">
+                <div data-ng-controller="NotificationCtrl">
+                    <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
+                </div>
             </div>
+                <div id="view" data-ng-view></div>
 
-            <i class="icon-search icon-3x searchButton"></i>
-
-          </header>
-          
-          <div class="content">
-            bla bla
-            <div ng-view></div>
-          </div>
-          
+                <div class="footer" data-ng-click="goToGroup(groups.current)">
+                    {{groups.current}}
+                </div>
+            </div>
         </div>
     </body>
     
