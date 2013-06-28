@@ -1,16 +1,16 @@
-header .headerSecondRow{
-	position: absolute;
-	width: 100%;
-	padding: 0.5em;
-	background: red;
-	bottom: 0;
+header .secondRow{
+	position: relative;
 	text-align: center;
-	background: #bf1527;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
-	background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
-	background: -moz-linear-gradient(top,#ed1c24,#be1527);
-
 	font-weight: bold;
-	height: 1em;
-	font-size: 1.5em;
+	height: 3em;
+	background-color: white;
+	line-height: 3em;
+}
+
+header .secondRow .home{
+	float:left;
+}
+
+header .secondRow .currentGroup{
+	font-size: 2em;
 }

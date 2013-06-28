@@ -10,6 +10,7 @@ app.directive('scrollable', function($log) {
             onScrollDown:'&',//Optional trigger function
             onScrollUp:'&',//Optional trigger function
             triggerDistance:'=',//Optional trigger configuration
+            broadcast:'='
         },
 
         controller:function($scope){

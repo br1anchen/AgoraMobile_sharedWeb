@@ -4,7 +4,6 @@
 var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.activityService','app.httpService','link','infinite-scroll'])
 
 .config(['$routeProvider', function($routeProvider) {
-	$routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
 	$routeProvider.when('/messageBoard', {templateUrl: 'partials/messageBoard.html', controller: 'MessageBoardCtrl'});
 	$routeProvider.when('/documents', {templateUrl: 'partials/documents.html', controller: 'DocumentsCtrl'});
 	$routeProvider.when('/wiki', {templateUrl: 'partials/wiki.html', controller: 'WikiCtrl'});

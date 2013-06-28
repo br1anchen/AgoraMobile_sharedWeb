@@ -1,11 +1,3 @@
 header{
-  background: #bf1527;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
-  background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
-  background: -moz-linear-gradient(top,#ed1c24,#be1527);
-  text-align: center;
-  color: white;
-  text-shadow: #222 0px -1px 1px;
-  position: relative;
-  left: 0;
+  
 }

@@ -1,46 +1,58 @@
-header #mainFunctions{
+header .firstRow{
+background: #bf1527;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
+  background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
+  background: -moz-linear-gradient(top,#ed1c24,#be1527);
+  text-align: center;
+  color: white;
+  text-shadow: #222 0px -1px 1px;
+  position: relative;
+  left: 0;
+}
+
+header .firstRow #mainFunctions{
 	color: rgb(71, 0, 0);
 }
 
-header .activeFunction{
+header .firstRow .activeFunction{
 	color:white;
 }
 
-header .menuButton .searchButton{
+header .firstRow .menuButton .searchButton{
   color:black;
 }
-header .menuButton, .searchButton{
+header .firstRow .menuButton, .searchButton{
   position: absolute;
   top: 0;
 }
-header .menuButton{
+header .firstRow .menuButton{
   left:0;
 }
-header .searchButton{
+header .firstRow .searchButton{
   right: 0;
 }
-header .menuButton:hover{
+header .firstRow .menuButton:hover{
   color:white;
 }
 
-header #mainFunctions :nth-child(2){
+header .firstRow #mainFunctions :nth-child(2){
   padding-left:0.8em;
   padding-right:0.8em;
 }
 
-header{
+header .firstRow{
   padding:0.5em;
 }
-header .searchButton, .menuButton{
+header  .firstRow .searchButton, .menuButton{
   padding: 0.15em;
 }
 
-header .menuButton .searchButton{
+header  .firstRow .menuButton .searchButton{
   color:black;
   position: absolute;
   top: 0;
 }
-header .menuButton:hover{
+header  .firstRow .menuButton:hover{
   color:white;
 }
 
