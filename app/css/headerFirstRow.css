@@ -1,0 +1,46 @@
+header #mainFunctions{
+	color: rgb(71, 0, 0);
+}
+
+header .activeFunction{
+	color:white;
+}
+
+header .menuButton .searchButton{
+  color:black;
+}
+header .menuButton, .searchButton{
+  position: absolute;
+  top: 0;
+}
+header .menuButton{
+  left:0;
+}
+header .searchButton{
+  right: 0;
+}
+header .menuButton:hover{
+  color:white;
+}
+
+header #mainFunctions :nth-child(2){
+  padding-left:0.8em;
+  padding-right:0.8em;
+}
+
+header{
+  padding:0.5em;
+}
+header .searchButton, .menuButton{
+  padding: 0.15em;
+}
+
+header .menuButton .searchButton{
+  color:black;
+  position: absolute;
+  top: 0;
+}
+header .menuButton:hover{
+  color:white;
+}
+
