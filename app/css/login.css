@@ -7,7 +7,8 @@
 	font-weight: bold;
 }
 
-#login #logo img{
-	display:block;
-    margin:auto;
+#login #agora_logo{
+	display: block;
+    margin: auto;
+    margin-top: 5%;
 }

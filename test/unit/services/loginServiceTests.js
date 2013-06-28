@@ -30,7 +30,7 @@ describe('LoginService',function(){
         })
 		.respond(function(){
 			return [200,
-			'{"status":0,"id":0,"data":{"accountId":10134,"active":true,"companyId":10132,"homeURL":"/group/agora/home","key":null,"logoId":10701,"maxUsers":0,"mx":"uninett.no","system":false,"webId":"liferay.com"}}'
+			'{"accountId":10134,"active":true,"companyId":10132,"homeURL":"/group/agora/home","key":null,"logoId":10701,"maxUsers":0,"mx":"uninett.no","system":false,"webId":"liferay.com"}'
 			]
 		});
 
@@ -84,7 +84,7 @@ describe('LoginService',function(){
 		var store;
 
 		promise.then(function(rep){
-			store = LoginService.requestStorage('testUser',rep.data.data.companyId);
+			store = LoginService.requestStorage('testUser',rep.data.companyId);
 		});
 
 		$httpBackend.flush();
