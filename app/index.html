@@ -25,6 +25,7 @@
         <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="../cordova.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
@@ -150,7 +151,7 @@
                             <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
                         </div>
                     </div>
-                    <div id="view" data-ng-view></div>
+                    <div id="view" data-ng-view></div>-
                 </div>
             </div>
             <div id="login" data-ng-switch-when="false" data-ng-controller="LoginCtrl">

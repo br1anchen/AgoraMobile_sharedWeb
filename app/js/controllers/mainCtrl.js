@@ -2,12 +2,15 @@
 app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeout',function($scope,$log,$location,StorageService,$timeout){
 	$scope.validUser = false;
 
-	$scope.checkUserInfo = function(){
-		console.log($scope.validUser);
+	$scope.validUser = checkUserInfo();
+
+	function checkUserInfo(){
 		if(StorageService.get('UserScreenName')){
-			$scope.validUser = true;
+			console.log("user info : true");
+			return true;
 		}else{
-			$scope.validUser = false;
+			console.log("user info : false");
+			return false;
 		}
 	}
 
