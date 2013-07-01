@@ -1,3 +1,68 @@
 header{
-  
+	background: #bf1527;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
+	background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
+	background: -moz-linear-gradient(top,#ed1c24,#be1527);
+	text-align: center;
+	color: white;
+	text-shadow: #222 0px -1px 1px;
+	left: 0;
+
+	height: 12%;
+	width:100%;
+	display: table;
+}
+
+header #headerCell {
+	vertical-align: middle;
+	display: table-cell;
+	position: relative;
+}
+
+header #mainFunctions{
+	color: rgb(71, 0, 0);
+}
+
+header .activeFunction{
+	color:white;
+}
+
+header .menuButton .searchButton{
+  color:black;
+}
+header .menuButton, .searchButton{
+  /*position: absolute;*/
+  top: 0;
+}
+header .menuButton{
+  /*left:0;*/
+  float:left;
+}
+header .searchButton{
+  /*right: 0;*/
+  float:right;
+}
+header .menuButton:hover{
+  color:white;
+}
+
+header #mainFunctions :nth-child(2){
+  padding-left:0.8em;
+  padding-right:0.8em;
+}
+
+header .searchButton, .menuButton{
+  padding: 0.15em;
+}
+
+header .menuButton .searchButton{
+  color:black;
+  position: absolute;
+  top: 0;
+}
+header .menuButton:hover{
+  color:white;
+}
+header table{
+	width:100%;
 }

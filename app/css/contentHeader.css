@@ -1,0 +1,30 @@
+#contentHeader, #fixedContentHeader {
+	position: relative;
+	font-weight: bold;
+	height: 3em;
+	background-color: white;
+	line-height: 3em;
+	padding: 0.5em;
+}
+#fixedContentHeader {
+	width:100%;
+}
+#contentHeader .home, #fixedContentHeader .home{
+	/*float:left;*/
+}
+#fixedContentHeader{
+	z-index: 1;
+}
+
+#contentHeader  .currentGroup, #fixedContentHeader .currentGroup{
+	font-size: 2em;
+	float:left;
+	width:90%;
+}
+#contentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{
+	display: inline-block;
+	width:1em;
+	height: 1em;
+	/*background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));*/
+	color:#ed1c24;
+}

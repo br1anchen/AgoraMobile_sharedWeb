@@ -64,3 +64,11 @@ body {
 #main-nav.menu{
   margin-left:0%;
 }
+#contentWrapper {
+  height: 88%;
+}
+
+#fixedContentHeader{
+  position: fixed;
+  top:12%;
+}

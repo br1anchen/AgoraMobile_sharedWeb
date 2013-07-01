@@ -9,8 +9,8 @@ app.controller('NotificationCtrl',['$scope','$log',function($scope,$log){
     	msg: msg
     });
   };
-  addAlert("Test serviceMessage","serviceMessage");
-  addAlert("Test regular message");
+  // addAlert("Test serviceMessage","serviceMessage");
+  // addAlert("Test regular message");
 
   $scope.closeAlert = function(index) {
     $scope.notifications.splice(index, 1);

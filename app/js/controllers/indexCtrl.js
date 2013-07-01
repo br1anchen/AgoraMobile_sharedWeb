@@ -1,5 +1,5 @@
 'use strict';
-app.controller('IndexCtrl',['$scope','$log','$location',function($scope,$log,$location){
+app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($scope,$log,$location,$timeout){
 	$scope.toggleMenu = function(){
 		$scope.menuVar = $scope.menuVar == undefined ? 'menu' : undefined;
 	}
@@ -17,8 +17,24 @@ app.controller('IndexCtrl',['$scope','$log','$location',function($scope,$log,$lo
     	$location.path('/activityFeed');
     }
     $scope.showGroup = true;
+    
+    $scope.$on("scrollableUpdate",function(){
+        $scope.loading = true;
+    })
+    
+    $scope.$on("scrollableUpdated",function(){
+        $scope.loading = false;
+    })
 
-    $scope.$on('updateScrollable', function() {
+    $scope.$on("scrollingUp",function(){
+        $timeout(function(){
+            $scope.flashVar ='flash';
+        })
+    })
 
+    $scope.$on("scrollingDown",function(){
+        $timeout(function(){
+            $scope.flashVar = undefined;
+        })
     })
 }])
