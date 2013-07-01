@@ -13,3 +13,9 @@
     margin-top: 20%;
     margin-bottom: 10%;
 }
+
+#login #uninett_logo{
+	display: block;
+    margin: auto;
+    margin-top: 5%;
+}

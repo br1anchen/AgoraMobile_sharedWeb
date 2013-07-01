@@ -90,6 +90,7 @@
         <link rel="stylesheet" href="css/documents.css" />
         <link rel="stylesheet" href="css/wiki.css" />
         <link rel="stylesheet" href="css/view.css" />
+        <link rel="stylesheet" href="css/iFrameDialog.css" />
 
         <script type="text/javascript">
         </script>
@@ -161,9 +162,12 @@
                         <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
 
                         <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
+
+                        <i-frame-dialog url="{{feideLoginUrl}}"></i-frame-dialog>
                     </p>
-                    <input type="submit" value="Login" />
+                    <input type="submit" value="Sign In" />
                 </form>
+                <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
             </div>
         </div>
     </body>

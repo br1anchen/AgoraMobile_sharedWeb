@@ -10,7 +10,8 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       auth : "",
       companyId : ""
     };
-    var serviceLoginUrl = 'company/get-company-by-virtual-host/virtual-host/agora.uninett.no';
+    var serviceLoginUrl = 'https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no';
+    var feideRequestUrl = 'https://agora-test.uninett.no/c/portal/feide/loginurl?redirect=%2Fgroup%2Fagora%2Fdokumenter%3Fp_p_id%3Dagoramypassword_WAR_agoramypasswordportlet%26p_p_state%3Dpop_up%26p_p_mode%3Dedit%26p_p_lifecycle%30%26controlPanelCategory%3portlet_agoramypassword_WAR_agoramypasswordportlet';
 
   	//return value from LoginService
   	return{
@@ -34,6 +35,10 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
         //store user obj with screen name as index key
         return StorageService.store(serviceUser.screenName,serviceUser);
+      },
+
+      getFeideLoginUrl : function(){
+        return HttpService.request(feideRequestUrl,'','GET');
       }
   }
 }]);
