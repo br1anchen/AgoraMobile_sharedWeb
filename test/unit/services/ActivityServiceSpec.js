@@ -14,7 +14,7 @@ describe('Testing ActivityService', function() {
 	beforeEach(inject(function($injector){
 		$httpBackend = $injector.get('$httpBackend');
 		//No Authorization header
-		$httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
+		$httpBackend.whenGET('https://agora-test.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
         	return headers['Authorization'] == undefined ? true :false
         })
         .respond(
@@ -24,13 +24,13 @@ describe('Testing ActivityService', function() {
     	);
 
 		// //Invalid auth token
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
+        $httpBackend.whenGET('https://agora-test.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
         	return headers['Authorization'] != 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false
         })
         .respond(401,'{"exception":"Invalid authentication token"}',{'WWW-Authenticate': 'Basic realm="PortalRealm"'}); 
 
 		// //Valid login for Brian
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
+        $httpBackend.whenGET('https://agora-test.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
         	return headers['Authorization'] == 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false
         })
 		.respond(function(){return [200,'{"accountId":10134,"active":true,"companyId":10132,"homeURL":"/group/agora/home","key":null,"logoId":10701,"maxUsers":0,"mx":"uninett.no","system":false,"webId":"liferay.com"}']});

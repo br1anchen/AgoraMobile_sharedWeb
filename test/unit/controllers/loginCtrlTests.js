@@ -11,7 +11,7 @@ describe('LoginController', function(){
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
+        $httpBackend.whenGET('https://agora-test.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -23,7 +23,7 @@ describe('LoginController', function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
+        $httpBackend.whenGET('https://agora-test.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
