@@ -11,7 +11,7 @@ app.directive('iFrameDialog', function($dialog,$log) {
             // lable:'knapp'
         },
         controller:function($scope){
-            $scope.lunch = function(){
+            $scope.launch = function(){
                 //Dialog options
                 $scope.opts = {
                     backdrop: true,
@@ -49,7 +49,7 @@ app.directive('iFrameDialog', function($dialog,$log) {
             }
         },
         template:
-            '<button data-ng-click="lunch()" data-ng-bind-html-unsafe="lable">'+
+            '<button data-ng-click="launch()" data-ng-bind-html-unsafe="lable">'+
             '</button>'
         ,
         link: function(scope, element, attrs) {

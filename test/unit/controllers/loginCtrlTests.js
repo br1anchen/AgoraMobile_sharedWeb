@@ -2,9 +2,10 @@
 'use strict';
 
 describe('LoginController', function(){
-	var scope, ctrl, $httpBackend;
+	var scope, mCtrl, ctrl, $httpBackend;
 
 	beforeEach(module('app'));
+    beforeEach(module('app.storageService'));
 
   	beforeEach(inject(function($injector,$rootScope,$controller){
 		$httpBackend = $injector.get('$httpBackend');
@@ -33,22 +34,34 @@ describe('LoginController', function(){
 		});
 
 		scope = $rootScope.$new();
+        mCtrl = $controller('MainCtrl',{$scope: scope});
       	ctrl = $controller('LoginCtrl', {$scope: scope});
 
 	}));
 
 
-  it('should login with correct username and password', inject(function() {
+  it('should login with correct username and password', inject(function(StorageService) {
+    
     scope.username = "testUser";
     scope.password = "demo";
 
     scope.login();
 
     $httpBackend.flush();
+
+    //delete stored user info
+    StorageService.remove('testUser');
+    StorageService.remove('UserScreenName');
+
     expect(scope.loginValid).toBe(true);
   }));
 
-  it('should not login with incorrect username and password', inject(function() {
+  it('should not login with incorrect username and password', inject(function(StorageService) {
+
+    //delete stored user info
+    StorageService.remove('testUser');
+    StorageService.remove('UserScreenName');
+
     scope.username = "testUser";
     scope.password = "";
 
