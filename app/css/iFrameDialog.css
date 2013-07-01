@@ -1,5 +1,6 @@
 #iFrameDialog{
 	height:100%;
+	overflow: hidden;
 }
 .modal{
 	padding:5px;
