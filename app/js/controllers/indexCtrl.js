@@ -1,7 +1,12 @@
 'use strict';
 app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($scope,$log,$location,$timeout){
 	$scope.toggleMenu = function(){
-		$scope.menuVar = $scope.menuVar == undefined ? 'menu' : undefined;
+        if(!$scope.menuVar){
+            $scope.menuVar = 'menu';
+            $scope.flashVar = undefined;
+        }else{
+            $scope.menuVar = undefined;
+        }
 	}
 
 	$scope.path = function(path) {
