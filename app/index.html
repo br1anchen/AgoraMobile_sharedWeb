@@ -110,7 +110,7 @@
                             <li>
                                 Groups
                             </li>
-                            <li data-ng-repeat="group in groups">
+                            <li data-ng-repeat="group in groups" data-ng-click="switchGroup(group)">
                                 {{group.name}}
                             </li>
                         </ul>

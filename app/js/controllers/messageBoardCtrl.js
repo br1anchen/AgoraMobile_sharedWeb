@@ -1,6 +1,7 @@
 'use strict';
 
 app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q',function($scope,$log,$timeout,$q){
+	console.log('MessageBoardCtrl');
 	$scope.messages = ["Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread"];
 
 	$scope.onUpdate = function(){
