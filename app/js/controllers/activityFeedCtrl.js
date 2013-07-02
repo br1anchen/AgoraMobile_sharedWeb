@@ -6,7 +6,7 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout',function($scope,$l
 	$scope.$on('scrollableUpdate',function(){
 		$timeout(function(){
 			$scope.$emit("scrollableUpdated");
-		},3000);
+		},300000);
 	})
 
 	var appendcounter = 0;

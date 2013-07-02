@@ -111,6 +111,7 @@ app.directive('spinner', function($log) {
         ,
         link: function(scope, element, attrs) {
             var element = $(element);
+            // element.css('position','relative');
             // element.css('width','100px');
             // element.css('height','100px');
             // element.css('z-index','10');

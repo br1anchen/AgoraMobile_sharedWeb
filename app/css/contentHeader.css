@@ -1,5 +1,4 @@
 #contentHeader, #fixedContentHeader {
-	position: relative;
 	font-weight: bold;
 	height: 3em;
 	background-color: white;
@@ -14,6 +13,13 @@
 }
 #fixedContentHeader{
 	z-index: 1;
+	position: fixed;
+	top:12%;
+}
+}
+#contentHeader *{
+	z-index: 0 !important;
+	outline: solid ;
 }
 
 #contentHeader  .currentGroup, #fixedContentHeader .currentGroup{
@@ -28,3 +34,6 @@
 	/*background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));*/
 	color:#ed1c24;
 }
+/*.spinnerHolder{
+	position: relative;
+}*/
