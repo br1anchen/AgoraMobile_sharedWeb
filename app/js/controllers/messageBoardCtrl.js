@@ -1,10 +1,12 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',['$scope','$log','$timeout',function($scope,$log,$timeout){
+app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q',function($scope,$log,$timeout,$q){
 	$scope.messages = ["Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread"];
 
 	$scope.onUpdate = function(){
-		alert("updating");
+		$timeout(function(){
+			$scope.$emit("scrollableUpdated");
+		},3000);
 	}
 
 	var appendCounter = 0;

@@ -64,3 +64,6 @@ body {
 #main-nav.menu{
   margin-left:0%;
 }
+#contentWrapper {
+  height: 88%;
+}
