@@ -4,9 +4,10 @@
 	background-color: white;
 	line-height: 3em;
 	padding: 0.5em;
+	overflow: hidden;
 }
 #fixedContentHeader {
-	width:100%;
+	width:98%;
 }
 #contentHeader .home, #fixedContentHeader .home{
 	/*float:left;*/
@@ -23,14 +24,16 @@
 }
 
 #contentHeader  .currentGroup, #fixedContentHeader .currentGroup{
-	font-size: 2em;
+	text-align: center;
+	font-size: 1.5em;
 	float:left;
-	width:90%;
+	width:95%;
+	overflow: hidden;
 }
 #contentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{
 	display: inline-block;
-	width:1em;
-	height: 1em;
+	width:0.8em;
+	height: 0.8em;
 	/*background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));*/
 	color:#ed1c24;
 }
