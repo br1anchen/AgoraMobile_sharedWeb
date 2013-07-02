@@ -1,5 +1,7 @@
 'use strict';
 app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($scope,$log,$location,$timeout){
+    $scope.currentGroup = 'Default Group';
+
 	$scope.toggleMenu = function(){
         if(!$scope.menuVar){
             $scope.menuVar = 'menu';
@@ -13,10 +15,10 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($sco
         $location.path(path); // path not hash
     }
 
-    $scope.groups = {
-    	current:"Hardcoded activeGroup",
-    	list:[]
-    };
+    $scope.setCurrent = function(group){
+        $scope.currentGroup = group;
+    }
+
     $scope.goToGroup = function(group){
     	//Hardcoded nav:
     	$location.path('/activityFeed');

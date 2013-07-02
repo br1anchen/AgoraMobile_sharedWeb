@@ -26,7 +26,7 @@ describe('HttpService',function(){
         	]
     	});
 
-		// //Invalid auth token by test user info
+		//Invalid auth token by test user info
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
@@ -38,7 +38,7 @@ describe('HttpService',function(){
         	]
         }); 
 
-		// //Valid login for test
+		//Valid login for test
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
