@@ -104,7 +104,8 @@
             <div data-ng-switch-when="true" data-ng-controller="IndexCtrl">
                 <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
                     <div id="menu" ng-controller="MenuCtrl">
-                        <h3><img src="https://agora.uninett.no/image/user_male_portrait?img_id={{user.portraitId}}"/>{{user.fullName}}</h3>
+                        <img src="https://agora.uninett.no/image/user_male_portrait?img_id={{user.portraitId}}"/>
+                        <h3>{{user.fullName}}</h3>
                         <p>Activities</p>
                         <ul class="nav nav-list groups">
                             <li>

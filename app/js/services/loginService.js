@@ -36,7 +36,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
           serviceUser.screenName = rep.data.screenName;
           serviceUser.userId = rep.data.userId;
-          serviceUser.fullName = rep.data.firstName + rep.data.middleName + rep.data.lastName;
+          serviceUser.fullName = rep.data.middleName == "" ? rep.data.firstName + " " + rep.data.lastName : rep.data.firstName + " " + rep.data.middleName + " " + rep.data.lastName;
           serviceUser.portraitId = rep.data.portraitId;
           serviceUser.emailAddress = rep.data.emailAddress;
           serviceUser.companyId = rep.data.companyId;
