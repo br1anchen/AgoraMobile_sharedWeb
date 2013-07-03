@@ -7,7 +7,7 @@
 	overflow: hidden;
 }
 #fixedContentHeader {
-	width:98%;
+	width:100%;
 }
 #contentHeader .home, #fixedContentHeader .home{
 	/*float:left;*/
@@ -27,7 +27,7 @@
 	text-align: center;
 	font-size: 1.5em;
 	float:left;
-	width:95%;
+	width:100%;
 	overflow: hidden;
 }
 #contentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{

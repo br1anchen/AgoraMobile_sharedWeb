@@ -35,8 +35,10 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             onScroll:'&',//Optional trigger function
             onScrollDown:'&',//Optional trigger function
             onScrollUp:'&',//Optional trigger function
-            triggerDistance:'=',//Optional trigger configuration
-            preventEmit:'='//Not implemented yet. Shoud be able to prevent $emit events with this
+            triggerDistance:'@',//Optional trigger configuration
+            preventEvents:'@',//Not implemented yet. Shoud be able to prevent $emit events with this
+            loading:'@',
+            loadingColor:'@'
         },
 
         controller:function($scope){
@@ -47,7 +49,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
 
                 onUpdateTrigger = EventTrigger(function(){
                     //Adding default emit events if not prevented
-                    if(!$scope.preventEmit){
+                    if(!$scope.preventEvents){
                         // $scope.$emit("scrollableUpdate"); //Default update functions
                         // $scope.$broadcast("scrollableUpdate");
                         $rootScope.$broadcast("scrollableUpdate");
@@ -59,7 +61,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                 })
                 onAppendTrigger = EventTrigger(function(){
                     //Adding default emit events if not prevented
-                    if(!$scope.preventEmit){
+                    if(!$scope.preventEvents){
                         // $scope.$emit("scrollableAppend"); //Default update functions
                         // $scope.$broadcast("scrollableAppend");
                         $rootScope.$broadcast("scrollableAppend");
@@ -71,7 +73,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                 })
                 onScrollTrigger = EventTrigger(function(){
                     //Adding default emit events if not prevented
-                    if(!$scope.preventEmit){
+                    if(!$scope.preventEvents){
                         // $scope.$emit("scrolling"); //Default update functions
                         // $scope.$broadcast("scrolling");
                         $rootScope.$broadcast("scrolling");
@@ -83,7 +85,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                 })
                 onScrollDownTrigger = EventTrigger(function(){
                     //Adding default emit events if not prevented
-                    if(!$scope.preventEmit){
+                    if(!$scope.preventEvents){
                         // $scope.$emit("scrollingDown"); //Default update functions
                         // $scope.$broadcast("scrollingDown");
                         $rootScope.$broadcast("scrollingDown");
@@ -95,7 +97,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                 })
                 onScrollUpTrigger = EventTrigger(function(){
                     //Adding default emit events if not prevented
-                    if(!$scope.preventEmit){
+                    if(!$scope.preventEvents){
                         // $scope.$emit("scrollingUp"); //Default update functions
                         // $scope.$broadcast("scrollingUp");
                         $rootScope.$broadcast("scrollingUp");
@@ -152,6 +154,36 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                 }
             })
             wrapper.hammer().on('swipeup',function(event){
+            })
+
+            var opts = {
+                lines: scope.lines, // The number of lines to draw
+                length: scope.length, // The length of each line
+                width: scope.width, // The line thickness
+                radius: scope.radius, // The radius of the inner circle
+                corners: scope.corners, // Corner roundness (0..1)
+                rotate: scope.rotate, // The rotation offset
+                direction: scope.direction, // 1: clockwise, -1: counterclockwise
+                color: attrs.loadingColor ? ('#'+attrs.loadingColor) : '#000', // #rgb or #rrggbb
+                speed: scope.speed, // Rounds per second
+                trail: scope.trail, // Afterglow percentage
+                shadow: scope.shadow, // Whether to render a shadow
+                hwaccel: scope.hwaccel, // Whether to use hardware acceleration
+                className: scope.className, // The CSS class to assign to the spinner
+                zIndex: scope.zIndex, // The z-index (defaults to 2000000000)
+                // top: 'auto', // Top position relative to parent in px
+                // left: 'auto' // Left position relative to parent in px
+                top: innerWrapper.height()/2+"px", // Top position relative to parent in px
+                left: innerWrapper.width()/2 -22+"px" // Left position relative to parent in px. Subtrackting because of the scrollbar
+            };
+            var spinner = new Spinner(opts);
+
+            scope.$watch('loading',function(value){
+                if(value == "true"){
+                    spinner.spin(wrapper[0]);
+                }else if(value == "false"){
+                    spinner.stop();
+                }
             })
         }
     }

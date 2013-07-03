@@ -24,13 +24,13 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
         <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 
-        <script type="text/javascript" src="../../cordova.js"></script>
+        <!--<script type="text/javascript" src="../../cordova.js"></script>-->
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
         <!--For remote debugging-->
-        <script src="http://debug.phonegap.com/target/target-script-min.js#agora"></script>
+        <!--<script src="http://debug.phonegap.com/target/target-script-min.js#agora"></script>-->
         
         <!--Third party lib:http://effinroot.eiremedia.netdna-cdn.com/repo/plugins/misc/spin.js/index.html-->
         <script src="lib/spin.min.js" type="text/javascript"></script>
@@ -158,27 +158,16 @@
                         </div>
                     </div>
                     <div id="contentWrapper">
-                        <div id="scrollableContent" scrollable trigger-distance="200">
-
+                        <div id="scrollableContent" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
                             
                             <div id="fixedContentHeader" data-ng-click="goToGroup(groups.current)" data-ng-show="flashVar">
                                 <span class="currentGroup">
                                     <i class="icon-home home"></i>
                                     <span>{{currentGroup.name}}</span>
-                                    <!-- <span><spinner class="spinnerHolder" radius="4" length="6" color="'ed1c24'" show="loading"></spinner></span> -->
-                                    <spinner class="spinnerHolder" radius="4" length="6" color="'ed1c24'" show="loading" z-index="1"></spinner>
+                                    <!-- <span>Group</span> -->
                                 </span>
                             </div>
-
-                            <div id="contentHeader" data-ng-click="goToGroup(groups.current)">
-                                <span class="currentGroup">
-                                    <i class="icon-home home"></i>
-                                    <span> {{currentGroup.name}} </span>
-                                    <!-- <span><spinner class="spinnerHolder" radius="4" length="6" color="'ed1c24'" show="loading"></spinner></span> -->
-                                    <spinner class="spinnerHolder" radius="4" length="6" color="'ed1c24'" show="loading" z-index="0"></spinner>
-                                </span>
-                            </div>
-
+                            
                             <div id="view" data-ng-view></div>
                         </div>
                     </div>
