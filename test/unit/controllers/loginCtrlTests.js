@@ -32,6 +32,16 @@ describe('LoginController', function(){
 			'{"accountId":10134,"active":true,"companyId":10132,"homeURL":"/group/agora/home","key":null,"logoId":10701,"maxUsers":0,"mx":"uninett.no","system":false,"webId":"liferay.com"}'
 			]
 		});
+        
+        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/user/get-user-by-screen-name/company-id/10132/screen-name/testUser'
+            ,function(headers){
+                return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
+        })
+        .respond(function(){
+            return [200,
+            '{"agreedToTermsOfUse":true,"comments":"","companyId":10132,"contactId":254910,"createDate":1371558228299,"defaultUser":false,"emailAddress":"stianbor@hist.no","emailAddressVerified":false,"facebookId":0,"failedLoginAttempts":0,"firstName":"Stian","graceLoginCount":0,"greeting":"Welcome Stian Borgesen!","jobTitle":"1115 Hjelpearbeider","languageId":null,"lastFailedLoginDate":null,"lastLoginDate":1372842501705,"lastLoginIP":"158.38.40.11","lastName":"Borgesen","lockout":false,"lockoutDate":null,"loginDate":1372843329052,"loginIP":"158.38.40.11","middleName":"","modifiedDate":1371558228299,"openId":"","portraitId":254940,"reminderQueryAnswer":"Buster","reminderQueryQuestion":"Hva heter din katt?","screenName":"stianbor__hist.no","status":0,"timeZoneId":null,"userId":254909,"uuid":"776bcdab-6588-4214-aec7-114ec88bcd6d"}'
+            ]
+        });
 
         //get feide login url request
         $httpBackend.whenGET('https://agora-test.uninett.no/c/portal/feide/loginurl?redirect=%2Fgroup%2Fagora%2Fdokumenter%3Fp_p_id%3Dagoramypassword_WAR_agoramypasswordportlet%26p_p_state%3Dpop_up%26p_p_mode%3Dedit%26p_p_lifecycle%30%26controlPanelCategory%3portlet_agoramypassword_WAR_agoramypasswordportlet')
@@ -62,6 +72,7 @@ describe('LoginController', function(){
     StorageService.remove('UserScreenName');
 
     expect(scope.validUser).toBe(true);
+
   }));
 
   it('should not login with incorrect username and password', inject(function(StorageService) {

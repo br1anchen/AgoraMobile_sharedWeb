@@ -11,9 +11,11 @@ app.controller('LoginCtrl',['$scope','$log','LoginService','$location',function(
 		LoginService.login($scope.username,$scope.password).then(
 			function(rep){
 				console.log("Login success!:"+JSON.stringify(rep));
-				LoginService.requestStorage($scope.username,rep.data.companyId);
+				LoginService.getUserInfo($scope.username,rep.data.companyId).then(function(rep){
+					LoginService.requestStorage();
+					$scope.setValidUser(true);
+				});
 
-				$scope.setValidUser(true);
 			},function(reason){
 				console.log("Login failed:"+JSON.stringify(reason));
 

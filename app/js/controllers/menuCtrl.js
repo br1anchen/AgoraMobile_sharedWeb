@@ -5,7 +5,7 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
 		GroupService.fetchGroups().then(function(rep){
 			console.log(rep);
 			$scope.groups = GroupService.getGroups();
-			$scope.screenName = StorageService.get('UserScreenName');
+			$scope.user = StorageService.get(StorageService.get('UserScreenName'));
 			$scope.setCurrent(StorageService.get('TopGroup'));
 		},function(err){
 			console.log('fail to fetch groups');

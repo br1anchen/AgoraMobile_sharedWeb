@@ -8,6 +8,9 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       screenName : "",
       userId : "",
       auth : "",
+      fullName : "",
+      portraitId : "",
+      emailAddress : "",
       companyId : ""
     };
     var serviceLoginUrl = 'https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no';
@@ -24,14 +27,32 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         return HttpService.request(serviceLoginUrl,serviceUser.auth,'GET');
   		},
 
-      //request Storage Service to store screenName and authorization key
-      requestStorage : function(screenName,companyId){
+      getUserInfo : function(screenName,companyId){
+        var deffered = $q.defer();
 
+        var userInfoUrl = 'https://agora.uninett.no/api/secure/jsonws/user/get-user-by-screen-name/company-id/'+ companyId + '/screen-name/' + screenName;
+        var promise = HttpService.request(userInfoUrl,serviceUser.auth,"GET");
+        promise.then(function(rep){
+
+          serviceUser.screenName = rep.data.screenName;
+          serviceUser.userId = rep.data.userId;
+          serviceUser.fullName = rep.data.firstName + rep.data.middleName + rep.data.lastName;
+          serviceUser.portraitId = rep.data.portraitId;
+          serviceUser.emailAddress = rep.data.emailAddress;
+          serviceUser.companyId = rep.data.companyId;
+
+          deffered.resolve("user data fetched");
+        },function(err){
+          deffered.reject("failed to get user info");
+        });
+
+        return deffered.promise;
+      },
+
+      //request Storage Service to store user info
+      requestStorage : function(){
         //store user screen name
-        StorageService.store('UserScreenName',screenName);
-
-        //set comapyId in userObj
-        serviceUser.companyId = companyId;
+        StorageService.store('UserScreenName',serviceUser.screenName);
 
         //store user obj with screen name as index key
         return StorageService.store(serviceUser.screenName,serviceUser);

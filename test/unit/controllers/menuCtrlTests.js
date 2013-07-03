@@ -46,9 +46,9 @@ describe('MenuController', function(){
     	StorageService.store('UserScreenName','testUser');
     	StorageService.store(testUser.screenName,testUser);
 
-		scope.validUser = true;
-        iCtrl = $controller('IndexCtrl',{$scope: scope});
-      	ctrl = $controller('MenuCtrl', {$scope: scope});
+    	scope.validUser = true;
+		//iCtrl = $controller('IndexCtrl',{$scope: scope});
+		//ctrl = $controller('MenuCtrl', {$scope: scope});
 
 	}));
 
