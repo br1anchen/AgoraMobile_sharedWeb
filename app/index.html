@@ -187,6 +187,7 @@
             </div>
             <div id="login" data-ng-switch-when="false" data-ng-controller="LoginCtrl">
                 <img id="agora_logo" src="img/agora_logo.png"></img>
+                <alert id="loginMessage" ng-model="loginMsg" type="loginMsg.type" style="visibility:hidden">{{loginMsg.msg}}</alert>
                 <form data-ng-submit="login()">
                     <p>
                         <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
@@ -195,7 +196,7 @@
 
                         <i-frame-dialog url="{{feideLoginUrl}}"></i-frame-dialog>
                     </p>
-                    <input type="submit" value="Sign In" />
+                    <input type="submit" value="Sign In"/>
                 </form>
                 <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
             </div>

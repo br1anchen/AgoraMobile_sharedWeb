@@ -31,7 +31,7 @@ angular.module('app.httpService',['app.storageService'])
   					'Authorization' : authorization,
   					'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   				},
-          timeout : 3000
+          timeout : 500
   			
   			//success function
   			}).success(function(data, status, headers, config){
@@ -43,7 +43,7 @@ angular.module('app.httpService',['app.storageService'])
   			}).error(function(data, status, headers, config){
   				console.log("HttpService request error");
 
-  				deffered.reject({status : status});
+  				deffered.reject({data : data, status : status});
   			
   			});
   		
