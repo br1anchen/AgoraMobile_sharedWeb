@@ -152,12 +152,12 @@
                         </div>
                     </header>
 
-                    <div id="notifications">
-                        <div data-ng-controller="NotificationCtrl">
-                            <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
-                        </div>
-                    </div>
                     <div id="contentWrapper">
+                        <div id="notifications">
+                            <div data-ng-controller="NotificationCtrl">
+                                <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
+                            </div>
+                        </div>
                         <div id="scrollableContent" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
                             
                             <div id="fixedContentHeader" data-ng-click="goToGroup(groups.current)" data-ng-show="flashVar">
