@@ -23,7 +23,7 @@ angular.module('app.httpService',['app.storageService'])
         }else{
           authorization = customizedAuthorization;
         }
-        console.log("http request");
+        
   			$http({//http request content
   				url : requestUrl,
   				method : requestMethod,

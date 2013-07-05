@@ -10,6 +10,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       auth : "",
       fullName : "",
       portraitId : "",
+      portraitImgUrl: "",
       emailAddress : "",
       companyId : ""
     };
@@ -38,6 +39,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
           serviceUser.userId = rep.data.userId;
           serviceUser.fullName = rep.data.middleName == "" ? rep.data.firstName + " " + rep.data.lastName : rep.data.firstName + " " + rep.data.middleName + " " + rep.data.lastName;
           serviceUser.portraitId = rep.data.portraitId;
+          serviceUser.portraitImgUrl = "https://agora.uninett.no/image/user_male_portrait?img_id=" + rep.data.portraitId;
           serviceUser.emailAddress = rep.data.emailAddress;
           serviceUser.companyId = rep.data.companyId;
 

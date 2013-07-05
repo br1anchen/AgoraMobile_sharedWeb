@@ -24,7 +24,7 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
         promise.then(function(rep){
           groups = requestStorage(rep.data);
           groupsHolder.groups = groups;
-          deffered.resolve("fetched");
+          deffered.resolve("groups fetched");
         },function(err){
           deffered.reject("error");
         });
@@ -39,7 +39,7 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
           groups.push(storedGroup);
         });
         groupsHolder.groups = groups;
-        deffered.resolve("use stored");
+        deffered.resolve("use stored groups");
       }
       
       return deffered.promise;
@@ -123,7 +123,7 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
           groupsHolder.groups = groups;
           StorageService.store("GroupIDs",groupIds);
 
-          deffered.resolve("updated");
+          deffered.resolve("groups updated");
 
         },function(err){
           deffered.reject("error");
