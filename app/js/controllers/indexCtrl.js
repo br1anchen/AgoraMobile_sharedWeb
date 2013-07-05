@@ -1,6 +1,7 @@
 'use strict';
 app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($scope,$log,$location,$timeout){
-    $scope.currentGroup = 'Default Group';
+    $scope.currentGroup = {name: 'Default Group'};
+    $scope.flashVar ='flash';
 
 	$scope.toggleMenu = function(){
         if(!$scope.menuVar){

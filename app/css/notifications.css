@@ -1,10 +1,19 @@
+#notifications{
+	position: absolute;
+	z-index: 2;
+	width:100%;
+}
+
 #notifications .alert{
+	line-height: 3em;
+	height: 3em;
+	padding: 0.5em;
 	text-align: center;
 	position: relative;
 	margin-bottom: 0;
 	transition: all 1s ease;
   	-webkit-transition: all 1s ease;
-  	z-index: 1;
+  	z-index: 2;
 }
 #notifications .close{
 	font-size: 3em;

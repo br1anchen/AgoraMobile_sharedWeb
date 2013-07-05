@@ -4,9 +4,11 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout',function($scope,$l
 	$scope.activities = ["Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed","Activity feed"];
 
 	$scope.$on('scrollableUpdate',function(){
+		
+		//Dummy code to make it seam like it'a updating
 		$timeout(function(){
 			$scope.$emit("scrollableUpdated");
-		},300000);
+		},3000);
 	})
 
 	var appendcounter = 0;

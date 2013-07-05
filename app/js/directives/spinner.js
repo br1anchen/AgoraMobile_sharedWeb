@@ -132,8 +132,10 @@ app.directive('spinner', function($log) {
                 zIndex: scope.zIndex, // The z-index (defaults to 2000000000)
                 // top: 'auto', // Top position relative to parent in px
                 // left: 'auto' // Left position relative to parent in px
-                top: scope.top, // Top position relative to parent in px
-                left: scope.left // Left position relative to parent in px
+                // top: scope.top, // Top position relative to parent in px
+                // left: scope.left // Left position relative to parent in px
+                top: '50%', // Top position relative to parent in px
+                left: '50%' // Left position relative to parent in px
             };
             var spinner = new Spinner(opts).spin(element[0]);
 
