@@ -193,11 +193,12 @@
                         <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
 
                         <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
-
-                        <i-frame-dialog url="{{feideLoginUrl}}"></i-frame-dialog>
                     </p>
                     <input type="submit" value="Sign In"/>
                 </form>
+                <div id="feideLoginDiv">
+                    <i-frame-dialog url="{{feideLoginUrl}}"></i-frame-dialog>
+                </div>
                 <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
             </div>
         </div>

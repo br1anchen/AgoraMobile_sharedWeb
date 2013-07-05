@@ -8,7 +8,6 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
          $scope.groups = GroupService.getGroups();
          $scope.user = StorageService.get(StorageService.get('UserScreenName'));
          cacheImage($scope.user.portraitImgUrl);
-         console.log($scope.user.portraitImgUrl);
          $scope.setCurrent(StorageService.get('TopGroup'));
        },function(err){
          console.log('fail to fetch groups');
