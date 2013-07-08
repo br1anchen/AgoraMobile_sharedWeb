@@ -10,7 +10,6 @@ app.controller('LoginCtrl',['$scope','$log','LoginService',function($scope,$log,
 	 $scope.loginMsg = { type: 'success', msg: 'Login ...' };
 	
 	$scope.login = function(){
-		//if($scope.username && $scope.password){
 
 			$scope.loginMsg = { type: 'success', msg: 'Login ...' };
 			$("#loginMessage").css("visibility", "visible");
@@ -19,13 +18,21 @@ app.controller('LoginCtrl',['$scope','$log','LoginService',function($scope,$log,
 				function(rep){
 					console.log("Login success!:"+JSON.stringify(rep));
 					LoginService.getUserInfo($scope.username,rep.data.companyId).then(function(rep){
-						
+						console.log("store user");
+
 						LoginService.requestStorage();
 
 						$scope.loginMsg.type = 'success';
 						$scope.loginMsg.msg = 'Login success!';
 						$("#loginMessage").css("visibility", "visible");
 						$scope.setValidUser(true);
+					},function(reason){
+						console.log("no user info:"+JSON.stringify(reason));
+
+						$scope.loginMsg.type = 'error';
+						$scope.loginMsg.msg = 'Login failed! Incorrect user info.';
+						$("#loginMessage").css("visibility", "visible");
+						$scope.setValidUser(false);
 					});
 
 				},function(reason){
@@ -38,7 +45,6 @@ app.controller('LoginCtrl',['$scope','$log','LoginService',function($scope,$log,
 				}
 			);
 
-		//}
 	}
 
 }])

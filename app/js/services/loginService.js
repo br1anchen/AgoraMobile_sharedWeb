@@ -34,16 +34,20 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         var userInfoUrl = 'https://agora.uninett.no/api/secure/jsonws/user/get-user-by-screen-name/company-id/'+ companyId + '/screen-name/' + screenName;
         var promise = HttpService.request(userInfoUrl,serviceUser.auth,"GET");
         promise.then(function(rep){
+          console.log(JSON.stringify(rep));
+          if(!rep.data.exception){
+            serviceUser.screenName = rep.data.screenName;
+            serviceUser.userId = rep.data.userId;
+            serviceUser.fullName = rep.data.middleName == "" ? rep.data.firstName + " " + rep.data.lastName : rep.data.firstName + " " + rep.data.middleName + " " + rep.data.lastName;
+            serviceUser.portraitId = rep.data.portraitId;
+            serviceUser.portraitImgUrl = "https://agora.uninett.no/image/user_male_portrait?img_id=" + rep.data.portraitId;
+            serviceUser.emailAddress = rep.data.emailAddress;
+            serviceUser.companyId = rep.data.companyId;
 
-          serviceUser.screenName = rep.data.screenName;
-          serviceUser.userId = rep.data.userId;
-          serviceUser.fullName = rep.data.middleName == "" ? rep.data.firstName + " " + rep.data.lastName : rep.data.firstName + " " + rep.data.middleName + " " + rep.data.lastName;
-          serviceUser.portraitId = rep.data.portraitId;
-          serviceUser.portraitImgUrl = "https://agora.uninett.no/image/user_male_portrait?img_id=" + rep.data.portraitId;
-          serviceUser.emailAddress = rep.data.emailAddress;
-          serviceUser.companyId = rep.data.companyId;
-
-          deffered.resolve("user data fetched");
+            deffered.resolve("user data fetched");
+          }else{
+            deffered.reject("failed to get user info");
+          }
         },function(err){
           deffered.reject("failed to get user info");
         });
@@ -53,6 +57,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
       //request Storage Service to store user info
       requestStorage : function(){
+        console.log("screenName :" + serviceUser.screenName);
         //store user screen name
         StorageService.store('UserScreenName',serviceUser.screenName);
 

@@ -1,8 +1,7 @@
 'use strict';
 app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeout',function($scope,$log,$location,StorageService,$timeout){
 
-	// $scope.validUser = checkUserInfo();
-	$scope.validUser = true;
+	$scope.validUser = checkUserInfo();
 
 	function checkUserInfo(){
 		if(StorageService.get('UserScreenName')){
@@ -19,6 +18,5 @@ app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeou
 		$scope.validUser = valid;
 
 	}
-
 
 }]);
