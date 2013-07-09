@@ -3,7 +3,7 @@
 angular.module('app.groupService',['app.storageService','app.httpService'])
 .factory('GroupService', ['$http','$log','$q','StorageService','HttpService',function ($http,$log,$q,StorageService,HttpService) {
 
-	//class entity in HttpService
+	//class entity in GroupService
   	var apiUrl = "https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10";
 
     var groupsHolder = {//reference obj to be used by controller

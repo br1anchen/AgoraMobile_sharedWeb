@@ -2,7 +2,7 @@
 
 describe('GroupService',function(){
 
-	var groupService;
+	var StorageService;
 	var $httpBackend;
 	//test user info
 	var testUser = {
@@ -41,15 +41,8 @@ describe('GroupService',function(){
 			]
 		});
 
-	}));
+		StorageService = $injector.get('StorageService');
 
-	afterEach(function() {
-	  	$httpBackend.verifyNoOutstandingExpectation();
-	  	$httpBackend.verifyNoOutstandingRequest();
-	});
-
-	it('Testing fetch groups with first time correct authentication',inject(function(GroupService,StorageService){
-		
 		//drop all the groups data
 		StorageService.remove("GroupIDs");
 		StorageService.remove("TopGroup");
@@ -61,6 +54,15 @@ describe('GroupService',function(){
     	//store all usefull info in local storage
     	StorageService.store('UserScreenName','testUser');
     	StorageService.store(testUser.screenName,testUser);
+
+	}));
+
+	afterEach(function() {
+	  	$httpBackend.verifyNoOutstandingExpectation();
+	  	$httpBackend.verifyNoOutstandingRequest();
+	});
+
+	it('Testing fetch groups with first time correct authentication',inject(function(GroupService){	
 
 		//fetch groups
 		var groups;
@@ -75,18 +77,6 @@ describe('GroupService',function(){
 	}));
 
 	it('Tesing store groups to local storage',inject(function(GroupService,StorageService){
-		
-		//drop all the groups data
-		StorageService.remove("GroupIDs");
-		StorageService.remove("TopGroup");
-
-		//delete stored user info
-		StorageService.remove('testUser');
-		StorageService.remove('UserScreenName');
-
-    	//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
 
     	//get groups
     	var topGroup;
@@ -99,42 +89,19 @@ describe('GroupService',function(){
 		expect(topGroup).not.toBe(undefined);
 	}));
 
-	it('Testing using stored groups data to fetch',inject(function(GroupService,StorageService){
-		//drop all the groups data
-		StorageService.remove("GroupIDs");
-		StorageService.remove("TopGroup");
-
-		//delete stored user info
-		StorageService.remove('testUser');
-		StorageService.remove('UserScreenName');
-
-    	//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
+	it('Testing using stored groups data to fetch',inject(function(GroupService){
 
     	var promise = GroupService.fetchGroups();
 		promise.then(function(rep){
 			var promise = GroupService.fetchGroups();
 			promise.then(function(rep){
-				expect(rep).toBe('use stored');
+				expect(rep).toBe('use stored groups');
 			});
 		});
 		$httpBackend.flush();
 	}));
 
 	it('Testing get new groups to update stored groups',inject(function(GroupService,StorageService){
-
-		//drop all the groups data
-		StorageService.remove("GroupIDs");
-		StorageService.remove("TopGroup");
-
-		//delete stored user info
-		StorageService.remove('testUser');
-		StorageService.remove('UserScreenName');
-
-    	//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
 
 		//remove one current group data
 		StorageService.remove("Group250926");

@@ -25,13 +25,13 @@ describe('Testing ActivityService', function() {
 
 		// //Invalid auth token
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
-        	return headers['Authorization'] != 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false
+        	return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false
         })
         .respond(401,'{"exception":"Invalid authentication token"}',{'WWW-Authenticate': 'Basic realm="PortalRealm"'}); 
 
 		// //Valid login for Brian
         $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no',function(headers){
-        	return headers['Authorization'] == 'Basic YnIxYW5jaGVuOkFwdHg0ODY5' ? true :false
+        	return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false
         })
 		.respond(function(){return [200,'{"accountId":10134,"active":true,"companyId":10132,"homeURL":"/group/agora/home","key":null,"logoId":10701,"maxUsers":0,"mx":"uninett.no","system":false,"webId":"liferay.com"}']});
 
@@ -41,7 +41,7 @@ describe('Testing ActivityService', function() {
 	beforeEach(inject(function($injector){
 		LoginService = $injector.get('LoginService');
 		//Making sure the user is logged in
-		LoginService.login('br1anchen','Aptx4869');
+		LoginService.login('testUser','demo');
 		$httpBackend.flush();
 	}))
 
