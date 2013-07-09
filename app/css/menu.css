@@ -5,12 +5,20 @@
 	height: 2em;
 	line-height: 2em;
 }
+
 #menu img{
 	border-radius: 0.1em;
-	width: 2em;
+	height: 3.5em;
+	width: 3.5em;
 	left: 1em;
 	position: absolute;
 }
+
+#menu h3{
+	font-size: 2em;
+	margin-left: 8px;
+}
+
 #menu p{
 	font-size: 1.7em;
 	padding:0.5em;
@@ -23,7 +31,7 @@
 
 #menu .groups li, #menu .settings li{
 	line-height:2em;
-	font-size: 1.2em;
+	font-size: 1.8em;
 }
 #menu .settings{
 	position: absolute;
