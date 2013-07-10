@@ -18,14 +18,15 @@ factory('ActivityService',['$log','$q','StorageService','HttpService',function (
 
     function JSON2ActLog(json){//parse json to group obj
       return {
-        name : json.name,
+        body : json.body,
         groupId : json.groupId,
         className : json.className,
         classPK : json.classPK,
         timestamp : json.timestamp,
         involved : json.involved,
         posterImg : json.posterImgUrl,
-        file : json.documentUrl
+        file : json.documentUrl,
+        fileName : json.documentTitle
       }
     }
 

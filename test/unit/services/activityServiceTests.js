@@ -39,14 +39,15 @@ describe('ActivityService',function(){
 			var testActLogs = [];
 			for(var i = 0; i <10 ; i++){
 				var act = {
-				    name : "Bernt Skjemstad uploaded a new document",
+				    body : "Bernt Skjemstad uploaded a new document",
 			        groupId : 250926,
 			        className : "File",
 			        classPK : "File" + i,
 			        timestamp : "09-07-2013",
 			        involved : "Brian Chen",
 			        posterImg : "https://agora.uninett.no/image/user_male_portrait?img_id=254940",
-			        file : "https://agora.uninett.no/c/document_library/get_file?groupId=250926&folderId=0&title=login.sh"
+			        documentUrl : "https://agora.uninett.no/c/document_library/get_file?groupId=250926&folderId=0&title=login.sh",
+			        documentTitle : "login.sh"
 				};
 				testActLogs.push(act);
 			}
@@ -61,14 +62,15 @@ describe('ActivityService',function(){
 			var testActLogs = [];
 			for(var i = 0; i <20 ; i++){
 				var act = {
-				    name : "Bernt Skjemstad uploaded a new document",
+				    body : "Bernt Skjemstad uploaded a new document",
 			        groupId : 250926,
 			        className : "File",
 			        classPK : "File" + i,
 			        timestamp : "09-07-2013",
 			        involved : "Brian Chen",
 			        posterImg : "https://agora.uninett.no/image/user_male_portrait?img_id=254940",
-			        file : "https://agora.uninett.no/c/document_library/get_file?groupId=250926&folderId=0&title=login.sh"
+			        documentUrl : "https://agora.uninett.no/c/document_library/get_file?groupId=250926&folderId=0&title=login.sh",
+			        documentTitle : "login.sh"
 				};
 				testActLogs.push(act);
 			}

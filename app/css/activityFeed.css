@@ -1,3 +1,34 @@
 #activityFeed {
 
 }
+
+#activityBlock{
+	padding: 5px 10px;
+	float: left;
+	width: 98%;
+}
+
+#peopleImg{
+	float: left;
+	width: 4em;
+	height: 4em;
+}
+
+#activityBlock #content{
+	float: left;
+	font-size: 1.5em;
+	text-align: left;
+}
+
+#activityBlock #file{
+	margin: 5px 10px;
+	float: right;
+	font-size: 1.5em;
+}
+
+#activityBlock #date{
+	float: right;
+	font-size: 1.5em;
+	margin-right: 10px;
+	margin-top: 5px;
+}
