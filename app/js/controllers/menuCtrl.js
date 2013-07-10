@@ -9,6 +9,7 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
          $scope.user = StorageService.get(StorageService.get('UserScreenName'));
          cacheImage($scope.user.portraitImgUrl);
          $scope.setCurrent(StorageService.get('TopGroup'));
+         $rootScope.$broadcast("renderActLogs");
        },function(err){
          console.log('fail to fetch groups');
        });
@@ -19,6 +20,7 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
           $scope.user = StorageService.get(StorageService.get('UserScreenName'));
           $scope.user.portraitImgUrl = StorageService.get('UserPortraitImage');
           $scope.setCurrent(StorageService.get('TopGroup'));
+          $rootScope.$broadcast("renderActLogs");
        },function(err){
                console.log('fail to update groups');
        });
@@ -32,6 +34,7 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
   	 	$scope.setCurrent(group);
   	 	$scope.toggleMenu();
   	 	$location.path('/activityFeed');
+      $rootScope.$broadcast("renderActLogs");
 	 }
 
    function cacheImage(url){

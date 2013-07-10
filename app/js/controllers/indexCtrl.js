@@ -1,7 +1,7 @@
 'use strict';
 app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($scope,$log,$location,$timeout){
     $scope.currentGroup =  {
-        id : 10157,
+        id : 11111,
         name : "Default Group",
         type : 1,
         site : true
