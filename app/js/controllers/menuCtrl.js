@@ -30,9 +30,16 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
   }
 
 	 $scope.switchGroup = function(group){
-  	 	console.log("switch to " + group.name);
-  	 	$scope.setCurrent(group);
-      $scope.goToGroup(group);
+      if(group != 'top'){
+        console.log("switch to " + group.name);
+        $scope.setCurrent(group);
+        $scope.goToGroup(group);
+        
+      }else{
+        console.log('back to top group');
+        $scope.setCurrent(StorageService.get('TopGroup'));
+        $scope.goToGroup(StorageService.get('TopGroup'));
+      }
       $scope.toggleMenu();
 	 }
 

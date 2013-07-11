@@ -108,7 +108,7 @@
                         <img id="userPortrait" src="{{user.portraitImgUrl}}" />
                         <h3>{{user.fullName}}</h3>
                         <ul class="nav nav-list groups">
-                            <li>
+                            <li data-ng-click="switchGroup('top')">
                                 Groups
                             </li>
                             <li data-ng-repeat="group in groups" data-ng-click="switchGroup(group)">
