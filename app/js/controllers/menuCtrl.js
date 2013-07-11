@@ -32,9 +32,8 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
 	 $scope.switchGroup = function(group){
   	 	console.log("switch to " + group.name);
   	 	$scope.setCurrent(group);
-  	 	$scope.toggleMenu();
-  	 	$location.path('/activityFeed');
-      $rootScope.$broadcast("renderActLogs");
+      $scope.goToGroup(group);
+      $scope.toggleMenu();
 	 }
 
    function cacheImage(url){

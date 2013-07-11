@@ -1,7 +1,7 @@
 'use strict';
-app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($scope,$log,$location,$timeout){
+app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',function($scope,$log,$location,$timeout,$rootScope){
     $scope.currentGroup =  {
-        id : 11111,
+        id : 110,
         name : "Default Group",
         type : 1,
         site : true
@@ -28,7 +28,12 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout',function($sco
 
     $scope.goToGroup = function(group){
     	//Hardcoded nav:
-    	$location.path('/activityFeed');
+        if($location.path() != '/activityFeed'){
+            $location.path('/activityFeed');
+        }else{
+            $rootScope.$broadcast("renderActLogs");
+        }
+        
     }
     $scope.showGroup = true;
     

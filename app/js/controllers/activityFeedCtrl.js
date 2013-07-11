@@ -1,11 +1,9 @@
 'use strict';
 
 app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService){
+
 	function renderActLogs(){
 		$scope.activities = [];
-
-		var groupId = $scope.currentGroup.id;
-
 	
 		//var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		//console.log(connect);
@@ -30,7 +28,7 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 
 		for(var i = 0; i <10 ; i++){
 			var act = {
-			    body : "Stian Borgesen uploaded a new document in group" + groupId,
+			    body : "Stian Borgesen uploaded a new document in group" + $scope.currentGroup.id,
 		        groupId : 250926,
 		        className : "File",
 		        classPK : "File" + i,
@@ -42,7 +40,10 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 			};
 			$scope.activities.push(act);
 		}
+	}
 
+	if($scope.currentGroup.id != 110){
+		renderActLogs();
 	}
 
 	$scope.$on('renderActLogs',function(){
