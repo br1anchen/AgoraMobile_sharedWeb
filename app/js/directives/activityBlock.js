@@ -27,7 +27,7 @@ app.directive('activityBlock', function factory($log) {
         '<img id="peopleImg" src="{{activity.posterImg}}"></img>' +
         '<p id="date">{{activity.timestamp}}</p>' +
         '<a id="file" href="{{activity.file}}">{{activity.fileName}}</a>' +
-        '<h3 id="content">{{activity.body}}</h3>' +
+        '<p id="content">{{activity.body}}</p>' +
     '</div>'
   };
   return directiveObj;
