@@ -23,10 +23,9 @@ directive('activeLink', ['$location', function($location) {
 
             var clazz = attrs.activeLink;
             var path = attrs.href;
-            path = path.substring(1); //hack because path does bot return including hashbang
+            path = path.replace('#','/'); //parse hashbang to url path
             scope.location = $location;
             scope.$watch('location.path()', function(newPath) {
-                newPath = newPath.replace('/','')
                 if (path === newPath) {
                     element.addClass(clazz);
                 } else {

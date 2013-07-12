@@ -36,9 +36,9 @@
                         </td>
                         <td>
                             <div id="mainFunctions">
-                                <i data-ng-click="path('stage.messageBoard')" href="#messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
-                                <i data-ng-click="path('stage.documents')" href="#documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
-                                <i data-ng-click="path('stage.wiki')" href="#wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('stage.messageBoard')" href="#stage/messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('stage.documents')" href="#stage/documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('stage.wiki')" href="#stage/wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
                             </div>
                         </td>
                         <td>
@@ -57,7 +57,7 @@
             </div>
             <div id="scrollableContent" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
                 
-                <div id="fixedContentHeader" data-ng-click="goToGroup(groups.current)" data-ng-show="flashVar">
+                <div id="fixedContentHeader" data-ng-click="goToGroup(currentGroup)" data-ng-show="flashVar">
                     <span class="currentGroup">
                         <i class="icon-home home"></i>
                         <span>{{currentGroup.name}}</span>

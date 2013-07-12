@@ -27,8 +27,6 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
     }
 
     $scope.goToGroup = function(group){
-        console.log($location.path());
-    	//Hardcoded nav:
         if($location.path() != '/stage/activityFeed'){
             $state.transitionTo('stage.activityFeed');
         }else{
