@@ -1,43 +1,34 @@
 'use strict';
 app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupService','$rootScope','$cookies','$state',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies,$state){
 
-	//if($scope.validUser){
-     if(!StorageService.get('TopGroup')){
-       GroupService.fetchGroups().then(function(rep){
-         console.log(rep);
-         $scope.groups = GroupService.getGroups();
-         $scope.user = StorageService.get(StorageService.get('UserScreenName'));
-         cacheImage($scope.user.portraitImgUrl);
-         $scope.setCurrent(StorageService.get('TopGroup'));
-         $rootScope.$broadcast("renderActLogs");
-       },function(err){
-         console.log('fail to fetch groups');
-       });
-     }else{
-       GroupService.updateGroups().then(function(rep){
-          console.log(rep);
-          $scope.groups = GroupService.getGroups();
-          $scope.user = StorageService.get(StorageService.get('UserScreenName'));
-          $scope.user.portraitImgUrl = StorageService.get('UserPortraitImage');
-          $scope.setCurrent(StorageService.get('TopGroup'));
-          $rootScope.$broadcast("renderActLogs");
-       },function(err){
-               console.log('fail to update groups');
-       });
-     }
-  //}else{
-          //console.log('user has not logined yet');
-  //}
+   if(!StorageService.get('TopGroup')){
+     GroupService.fetchGroups().then(function(rep){
+       console.log(rep);
+       $scope.groups = GroupService.getGroups();
+       $scope.user = StorageService.get(StorageService.get('UserScreenName'));
+       cacheImage($scope.user.portraitImgUrl);
+       $scope.goToGroup(StorageService.get('TopGroup'));
+     },function(err){
+       console.log('fail to fetch groups');
+     });
+   }else{
+     GroupService.updateGroups().then(function(rep){
+        console.log(rep);
+        $scope.groups = GroupService.getGroups();
+        $scope.user = StorageService.get(StorageService.get('UserScreenName'));
+        $scope.user.portraitImgUrl = StorageService.get('UserPortraitImage');
+        $scope.goToGroup(StorageService.get('TopGroup'));
+     },function(err){
+             console.log('fail to update groups');
+     });
+   }
 
 	 $scope.switchGroup = function(group){
       if(group != 'top'){
         console.log("switch to " + group.name);
-        $scope.setCurrent(group);
-        $scope.goToGroup(group);
-        
+        $scope.goToGroup(group);        
       }else{
         console.log('back to top group');
-        $scope.setCurrent(StorageService.get('TopGroup'));
         $scope.goToGroup(StorageService.get('TopGroup'));
       }
       $scope.toggleMenu();

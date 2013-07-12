@@ -22,11 +22,9 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
         $state.transitionTo(path); // path not hash
     }
 
-    $scope.setCurrent = function(group){
-        $scope.currentGroup = group;
-    }
-
     $scope.goToGroup = function(group){
+        $scope.currentGroup = group;
+
         if($location.path() != '/stage/activityFeed'){
             $state.transitionTo('stage.activityFeed');
         }else{
