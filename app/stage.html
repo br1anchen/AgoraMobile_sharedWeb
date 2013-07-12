@@ -1,0 +1,72 @@
+<div>
+    <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
+        <div id="menu" ng-controller="MenuCtrl">
+            <img id="userPortrait" src="{{user.portraitImgUrl}}" />
+            <h3>{{user.fullName}}</h3>
+            <ul class="nav nav-list groups">
+                <li data-ng-click="switchGroup('top')">
+                    Groups
+                </li>
+                <li data-ng-repeat="group in groups" data-ng-click="switchGroup(group)">
+                    {{group.name}}
+                </li>
+            </ul>
+            <ul class="nav nav-list settings">
+                <li>
+                    Settings
+                </li>
+                <li data-ng-click="logout()">
+                    <i class="icon-signout"></i>Sign out
+                </li>
+                <li >
+                    <i class="icon-info-sign"></i>About
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-wrap" data-ng-class="menuVar">
+
+        <header>
+            <div id="headerCell">
+                <table>
+                    <tr>
+                        <td>
+                            <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
+                        </td>
+                        <td>
+                            <div id="mainFunctions">
+                                <i data-ng-click="path('stage.messageBoard')" href="#messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('stage.documents')" href="#documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
+                                <i data-ng-click="path('stage.wiki')" href="#wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <i class="icon-search icon-3x searchButton"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </header>
+
+        <div id="contentWrapper">
+            <div id="notifications">
+                <div data-ng-controller="NotificationCtrl">
+                    <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
+                </div>
+            </div>
+            <div id="scrollableContent" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+                
+                <div id="fixedContentHeader" data-ng-click="goToGroup(groups.current)" data-ng-show="flashVar">
+                    <span class="currentGroup">
+                        <i class="icon-home home"></i>
+                        <span>{{currentGroup.name}}</span>
+                        <!-- <span>Group</span> -->
+                    </span>
+                </div>
+                
+                <div id="view" ui-view></div>
+            </div>
+        </div>
+    </div>
+</div>

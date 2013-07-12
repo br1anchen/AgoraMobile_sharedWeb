@@ -1,5 +1,5 @@
 'use strict';
-app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',function($scope,$log,$location,$timeout,$rootScope){
+app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope','$state',function($scope,$log,$location,$timeout,$rootScope,$state){
     $scope.currentGroup =  {
         id : 110,
         name : "Default Group",
@@ -19,7 +19,7 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
 	}
 
 	$scope.path = function(path) {
-        $location.path(path); // path not hash
+        $state.transitionTo(path); // path not hash
     }
 
     $scope.setCurrent = function(group){
@@ -27,9 +27,10 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
     }
 
     $scope.goToGroup = function(group){
+        console.log($location.path());
     	//Hardcoded nav:
-        if($location.path() != '/activityFeed'){
-            $location.path('/activityFeed');
+        if($location.path() != '/stage/activityFeed'){
+            $state.transitionTo('stage.activityFeed');
         }else{
             $rootScope.$broadcast("renderActLogs");
         }

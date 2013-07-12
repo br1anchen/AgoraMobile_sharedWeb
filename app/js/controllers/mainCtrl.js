@@ -1,22 +1,16 @@
 'use strict';
-app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeout',function($scope,$log,$location,StorageService,$timeout){
+app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeout','$state',function($scope,$log,$location,StorageService,$timeout,$state){
 
-	$scope.validUser = checkUserInfo();
+	checkUserInfo();
 
 	function checkUserInfo(){
 		if(StorageService.get('UserScreenName')){
 			console.log("user auth : " + StorageService.get(StorageService.get('UserScreenName')).auth);
-			return true;
+			$state.transitionTo('stage.activityFeed');
 		}else{
 			console.log("no stored user info");
-			return false;
+			$state.transitionTo('login');
 		}
-	}
-
-	$scope.setValidUser = function(valid){
-		
-		$scope.validUser = valid;
-
 	}
 
 }]);

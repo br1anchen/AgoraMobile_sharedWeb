@@ -1,24 +1,44 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','link','infinite-scroll','ngCookies'])
+var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','link','infinite-scroll','ngCookies','ui.state'])
 
-.config(['$routeProvider', function($routeProvider) {
-	$routeProvider.when('/messageBoard', {templateUrl: 'partials/messageBoard.html', controller: 'MessageBoardCtrl'});
-	$routeProvider.when('/documents', {templateUrl: 'partials/documents.html', controller: 'DocumentsCtrl'});
-	$routeProvider.when('/wiki', {templateUrl: 'partials/wiki.html', controller: 'WikiCtrl'});
-	$routeProvider.when('/activityFeed', {templateUrl: 'partials/activityFeed.html', controller: 'ActivityFeedCtrl'});
-	$routeProvider.otherwise({redirectTo: '/activityFeed'});
+.config(['$stateProvider','$routeProvider', function($stateProvider,$routeProvider) {
+	$routeProvider.otherwise('/login');
+
+	$stateProvider
+		.state('login', {
+			url:'/login',
+  			templateUrl: 'login.html',
+  			controller: 'LoginCtrl'
+		})
+		.state('stage',{
+			url:'/stage',
+			templateUrl: 'stage.html',
+			controller: 'IndexCtrl'
+		})
+		.state('stage.messageBoard',{
+			url:'/messageBoard',
+			templateUrl: 'partials/messageBoard.html',
+			controller: 'MessageBoardCtrl'
+		})
+		.state('stage.documents',{
+			url:'/documents',
+			templateUrl: 'partials/documents.html',
+			controller: 'DocumentsCtrl'
+		})
+		.state('stage.wiki',{
+			url:'/wiki',
+			templateUrl: 'partials/wiki.html',
+			controller: 'WikiCtrl'
+		})
+		.state('stage.activityFeed',{
+			url:'/activityFeed',
+			templateUrl: 'partials/activityFeed.html',
+			controller: 'ActivityFeedCtrl'
+		})
 }])
 
 .run(function($log,$rootScope,$location){
-	$log.log('App initiated')
-
-	// Configuring routs allowed based on app state
-	$rootScope.$watch(function() {return $location.path();}, function(newValue, oldValue){
-		//Here you can check if the navigation is allowed based on whatever
-	    if(false){
-	        $location.path('/testPartial');
-	    }
-	})
+	$log.log('App initiated');
 });

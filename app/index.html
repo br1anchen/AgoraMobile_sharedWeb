@@ -47,6 +47,7 @@
         <script src="lib/angular/angular-cookies.js"></script>
 
         <script src="lib/angular-ui/ui-bootstrap-tpls-0.3.0.js"></script>
+        <script src="lib/angular-ui/angular-ui-router.js"></script>
         <link rel="stylesheet" href="lib/angular-ui/bootstrap-combined.min.css" />
 
         <!--Font awesome-->
@@ -101,96 +102,7 @@
         <title>Agora Mobile</title>
     </head>
     <body data-ng-controller="MainCtrl">
-        <div data-ng-switch on="validUser">
-            <div data-ng-switch-when="true" data-ng-controller="IndexCtrl">
-                <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
-                    <div id="menu" ng-controller="MenuCtrl">
-                        <img id="userPortrait" src="{{user.portraitImgUrl}}" />
-                        <h3>{{user.fullName}}</h3>
-                        <ul class="nav nav-list groups">
-                            <li data-ng-click="switchGroup('top')">
-                                Groups
-                            </li>
-                            <li data-ng-repeat="group in groups" data-ng-click="switchGroup(group)">
-                                {{group.name}}
-                            </li>
-                        </ul>
-                        <ul class="nav nav-list settings">
-                            <li>
-                                Settings
-                            </li>
-                            <li data-ng-click="logout()">
-                                <i class="icon-signout"></i>Sign out
-                            </li>
-                            <li >
-                                <i class="icon-info-sign"></i>About
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <div class="page-wrap" data-ng-class="menuVar">
-
-                    <header>
-                        <div id="headerCell">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
-                                    </td>
-                                    <td>
-                                        <div id="mainFunctions">
-                                            <i data-ng-click="path('messageBoard')" href="#messageBoard" id="messageBoardButton" class="icon-comments-alt icon-3x" active-link="activeFunction"></i>
-                                            <i data-ng-click="path('documents')" href="#documents" class="icon-file-text-alt icon-3x" active-link="activeFunction"></i>
-                                            <i data-ng-click="path('wiki')" href="#wiki" class="icon-edit icon-3x" active-link="activeFunction"></i>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <i class="icon-search icon-3x searchButton"></i>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </header>
-
-                    <div id="contentWrapper">
-                        <div id="notifications">
-                            <div data-ng-controller="NotificationCtrl">
-                                <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
-                            </div>
-                        </div>
-                        <div id="scrollableContent" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-                            
-                            <div id="fixedContentHeader" data-ng-click="goToGroup(groups.current)" data-ng-show="flashVar">
-                                <span class="currentGroup">
-                                    <i class="icon-home home"></i>
-                                    <span>{{currentGroup.name}}</span>
-                                    <!-- <span>Group</span> -->
-                                </span>
-                            </div>
-                            
-                            <div id="view" data-ng-view></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="login" data-ng-switch-when="false" data-ng-controller="LoginCtrl">
-                <img id="agora_logo" src="img/agora_logo.png"></img>
-                <alert id="loginMessage" ng-model="loginMsg" type="loginMsg.type" style="visibility:hidden">{{loginMsg.msg}}</alert>
-                <form data-ng-submit="login()">
-                    <p>
-                        <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
-
-                        <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
-                    </p>
-                    <input type="submit" value="Sign In"/>
-                </form>
-                <div id="feideLoginDiv">
-                    <i-frame-dialog url="{{feideLoginUrl}}"></i-frame-dialog>
-                </div>
-                <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
-            </div>
-        </div>
+        <div ui-view></div>
     </body>
     
 </html>

@@ -1,0 +1,22 @@
+<div id="login">
+    
+    <img id="agora_logo" src="img/agora_logo.png"></img>
+    
+    <alert id="loginMessage" ng-model="loginMsg" type="loginMsg.type" style="visibility:hidden">{{loginMsg.msg}}</alert>
+    
+    <form data-ng-submit="login()">
+        <p>
+            <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
+
+            <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
+        </p>
+        <input type="submit" value="Sign In"/>
+    </form>
+    
+    <div id="feideLoginDiv">
+        <i-frame-dialog url="{{feideLoginUrl}}"></i-frame-dialog>
+    </div>
+    
+    <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
+
+</div>

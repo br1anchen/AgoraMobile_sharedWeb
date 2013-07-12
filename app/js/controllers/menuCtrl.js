@@ -1,7 +1,7 @@
 'use strict';
-app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupService','$rootScope','$cookies',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies){
+app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupService','$rootScope','$cookies','$state',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies,$state){
 
-	if($scope.validUser){
+	//if($scope.validUser){
      if(!StorageService.get('TopGroup')){
        GroupService.fetchGroups().then(function(rep){
          console.log(rep);
@@ -25,9 +25,9 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
                console.log('fail to update groups');
        });
      }
-  }else{
-          console.log('user has not logined yet');
-  }
+  //}else{
+          //console.log('user has not logined yet');
+  //}
 
 	 $scope.switchGroup = function(group){
       if(group != 'top'){
@@ -78,14 +78,12 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
       }, function(error) {
         console.log(error);
         navigator.notification.alert("Log Out Error Currently", function(){
-          $scope.setValidUser(true);
-          $location.path('/activityFeed');
+          $state.transitionTo('stage.activityFeed');
         }, "Sorry", "I understand");
       }, "cookieManager","deleteCookies",[]);
 
       //deleteAllCookies();  delete cookies by javascript which does not work in phonegap
-      $scope.setValidUser(false);
-      $location.path('/activityFeed');
+      $state.transitionTo('login');
    }
 
    function deleteAllCookies() {
