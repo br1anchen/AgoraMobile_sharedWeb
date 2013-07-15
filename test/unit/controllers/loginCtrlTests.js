@@ -2,12 +2,41 @@
 'use strict';
 
 describe('LoginController', function(){
-	var scope, mCtrl, ctrl, $httpBackend;
+
+    angular.module('stateMock',[]);
+    angular.module('stateMock').service("$state", function(){
+        this.expectedTransitions = [];
+        this.transitionTo = function(stateName){
+            if(this.expectedTransitions.length > 0){
+                var expectedState = this.expectedTransitions.shift();
+                if(expectedState !== stateName){
+                    throw Error("Expected transition to state: " + expectedState + " but transitioned to " + stateName );
+                }
+            }else{
+                throw Error("No more transitions were expected!");
+            }
+            console.log("Mock transition to: " + stateName);
+        }
+
+        this.expectTransitionTo = function(stateName){
+            this.expectedTransitions.push(stateName);
+        }
+
+
+        this.ensureAllTransitionsHappened = function(){
+            if(this.expectedTransitions.length > 0){
+                throw Error("Not all transitions happened!");
+            }
+        }
+    });
+
+	var scope, state, mCtrl, ctrl, $httpBackend;
 
 	beforeEach(module('app'));
     beforeEach(module('app.storageService'));
+    beforeEach(module('stateMock'));
 
-  	beforeEach(inject(function($injector,$rootScope,$controller){
+  	beforeEach(inject(function($injector,$rootScope,$controller,$state){
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
@@ -51,8 +80,10 @@ describe('LoginController', function(){
             ]
         });
 
-		scope = $rootScope.$new();
-        mCtrl = $controller('MainCtrl',{$scope: scope});
+		scope = $rootScope.$new().$new();
+        state = $state;
+
+        //mCtrl = $controller('MainCtrl',{$scope: scope});
       	ctrl = $controller('LoginCtrl', {$scope: scope});
 
 	}));
@@ -65,13 +96,16 @@ describe('LoginController', function(){
 
     scope.login();
 
+    state.expectTransitionTo("stage.activityFeed");
+
     $httpBackend.flush();
 
     //delete stored user info
     StorageService.remove('testUser');
     StorageService.remove('UserScreenName');
 
-    expect(scope.validUser).toBe(true);
+    
+    state.ensureAllTransitionsHappened();    
 
   }));
 
@@ -86,7 +120,11 @@ describe('LoginController', function(){
 
     scope.login();
 
+    state.expectTransitionTo("login");
+
     $httpBackend.flush();
-    expect(scope.validUser).toBe(false);
+
+    state.ensureAllTransitionsHappened();
+    
   }));
 });
