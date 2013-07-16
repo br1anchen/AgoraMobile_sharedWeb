@@ -4,7 +4,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 
 	function renderCategories (){
 		console.log('renderCategories');
-		
+
 		$scope.categories = [];
 
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
@@ -16,6 +16,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 				angular.forEach(storedCats,function(cId,k){
 					$scope.categories.push(StorageService.get('Category' + cId));
 				});
+				$('#noCategory').css("visibility", "hidden");
 			}else{
 				console.log('no stored categories');
 			}
@@ -23,6 +24,11 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 			MessageBoardService.fetchCategories($scope.currentGroup.id).then(function(rep){
 				console.log(rep);
 				$scope.categories = MessageBoardService.getCategories();
+				if(!$scope.categories){
+					$('#noCategory').css("visibility", "visible");
+				}else{
+					$('#noCategory').css("visibility", "hidden");
+				}
 			},function(error){
 				console.log(error);
 			});
@@ -46,11 +52,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 		},3000);
 	})
 
-	var appendcounter = 0;
-	$scope.$on('scrollableAppend',function(){
-
-		$timeout(function(){ //Inside $timeout to update childscope
-			$scope.messages.push("Appended message number "+ ++appendcounter);
-		})
-	})
+	$scope.showThreads = function (category) {
+		console.log(JSON.stringify(category));
+	}
 }])

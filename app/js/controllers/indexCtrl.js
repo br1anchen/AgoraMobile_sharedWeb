@@ -15,6 +15,9 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
             $scope.flashVar = undefined;
         }else{
             $scope.menuVar = undefined;
+            $timeout(function(){
+                $scope.flashVar ='flash';
+            },205)
         }
 	}
 
