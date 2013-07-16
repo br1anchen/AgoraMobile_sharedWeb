@@ -108,4 +108,20 @@ describe('MessageBoardService',function(){
 		expect(threads.length).toBe(13);
 	}));
 
+	it('Testing after fetched threads by category ID and store them',inject(function(MessageBoardService,StorageService){
+
+		var threadIds;
+
+		var promise = MessageBoardService.fetchCategories(10157);
+
+		promise.then(function(rep){
+			MessageBoardService.fetchThreads(10157,11931).then(function(rep){
+				threadIds = StorageService.get("Category11931_ThreadIDs");
+			});
+		});
+
+		$httpBackend.flush();
+		expect(threadIds.length).toBe(13);
+	}));
+
 });
