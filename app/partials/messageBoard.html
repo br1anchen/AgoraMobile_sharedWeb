@@ -1,6 +1,10 @@
 <div id="messageBoard">
-	<div data-ng-repeat="message in messages">
-		{{message}}
+	<div data-ng-repeat="category in categories">
+		<div id="MBcategory">
+			<h3>{{category.name}}</h3>
+			<p> Thread: {{category.threadCount}}</p>
+			<p> Message: {{category.messageCount}}</p>
+		</div>
 	</div>
 	
 </div>

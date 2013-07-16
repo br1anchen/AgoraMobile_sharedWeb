@@ -1,7 +1,42 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q',function($scope,$log,$timeout,$q){
-	$scope.messages = ["Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread","Message board thread"];
+app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoardService','StorageService','UtilityService',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService){
+
+	function renderCategories (){
+		console.log('renderCategories');
+		
+		$scope.categories = [];
+
+		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
+		
+		if(connect == 'No network connection'){
+			console.log('no internet');
+			var storedCats = StorageService.get('Group' + $scope.currentGroup.id + '_CategoryIDs');
+			if(storedCats){
+				angular.forEach(storedCats,function(cId,k){
+					$scope.categories.push(StorageService.get('Category' + cId));
+				});
+			}else{
+				console.log('no stored categories');
+			}
+		}else{
+			MessageBoardService.fetchCategories($scope.currentGroup.id).then(function(rep){
+				console.log(rep);
+				$scope.categories = MessageBoardService.getCategories();
+			},function(error){
+				console.log(error);
+			});
+		}
+
+	}
+
+	if($scope.currentGroup.id != 110){
+		renderCategories();
+	}
+
+	$scope.$on('renderCategories', function (){
+		renderCategories();
+	});
 
 	$scope.$on('scrollableUpdate',function(){
 		
