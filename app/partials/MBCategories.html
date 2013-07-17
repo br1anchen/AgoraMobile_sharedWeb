@@ -1,0 +1,5 @@
+<div data-ng-repeat="category in categories" id="MBcategory" data-ng-click="showTreads(category)">
+	<h3>{{category.name}}</h3>
+	<p> Thread: {{category.threadCount}}&nbsp;&nbsp;&nbsp;&nbsp;Message: {{category.messageCount}}</p>
+</div>
+<alert id="noCategory" style="visibility:hidden">No Categories in this group</alert>

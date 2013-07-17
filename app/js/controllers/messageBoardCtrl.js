@@ -1,11 +1,9 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoardService','StorageService','UtilityService',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService){
+app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoardService','StorageService','UtilityService','$state','$stateParams',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams){
 
 	function renderCategories (){
-		console.log('renderCategories');
-
-		$scope.categories = [];
+		console.log('render Categories');
 
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		
@@ -36,13 +34,42 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 
 	}
 
-	if($scope.currentGroup.id != 110){
+	function renderThreads (groupId,categoryId){
+		console.log('render Threads');
+		
+		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
+		
+		if(connect == 'No network connection'){
+			console.log('no internet');
+			
+		}else{
+			MessageBoardService.fetchThreads(groupId,categoryId).then(function(rep){
+				console.log(rep);
+				$scope.threads = MessageBoardService.getThreadsByCat(categoryId);
+
+				if(!$scope.threads){
+					$('#noThread').css("visibility", "visible");
+				}else{
+					$('#noThread').css("visibility", "hidden");
+				}
+			},function(error){
+				console.log(error);
+			});
+		}
+
+
+	}
+
+	if($scope.currentGroup.id != 110 && $state.is('stage.messageBoard.categories')){
+		$scope.categories = [];
 		renderCategories();
 	}
 
-	$scope.$on('renderCategories', function (){
-		renderCategories();
-	});
+	if($state.is('stage.messageBoard.threads')){
+		$scope.threads = [];
+		console.log($scope.currentGroup.id + ":" + $stateParams.categoryId);
+		renderThreads($scope.currentGroup.id,$stateParams.categoryId);
+	}
 
 	$scope.$on('scrollableUpdate',function(){
 		
@@ -52,7 +79,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 		},3000);
 	})
 
-	$scope.showThreads = function (category) {
-		console.log(JSON.stringify(category));
+	$scope.showTreads = function (category) {
+		$state.transitionTo('stage.messageBoard.threads',{categoryId:category.categoryId});
 	}
 }])

@@ -39,13 +39,13 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 		    companyId : json.companyId,
 		    groupId : json.groupId,
 		    lastPosterId : json.lastPostByUserId,
-		    lastPostDate : json.lastPostDate,
+		    lastPostDate : new Date(json.lastPostDate).toString(),
 		    messageCount : json.messageCount,
 		    rootMessageId : json.rootMessageId,
 		    rootMessageUserId : json.rootMessageUserId,
 		    statusByUserId : json.statusByUserId,
 		    statusByUserName : json.statusByUserName,
-		    statusDate : json.statusDate,
+		    statusDate : new Date(json.statusDate).toString(),
 		    threadId : json.threadId,
 		    viewCount : json.viewCount
 		}
@@ -82,7 +82,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 
     		StorageService.store('Thread' + thread.threadId,thread);
     	});
-    	
+
     	categories = jQuery.map(categories,function(c){
     		if(c.categoryId == categoryId){
     			c.threads = threads;
@@ -141,7 +141,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 		getThreadsByCat : function(categoryId){
 
 			var chosenCat = jQuery.grep(categoryHolder.categories,function(c){
-				return c.categoryId = categoryId;
+				return c.categoryId == categoryId;
 			});
 
 			return chosenCat[0].threads;

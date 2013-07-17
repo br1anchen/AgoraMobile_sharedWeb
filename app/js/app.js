@@ -18,8 +18,23 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			controller: 'IndexCtrl'
 		})
 		.state('stage.messageBoard',{
+			abstract: true,
 			url:'/messageBoard',
-			templateUrl: 'partials/messageBoard.html',
+			templateUrl: 'partials/messageBoard.html'
+		})
+		.state('stage.messageBoard.categories',{
+			url:'/categories',
+			templateUrl: 'partials/MBCategories.html',
+			controller: 'MessageBoardCtrl'
+		})
+		.state('stage.messageBoard.threads',{
+			url:'/categories/{categoryId}',
+			templateUrl: 'partials/MBThreads.html',
+			controller: 'MessageBoardCtrl'
+		})
+		.state('stage.messageBoard.messages',{
+			url:'/messages',
+			templateUrl: 'partials/MBMessages.html',
 			controller: 'MessageBoardCtrl'
 		})
 		.state('stage.documents',{
