@@ -1,9 +1,7 @@
 <div data-ng-repeat="message in messages" id="MBmessage">
 	<h3>{{message.subject}}</h3>
-	<p>{{message.modifiedDate}}<br /></p>
-	<p>
-		{{message.body}} 
-	</p>
-	<p>By {{message.userName}}</p>
+	<p id="date">{{message.modifiedDate}}</p>
+	<p id="poster">Message By <strong>{{message.userName}}</strong></p>
+	<div id="body" ng-bind-html-unsafe="message.body"></div>
 </div>
 <alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>

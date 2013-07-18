@@ -57,3 +57,38 @@
 	-webkit-box-shadow: 0px 2px 1px 2px #ffffff;
 	box-shadow: 0px 2px 1px 2px #ffffff;
 }
+
+#messageBoard #MBmessage{
+	padding: 5px 5px 0px 5px;
+	float: left;
+	margin-left: 5px;
+	margin-top: 5px;
+	padding-bottom: 5px;
+	width: 94%;
+	-moz-box-shadow: 0px 2px 1px 2px #ffffff;
+	-webkit-box-shadow: 0px 2px 1px 2px #ffffff;
+	box-shadow: 0px 2px 1px 2px #ffffff;
+}
+
+#MBmessage h3{
+	font-size: 1.3em;
+	margin: 0 auto;
+	padding: 0 auto;
+	color: #5b677d;
+}
+
+#MBmessage #date{
+	font-size: 1em;
+	font-weight: bold;
+	float: left;
+}
+
+#MBmessage #poster{
+	font-size: 1em,
+	float: left;
+}
+
+#MBmessage #body{
+	float: left;
+	text-align: left;
+}
