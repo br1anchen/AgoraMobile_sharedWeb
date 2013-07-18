@@ -24,6 +24,13 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 		messages : []
 	};
 
+    var categories = [];
+    var categoryIds = [];
+    var threads = [];
+    var threadIds = [];
+    var messages = [];
+    var messageIds = [];
+
     function JSON2Cat(json){//parse json to category obj
 	    return {
 	        categoryId : json.categoryId,
@@ -35,7 +42,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 			parentCategoryId : json.parentCategoryId,
 			threadCount : json.threadCount,
 			userId : json.userId,
-			userName : json.userName
+			userName : json.userName,
+			threadIds : []
 	    }
     }
 
@@ -54,7 +62,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 		    statusDate : moment(json.statusDate).format('DD/MM/YYYY, HH:mm:ss'),
 		    threadId : json.threadId,
 		    viewCount : json.viewCount,
-		    title : ''
+		    title : '',
+		    messageIds : []
 		}
     }
 
@@ -83,8 +92,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     }
 
     function storeCategoryList(cats,gId){
-    	var categories = [];// drop old data
-    	var categoryIds = [];
+    	categories = [];// drop old data
+    	categoryIds = [];
 
         angular.forEach(cats,function(c,k){
 
@@ -102,8 +111,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     }
 
     function storeThreads(ths,cId){
-    	var threads = [];
-    	var threadIds = [];
+    	threads = [];
+    	threadIds = [];
 
     	angular.forEach(ths,function(t,k){
     		var title = '';
@@ -122,21 +131,22 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     		});
     	});
 
-/*    	categories = jQuery.map(categories,function(c){
+    	categories = jQuery.map(categories,function(c){
     		if(c.categoryId == cId){
-    			c.threads = threads;
+    			c.threadIds = threadIds;
     		}
 
     		return c;
-    	});*/
+    	});
 
+    	categoryHolder.categories = categories;
     	threadHolder.threads = threads;
     	StorageService.store('Category' + cId + '_ThreadIDs',threadIds);
     }
 
     function storeMessages(msgs,cId,tId){
-    	var messages = [];
-    	var messageIds = [];
+    	messages = [];
+    	messageIds = [];
 
     	angular.forEach(msgs,function(m,k){
 
@@ -210,8 +220,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 			return deffered.promise;
 		},
 
-		getMessagesByThread : function(threadId){
-
+		getMessages : function(){
+			return messageHolder.messages.length > 0 ? messageHolder.messages : undefined;
 		}
 	}
 }])
