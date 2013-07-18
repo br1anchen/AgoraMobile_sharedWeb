@@ -1,5 +1,8 @@
 <div data-ng-repeat="thread in threads" id="MBthread">
 	<h3>{{thread.title}}</h3>
-	<p>Started by: {{thread.statusByUserName}} &nbsp;&nbsp; Latest Post: {{thread.lastPostDate}}</p>
+	<p>Latest Post: {{thread.lastPostDate}}<br /></p>
+	<p>
+		<strong>Posts: </strong>{{thread.messageCount}}&nbsp;<strong>Views: </strong>{{thread.viewCount}}&nbsp;<strong>Started by: </strong>{{thread.statusByUserName}} 
+	</p>
 </div>
 <alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
