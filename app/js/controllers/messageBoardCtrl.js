@@ -57,6 +57,30 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 			});
 		}
 
+	}
+
+	function renderMessages (groupId,categoryId,threadId){
+		console.log('render Messages');
+		
+		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
+		
+		if(connect == 'No network connection'){
+			console.log('no internet');
+			
+		}else{
+			MessageBoardService.fetchMessages(groupId,categoryId,threadId).then(function(rep){
+				console.log(rep);
+				$scope.messages = MessageBoardService.getMessages();
+
+				if(!$scope.threads){
+					$('#noMessage').css("visibility", "visible");
+				}else{
+					$('#noMessage').css("visibility", "hidden");
+				}
+			},function(error){
+				console.log(error);
+			});
+		}
 
 	}
 
@@ -70,6 +94,11 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 		renderThreads($scope.currentGroup.id,$stateParams.categoryId);
 	}
 
+	if($state.is('stage.messageBoard.messages')){
+		$scope.messages = [];
+		renderMessages($scope.currentGroup.id,$stateParams.categoryId,$stateParams.threadId);
+	}
+
 	$scope.$on('scrollableUpdate',function(){
 		
 		//Dummy code to make it seam like it'a updating
@@ -80,5 +109,9 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 
 	$scope.showTreads = function (category) {
 		$state.transitionTo('stage.messageBoard.threads',{categoryId:category.categoryId});
+	}
+
+	$scope.showMessages = function (thread) {
+		$state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
 	}
 }])

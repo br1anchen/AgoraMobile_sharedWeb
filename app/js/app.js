@@ -33,7 +33,7 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			controller: 'MessageBoardCtrl'
 		})
 		.state('stage.messageBoard.messages',{
-			url:'/messages',
+			url:'/categories/{categoryId}/threads/{threadId}',
 			templateUrl: 'partials/MBMessages.html',
 			controller: 'MessageBoardCtrl'
 		})

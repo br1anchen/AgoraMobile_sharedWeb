@@ -1,4 +1,4 @@
-<div data-ng-repeat="thread in threads" id="MBthread">
+<div data-ng-repeat="thread in threads" id="MBthread" data-ng-click="showMessages(thread)">
 	<h3>{{thread.title}}</h3>
 	<p>Latest Post: {{thread.lastPostDate}}<br /></p>
 	<p>
