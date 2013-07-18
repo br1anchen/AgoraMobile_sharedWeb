@@ -45,7 +45,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 		}else{
 			MessageBoardService.fetchThreads(groupId,categoryId).then(function(rep){
 				console.log(rep);
-				$scope.threads = MessageBoardService.getThreadsByCat(categoryId);
+				$scope.threads = MessageBoardService.getThreads();
 
 				if(!$scope.threads){
 					$('#noThread').css("visibility", "visible");

@@ -10,13 +10,19 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 	var CategoryApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbcategory/get-categories/group-id/";
 	var ThreadsApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbthread/get-threads/group-id/";
 	var RootMessageApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbmessage/get-message/message-id/";
+	var MessagesApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbmessage/get-thread-messages/group-id/";
 
 	var categoryHolder = {
-		categories :[]
+		categories : []
 	};
 
-	var categories = [];
-	var categoryIds = [];
+	var threadHolder = {
+		threads : []
+	};
+
+	var messageHolder = {
+		messages : []
+	};
 
     function JSON2Cat(json){//parse json to category obj
 	    return {
@@ -29,8 +35,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 			parentCategoryId : json.parentCategoryId,
 			threadCount : json.threadCount,
 			userId : json.userId,
-			userName : json.userName,
-			threads : []
+			userName : json.userName
 	    }
     }
 
@@ -53,9 +58,33 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 		}
     }
 
-    function storeCategoryList(cats,groupId){
-    	categories = [];// drop old data
-    	categoryIds = [];
+    function JSON2Msg(json){//parse json to message obj
+    	return {
+			anonymous : json.anonymous,
+			attachments : json.attachments,
+			body : json.body,
+			categoryId : json.categoryId,
+			companyId : json.companyId,
+			createDate : moment(json.createDate).format('DD/MM/YYYY, HH:mm:ss'),
+			format : json.format,
+			groupId : json.groupId,
+			messageId : json.messageId,
+			modifiedDate : moment(json.modifiedDate).format('DD/MM/YYYY, HH:mm:ss'),
+			parentMessageId : json.parentMessageId,
+			rootMessageId : json.rootMessageId,
+			statusByUserId: json.statusByUserId,
+			statusByUserName : json.statusByUserName,
+			statusDate : moment(json.statusDate).format('DD/MM/YYYY, HH:mm:ss'),
+			subject : json.subject,
+			threadId : json.threadId,
+			userId : json.userId,
+			userName : json.userName
+    	}
+    }
+
+    function storeCategoryList(cats,gId){
+    	var categories = [];// drop old data
+    	var categoryIds = [];
 
         angular.forEach(cats,function(c,k){
 
@@ -69,10 +98,10 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
         });
 
         categoryHolder.categories = categories;
-        StorageService.store('Group' + groupId + '_CategoryIDs',categoryIds);
+        StorageService.store('Group' + gId + '_CategoryIDs',categoryIds);
     }
 
-    function storeThreads(ths,categoryId){
+    function storeThreads(ths,cId){
     	var threads = [];
     	var threadIds = [];
 
@@ -80,29 +109,41 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     		var title = '';
 
     		var thread = JSON2Thread(t);
+    		threads.push(thread);
+    		threadIds.push(thread.threadId);
 
     		//not working in the unit test because http request backend
 			var promise = HttpService.request(RootMessageApiUrl + t.rootMessageId,'','GET');
 			promise.then(function(rep){
 				title = rep.data.subject;
     			thread.title = title;
-    			threads.push(thread);
-    			threadIds.push(thread.threadId);
 
     			StorageService.store('Thread' + thread.threadId,thread);
     		});
     	});
 
-    	categories = jQuery.map(categories,function(c){
-    		if(c.categoryId == categoryId){
+/*    	categories = jQuery.map(categories,function(c){
+    		if(c.categoryId == cId){
     			c.threads = threads;
     		}
 
     		return c;
+    	});*/
+
+    	threadHolder.threads = threads;
+    	StorageService.store('Category' + cId + '_ThreadIDs',threadIds);
+    }
+
+    function storeMessages(msgs,cId,tId){
+    	var messages = [];
+    	var messageIds = [];
+
+    	angular.forEach(msgs,function(m,k){
+
+    		var message = JSON2Msg(m);
+
+
     	});
-    	
-    	categoryHolder.categories = categories;
-    	StorageService.store('Category' + categoryId + '_ThreadIDs',threadIds);
     }
 
     //return value in Message Board Service
@@ -139,26 +180,34 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 
 				storeThreads(rep.data,categoryId);
 
-				deffered.resolve("threads fetched for category" + categoryId);
+				deffered.resolve("threads fetched for category " + categoryId);
 			},function(err){
-				deffered.reject("threads failed fetched for category" + categoryId);
+				deffered.reject("threads failed fetched for category " + categoryId);
 			});
 
 			return deffered.promise;
 
 		},
 
-		getThreadsByCat : function(categoryId){
-
-			var chosenCat = jQuery.grep(categoryHolder.categories,function(c){
-				return c.categoryId == categoryId;
-			});
-
-			return chosenCat[0].threads;
+		getThreads : function(){
+			return threadHolder.threads.length > 0 ? threadHolder.threads : undefined;
 		},
 
 		fetchMessages : function(groupId,categoryId,threadId){
+			var deffered = $q.defer();
 
+			var promise = HttpService.request(MessagesApiUrl + groupId + '/category-id/' + categoryId + '/thread-id/' + threadId + '/status/0/start/0/end/20','','GET');
+
+			promise.then(function(rep){
+
+				storeMessages(rep.data,categoryId,threadId);
+
+				deffered.resolve("messages fetched for thread " + threadId);
+			},function(err){
+				deffered.reject("messages failed fetched for thread " + threadId);
+			});
+
+			return deffered.promise;
 		},
 
 		getMessagesByThread : function(threadId){
