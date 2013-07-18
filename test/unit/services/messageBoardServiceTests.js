@@ -142,6 +142,9 @@ describe('MessageBoardService',function(){
 
 		$httpBackend.flush();
 		expect(threadIds.length).toBe(4);
+
+		var category = StorageService.get("Category19297");
+		expect(category.threadIds.length).toBe(4);
 	}));
 
 

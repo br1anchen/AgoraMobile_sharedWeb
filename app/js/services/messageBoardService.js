@@ -135,7 +135,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     		if(c.categoryId == cId){
     			c.threadIds = threadIds;
     		}
-
+    		StorageService.store('Category' + c.categoryId,c);
     		return c;
     	});
 
