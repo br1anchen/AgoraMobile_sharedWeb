@@ -81,6 +81,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 
     		var thread = JSON2Thread(t);
 
+    		//not working in the unit test because http request backend
 			var promise = HttpService.request(RootMessageApiUrl + t.rootMessageId,'','GET');
 			promise.then(function(rep){
 				title = rep.data.subject;
@@ -154,6 +155,14 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 			});
 
 			return chosenCat[0].threads;
+		},
+
+		fetchMessages : function(groupId,categoryId,threadId){
+
+		},
+
+		getMessagesByThread : function(threadId){
+
 		}
 	}
 }])

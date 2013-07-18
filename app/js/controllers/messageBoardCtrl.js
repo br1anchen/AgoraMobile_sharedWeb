@@ -67,7 +67,6 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 
 	if($state.is('stage.messageBoard.threads')){
 		$scope.threads = [];
-		console.log($scope.currentGroup.id + ":" + $stateParams.categoryId);
 		renderThreads($scope.currentGroup.id,$stateParams.categoryId);
 	}
 

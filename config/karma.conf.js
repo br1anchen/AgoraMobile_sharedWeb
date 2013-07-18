@@ -9,6 +9,7 @@ files = [
   'app/lib/angular-ui/*.js' ,
   'app/lib/underscore.js' ,
   'app/lib/jquery-1.10.1.js',
+  'app/lib/moment.min.js',
   'app/js/**/*.js',
   'test/unit/**/*.js'
 ];
