@@ -65,10 +65,20 @@ describe('MessageBoardService',function(){
 	        })
 			.respond(function(){
 				return[200,
-						JSON.stringify(rootMsgs[ct])
+						rootMsgs[ct].replace(/\n/g, "\\\\n")
 					]
 			});
 		}
+
+		$httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/20'
+        	,function(headers){
+        		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
+        })
+        .respond(function(){
+        	return [200,
+        			'[{"allowPingbacks":true,"anonymous":false,"answer":false,"attachments":false,"body":"[b]Hvordan kan jeg redigere profilen min i Agora (f.eks. bilde)?[/b]<br /><br />[indent][i]Agora henter all sin informasjon om brukere fra Feide. Med andre ord må du høre med lokal IT ved din institusjon dersom du ønsker å gjøre endringer på dette, inkl. bilde - som også hentes fra Feide.[/i][/indent]","categoryId":19297,"classNameId":0,"classPK":0,"companyId":10132,"createDate":1322661806172,"format":"bbcode","groupId":10157,"messageId":19299,"modifiedDate":1322661831953,"parentMessageId":0,"priority":0.0,"rootMessageId":19299,"status":0,"statusByUserId":10932,"statusByUserName":"Bernt Skjemstad","statusDate":1322661831969,"subject":"Redigere egen profil","threadId":19300,"userId":10932,"userName":"Bernt Skjemstad","uuid":"431d104a-050e-4004-80e3-0e09d3299d34"}]'
+        			]
+        }); 
 
 		StorageService = $injector.get('StorageService');
 
@@ -111,7 +121,6 @@ describe('MessageBoardService',function(){
 		expect(categoryIds.length).toBe(3);
 	}));
 
-	//not working with fetch thread title request function yet
 	it('Testing fetch threads by category ID',inject(function(MessageBoardService){
 
 		var threads;
@@ -147,6 +156,28 @@ describe('MessageBoardService',function(){
 		expect(category.threadIds.length).toBe(4);
 	}));
 
+	it('Testing fetch messages by threadId&categoryId&groupId',inject(function(MessageBoardService){
 
+		var messages;
+
+		var promise = MessageBoardService.fetchMessages(10157,19297,19300).then(function(rep){
+			messages = MessageBoardService.getMessages();
+		});
+		
+		$httpBackend.flush();
+		expect(messages.length).toBe(1);
+	}));
+
+	it('Testing fetch messages then store them',inject(function(MessageBoardService,StorageService){
+
+		var messageIds;
+
+		var promise = MessageBoardService.fetchMessages(10157,19297,19300).then(function(rep){
+			messageIds = StorageService.get("Thread19300_MessageIDs");
+		});
+		
+		$httpBackend.flush();
+		expect(messageIds.length).toBe(1);
+	}));
 
 });

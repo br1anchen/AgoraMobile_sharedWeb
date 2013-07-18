@@ -121,7 +121,6 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     		threads.push(thread);
     		threadIds.push(thread.threadId);
 
-    		//not working in the unit test because http request backend
 			var promise = HttpService.request(RootMessageApiUrl + t.rootMessageId,'','GET');
 			promise.then(function(rep){
 				title = rep.data.subject;
@@ -151,9 +150,23 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     	angular.forEach(msgs,function(m,k){
 
     		var message = JSON2Msg(m);
+    		messages.push(message);
+    		messageIds.push(message.messageId);
 
-
+    		StorageService.store('Message' + message.messageId,message);
     	});
+
+    	threads = jQuery.map(threads,function(t){
+    		if(t.threadId == tId){
+    			t.messageIds = messageIds;
+    		}
+    		StorageService.store('Thread' + t.threadId,t);
+    		return t;
+    	});
+
+    	threadHolder.threads = threads;
+    	messageHolder.messages = messages;
+    	StorageService.store('Thread' + tId + '_MessageIDs',messageIds);
     }
 
     //return value in Message Board Service
