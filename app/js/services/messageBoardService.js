@@ -9,6 +9,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 	//class entity in MessageBoardService
 	var CategoryApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbcategory/get-categories/group-id/";
 	var ThreadsApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbthread/get-threads/group-id/";
+	var RootMessageApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbmessage/get-message/message-id/";
 
 	var categoryHolder = {
 		categories :[]
@@ -47,7 +48,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 		    statusByUserName : json.statusByUserName,
 		    statusDate : new Date(json.statusDate).toString(),
 		    threadId : json.threadId,
-		    viewCount : json.viewCount
+		    viewCount : json.viewCount,
+		    title : ''
 		}
     }
 
@@ -57,12 +59,13 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
 
         angular.forEach(cats,function(c,k){
 
-        	var category = JSON2Cat(c);
+			var category = JSON2Cat(c);
 
-        	categoryIds.push(category.categoryId);
-        	categories.push(category);
+    		categoryIds.push(category.categoryId);
+    		categories.push(category);
 
-        	StorageService.store('Category' + category.categoryId,category);
+    		StorageService.store('Category' + category.categoryId,category);
+
         });
 
         categoryHolder.categories = categories;
@@ -74,13 +77,19 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService',functi
     	var threadIds = [];
 
     	angular.forEach(ths,function(t,k){
+    		var title = '';
 
     		var thread = JSON2Thread(t);
 
-    		threads.push(thread);
-    		threadIds.push(thread.threadId);
+			var promise = HttpService.request(RootMessageApiUrl + t.rootMessageId,'','GET');
+			promise.then(function(rep){
+				title = rep.data.subject;
+    			thread.title = title;
+    			threads.push(thread);
+    			threadIds.push(thread.threadId);
 
-    		StorageService.store('Thread' + thread.threadId,thread);
+    			StorageService.store('Thread' + thread.threadId,thread);
+    		});
     	});
 
     	categories = jQuery.map(categories,function(c){
