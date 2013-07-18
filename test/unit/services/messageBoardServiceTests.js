@@ -58,13 +58,14 @@ describe('MessageBoardService',function(){
 		});
 		
 		for(var index = 0; index < 4; index ++){
+			var ct = index;
 			$httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbmessage/get-message/message-id/'+rootMsgIds[index]
 	        	,function(headers){
 	        		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
 	        })
 			.respond(function(){
 				return[200,
-						rootMsgs[index]
+						JSON.stringify(rootMsgs[ct])
 					]
 			});
 		}
@@ -111,7 +112,7 @@ describe('MessageBoardService',function(){
 	}));
 
 	//not working with fetch thread title request function yet
-/*	it('Testing fetch threads by category ID',inject(function(MessageBoardService){
+	it('Testing fetch threads by category ID',inject(function(MessageBoardService){
 
 		var threads;
 
@@ -119,7 +120,7 @@ describe('MessageBoardService',function(){
 
 		promise.then(function(rep){
 			MessageBoardService.fetchThreads(10157,19297).then(function(rep){
-				threads = MessageBoardService.getThreadsByCat(19297);
+				threads = MessageBoardService.getThreads();
 			});
 		});
 
@@ -141,7 +142,7 @@ describe('MessageBoardService',function(){
 
 		$httpBackend.flush();
 		expect(threadIds.length).toBe(4);
-	}));*/
+	}));
 
 
 
