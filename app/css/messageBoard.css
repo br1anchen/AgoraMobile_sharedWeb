@@ -2,6 +2,16 @@
 	
 }
 
+#messageBoard #backBtn{
+	z-index: 2;
+	position: absolute;
+	float: left;
+	top: 0;
+	padding: 0.7em;
+	font-size: 1.5em;
+	width: 20%;
+}
+
 #messageBoard #MBcategory{
 	padding: 5px 5px 0px 5px;
 	float: left;

@@ -114,4 +114,14 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 	$scope.showMessages = function (thread) {
 		$state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
 	}
+
+	$scope.backToCategory = function (){
+		console.log('back to message board home');
+		$state.transitionTo('stage.messageBoard.categories');
+	}
+
+	$scope.backToThread = function (){
+		console.log('back to Treads');
+		$state.transitionTo('stage.messageBoard.threads',{categoryId:$scope.messages[0].categoryId})
+	}
 }])
