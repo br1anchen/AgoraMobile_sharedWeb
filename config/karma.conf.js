@@ -11,6 +11,7 @@ files = [
   'app/lib/jquery-1.10.1.js',
   'app/lib/moment.min.js',
   'app/js/**/*.js',
+  'test/mock-data/*.js',
   'test/unit/**/*.js'
 ];
 
