@@ -36,7 +36,8 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 			title: json.title,
 			userId: json.userId,
 			userName: json.userName,
-			version: json.version
+			version: json.version,
+			childrenPages: []
 		}
 	}
 
