@@ -9,17 +9,19 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 	//class entity in Wiki Page Service
 	var NodeApiUrl = "https://agora.uninett.no/api/secure/jsonws/wikinode/get-node/group-id/";
 	var PagesApiUrl = "https://agora.uninett.no/api/secure/jsonws/wikipage/get-node-pages/node-id/";
+	var PageApiUrl = "https://agora.uninett.no/api/secure/jsonws/wikipage/get-page/node-id/";
 
 	var nodeHolder = {
 		mainNode : {}
 	};
 
 	var pagesHolder = {
-		pages : [],
+		pages : []
 	};
 
-	var mainNode = {};
-	var pages = [];
+	var pageHolder = {
+		page : {}
+	};
 
 	function JSON2Page(json){
 		return {
@@ -56,7 +58,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 
 	}
 
-	function factoryPages2Store(data,nodeId){
+	function factoryPages2Store(data){
 		pagesHolder.pages = [];
 
 		angular.forEach(data,function(p,k){
@@ -89,6 +91,17 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 
 	}
 
+	function updatePage(data){
+		var page = JSON2Page(data);
+		var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
+
+		if(page.version > storedPage.version){
+			StorageService.store('Group' + page.groupId + '_WikiPageTitle:' + page.title, page);
+		}
+
+		pageHolder.page = page;
+
+	}
     //return value in Wiki Page Service
 	return {
 		fetchMainNode : function (groupId) {
@@ -120,7 +133,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 
 			promise.then(function(rep){
 
-	          factoryPages2Store(rep.data,nodeId);
+	          factoryPages2Store(rep.data);
 	          
 	          deffered.resolve("wiki pages fetched for node " + nodeId);
 
@@ -133,8 +146,29 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 
 		getWikiPages : function() {
 			return pagesHolder.pages.length > 0 ? pagesHolder.pages : undefined;
+		},
+
+		fetchWikiPage : function(title,nodeId) {
+			var deffered = $q.defer();
+
+			var promise = HttpService.request(PageApiUrl + nodeId + '/title/' + title,'','GET');
+
+			promise.then(function(rep){
+
+	          updatePage(rep.data);
+	          
+	          deffered.resolve("wiki page fetched for title " + title);
+
+	        },function(err){
+	          deffered.reject("wiki page failed to get");
+	        });
+
+			return deffered.promise;
+		},
+
+		getWikipage : function() {
+			return pageHolder.page;
 		}
-		
 	}
 
 }])
