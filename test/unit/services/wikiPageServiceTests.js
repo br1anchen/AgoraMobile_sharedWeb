@@ -79,7 +79,25 @@ describe('WikiPageService',function(){
 		});
 
 		$httpBackend.flush();
-		expect(pages.length).toBe(21);
+		expect(pages.length).toBe(17);
+	}));
+
+	it('Testing after refactory pages and store them',inject(function(WikiPageService,StorageService){
+		var page;
+
+		var promise = WikiPageService.fetchMainNode(10157);
+
+		promise.then(function(rep){
+			WikiPageService.fetchWikiPages(10758).then(function(rep){
+				page = StorageService.get("Group10157_WikiPageTitle:Tavle - Start");
+			});
+		});
+
+		$httpBackend.flush();
+		expect(page.childrenPagesTitle.length).toBe(4);
+
+		page = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
+		expect(page.childrenPagesTitle.length).toBe(3);
 	}));
 
 });

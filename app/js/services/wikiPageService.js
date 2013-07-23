@@ -15,7 +15,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 	};
 
 	var pagesHolder = {
-		pages : []
+		pages : [],
 	};
 
 	var mainNode = {};
@@ -37,12 +37,12 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 			userId: json.userId,
 			userName: json.userName,
 			version: json.version,
-			childrenPages: []
+			childrenPagesTitle: []
 		}
 	}
 
 	function storeMainNode(data,gId){
-		mainNode = {
+		nodeHolder.mainNode = {
 			companyId: data.companyId,
 			createDate: moment(data.createDate).format('DD/MM/YYYY, HH:mm:ss'),
 			groupId: data.groupId,
@@ -52,23 +52,41 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 			userName: data.userName
 		};
 
-		nodeHolder.mainNode = mainNode;
-		StorageService.store('Group' + gId + '_WikiNode' + data.nodeId,mainNode);
+		StorageService.store('Group' + gId + '_WikiNode' + data.nodeId,nodeHolder.mainNode);
 
 	}
 
 	function factoryPages2Store(data,nodeId){
-		pages = [];
+		pagesHolder.pages = [];
 
 		angular.forEach(data,function(p,k){
+			if(p.redirectTitle == ""){
+			
+				var page = JSON2Page(p);
 
-			var page = JSON2Page(p);
-
-			pages.push(page);
+				pagesHolder.pages.push(page);
+			}
 
         });
 
-        pagesHolder.pages = pages;
+        angular.forEach(pagesHolder.pages,function(p,k){
+        	var pTitle = p.parentTitle;
+        	var sTitle = p.title;
+
+        	if(pTitle != ""){
+        		pagesHolder.pages = jQuery.map(pagesHolder.pages,function(pp){
+		    		if(pp.title == pTitle){
+		    			pp.childrenPagesTitle.push(sTitle);
+		    		}
+		    		return pp;
+		    	});
+        	}
+        });
+
+        angular.forEach(pagesHolder.pages,function(p,k){
+        	StorageService.store('Group' + p.groupId + '_WikiPageTitle:' + p.title,p);
+        });
+
 	}
 
     //return value in Wiki Page Service
@@ -116,6 +134,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 		getWikiPages : function() {
 			return pagesHolder.pages.length > 0 ? pagesHolder.pages : undefined;
 		}
+		
 	}
 
 }])
