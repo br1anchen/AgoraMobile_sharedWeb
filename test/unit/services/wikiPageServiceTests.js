@@ -154,4 +154,21 @@ describe('WikiPageService',function(){
 		expect(page.version).toBe(1.1);
 	}));
 
+	it('Testing generate wiki tree',inject(function(WikiPageService){
+		var tree;
+
+		var promise = WikiPageService.fetchMainNode(10157);
+
+		promise.then(function(rep){
+			WikiPageService.fetchWikiPages(10758).then(function(rep){
+				tree = WikiPageService.getWikiTree();
+			});
+		});
+
+		$httpBackend.flush();
+		expect(tree.length).toBe(1);
+		expect(tree[0].childrenNodes.length).toBe(4);
+		expect(tree[0].title).toBe("Tavle - Start");
+	}));
+
 });

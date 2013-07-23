@@ -19,8 +19,12 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 		pages : []
 	};
 
-	var pageHolder = {
+	var wikiPageHolder = {
 		page : {}
+	};
+
+	var wikiTreeHolder = {
+		contentTree : []
 	};
 
 	function JSON2Page(json){
@@ -40,6 +44,13 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 			userName: json.userName,
 			version: json.version,
 			childrenPagesTitle: []
+		}
+	}
+
+	function Page2Node(page){
+		return{
+			title: page.title,
+			childrenNodes : page.childrenPagesTitle
 		}
 	}
 
@@ -99,9 +110,47 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 			StorageService.store('Group' + page.groupId + '_WikiPageTitle:' + page.title, page);
 		}
 
-		pageHolder.page = page;
+		wikiPageHolder.page = page;
 
 	}
+
+	function failF(){
+
+		if(page.childrenPagesTitle == undefined){
+			return;
+		}
+
+		var nodes = [];
+		angular.forEach(page.childrenPagesTitle,function(t,k){
+			var temp = jQuery.grep(pagesHolder.page, function (p,k){ return p.parentTitle == t});
+			nodes.push(Page2Node(temp));
+		})
+		Page2Node(page).childrenNodes = recursiveNode(page);
+		return nodes;
+	}
+
+	function generateWikiTree() {
+		var recursiveNode = function(parentTitle) {
+	  
+	  		var nodes = [];
+
+	  		angular.forEach(pagesHolder.pages,function(p,k){
+	  			if(p.parentTitle === parentTitle){
+	  				var node = {
+	  					title: p.title,
+	  					childrenNodes : recursiveNode(p.title)
+	  				}
+
+	  				nodes.push(node);
+	  			}
+	  		});
+
+	  		return nodes;
+	 	}
+		
+		return recursiveNode("");
+	}
+
     //return value in Wiki Page Service
 	return {
 		fetchMainNode : function (groupId) {
@@ -167,7 +216,12 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 		},
 
 		getWikipage : function() {
-			return pageHolder.page;
+			return wikiPageHolder.page;
+		},
+
+		getWikiTree : function() {
+			wikiTreeHolder.contentTree = generateWikiTree();
+			return wikiTreeHolder.contentTree;
 		}
 	}
 
