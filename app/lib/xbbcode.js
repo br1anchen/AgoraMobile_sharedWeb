@@ -197,7 +197,7 @@ var XBBCODE = (function() {
         },
         "quote": {
             openTag: function(params,content) {
-                return '<blockquote><p>';
+                return '<blockquote id="xbbcode-q"><p>';
             },
             closeTag: function(params,content) {
                 return '</p></blockquote>';
@@ -339,7 +339,7 @@ var XBBCODE = (function() {
 
         "left": {
             openTag: function(params,content) {
-                return '<p align="left" >';
+                return '<br/><p align="left" >';
             },
             closeTag: function(params,content) {
                 return '</p>';
