@@ -1,10 +1,10 @@
 <script type="text/ng-template"  id="nestList">
-    {{node.title}}
-    <ul>
-        <li ng-repeat="node in node.childrenNodes" ng-include="'nestList'"></li>
-    </ul>
+    <summary class = "leafSummary">
+		<i class="icon-folder-close-alt" ng-show="node.childrenNodes.length > 0"></i><i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>&nbsp;&nbsp;&nbsp;{{node.title}}
+    </summary>
+    <details class = "leaf" ng-repeat="node in node.childrenNodes" ng-include="'nestList'"></details>
 </script>
 
-<ul>
-    <li ng-repeat="node in listTree" ng-include="'nestList'"></li>
-</ul>
+<div id="contentList">
+	<details class="root" ng-repeat="node in listTree" ng-include="'nestList'"></details>
+</div>
