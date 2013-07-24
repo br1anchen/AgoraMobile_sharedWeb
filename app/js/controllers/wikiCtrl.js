@@ -30,4 +30,8 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 		renderContentList();
 	}
 
+	$scope.showWiki = function (title){
+		console.log(title);
+	}
+
 }])
