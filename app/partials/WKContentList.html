@@ -1,0 +1,10 @@
+<script type="text/ng-template"  id="nestList">
+    {{node.title}}
+    <ul>
+        <li ng-repeat="node in node.childrenNodes" ng-include="'nestList'"></li>
+    </ul>
+</script>
+
+<ul>
+    <li ng-repeat="node in listTree" ng-include="'nestList'"></li>
+</ul>

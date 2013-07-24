@@ -130,6 +130,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 	}
 
 	function generateWikiTree() {
+		
 		var recursiveNode = function(parentTitle) {
 	  
 	  		var nodes = [];
