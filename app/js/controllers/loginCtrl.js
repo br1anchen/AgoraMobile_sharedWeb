@@ -20,8 +20,6 @@ app.controller('LoginCtrl',['$scope','$log','LoginService','$state',function($sc
 					LoginService.getUserInfo($scope.username,rep.data.companyId).then(function(rep){
 						console.log("store user");
 
-						LoginService.requestStorage();
-
 						$scope.loginMsg.type = 'success';
 						$scope.loginMsg.msg = 'Login success!';
 						$("#loginMessage").css("visibility", "visible");

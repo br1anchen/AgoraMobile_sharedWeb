@@ -1,8 +1,17 @@
-<div id="backBtn" data-ng-click="backToThread()"><i class="icon-chevron-left"></i>Back</div>
-<div data-ng-repeat="message in messages" id="MBmessage">
-	<h3>{{message.subject}}</h3>
-	<p id="date">{{message.modifiedDate}}</p>
-	<p id="poster">Message By <strong>{{message.userName}}</strong></p>
-	<div id="body" ng-bind-html-unsafe="message.body"></div>
+<div id="fixedContentHeader" data-ng-show="showConentHeader">
+	<span id="backBtn" data-ng-click="backToThread()"><i class="icon-chevron-left"></i>Back</span>
+    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+        <i class="icon-home home"></i>
+        <span>{{currentGroup.name}}</span>
+    </span>
 </div>
-<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
+
+<div id="messages" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+	<div data-ng-repeat="message in messages" id="MBmessage">
+		<h3>{{message.subject}}</h3>
+		<p id="date">{{message.modifiedDate}}</p>
+		<p id="poster">Message By <strong>{{message.userName}}</strong></p>
+		<div id="body" ng-bind-html-unsafe="message.body"></div>
+	</div>
+	<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
+</div>

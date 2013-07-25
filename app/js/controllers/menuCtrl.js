@@ -2,20 +2,22 @@
 app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupService','$rootScope','$cookies','$state',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies,$state){
 
    if(!StorageService.get('TopGroup')){
-     GroupService.fetchGroups().then(function(rep){
+     GroupService.fetchGroups().then(
+      function(rep){
        console.log(rep);
        $scope.groups = GroupService.getGroups();
-       $scope.user = StorageService.get(StorageService.get('UserScreenName'));
+       $scope.user = StorageService.get('User');
        cacheImage($scope.user.portraitImgUrl);
        $scope.goToGroup(StorageService.get('TopGroup'));
      },function(err){
        console.log('fail to fetch groups');
      });
-   }else{
+   }
+   else{
      GroupService.updateGroups().then(function(rep){
         console.log(rep);
         $scope.groups = GroupService.getGroups();
-        $scope.user = StorageService.get(StorageService.get('UserScreenName'));
+        $scope.user = StorageService.get('User');
         $scope.user.portraitImgUrl = StorageService.get('UserPortraitImage');
         $scope.goToGroup(StorageService.get('TopGroup'));
      },function(err){
@@ -34,7 +36,7 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
       $scope.toggleMenu();
 	 }
 
-   function cacheImage(url){
+   function g(url){
         var img = new Image();
         img.src = $scope.user.portraitImgUrl;
 
@@ -59,9 +61,8 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
       console.log("log out");
       
       StorageService.remove('TopGroup');
-      StorageService.remove($scope.user.screenName);
+      StorageService.remove('User');
       StorageService.remove('UserPortraitImage');
-      StorageService.remove('UserScreenName');
       StorageService.remove('GroupIDs');
 
       cordova.exec(function(rep){
@@ -77,26 +78,26 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
       $state.transitionTo('login');
    }
 
-   function deleteAllCookies() {
-      console.log('delete all cookies');
-      var cookies = document.cookie.split(";");
-      console.log(cookies);
-      console.log('cookies: ' + cookies.length);
+   // function deleteAllCookies() {
+   //    console.log('delete all cookies');
+   //    var cookies = document.cookie.split(";");
+   //    console.log(cookies);
+   //    console.log('cookies: ' + cookies.length);
 
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      }
-    }
+   //    for (var i = 0; i < cookies.length; i++) {
+   //      var cookie = cookies[i];
+   //      var eqPos = cookie.indexOf("=");
+   //      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+   //      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+   //    }
+   //  }
 
-    function deleteCookie ( name, path, domain ) {
-        console.log('delete cookie');
-        document.cookie = name + "=" +
-        ( ( path ) ? ";path=" + path : "") +
-        ( ( domain ) ? ";domain=" + domain : "" ) +
-        ";expires="+(new Date()).toGMTString();
-    }
+   //  function deleteCookie ( name, path, domain ) {
+   //      console.log('delete cookie');
+   //      document.cookie = name + "=" +
+   //      ( ( path ) ? ";path=" + path : "") +
+   //      ( ( domain ) ? ";domain=" + domain : "" ) +
+   //      ";expires="+(new Date()).toGMTString();
+   //  }
 
 }])

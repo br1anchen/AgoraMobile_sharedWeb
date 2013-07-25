@@ -1,5 +1,7 @@
-#activityFeed {
 
+/*To make space for the content header*/
+#activityFeed .scrollableContent{
+	margin-top:4em;
 }
 
 #activityBlock{

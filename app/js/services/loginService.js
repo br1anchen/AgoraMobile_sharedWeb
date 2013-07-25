@@ -4,7 +4,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 .factory('LoginService', ['$http','$log','$q','HttpService','UtilityService','StorageService',function ($http,$log,$q,HttpService,UtilityService,StorageService) {
 
 	//class entity in LoginService
-  	var serviceUser = {
+  	var user = {
       screenName : "",
       userId : "",
       auth : "",
@@ -22,29 +22,34 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
   		//login function
   		login : function(screenName,password){
-        serviceUser.screenName = screenName;
+        user.screenName = screenName;
         var authToken = "Basic " + UtilityService.base64.encode(screenName + ":" + password);
-        serviceUser.auth = authToken;
-        return HttpService.request(serviceLoginUrl,serviceUser.auth,'GET');
+        user.auth = authToken;
+        return HttpService.request(serviceLoginUrl,user.auth,'GET');
   		},
 
       getUserInfo : function(screenName,companyId){
         var deffered = $q.defer();
 
         var userInfoUrl = 'https://agora.uninett.no/api/secure/jsonws/user/get-user-by-screen-name/company-id/'+ companyId + '/screen-name/' + screenName;
-        var promise = HttpService.request(userInfoUrl,serviceUser.auth,"GET");
+        var promise = HttpService.request(userInfoUrl,user.auth,"GET");
         promise.then(function(rep){
           console.log(JSON.stringify(rep));
           if(!rep.data.exception){
-            serviceUser.screenName = rep.data.screenName;
-            serviceUser.userId = rep.data.userId;
-            serviceUser.fullName = rep.data.middleName == "" ? rep.data.firstName + " " + rep.data.lastName : rep.data.firstName + " " + rep.data.middleName + " " + rep.data.lastName;
-            serviceUser.portraitId = rep.data.portraitId;
-            serviceUser.portraitImgUrl = "https://agora.uninett.no/image/user_male_portrait?img_id=" + rep.data.portraitId;
-            serviceUser.emailAddress = rep.data.emailAddress;
-            serviceUser.companyId = rep.data.companyId;
+            user.screenName = rep.data.screenName;
+            user.id = rep.data.userId;
+            user.fullName = rep.data.middleName == "" ? rep.data.firstName + " " + rep.data.lastName : rep.data.firstName + " " + rep.data.middleName + " " + rep.data.lastName;
+            user.portraitId = rep.data.portraitId;
+            user.portraitImgUrl = "https://agora.uninett.no/image/user_male_portrait?img_id=" + rep.data.portraitId;
+            user.emailAddress = rep.data.emailAddress;
+            user.companyId = rep.data.companyId;
 
             deffered.resolve("user data fetched");
+
+            console.log("screenName :" + user.screenName);
+            //store user screen name
+            StorageService.store('User',user);
+
           }else{
             deffered.reject("failed to get user info");
           }
@@ -53,16 +58,6 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         });
 
         return deffered.promise;
-      },
-
-      //request Storage Service to store user info
-      requestStorage : function(){
-        console.log("screenName :" + serviceUser.screenName);
-        //store user screen name
-        StorageService.store('UserScreenName',serviceUser.screenName);
-
-        //store user obj with screen name as index key
-        return StorageService.store(serviceUser.screenName,serviceUser);
       },
 
       getFeideLoginUrl : function(){

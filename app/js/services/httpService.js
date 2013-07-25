@@ -17,8 +17,8 @@ angular.module('app.httpService',['app.storageService'])
 
         if(!customizedAuthorization)
         {
-          if(StorageService.get('UserScreenName')){
-            authorization = StorageService.get(StorageService.get('UserScreenName')).auth;
+          if(StorageService.get('User')){
+            authorization = StorageService.get('User').auth;
           }
         }else{
           authorization = customizedAuthorization;

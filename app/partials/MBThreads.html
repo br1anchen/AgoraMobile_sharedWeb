@@ -1,9 +1,17 @@
-<div id="backBtn" data-ng-click="backToCategory()"><i class="icon-chevron-left"></i>Back</div>
-<div data-ng-repeat="thread in threads" id="MBthread" data-ng-click="showMessages(thread)">
-	<h3>{{thread.title}}</h3>
-	<p>Latest Post: {{thread.lastPostDate}}<br /></p>
-	<p>
-		<strong>Posts: </strong>{{thread.messageCount}}&nbsp;<strong>Views: </strong>{{thread.viewCount}}&nbsp;<strong>Started by: </strong>{{thread.statusByUserName}} 
-	</p>
+<div id="fixedContentHeader" data-ng-show="showConentHeader">
+	<span id="backBtn" data-ng-click="backToCategory()" ><i class="icon-chevron-left"></i>Back</span>
+    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+        <i class="icon-home home"></i>
+        <span>{{currentGroup.name}}</span>
+    </span>
 </div>
-<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
+<div id="threads" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+	<div data-ng-repeat="thread in threads" id="MBthread" data-ng-click="showMessages(thread)">
+		<h3>{{thread.title}}</h3>
+		<p>Latest Post: {{thread.lastPostDate}}<br /></p>
+		<p>
+			<strong>Posts: </strong>{{thread.messageCount}}&nbsp;<strong>Views: </strong>{{thread.viewCount}}&nbsp;<strong>Started by: </strong>{{thread.statusByUserName}} 
+		</p>
+	</div>
+	<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
+</div>
