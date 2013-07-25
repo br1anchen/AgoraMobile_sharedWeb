@@ -4,95 +4,140 @@
 
 angular.module('app.activityService',['app.storageService','app.httpService']).
 
-factory('ActivityService',['$log','$q','StorageService','HttpService',function ($log,$q,StorageService,HttpService){
+factory('ActivityService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in ActivityService
-	var apiUrl = "https://agora.uninett.no/api/secure/jsonws/activity/get-group-activitylogs/groupId/";
+	var apiUser = "agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
+	var apiGroup ="agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
 
-	var activityLogsHolder = {//only store first ten activity logs
-		activities :[]
+	var activitiesHolder = {
+		activities :[],
+		groupId: undefined
 	};
 
-	var activities = [];
-	var latestLogTime;//check latest log time when get more
+	// var latestLogTime;//check latest log time when get more || Not used
 
-    function JSON2ActLog(json){//parse json to group obj
-      return {
-        body : json.body,
-        groupId : json.groupId,
-        className : json.className,
-        classPK : json.classPK,
-        timestamp : json.timestamp,
-        involved : json.involved,
-        posterImg : json.posterImgUrl,
-        file : json.documentUrl,
-        fileName : json.documentTitle
+    function JSON2Act(json){//parse json to group obj 
+      activity = {
+      	date:json.data,
+      	pic:json.pict,
+      	user:json.user
+      }
+      if(json.WikiPage_nodeid){
+      	activity.type = "wiki";
+      	activity.node = json.WikiPage_nodeid;
+      	activity.title = json.WikiPage_title;
+      }
+      else if(json.MBMessage_messageId){
+      	activity.type = "message";
+      }
+      else if(json.DLFileEntry_filelink){
+      	activity.type = "file";
+      	activity.URL = json.DLFileEntry_filelink;
+      	activity.folderURL = json.DLFileEntry_folderlink;
       }
     }
+    function stripHTML(str){
+		return str.replace(/<.*?>/g,"");
+	}
 
-    function storeActivityLogs(data){
-    	activities = [];// drop old data
-
-    	var logIndex = 0;
-
-        angular.forEach(data,function(a,k){
-        	
-        	logIndex ++;
-
-        	var actLog = JSON2ActLog(a);
-
-        	if(logIndex <= 10){//only store first 10 logs
-        		StorageService.store("Group" + actLog.groupId + "_ActLog" + logIndex,actLog);
-        	}
-
-        	activities.push(actLog);
-        });
-
-        activityLogsHolder.activities = activities;
+    function storeActivities(groupId,data){
+    	activitiesHolder.activities = [];// drop old data 
+		StorageService.store("Group" + groupId + "_Activities",data);
     }
+
+    function fetchActivities(groupId,number){
+		var deffered = $q.defer();
+
+		var user = StorageService.get('User');
+    	if(!user || !user.id){
+    		deffered.reject('ActivitySerice.fetchActivities(): no uid');
+    		$log.error('ActivitySerice.fetchActivities(): no uid');
+    	}
+    	else{
+    		var number = number ? number : 10;
+
+			var promise = HttpService.request(AppService.getAPIURL() + apiGroup + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
+
+			promise.then(function(rep){
+
+				storeActivities(groupId,JSON2Act(rep.data));
+	          
+				deffered.resolve(activitiesHolder);
+
+	        },function(err){
+	          deffered.reject(activitiesHolder);
+	        });
+    	}
+
+		return deffered.promise;
+	}
+	function fetchTopActivities(number){
+		var deffered = $q.defer();
+
+		var user = StorageService.get('User');
+    	if(!user || !user.id){
+    		deffered.reject('ActivitySerice.fetchActivities(): no uid');
+    		$log.error('ActivitySerice.fetchActivities(): no uid');
+    	}
+    	else{
+    		var number = number ? number : 10;
+
+			var promise = HttpService.request(AppService.getAPIURL() + apiUser + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
+
+			promise.then(function(rep){
+
+				storeActivities(groupId,JSON2Act(rep.data));
+	          
+				deffered.resolve(activitiesHolder);
+
+	        },function(err){
+	          deffered.reject(activitiesHolder);
+	        });
+    	}
+
+		return deffered.promise;
+	}
 
     //return value in Activity Service
 	return {
+		getMoreActivities : function(group){
+			//If the given group is the top group
+			if(group.type == 1){
+				fetchTopActivities(activitiesHolder.activities.length + 10);
+			}
 
-		fetchActivityLogs : function(groupId){
-			var deffered = $q.defer();
-
-			var promise = HttpService.request(apiUrl + groupId + '/number/10','','GET');
-
-			promise.then(function(rep){
-
-	          storeActivityLogs(rep.data);
-	          
-	          deffered.resolve("activity logs fetched");
-
-	        },function(err){
-	          deffered.reject("activity logs failed to get");
-	        });
-
-			return deffered.promise;
+			return fetchActivities(group.id,activitiesHolder.activities.length+10);
 		},
+		updateActivities : function(group){
+			//If the given group is the top group
+			if(group.type == 1){
+				fetchTopActivities(activitiesHolder.activities.length);
+			}
 
-		fetchMoreLogs : function(groupId){
-			var deffered = $q.defer();
-
-			var logNumber = activities.length + 10;
-			var promise = HttpService.request(apiUrl + groupId + '/number/' +logNumber,'','GET');
-
-			promise.then(function(rep){
-
-	          storeActivityLogs(rep.data);
-	          
-	          deffered.resolve("10 more activity logs fetched");
-
-	        },function(err){
-	          deffered.reject("10 more activity logs failed to get");
-	        });
-
-			return deffered.promise;
+			return fetchActivities(group.id,activitiesHolder.activities.length);
 		},
-
-		getActivityLogs : function(){
-			return activityLogsHolder.activities.length > 0 ? activityLogsHolder.activities : undefined;
+		getActivities : function(group){
+			//Checking runtime memory for activities for this group
+			if( group.id == activitiesHolder.id && activitiesHolder.activities.length > 0){
+				var deffered = $q.defer();
+				deffered.resolve(activitiesHolder);
+				return deffered.promise;
+			}
+			//Fetching activities for this group if present in webstorage
+			else{
+				var activities = StorageService.get("Group"+group.id+"_Activities");
+				//Returning the stored activities if present
+				if(activities && activities.length > 0){
+					var deffered = $q.defer();
+					deffered.resolve({activities:activities});	
+					return deffered.promise;
+					
+				}
+				//Fetching activities for this group from server
+				return fetchActivities(group.id);
+			}
+			deffered.promise;
 		}
 	}
 }])

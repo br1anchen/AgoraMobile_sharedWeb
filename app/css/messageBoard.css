@@ -1,13 +1,11 @@
-#messageBoard{
-	
+/*To make space for the content header*/
+#messageBoard .scrollableContent{
+	margin-top:4em;
 }
 
 #messageBoard #backBtn{
 	z-index: 2;
 	position: absolute;
-	float: left;
-	top: 0;
-	padding: 0.7em;
 	font-size: 1.5em;
 	width: 20%;
 }

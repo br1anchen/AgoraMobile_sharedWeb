@@ -1,5 +1,13 @@
-<div data-ng-repeat="category in categories" id="MBcategory" data-ng-click="showTreads(category)">
-	<h3>{{category.name}}</h3>
-	<p> <strong>Thread: </strong>{{category.threadCount}}&nbsp;&nbsp;&nbsp;&nbsp;<strong>Message: </strong>{{category.messageCount}}</p>
+<div id="fixedContentHeader" data-ng-show="showConentHeader">
+    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+        <i class="icon-home home"></i>
+        <span>{{currentGroup.name}}</span>
+    </span>
+</div>
+<div id="categories" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+	<div data-ng-repeat="category in categories" id="MBcategory" data-ng-click="showTreads(category)">
+		<h3>{{category.name}}</h3>
+		<p> <strong>Thread: </strong>{{category.threadCount}}&nbsp;&nbsp;&nbsp;&nbsp;<strong>Message: </strong>{{category.messageCount}}</p>
+	</div>
 </div>
 <alert id="noCategory" style="visibility:hidden">No Categories in this group</alert>

@@ -55,18 +55,9 @@
                     <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
                 </div>
             </div>
-            <div id="scrollableContent" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-                
-                <div id="fixedContentHeader" data-ng-click="goToGroup(currentGroup)" data-ng-show="flashVar">
-                    <span class="currentGroup">
-                        <i class="icon-home home"></i>
-                        <span>{{currentGroup.name}}</span>
-                        <!-- <span>Group</span> -->
-                    </span>
-                </div>
-                
-                <div id="view" ui-view></div>
-            </div>
+            <div class="expand center" ui-view></div>
+
+            <notifier id="notifier"></notifier>
         </div>
     </div>
 </div>
