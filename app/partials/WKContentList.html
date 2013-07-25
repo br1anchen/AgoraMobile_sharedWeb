@@ -1,7 +1,7 @@
 <script type="text/ng-template"  id="nestList">
     <summary class = "leafSummary">
 		<i class="icon-folder-close-alt" ng-show="node.childrenNodes.length > 0"></i><i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>&nbsp;&nbsp;&nbsp;
-		<a data-ng-click="showWiki(node.title)">{{node.title}}</a>
+		<a style="text-decoration: none;" data-ng-click="showWiki(node.title)">{{node.title}}</a>
     </summary>
     <details class = "leaf" ng-repeat="node in node.childrenNodes" ng-include="'nestList'"></details>
 </script>
