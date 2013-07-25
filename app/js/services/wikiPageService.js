@@ -107,26 +107,12 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService',function (
 		var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
 
 		if(page.version > storedPage.version){
-			StorageService.store('Group' + page.groupId + '_WikiPageTitle:' + page.title, page);
+			storedPage.content = page.content;
+			StorageService.store('Group' + storedPage.groupId + '_WikiPageTitle:' + storedPage.title, storedPage);
 		}
 
-		wikiPageHolder.page = page;
+		wikiPageHolder.page = storedPage;
 
-	}
-
-	function failF(){
-
-		if(page.childrenPagesTitle == undefined){
-			return;
-		}
-
-		var nodes = [];
-		angular.forEach(page.childrenPagesTitle,function(t,k){
-			var temp = jQuery.grep(pagesHolder.page, function (p,k){ return p.parentTitle == t});
-			nodes.push(Page2Node(temp));
-		})
-		Page2Node(page).childrenNodes = recursiveNode(page);
-		return nodes;
 	}
 
 	function generateWikiTree() {

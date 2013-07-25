@@ -52,6 +52,11 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			templateUrl: 'partials/WKContentList.html',
 			controller: 'WikiCtrl'
 		})
+		.state('stage.wiki.page',{
+			url:'node/{nodeId}/page/{title}',
+			templateUrl: 'partials/WKPage.html',
+			controller: 'WikiCtrl'
+		})
 		.state('stage.activityFeed',{
 			url:'/activityFeed',
 			templateUrl: 'partials/activityFeed.html',
