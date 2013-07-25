@@ -29,6 +29,9 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
 	$scope.path = function(path) {
         $state.transitionTo(path); // path not hash
     }
+    $scope.stateIs = function(state){
+        return $state.is(state);
+    }
 
     $scope.goToGroup = function(group){
         $scope.currentGroup = group;

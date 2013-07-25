@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','link','infinite-scroll','ngCookies','ui.state'])
+var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','infinite-scroll','ngCookies','ui.state'])
 
 .config(['$stateProvider','$routeProvider', function($stateProvider,$routeProvider) {
 	$routeProvider.otherwise('/login');
@@ -23,7 +23,7 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			templateUrl: 'partials/messageBoard.html'
 		})
 		.state('stage.messageBoard.categories',{
-			url:'/categories',
+			url:'',
 			templateUrl: 'partials/MBCategories.html',
 			controller: 'MessageBoardCtrl'
 		})
