@@ -49,9 +49,9 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 	}
 
 
-	// $scope.$on('renderActLogs',function(){
+	//$scope.$on('renderActLogs',function(){
 		renderActLogs();
-	// });
+	//});
 
 	$scope.$on('scrollableUpdate',function(){
 		$scope.loading = true;

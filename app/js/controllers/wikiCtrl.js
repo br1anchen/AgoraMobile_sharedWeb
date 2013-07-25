@@ -55,18 +55,18 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 		renderWikiPage($stateParams.title,$stateParams.nodeId);
 	}
 
-	$scope.$watch('childrenp',function(nV,oV){
-		if(nV != oV && nV != 'default'){
-			$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:nV});
-		}
-	});
-
 	$scope.showWiki = function (t,nId){
 		$state.transitionTo('stage.wiki.page',{nodeId:nId,title:t});
 	}
 
 	$scope.showList = function (){
 		$state.transitionTo('stage.wiki.contentlist');
+	}
+
+	$scope.selectWiki = function (t){
+		if(t != 'default'){
+			$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:t});
+		}
 	}
 
 }])
