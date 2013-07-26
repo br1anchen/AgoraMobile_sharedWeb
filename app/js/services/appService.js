@@ -1,6 +1,6 @@
 angular.module('app.appService',[]).
 factory('AppService',['$log','$rootScope',function($log,$rootScope){
-		var baseURL = 'https://agora.uninett.no';
+		var baseURL = 'http://agora.uninett.no';
 
 	return {
 		getBaseURL : function(){
