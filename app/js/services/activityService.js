@@ -18,7 +18,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
     function JSON2Activities(activities){//parse json to group obj
     	var parsedActivities = [];
     	angular.forEach(activities, function(object, key){
-		  	activity = {
+		  	var activity = {
 		      	date:object.data,
 		      	pic:object.pict,
 		      	user:object.user,
@@ -96,7 +96,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 			var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+number,'','GET');
 
 			promise.then(function(res){
-				alert("success:"+JSON.stringify(res));
+				//console.log("success:"+JSON.stringify(res));
 				var topGroup = StorageService.get('TopGroup');
 				if(!topGroup){
 					console.error("ActivityService:Could not find TopGroup");	
@@ -109,7 +109,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 				deffered.resolve(activitiesHolder);
 				
 	        },function(err){
-				alert("failed"+JSON.stringify(err));
+				console.log("failed"+JSON.stringify(err));
 	          	deffered.reject(activitiesHolder);
 	        });
     	}

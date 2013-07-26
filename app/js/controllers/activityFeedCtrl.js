@@ -6,7 +6,7 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 	// $state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
 
 	function renderActLogs(){
-//console.log('render act logs');
+		//console.log('render act logs');
 		
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		console.log(connect);
@@ -15,7 +15,7 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 		if(connect == 'No network connection'){
 			if(StorageService.get("Group" + groupId + "_ActLog0")){
 				for(var i= 0;i < 10; i ++){
-					$scope.activityHolder.activities.push(StorageService.get("Group" + groupId + "_ActLog" + i ));
+					$scope.activities.push(StorageService.get("Group" + groupId + "_ActLog" + i ));
 				}
 			}else{
 				console.log("no internetConnection and no stored activities");
@@ -23,7 +23,7 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 		}else{
 			ActivityService.getActivities($scope.currentGroup).then(
 				function(activities){
-					$scope.activityHolder.activities = activities;
+					$scope.activities = activities;
 				},
 				function(error){
 					console.log(error);
