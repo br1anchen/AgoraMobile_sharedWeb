@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.groupService',['app.storageService','app.httpService'])
+angular.module('app.groupService',['app.storageService','app.httpService','app.appService'])
 .factory('GroupService', ['$http','$log','$q','StorageService','HttpService','AppService',function ($http,$log,$q,StorageService,HttpService,AppService) {
 
 	//class entity in GroupService

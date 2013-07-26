@@ -2,7 +2,7 @@
 
 //Message Board Service
 
-angular.module('app.messageBoardService',['app.storageService','app.httpService']).
+angular.module('app.messageBoardService',['app.storageService','app.httpService','app.appService']).
 
 factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 

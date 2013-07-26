@@ -136,6 +136,8 @@ describe('WikiPageService',function(){
 		var page;
 
 		StorageService.store("Group10157_WikiPageTitle:Dokumenter",{
+			groupId: 10157,
+			title: 'Dokumenter',
 			version: 1.0
 		});
 		page = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
@@ -148,10 +150,13 @@ describe('WikiPageService',function(){
 		});
 
 		$httpBackend.flush();
+
 		expect(page.version).toBe(1.1);
 
-		page = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
-		expect(page.version).toBe(1.1);
+		var storedPage = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
+		expect(storedPage.version).toBe(1.1);
+		
+
 	}));
 
 	it('Testing generate wiki tree',inject(function(WikiPageService){

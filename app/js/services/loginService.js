@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.loginService',['app.httpService','app.utilityService','app.storageService'])
+angular.module('app.loginService',['app.httpService','app.utilityService','app.storageService','app.appService'])
 .factory('LoginService', ['$http','$log','$q','HttpService','UtilityService','StorageService','AppService',function ($http,$log,$q,HttpService,UtilityService,StorageService,AppService) {
 
 	//class entity in LoginService
@@ -27,11 +27,6 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         var authToken = "Basic " + UtilityService.base64.encode(screenName + ":" + password);
         user.auth = authToken;
         return HttpService.request(serviceLoginUrl,user.auth,'GET');
-        // $http({method: 'GET', url: '/someUrl'}).
-        // success(function(data, status, headers, config) {
-        // }).
-        // error(function(data, status, headers, config) {
-        // });
   		},
 
       getUserInfo : function(screenName,companyId){

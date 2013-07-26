@@ -2,7 +2,7 @@
 
 //Wiki Page Service
 
-angular.module('app.wikiPageService',['app.storageService','app.httpService']).
+angular.module('app.wikiPageService',['app.storageService','app.httpService','app.appService']).
 
 factory('WikiPageService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
@@ -107,7 +107,10 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 		var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
 
 		if(page.version > storedPage.version){
+
 			storedPage.content = page.content;
+			storedPage.version = page.version;
+
 			StorageService.store('Group' + storedPage.groupId + '_WikiPageTitle:' + storedPage.title, storedPage);
 		}
 

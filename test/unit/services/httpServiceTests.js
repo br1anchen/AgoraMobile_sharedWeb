@@ -91,8 +91,7 @@ describe('HttpService',function(){
 	it('Testing using localStorage auth to do login request',inject(function(HttpService,StorageService){
 
 		//delete stored user info
-		StorageService.remove('testUser');
-		StorageService.remove('UserScreenName');
+		StorageService.remove('User');
 
 		//
 		var testUser = {
@@ -103,8 +102,7 @@ describe('HttpService',function(){
     	};
 
     	//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
+    	StorageService.store('User',testUser);
 
     	var promise = HttpService.request('https://agora.uninett.no/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
 

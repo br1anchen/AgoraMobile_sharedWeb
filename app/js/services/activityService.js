@@ -2,7 +2,7 @@
 
 //Activity Service
 
-angular.module('app.activityService',['app.storageService','app.httpService']).
+angular.module('app.activityService',['app.storageService','app.httpService','app.appService']).
 
 factory('ActivityService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
