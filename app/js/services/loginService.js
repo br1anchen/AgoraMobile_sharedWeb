@@ -27,6 +27,11 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         var authToken = "Basic " + UtilityService.base64.encode(screenName + ":" + password);
         user.auth = authToken;
         return HttpService.request(serviceLoginUrl,user.auth,'GET');
+        // $http({method: 'GET', url: '/someUrl'}).
+        // success(function(data, status, headers, config) {
+        // }).
+        // error(function(data, status, headers, config) {
+        // });
   		},
 
       getUserInfo : function(screenName,companyId){

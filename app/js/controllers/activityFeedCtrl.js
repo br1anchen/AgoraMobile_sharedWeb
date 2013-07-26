@@ -3,14 +3,8 @@
 app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state){
 
 	function renderActLogs(){
-		//console.log('render act logs');
+//console.log('render act logs');
 		
-		// ActivityService.getActivities($scope.currentGroup.id).then(
-		// 	function(result){
-		// 		$scope.activityHolder = result;
-		// 	}
-		// );
-	
 		// var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		// console.log(connect);
 
@@ -18,17 +12,20 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 		// if(connect == 'No network connection'){
 		// 	if(StorageService.get("Group" + groupId + "_ActLog0")){
 		// 		for(var i= 0;i < 10; i ++){
-		// 			$scope.activities.push(StorageService.get("Group" + groupId + "_ActLog" + i ));
+		// 			$scope.activityHolder.activities.push(StorageService.get("Group" + groupId + "_ActLog" + i ));
 		// 		}
 		// 	}else{
 		// 		console.log("no internetConnection and no stored activities");
 		// 	}
 		// }else{
-		// 	ActivityService.fetchActivityLogs(groupId).then(function(rep){
-		// 		$scope.activities = ActivityService.getActivityLogs();
-		// 	},function(error){
-		// 		console.log(error);
-		// 	});
+		// 	ActivityService.getActivities($scope.currentGroup.id).then(
+		// 		function(activities){
+		// 			$scope.activityHolder.activities = activities;
+		// 		},
+		// 		function(error){
+		// 			console.log(error);
+		// 		}
+		// 	);
 		// }
 		
 		$scope.activities = [];

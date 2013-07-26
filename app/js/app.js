@@ -3,8 +3,10 @@
 // Declare app level module which depends on filters, and services
 var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','infinite-scroll','ngCookies','ui.state'])
 
-.config(['$stateProvider','$routeProvider', function($stateProvider,$routeProvider) {
+.config(['$stateProvider','$routeProvider','$httpProvider', function($stateProvider,$routeProvider,$httpProvider) {
 	$routeProvider.otherwise('/login');
+	// $httpProvider.defaults.useXDomain = true;
+	// delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 	$stateProvider
 		.state('login', {
