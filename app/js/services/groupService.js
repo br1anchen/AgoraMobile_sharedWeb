@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('app.groupService',['app.storageService','app.httpService'])
-.factory('GroupService', ['$http','$log','$q','StorageService','HttpService',function ($http,$log,$q,StorageService,HttpService) {
+.factory('GroupService', ['$http','$log','$q','StorageService','HttpService','AppService',function ($http,$log,$q,StorageService,HttpService,AppService) {
 
 	//class entity in GroupService
-  	var apiUrl = "https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10";
+  	// var apiUrl = "https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10";
+    var apiUrl = AppService.getBaseURL() + "/api/secure/jsonws/group/get-user-places/-class-names/max/10";
 
     var groupsHolder = {//reference obj to be used by controller
       groups : []
@@ -20,6 +21,7 @@ angular.module('app.groupService',['app.storageService','app.httpService'])
       if(!StorageService.get("GroupIDs")){//no local storage then do request
         
         var promise = HttpService.request(apiUrl,'','GET');
+        // var promise = HttpService.request(apiUrl,'','GET');
 
         promise.then(function(rep){
           groups = requestStorage(rep.data);

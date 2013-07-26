@@ -1,10 +1,10 @@
 angular.module('app.appService',[]).
 factory('AppService',['$log','$rootScope',function($log,$rootScope){
-	var APIURL = 'http://agora-test.uninett.no:8080/api/secure/jsonws/'
+		var baseURL = 'https://agora.uninett.no';
 
 	return {
-		getAPIURL : function(){
-			return APIURL
+		getBaseURL : function(){
+			return baseURL;
 		},
 		userMessage : function(message){
 			$rootScope.$broadcast("userMessage",message);
