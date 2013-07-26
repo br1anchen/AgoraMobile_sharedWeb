@@ -7,8 +7,8 @@ angular.module('app.activityService',['app.storageService','app.httpService']).
 factory('ActivityService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in ActivityService
-	var apiUser = AppService.getBaseURL() +  ":8080/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
-	var apiGroup = AppService.getBaseURL() + ":8080/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
+	var apiUser = AppService.getBaseURL() +  "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
+	var apiGroup = AppService.getBaseURL() + "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
 
 	var activitiesHolder = {
 		activities :[],
@@ -87,18 +87,16 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 
 		var user = StorageService.get('User');
     	if(!user || !user.id){
-    		alert(JSON.stringify(3));
     		deffered.reject('ActivitySerice.fetchActivities(): no uid');
     		$log.error('ActivitySerice.fetchActivities(): no uid');
     	}
     	else{
 
     		var number = number ? number : 10;
-    		alert("Before request:"+apiUser + user.id + '/from/0/to/'+number);
 			var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+number,'','GET');
 
 			promise.then(function(res){
-				alert("success:"+JSON.stringify(rep));
+				alert("success:"+JSON.stringify(res));
 				var topGroup = StorageService.get('TopGroup');
 				if(!topGroup){
 					console.error("ActivityService:Could not find TopGroup");	
