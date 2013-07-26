@@ -24,7 +24,7 @@ header #mainFunctions{
 	color: rgb(71, 0, 0);
 }
 
-header .activeFunction{
+header .activeLinkClass{
 	color:white;
 }
 
