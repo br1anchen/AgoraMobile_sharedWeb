@@ -73,9 +73,9 @@
 	margin-top: 5px;
 	padding-bottom: 5px;
 	width: 94%;
-	-moz-box-shadow: 0px 2px 1px 2px #ffffff;
-	-webkit-box-shadow: 0px 2px 1px 2px #ffffff;
-	box-shadow: 0px 2px 1px 2px #ffffff;
+	-moz-box-shadow: -2px 2px 1px 1px #ffffff;
+	-webkit-box-shadow: -2px 2px 1px 1px #ffffff;
+	box-shadow: -2px 2px 1px 1px #ffffff;
 }
 
 #MBmessage h3{
