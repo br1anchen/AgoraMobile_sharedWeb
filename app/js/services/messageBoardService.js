@@ -68,6 +68,16 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
     }
 
     function JSON2Msg(json){//parse json to message obj
+    	if(json.format == "bbcode"){
+    		var parseResult = XBBCODE.process({
+			    text: json.body,
+			    removeMisalignedTags: true,
+			    addInLineBreaks: false
+			});
+
+			json.body = parseResult.html;
+    	}
+
     	return {
 			anonymous : json.anonymous,
 			attachments : json.attachments,

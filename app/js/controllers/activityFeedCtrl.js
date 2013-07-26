@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService){
+app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state){
 
 	function renderActLogs(){
 		//console.log('render act logs');
@@ -48,10 +48,13 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 		}
 	}
 
-
-	// $scope.$on('renderActLogs',function(){
+	if($scope.currentGroup.id != 110 && $state.is('stage.activityFeed')){
 		renderActLogs();
-	// });
+	}
+
+	$scope.$on('renderActLogs',function(){
+		renderActLogs();
+	});
 
 	$scope.$on('scrollableUpdate',function(){
 		$scope.loading = true;

@@ -43,8 +43,18 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			controller: 'DocumentsCtrl'
 		})
 		.state('stage.wiki',{
+			abstract: true,
 			url:'/wiki',
-			templateUrl: 'partials/wiki.html',
+			templateUrl: 'partials/wiki.html'
+		})
+		.state('stage.wiki.contentlist',{
+			url:'/contentlist',
+			templateUrl: 'partials/WKContentList.html',
+			controller: 'WikiCtrl'
+		})
+		.state('stage.wiki.page',{
+			url:'node/{nodeId}/page/{title}',
+			templateUrl: 'partials/WKPage.html',
 			controller: 'WikiCtrl'
 		})
 		.state('stage.activityFeed',{

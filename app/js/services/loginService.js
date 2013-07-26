@@ -35,7 +35,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         var userInfoUrl = AppService.getBaseURL() + '/api/secure/jsonws/user/get-user-by-screen-name/company-id/'+ companyId + '/screen-name/' + screenName;
         var promise = HttpService.request(userInfoUrl,user.auth,"GET");
         promise.then(function(rep){
-          console.log(JSON.stringify(rep));
+
           if(!rep.data.exception){
             user.screenName = rep.data.screenName;
             user.id = rep.data.userId;

@@ -36,7 +36,7 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
       $scope.toggleMenu();
 	 }
 
-   function g(url){
+   function cacheImage(url){
         var img = new Image();
         img.src = $scope.user.portraitImgUrl;
 

@@ -9,6 +9,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 	//class entity in Wiki Page Service
 	var NodeApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikinode/get-node/group-id/";
 	var PagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikipage/get-node-pages/node-id/";
+	var PageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikipage/get-page/node-id/";
 
 	var nodeHolder = {
 		mainNode : {}
@@ -18,8 +19,13 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 		pages : []
 	};
 
-	var mainNode = {};
-	var pages = [];
+	var wikiPageHolder = {
+		page : {}
+	};
+
+	var wikiTreeHolder = {
+		contentTree : []
+	};
 
 	function JSON2Page(json){
 		return {
@@ -36,12 +42,20 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			title: json.title,
 			userId: json.userId,
 			userName: json.userName,
-			version: json.version
+			version: json.version,
+			childrenPagesTitle: []
+		}
+	}
+
+	function Page2Node(page){
+		return{
+			title: page.title,
+			childrenNodes : page.childrenPagesTitle
 		}
 	}
 
 	function storeMainNode(data,gId){
-		mainNode = {
+		nodeHolder.mainNode = {
 			companyId: data.companyId,
 			createDate: moment(data.createDate).format('DD/MM/YYYY, HH:mm:ss'),
 			groupId: data.groupId,
@@ -51,23 +65,77 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			userName: data.userName
 		};
 
-		nodeHolder.mainNode = mainNode;
-		StorageService.store('Group' + gId + '_WikiNode' + data.nodeId,mainNode);
+		StorageService.store('Group' + gId + '_WikiNode' + data.nodeId,nodeHolder.mainNode);
 
 	}
 
-	function factoryPages2Store(data,nodeId){
-		pages = [];
+	function factoryPages2Store(data){
+		pagesHolder.pages = [];
 
 		angular.forEach(data,function(p,k){
+			if(p.redirectTitle == ""){
+			
+				var page = JSON2Page(p);
 
-			var page = JSON2Page(p);
-
-			pages.push(page);
+				pagesHolder.pages.push(page);
+			}
 
         });
 
-        pagesHolder.pages = pages;
+        angular.forEach(pagesHolder.pages,function(p,k){
+        	var pTitle = p.parentTitle;
+        	var sTitle = p.title;
+
+        	if(pTitle != ""){
+        		pagesHolder.pages = jQuery.map(pagesHolder.pages,function(pp){
+		    		if(pp.title == pTitle){
+		    			pp.childrenPagesTitle.push(sTitle);
+		    		}
+		    		return pp;
+		    	});
+        	}
+        });
+
+        angular.forEach(pagesHolder.pages,function(p,k){
+        	StorageService.store('Group' + p.groupId + '_WikiPageTitle:' + p.title,p);
+        });
+
+	}
+
+	function updatePage(data){
+		var page = JSON2Page(data);
+		var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
+
+		if(page.version > storedPage.version){
+			storedPage.content = page.content;
+			StorageService.store('Group' + storedPage.groupId + '_WikiPageTitle:' + storedPage.title, storedPage);
+		}
+
+		wikiPageHolder.page = storedPage;
+
+	}
+
+	function generateWikiTree() {
+		
+		var recursiveNode = function(parentTitle) {
+	  
+	  		var nodes = [];
+
+	  		angular.forEach(pagesHolder.pages,function(p,k){
+	  			if(p.parentTitle === parentTitle){
+	  				var node = {
+	  					title: p.title,
+	  					childrenNodes : recursiveNode(p.title)
+	  				}
+
+	  				nodes.push(node);
+	  			}
+	  		});
+
+	  		return nodes;
+	 	}
+		
+		return recursiveNode("");
 	}
 
     //return value in Wiki Page Service
@@ -101,7 +169,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 
 			promise.then(function(rep){
 
-	          factoryPages2Store(rep.data,nodeId);
+	          factoryPages2Store(rep.data);
 	          
 	          deffered.resolve("wiki pages fetched for node " + nodeId);
 
@@ -114,6 +182,33 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 
 		getWikiPages : function() {
 			return pagesHolder.pages.length > 0 ? pagesHolder.pages : undefined;
+		},
+
+		fetchWikiPage : function(title,nodeId) {
+			var deffered = $q.defer();
+
+			var promise = HttpService.request(PageApiUrl + nodeId + '/title/' + title,'','GET');
+
+			promise.then(function(rep){
+
+	          updatePage(rep.data);
+	          
+	          deffered.resolve("wiki page fetched for title " + title);
+
+	        },function(err){
+	          deffered.reject("wiki page failed to get");
+	        });
+
+			return deffered.promise;
+		},
+
+		getWikipage : function() {
+			return wikiPageHolder.page;
+		},
+
+		getWikiTree : function() {
+			wikiTreeHolder.contentTree = generateWikiTree();
+			return wikiTreeHolder.contentTree;
 		}
 	}
 

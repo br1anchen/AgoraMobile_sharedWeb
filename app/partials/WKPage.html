@@ -1,0 +1,24 @@
+<div id="fixedContentHeader" data-ng-show="showConentHeader">
+	<table width="96%">
+        <tr>
+			<td id="listBtn" class="navbarEle" data-ng-click="showList()"><i class="icon-list-alt"></i></td>
+		    <td class="currentGroup navbarEle" data-ng-click="goToGroup(currentGroup)" width="35%">
+		        <i class="icon-home home"></i>
+		        <span>{{currentGroup.name}}</span>
+		    </td>
+		    <td class="navbarEle" id="parentPage" ng-show="currentPage.parentTitle == ''"></td>
+    		<td class="navbarEle" id="parentPage" ng-show="currentPage.parentTitle != ''" data-ng-click="showWiki(currentPage.parentTitle,currentPage.nodeId)">
+    			<i class="icon-collapse-top">&nbsp;ParentPage</i>
+    		</td>
+    	</tr>
+	</table>
+</div>
+
+<div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+	<select id="childrenPick" ng-model="childrenp" ng-change="selectWiki(childrenp)">
+		<option value="default">Children Pages</option>
+		<option ng-repeat="cp in currentPage.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+	</select>
+	<h3>{{currentPage.title}}</h3>
+	<div id="content" ng-bind-html-unsafe="currentPage.content"></div>
+</div>
