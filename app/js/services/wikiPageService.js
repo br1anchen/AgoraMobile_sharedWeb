@@ -4,11 +4,11 @@
 
 angular.module('app.wikiPageService',['app.storageService','app.httpService']).
 
-factory('WikiPageService',['$log','$q','StorageService','HttpService',function ($log,$q,StorageService,HttpService){
+factory('WikiPageService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in Wiki Page Service
-	var NodeApiUrl = "https://agora.uninett.no/api/secure/jsonws/wikinode/get-node/group-id/";
-	var PagesApiUrl = "https://agora.uninett.no/api/secure/jsonws/wikipage/get-node-pages/node-id/";
+	var NodeApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikinode/get-node/group-id/";
+	var PagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikipage/get-node-pages/node-id/";
 
 	var nodeHolder = {
 		mainNode : {}

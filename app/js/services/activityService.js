@@ -7,8 +7,8 @@ angular.module('app.activityService',['app.storageService','app.httpService']).
 factory('ActivityService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in ActivityService
-	var apiUser = "agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
-	var apiGroup ="agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
+	var apiUser = AppService.getBaseURL() +  ":8080/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
+	var apiGroup = AppService.getBaseURL() + ":8080/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
 
 	var activitiesHolder = {
 		activities :[],
@@ -57,7 +57,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
     	else{
     		var number = number ? number : 10;
 
-			var promise = HttpService.request(AppService.getAPIURL() + apiGroup + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
+			var promise = HttpService.request(apiGroup + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
 
 			promise.then(function(rep){
 
@@ -83,7 +83,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
     	else{
     		var number = number ? number : 10;
 
-			var promise = HttpService.request(AppService.getAPIURL() + apiUser + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
+			var promise = HttpService.request(apiUser + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
 
 			promise.then(function(rep){
 

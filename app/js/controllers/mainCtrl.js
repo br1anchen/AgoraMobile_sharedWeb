@@ -6,7 +6,7 @@ app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeou
     })
 
 	checkUserInfo();
-	// $state.transitionTo('stage.activityFeed');
+	$state.transitionTo('stage.activityFeed');
 
 	function checkUserInfo(){
 		if(StorageService.get('User')){

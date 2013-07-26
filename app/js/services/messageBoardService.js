@@ -4,13 +4,13 @@
 
 angular.module('app.messageBoardService',['app.storageService','app.httpService']).
 
-factory('MessageBoardService',['$log','$q','StorageService','HttpService',function ($log,$q,StorageService,HttpService){
+factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in MessageBoardService
-	var CategoryApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbcategory/get-categories/group-id/";
-	var ThreadsApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbthread/get-threads/group-id/";
-	var RootMessageApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbmessage/get-message/message-id/";
-	var MessagesApiUrl = "https://agora.uninett.no/api/secure/jsonws/mbmessage/get-thread-messages/group-id/";
+	var CategoryApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbcategory/get-categories/group-id/";
+	var ThreadsApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbthread/get-threads/group-id/";
+	var RootMessageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-message/message-id/";
+	var MessagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-thread-messages/group-id/";
 
 	var categoryHolder = {
 		categories : []
