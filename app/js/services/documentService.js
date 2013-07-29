@@ -9,13 +9,15 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	//class entity in DocumentService
 	var FileNumberApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries-count/group-id/";
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
-
-	var FilesTreeHolder = {
-		filesTree : []
-	};
+	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries/group-id/";
 
 	var FoldersTreeHolder = {
-		foldersTree : []
+		rootFolder : {
+			folderId: 0,
+			name: 'rootFolder',
+			subFolders: [],
+			files:[]
+		}
 	};
 
 	function JSON2Folder(json){
@@ -31,7 +33,31 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			repositoryId: json.repositoryId,
 			userId: json.userId,
 			userName: json.userName,
-			subFolders: []
+			subFolders: [],
+			files: []
+		}
+	}
+
+	function JSON2File(json){
+		return {
+			companyId: json.companyId,
+			createDate: moment(json.createDate).format('DD/MM/YYYY, HH:mm:ss'),
+			description: json.description,
+			extension: json.extension,
+			fileEntryId: json.fileEntryId,
+			folderId: json.folderId,
+			groupId: json.groupId,
+			mimeType: json.mimeType,
+			modifiedDate: moment(json.modifiedDate).format('DD/MM/YYYY, HH:mm:ss'),
+			name: json.name,
+			readCount: json.readCount,
+			repositoryId: json.repositoryId,
+			title: json.title,
+			userId: json.userId,
+			userName: json.userName,
+			version: json.version,
+			versionUserId: json.versionUserId,
+			versionUserName: json.versionUserName
 		}
 	}
 
@@ -69,8 +95,37 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			return folders;
 		}
 		
-		FoldersTreeHolder.foldersTree = getSubFolders(0);
+		FoldersTreeHolder.rootFolder.subFolders = getSubFolders(0);
 
+	}
+
+	function factoryFiles(data,groupId){
+		var putFile2Folder = function(fNode){
+			var files = [];
+
+			angular.forEach(data,function(f,k){
+				var file = JSON2File(f);
+
+				StorageService.store('Group' + groupId + '_File' + file.fileEntryId, file);
+
+				if(file.folderId == fNode.folderId){
+					files.push(file);
+				}
+			});
+
+			fNode.files = files;
+			if(fNode.folderId != 0){
+				var storedFolder = StorageService.get('Group' + groupId + '_Folder' + fNode.folderId);
+				storedFolder.files = files;
+				StorageService.store('Group' + groupId + '_Folder' + fNode.folderId,storedFolder);
+			}
+
+			angular.forEach(fNode.subFolders,function(sn,k){
+				putFile2Folder(sn);
+			});
+		}
+
+		putFile2Folder(FoldersTreeHolder.rootFolder);
 	}
 
     //return value in Document Service
@@ -80,7 +135,35 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		},
 
 		getFolders : function(){
-			return FoldersTreeHolder.foldersTree.length > 0 ? FoldersTreeHolder.foldersTree : undefined;
+			return FoldersTreeHolder.rootFolder.subFolders.length > 0 ? FoldersTreeHolder.rootFolder : undefined;
+		},
+
+		fetchFileObjs : function (groupId) {
+			var deffered = $q.defer();
+
+			var promise = HttpService.request(FileNumberApiUrl + groupId + '/user-id/0','','GET');
+
+			promise.then(function(rep){
+				console.log('Files number ' + rep.data);
+
+	          	HttpService.request(FilesApiUrl + groupId + '/user-id/0/root-folder-id/0/start/0/end/' + rep.data,'','GET').then(function(rep){
+
+	          		factoryFiles(rep.data,groupId);
+
+	          		deffered.resolve("files fetched");
+	          	},function(err){
+	          		deffered.reject("files failed to fetch");
+	          	});
+
+	        },function(err){
+	          	deffered.reject("files number failed to get");
+	        });
+
+			return deffered.promise;
+		},
+
+		getFolderWithFiles : function(){
+			return FoldersTreeHolder.rootFolder;
 		}
 	}
 }])
