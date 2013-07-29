@@ -48,12 +48,10 @@ describe('GroupService',function(){
 		StorageService.remove("TopGroup");
 
 		//delete stored user info
-		StorageService.remove('testUser');
-		StorageService.remove('UserScreenName');
+		StorageService.remove('User');
 
     	//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
+    	StorageService.store('User',testUser);
 
 	}));
 
