@@ -4,6 +4,7 @@ describe('WikiPageService',function(){
 
 	var StorageService;
 	var $httpBackend,$http;
+	var AppService;
 	//test user info
 	var testUser = {
       	screenName : "testUser",
@@ -18,8 +19,9 @@ describe('WikiPageService',function(){
 	beforeEach(inject(function($injector){
 		$httpBackend = $injector.get('$httpBackend');
 		$http = $injector.get('$http');
+		AppService = $injector.get('AppService');
 
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/wikinode/get-node/group-id/10157/name/Main'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/wikinode/get-node/group-id/10157/name/Main'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -29,7 +31,7 @@ describe('WikiPageService',function(){
         			]
         });
 
-    	$httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/wikipage/get-node-pages/node-id/10758/max/100'
+    	$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/wikipage/get-node-pages/node-id/10758/max/100'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -39,7 +41,7 @@ describe('WikiPageService',function(){
         			]
         });
 
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/wikipage/get-page/node-id/10758/title/Dokumenter'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/wikipage/get-page/node-id/10758/title/Dokumenter'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

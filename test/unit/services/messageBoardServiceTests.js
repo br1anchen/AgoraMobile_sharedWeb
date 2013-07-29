@@ -4,6 +4,7 @@ describe('MessageBoardService',function(){
 
 	var StorageService;
 	var $httpBackend;
+	var AppService;
 	//test user info
 	var testUser = {
       	screenName : "testUser",
@@ -22,10 +23,11 @@ describe('MessageBoardService',function(){
 	beforeEach(module('app.storageService'));
 
 	beforeEach(inject(function($injector){
+		AppService = $injector.get('AppService');
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbcategory/get-categories/group-id/10157'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbcategory/get-categories/group-id/10157'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -37,7 +39,7 @@ describe('MessageBoardService',function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbcategory/get-categories/group-id/10157'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbcategory/get-categories/group-id/10157'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -47,7 +49,7 @@ describe('MessageBoardService',function(){
 				]
 		});
 
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbthread/get-threads/group-id/10157/category-id/19297/status/0/start/0/end/20'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbthread/get-threads/group-id/10157/category-id/19297/status/0/start/0/end/20'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -59,7 +61,7 @@ describe('MessageBoardService',function(){
 		
 		for(var index = 0; index < 4; index ++){
 			var ct = index;
-			$httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbmessage/get-message/message-id/'+rootMsgIds[index]
+			$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbmessage/get-message/message-id/'+rootMsgIds[index]
 	        	,function(headers){
 	        		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
 	        })
@@ -70,7 +72,7 @@ describe('MessageBoardService',function(){
 			});
 		}
 
-		$httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/20'
+		$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/20'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

@@ -43,7 +43,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
       	return parsedActivities;
     }
     function stripHTML(str){
-		return str.replace(/<.*?>/g,"");
+		return str.replace(/<.*?>/g , "");
 	}
 
     function storeActivities(groupId,activities){
@@ -53,27 +53,21 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 
     function fetchActivities(groupId,number){
 		var deffered = $q.defer();
-
 		var user = StorageService.get('User');
-    	if(!user || !user.id){
-    		deffered.reject('ActivitySerice.fetchActivities(): no uid');
-    		$log.error('ActivitySerice.fetchActivities(): no uid');
-    	}
-    	else{
-    		var number = number ? number : 10;
 
-			var promise = HttpService.request(apiGroup + user.id + 'gid/'+groupId+'/from/0/to/'+number,'','GET');
+		var number = number ? number : 10;
 
-			promise.then(function(res){
-				setActivities(groupId,JSON2Activities(res.data));//Replacing old data
-				storeActivities(groupId,res.data);
-	          
-				deffered.resolve(activitiesHolder);
+		var promise = HttpService.request(apiGroup + user.id + '/gid/'+groupId+'/from/0/to/'+number,'','GET');
 
-	        },function(err){
-	          deffered.reject(activitiesHolder);
-	        });
-    	}
+		promise.then(function(res){
+			setActivities(groupId,JSON2Activities(res.data));//Replacing old data
+			storeActivities(groupId,res.data);
+          
+			deffered.resolve(activitiesHolder);
+
+        },function(err){
+          deffered.reject(activitiesHolder);
+        });
 
 		return deffered.promise;
 	}
@@ -84,35 +78,28 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 	function fetchTopActivities(number){
 		
 		var deffered = $q.defer();
-
 		var user = StorageService.get('User');
-    	if(!user || !user.id){
-    		deffered.reject('ActivitySerice.fetchActivities(): no uid');
-    		$log.error('ActivitySerice.fetchActivities(): no uid');
-    	}
-    	else{
 
-    		var number = number ? number : 10;
-			var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+number,'','GET');
+		var number = number ? number : 10;
+		var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+number,'','GET');
 
-			promise.then(function(res){
-				//console.log("success:"+JSON.stringify(res));
-				var topGroup = StorageService.get('TopGroup');
-				if(!topGroup){
-					console.error("ActivityService:Could not find TopGroup");	
-				}
-				else{
-					setActivities(topGroup.id,JSON2Activities(res.data));//Replacing old data
-					StorageService.store("TopGroup_Activities",activitiesHolder.activities);
+		promise.then(function(res){
+			//console.log("success:"+JSON.stringify(res));
+			var topGroup = StorageService.get('TopGroup');
+			if(!topGroup){
+				console.error("ActivityService:Could not find TopGroup");	
+			}
+			else{
+				setActivities(topGroup.id,JSON2Activities(res.data));//Replacing old data
+				StorageService.store("TopGroup_Activities",activitiesHolder.activities);
 
-				}
-				deffered.resolve(activitiesHolder);
-				
-	        },function(err){
-				console.log("failed"+JSON.stringify(err));
-	          	deffered.reject(activitiesHolder);
-	        });
-    	}
+			}
+			deffered.resolve(activitiesHolder);
+			
+        },function(err){
+			console.log("failed"+JSON.stringify(err));
+          	deffered.reject(activitiesHolder);
+        });
 
 		return deffered.promise;
 	}
@@ -133,12 +120,12 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 				fetchTopActivities(activitiesHolder.activities.length);
 			}
 
-			return fetchActivities(group.id,activitiesHolder.activities.length);
+			return fetchActivities(group.id , activitiesHolder.activities.length);
 		},
 		getActivities : function(group){
+			var deffered = $q.defer();
 			//Checking runtime memory for activities for this group
 			if( group.id == activitiesHolder.id && activitiesHolder.activities.length > 0){
-				var deffered = $q.defer();
 				deffered.resolve(activitiesHolder);
 
 				//Because we don't know if the stored activities are up to date, we start a background update against the server as well
@@ -156,7 +143,6 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 				}
 				//Returning the stored activities if present
 				if(activities && activities.length > 0){
-					var deffered = $q.defer();
 					deffered.resolve({activities:activities});
 
 					//Because we don't know if the stored activities are up to date, we start a background update against the server as well
@@ -164,11 +150,18 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 					return deffered.promise;
 					
 				}
+				var user = StorageService.get('User');
+		    	if(!user || !user.id){
+		    		deffered.reject('ActivitySerice.fetchActivities(): no uid');
+		    		$log.error('ActivitySerice.fetchActivities(): no uid');
+		    		return deffered.promise;
+		    	}
+
 				//Fetching activities for this group from server
 				if(group.type == 1){
 					return fetchTopActivities(10);
 				}
-				return fetchActivities(group.id);
+				return fetchActivities(group.id , 10);
 			}
 			deffered.promise;
 		}

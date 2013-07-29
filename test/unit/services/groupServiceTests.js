@@ -4,6 +4,7 @@ describe('GroupService',function(){
 
 	var StorageService;
 	var $httpBackend;
+	var AppService;
 	//test user info
 	var testUser = {
       	screenName : "testUser",
@@ -16,10 +17,11 @@ describe('GroupService',function(){
 	beforeEach(module('app.storageService'));
 
 	beforeEach(inject(function($injector){
+		AppService = $injector.get('AppService');
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/group/get-user-places/-class-names/max/10'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -31,7 +33,7 @@ describe('GroupService',function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/group/get-user-places/-class-names/max/10'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
