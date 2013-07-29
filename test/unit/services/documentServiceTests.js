@@ -79,8 +79,10 @@ describe('DocumentService',function(){
 
 		$httpBackend.flush();
 		folderTree = DocumentService.getFolders();
-		dump(folderTree)
-		expect(folderTree).not.toBe(undefined);
+		expect(folderTree[0].length).not.toBe(2);
+
+		var folder = StorageService.get('Group250926_Folder257002');
+		expect(folder.subFolders.length).toBe(1);
 	}));
 
 });

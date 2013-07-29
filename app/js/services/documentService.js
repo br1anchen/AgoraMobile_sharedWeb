@@ -51,14 +51,21 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 							subFolders: getSubFolders(folder.folderId)
 						}
 
-						folders.push(folderNode);
+						StorageService.store('Group' + gId + '_Folder' + folder.folderId,folder);
 
+						folders.push(folderNode);
 					});
+
+					if(fId != 0){//update parentFolder with subfolders
+						var parentFolder = StorageService.get('Group' + gId + '_Folder' + fId);
+						parentFolder.subFolders = folders;
+						StorageService.store('Group' + gId + '_Folder' + fId, parentFolder);
+					}
 				}
 			},function(err){
 
 			});
-
+			
 			return folders;
 		}
 		
