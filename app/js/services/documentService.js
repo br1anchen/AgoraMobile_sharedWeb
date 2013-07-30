@@ -10,6 +10,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	var FileNumberApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries-count/group-id/";
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
 	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries/group-id/";
+	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav/";
 
 	var FoldersTreeHolder = {
 		rootFolder : {
@@ -19,6 +20,8 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			files:[]
 		}
 	};
+
+	var rootFS;
 
 	function JSON2Folder(json){
 		return {
@@ -57,7 +60,8 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			userName: json.userName,
 			version: json.version,
 			versionUserId: json.versionUserId,
-			versionUserName: json.versionUserName
+			versionUserName: json.versionUserName,
+			localFileDir: ''
 		}
 	}
 
@@ -128,6 +132,18 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		putFile2Folder(FoldersTreeHolder.rootFolder);
 	}
 
+	function getFileSystem(){
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+			console.log(fileSystem.name);
+    		console.log(fileSystem.root.name);
+			rootFS = fileSystem.root;
+		}, function(evt){
+			console.log(evt.target.error.code);
+		});
+	}
+
+	getFileSystem();
+
     //return value in Document Service
 	return {
 		fetchFolders : function (groupId) {
@@ -172,6 +188,52 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 		getFile : function(groupId,folderId,fileTitle){
 			return StorageService.get('Group' + groupId + '_Folder' + folderId + '_FileTitle:' + fileTitle);
+		},
+
+		downloadFile : function(groupName,file){
+
+			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
+			    function(filesDir){
+			        var fileTransfer = new FileTransfer();
+					var uri = encodeURI(DownloadApiUrl + groupName + '/document_library//' + file.title);
+
+					fileTransfer.download(
+					    uri,
+					    filesDir.fullPath + '/' + file.title,
+					    function(entry) {
+					    	
+					        console.log("download complete: " + entry.fullPath);
+
+					        /*cordova.exec(function(rep){
+								console.log(rep);
+							},function(err){
+								console.log(err);
+							}, "ExternalFileUtil", "openWith",[entry.fullPath, 'public.jpeg']);*/
+
+							file.localFileDir = entry.fullPath;
+							StorageService.store('Group' + file.groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title,file);
+					    
+					    },
+					    function(error) {
+					        console.log("download error source " + error.source);
+					        console.log("download error target " + error.target);
+					        console.log("upload error code" + error.code);
+					    },
+					    false,
+					    {
+					        headers: {
+					            "Authorization": StorageService.get('User').auth
+					        }
+					    }
+					);
+			    },
+			    function(error){
+			        console.log("ERROR getDirectory");
+			        console.log(error);
+			        deffered.resolve("Direcoty created failed");
+			    }
+			);
+
 		}
 	}
 }])

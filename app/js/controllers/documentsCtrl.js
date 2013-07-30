@@ -1,5 +1,5 @@
 'use strict';
-app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,$state,$stateParams){
+app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,AppService,$state,$stateParams){
 	
 	function renderDirectory(){
 		console.log('render Document Directory');
@@ -77,6 +77,13 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	$scope.showFile = function(file){
 		console.log('show file: ' + file.title);
+
+		DocumentService.downloadFile($scope.currentGroup.name,file);
+
+		$timeout(function(){
+			$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
+		},3000);
+
 	}
 
 	$scope.upFolder = function(folderId){
