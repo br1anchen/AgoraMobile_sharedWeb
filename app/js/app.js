@@ -56,7 +56,7 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 		})
 		.state('stage.documents.file',{
 			url:'/folder/{folderId}/file/{fileTitle}',
-			templateUrl: 'partials/DCFile.html',
+			templateUrl: 'partials/DCFileDetail.html',
 			controller: 'DocumentsCtrl'
 		})
 		.state('stage.wiki',{

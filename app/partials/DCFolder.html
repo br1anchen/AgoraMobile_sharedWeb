@@ -7,16 +7,18 @@
 </div>
 <div id="DCFolder" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 
-	<ul id="folderList">
+	<ul class="folderList">
 		<li>Folders</li>
+		<li ng-show="folder.subFolders.length == 0">No subFolders</li>
 		<li data-ng-repeat="sub in folder.subFolders" id="MBthread" data-ng-click="gotoFolder(sub)">
-			{{sub.name}}
+			<i class="icon-folder-close-alt"></i>&nbsp;&nbsp;{{sub.name}}
 		</li>
 	</ul>
-	<ul id="fileList">
+	<ul class="fileList">
 		<li>Files</li>
+		<li ng-show="folder.files.length == 0">No files</li>
 		<li data-ng-repeat="file in folder.files" id="MBthread" data-ng-click="showFile(file)">
-			{{file.title}}
+			<i class="icon-file-alt"></i>&nbsp;&nbsp;{{file.title}}
 		</li>
 	</ul>
 
