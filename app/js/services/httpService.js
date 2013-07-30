@@ -31,7 +31,7 @@ angular.module('app.httpService',['app.storageService'])
   					'Authorization' : authorization,
   					'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   				},
-          timeout : 500
+          timeout : 1000
   			
   			//success function
   			}).success(function(data, status, headers, config){

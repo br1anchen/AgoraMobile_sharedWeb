@@ -8,6 +8,8 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 	function renderActLogs(){
 		//console.log('render act logs');
 		
+		$scope.showConentHeader = true;
+		
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		console.log(connect);
 

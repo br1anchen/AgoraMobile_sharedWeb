@@ -4,6 +4,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	function renderDirectory(){
 		console.log('render Document Directory');
 
+		$scope.showConentHeader = true;
+
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		
 		if(connect == 'No network connection'){
@@ -23,6 +25,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	function renderFolder(groupId,folderId){
 		console.log('render Folder Content');
 
+		$scope.showConentHeader = true;
+
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		
 		if(connect == 'No network connection'){
@@ -36,6 +40,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	function renderFile(groupId,folderId,fileTitle){
 		console.log('load file');
 
+		$scope.showConentHeader = true;
+		
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		
 		if(connect == 'No network connection'){

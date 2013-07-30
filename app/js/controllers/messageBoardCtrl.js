@@ -5,6 +5,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 	function renderCategories (){
 		console.log('render Categories');
 
+		$scope.showConentHeader = true;
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 		
 		if(connect == 'No network connection'){

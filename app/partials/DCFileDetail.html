@@ -5,7 +5,7 @@
         <span>{{currentGroup.name}}</span>
     </span>
 </div>
-<div id="DCFileDetail">
+<div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<h3>{{file.title}}</h3>
 	<p>Fifle Type:&nbsp;&nbsp;<strong>{{file.extension}}</strong>&nbsp;&nbsp;File Version:&nbsp;&nbsp;<strong>{{file.version}}</strong></p><br />
 	<p>Created by:&nbsp;&nbsp;<strong>{{file.userName}}</strong><br />At&nbsp;<strong>{{file.createDate}}</strong></p><br />

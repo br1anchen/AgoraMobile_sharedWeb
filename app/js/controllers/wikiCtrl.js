@@ -5,6 +5,7 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	function renderContentList(){
 		console.log('render content list');
 
+		$scope.showConentHeader = true;
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 
 		if(connect == 'No network connection'){
@@ -29,6 +30,7 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	function renderWikiPage(title,nId){
 		console.log('render wiki page');
 
+		$scope.showConentHeader = true;
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
 
 		if(connect == 'No network connection'){
