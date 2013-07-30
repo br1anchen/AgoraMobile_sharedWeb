@@ -72,4 +72,12 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	$scope.showFile = function(file){
 		console.log('show file: ' + file.title);
 	}
+
+	$scope.upFolder = function(folderId){
+		if(folderId != 0){
+			$state.transitionTo('stage.documents.folder',{folderId:folderId});
+		}else{
+			$state.transitionTo('stage.documents.root');
+		}
+	}
 }])

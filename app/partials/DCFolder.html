@@ -1,3 +1,23 @@
-<div id="DCFolder">
-	{{folder}}
+<div id="fixedContentHeader" data-ng-show="showConentHeader">
+	<span id="upBtn" data-ng-click="upFolder(folder.parentFolderId)" ng-show="folder.folderId != 0"><i class="icon-collapse-top"></i>Up</span>
+    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+        <i class="icon-home home"></i>
+        <span>{{currentGroup.name}}</span>
+    </span>
+</div>
+<div id="DCFolder" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+
+	<ul id="folderList">
+		<li>Folders</li>
+		<li data-ng-repeat="sub in folder.subFolders" id="MBthread" data-ng-click="gotoFolder(sub)">
+			{{sub.name}}
+		</li>
+	</ul>
+	<ul id="fileList">
+		<li>Files</li>
+		<li data-ng-repeat="file in folder.files" id="MBthread" data-ng-click="showFile(file)">
+			{{file.title}}
+		</li>
+	</ul>
+
 </div>
