@@ -40,8 +40,23 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			controller: 'MessageBoardCtrl'
 		})
 		.state('stage.documents',{
+			abstract: true,
 			url:'/documents',
 			templateUrl: 'partials/documents.html',
+		})
+		.state('stage.documents.root',{
+			url:'',
+			templateUrl: 'partials/DCFolder.html',
+			controller: 'DocumentsCtrl'
+		})
+		.state('stage.documents.folder',{
+			url:'/folder/{folderId}',
+			templateUrl: 'partials/DCFolder.html',
+			controller: 'DocumentsCtrl'
+		})
+		.state('stage.documents.file',{
+			url:'/folder/{folderId}/file/{fileTitle}',
+			templateUrl: 'partials/DCFile.html',
 			controller: 'DocumentsCtrl'
 		})
 		.state('stage.wiki',{

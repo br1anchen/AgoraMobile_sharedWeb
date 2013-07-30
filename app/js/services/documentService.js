@@ -106,7 +106,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			angular.forEach(data,function(f,k){
 				var file = JSON2File(f);
 
-				StorageService.store('Group' + groupId + '_File' + file.fileEntryId, file);
+				StorageService.store('Group' + groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title, file);
 
 				if(file.folderId == fNode.folderId){
 					files.push(file);
@@ -164,6 +164,14 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 		getFolderWithFiles : function(){
 			return FoldersTreeHolder.rootFolder;
+		},
+
+		getFolderContent : function(groupId,folderId){
+			return StorageService.get('Group' + groupId + '_Folder' + folderId);
+		},
+
+		getFile : function(groupId,folderId,fileTitle){
+			return StorageService.get('Group' + groupId + '_Folder' + folderId + '_FileTitle:' + fileTitle);
 		}
 	}
 }])
