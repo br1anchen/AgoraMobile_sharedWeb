@@ -17,8 +17,8 @@
 	<ul class="fileList">
 		<li>Files</li>
 		<li ng-show="folder.files.length == 0">No files</li>
-		<li data-ng-repeat="file in folder.files" id="MBthread" data-ng-click="showFile(file)">
-			<i class="icon-file-alt"></i>&nbsp;&nbsp;{{file.title}}
+		<li data-ng-repeat="file in folder.files" id="MBthread">
+			<span data-ng-click="showFile(file)"><i class="icon-file-alt"></i>&nbsp;&nbsp;{{file.title}}</span><i class="icon-circle-arrow-right" id="detailBtn" data-ng-click="fileDetail(file)"></i>
 		</li>
 	</ul>
 

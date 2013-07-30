@@ -33,7 +33,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 		}
 	}
 
-	function renderFile(groupId,folerId,fileTitle){
+	function renderFile(groupId,folderId,fileTitle){
 		console.log('load file');
 
 		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
@@ -74,6 +74,14 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	$scope.upFolder = function(folderId){
+		if(folderId != 0){
+			$state.transitionTo('stage.documents.folder',{folderId:folderId});
+		}else{
+			$state.transitionTo('stage.documents.root');
+		}
+	}
+
+	$scope.backFolder = function(folderId){
 		if(folderId != 0){
 			$state.transitionTo('stage.documents.folder',{folderId:folderId});
 		}else{

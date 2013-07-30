@@ -1,3 +1,13 @@
+<div id="fixedContentHeader" data-ng-show="showConentHeader">
+	<span id="backBtn" data-ng-click="backFolder(file.folderId)"><i class="icon-chevron-left"></i>Back Folder</span>
+    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+        <i class="icon-home home"></i>
+        <span>{{currentGroup.name}}</span>
+    </span>
+</div>
 <div id="DCFileDetail">
-	{{file}}
+	<h3>{{file.title}}</h3>
+	<p>Fifle Type:&nbsp;&nbsp;<strong>{{file.extension}}</strong>&nbsp;&nbsp;File Version:&nbsp;&nbsp;<strong>{{file.version}}</strong></p><br />
+	<p>Created by:&nbsp;&nbsp;<strong>{{file.userName}}</strong><br />At&nbsp;<strong>{{file.createDate}}</strong></p><br />
+	<p>Last Modified by:&nbsp;<strong>{{file.versionUserName}}</strong><br />At&nbsp;<strong>{{file.modifiedDate}}</strong></p>
 </div>
