@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state){
+app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state','$q',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state,$q){
 
 	function renderActLogs(){
 		//console.log('render act logs');
@@ -58,4 +58,8 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 			}
 		)
 	});
+	$scope.goToGroup = function(group){
+		$rootScope.$broadcast("notification","Already showing activityfeed");
+		$rootScope.$broadcast("notification","Click on <i class='icon-align-justify'></i> to change group");
+	}
 }])

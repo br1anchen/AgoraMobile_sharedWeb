@@ -24,8 +24,14 @@ app.directive('activityBlock', function factory($log,AppService) {
     },
     template: 
     '<div class="activityBlock">'+
-        '<img class="peopleImg" ng-src="{{picURL}}"></img>' +
-        '<span class="content"><span class="action" >{{activity.action}}</span>, <span class="reference">{{activity.reference}}</span></span>' +
+        '<div class="peopleImg">'+
+        '   <img ng-src="{{picURL}}"></img>' +
+        '</div>'+
+        // '<div class="contentWrapper">'+
+        '   <span class="content">'+
+        '     <span class="action" >{{activity.action}}</span>, <span class="reference">{{activity.reference}}</span>'+
+        '   </span>'+
+        // '</div>' +
         '<span class="date">{{activity.timestamp | timeago | camelcase}}</span>' +
     '</div>'
   };
