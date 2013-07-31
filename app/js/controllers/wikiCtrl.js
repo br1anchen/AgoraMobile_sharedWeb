@@ -71,4 +71,22 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 		}
 	}
 
+	$scope.openChildren = function(node){
+		var cUl = 'cUl_' + node.title;
+		var nIcon = 'icon_' + node.title;
+
+		var ulElement  = document.getElementById(cUl);
+      	var iconElement = document.getElementById(nIcon);
+
+    	if ($(ulElement).hasClass('closeList')){
+    		console.log('open');
+    		$(ulElement).removeClass('closeList').addClass('openList');
+       		$(iconElement).removeClass('icon-folder-close-alt').addClass('icon-folder-open-alt');
+    	} else {
+    		console.log('close');
+    		$(ulElement).removeClass('openList').addClass('closeList');
+       		$(iconElement).removeClass('icon-folder-open-alt').addClass('icon-folder-close-alt');
+    	}
+	}
+
 }])
