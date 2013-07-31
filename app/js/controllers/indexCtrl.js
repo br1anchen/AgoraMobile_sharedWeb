@@ -14,7 +14,8 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
         id : 110,
         name : "Default Group",
         type : 1,
-        site : true
+        site : true,
+        friendlyURL : ''
     };
 
 	$scope.toggleMenu = function(){

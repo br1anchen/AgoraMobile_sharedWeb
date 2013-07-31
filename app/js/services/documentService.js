@@ -10,7 +10,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	var FileNumberApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries-count/group-id/";
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
 	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries/group-id/";
-	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav/";
+	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav";
 
 	var FoldersTreeHolder = {
 		rootFolder : {
@@ -190,14 +190,15 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			return StorageService.get('Group' + groupId + '_Folder' + folderId + '_FileTitle:' + fileTitle);
 		},
 
-		downloadFile : function(groupName,file){
+		downloadFile : function(groupUrl,folderName,file){
 			var deffered = $q.defer();
 			var downloadURL= "";
 
 			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
 			    function(filesDir){
 			        var fileTransfer = new FileTransfer();
-					var uri = encodeURI(DownloadApiUrl + groupName + '/document_library//' + file.title);
+			        if(folderName == 'rootFolder'){folderName = '';}
+					var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library/' + folderName + '/' + file.title);
 
 					fileTransfer.download(
 					    uri,
