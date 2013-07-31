@@ -4,7 +4,7 @@
 
 angular.module('app.documentService',['app.storageService','app.httpService','app.appService']).
 
-factory('DocumentService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
+factory('DocumentService',['$log','$q','StorageService','HttpService','AppService','$timeout',function ($log,$q,StorageService,HttpService,AppService,$timeout){
 
 	//class entity in DocumentService
 	var FileNumberApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries-count/group-id/";
@@ -191,6 +191,8 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		},
 
 		downloadFile : function(groupName,file){
+			var deffered = $q.defer();
+			var downloadURL= "";
 
 			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
 			    function(filesDir){
@@ -199,25 +201,29 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 					fileTransfer.download(
 					    uri,
-					    filesDir.fullPath + '/' + file.title,
+					    filesDir.fullPath + '/' + file.groupId + '/' + file.title,
 					    function(entry) {
 					    	
 					        console.log("download complete: " + entry.fullPath);
 
-					        /*cordova.exec(function(rep){
-								console.log(rep);
-							},function(err){
-								console.log(err);
-							}, "ExternalFileUtil", "openWith",[entry.fullPath, 'public.jpeg']);*/
+					        downloadURL = entry.fullPath;
 
 							file.localFileDir = entry.fullPath;
 							StorageService.store('Group' + file.groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title,file);
-					    
+					    	
+					    	$timeout(function(){
+					    		deffered.resolve(downloadURL);
+					    	});
 					    },
 					    function(error) {
 					        console.log("download error source " + error.source);
 					        console.log("download error target " + error.target);
 					        console.log("upload error code" + error.code);
+
+					        $timeout(function(){
+					    		deffered.reject("file download failed");
+					    	});
+					        
 					    },
 					    false,
 					    {
@@ -230,10 +236,16 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			    function(error){
 			        console.log("ERROR getDirectory");
 			        console.log(error);
-			        deffered.resolve("Direcoty created failed");
+
+			        $timeout(function(){
+			    		deffered.resolve("Direcoty created failed");
+			    	});
+			        
 			    }
 			);
 
+			return deffered.promise;
 		}
+
 	}
 }])
