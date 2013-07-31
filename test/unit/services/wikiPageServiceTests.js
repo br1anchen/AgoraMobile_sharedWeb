@@ -76,8 +76,7 @@ describe('WikiPageService',function(){
 		StorageService = $injector.get('StorageService');
 
 		//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
+    	StorageService.store('User',testUser);
 
 	}));
 
