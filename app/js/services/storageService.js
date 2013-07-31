@@ -32,6 +32,9 @@ factory('StorageService',['$log','$window',function($log,$window){
 	        	invalidKey(key);
 	            return undefined;
 	        }
+	    },
+	    clear: function(){
+	    	$window.localStorage.clear()
 	    }
 	}
 }])

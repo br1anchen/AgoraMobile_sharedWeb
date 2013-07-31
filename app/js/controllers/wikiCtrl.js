@@ -5,42 +5,28 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	function renderContentList(){
 		console.log('render content list');
 
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			WikiPageService.fetchMainNode($scope.currentGroup.id).then(function(rep){
+		WikiPageService.fetchMainNode($scope.currentGroup.id).then(function(rep){
+			console.log(rep);
+			$scope.nodeId = WikiPageService.getMainNode().nodeId;
+			WikiPageService.fetchWikiPages($scope.nodeId).then(function(rep){
 				console.log(rep);
-				$scope.nodeId = WikiPageService.getMainNode().nodeId;
-				WikiPageService.fetchWikiPages($scope.nodeId).then(function(rep){
-					console.log(rep);
-					$scope.listTree = WikiPageService.getWikiTree();
-				},function(err){
-					console.log(err);
-				});
-			},function(error){
-				console.log(error);
+				$scope.listTree = WikiPageService.getWikiTree();
+			},function(err){
+				console.log(err);
 			});
-		}
+		},function(error){
+			console.log(error);
+		});
 	}
 
 	function renderWikiPage(title,nId){
 		console.log('render wiki page');
 
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			WikiPageService.fetchWikiPage(title,nId).then(function(rep){
-				$scope.currentPage = WikiPageService.getWikipage();
-			},function(err){
-				console.log(err);
-			});
-		}
+		WikiPageService.fetchWikiPage(title,nId).then(function(rep){
+			$scope.currentPage = WikiPageService.getWikipage();
+		},function(err){
+			console.log(err);
+		});
 	}
 
 	if($scope.currentGroup.id != 110 && $state.is('stage.wiki.contentlist')){

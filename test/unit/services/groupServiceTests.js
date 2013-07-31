@@ -45,23 +45,16 @@ describe('GroupService',function(){
 
 		StorageService = $injector.get('StorageService');
 
-		//drop all the groups data
-		StorageService.remove("GroupIDs");
-		StorageService.remove("TopGroup");
-
-		//delete stored user info
-		StorageService.remove('testUser');
-		StorageService.remove('UserScreenName');
-
     	//store all usefull info in local storage
-    	StorageService.store('UserScreenName','testUser');
-    	StorageService.store(testUser.screenName,testUser);
+    	StorageService.store('User',testUser);
 
 	}));
 
 	afterEach(function() {
 	  	$httpBackend.verifyNoOutstandingExpectation();
 	  	$httpBackend.verifyNoOutstandingRequest();
+
+	  	StorageService.clear();
 	});
 
 	it('Testing fetch groups with first time correct authentication',inject(function(GroupService){	

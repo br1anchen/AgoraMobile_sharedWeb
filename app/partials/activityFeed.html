@@ -5,7 +5,7 @@
     </span>
 </div>
 <div id="activityFeed" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div data-ng-repeat="activity in activities" class="activity">
+	<div data-ng-repeat="activity in activitiesHolder.activities" class="activity">
 		<activity-block activity="activity"></activity-block>
 	</div>
 </div>

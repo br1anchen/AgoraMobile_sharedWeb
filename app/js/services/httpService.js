@@ -31,12 +31,10 @@ angular.module('app.httpService',['app.storageService'])
   					'Authorization' : authorization,
   					'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   				},
-          timeout : 500
+          timeout : 3000
   			
   			//success function
   			}).success(function(data, status, headers, config){
-  				console.log("HttpService request success");
-  				
   				deffered.resolve({data : data, status : status, headers : headers, config : config});
   			
   			//error function

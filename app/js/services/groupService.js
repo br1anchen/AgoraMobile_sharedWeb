@@ -53,7 +53,7 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
 
       angular.forEach(data, function(g, k){
 
-        if(g.site && g.type == 3){//type 3 as user group
+        if(g.site && g.type != 1){//type 3 as user group
 
           var userGroup = JSON2Group(g);
           storedGroups.push(userGroup);

@@ -18,11 +18,14 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
     function JSON2Activities(activities){//parse json to group obj
     	var parsedActivities = [];
     	angular.forEach(activities, function(object, key){
+    		var body = stripHTML(object.body);
 		  	var activity = {
-		      	date:object.data,
-		      	pic:object.pict,
+		      	timestamp:object.date,
+		      	pic:object.pict.substring(0,object.pict.indexOf('&')),
 		      	user:object.user,
-		      	groupId:object.groupId
+		      	groupId:object.groupId,
+		      	action:body.substring(0,body.indexOf(',')),
+		      	reference:body.substring(body.indexOf(',')+2)
 			}
 		    if(object.WikiPage_nodeid){
 				activity.type = "wiki";
@@ -48,16 +51,16 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 
     function storeActivities(groupId,activities){
     	activitiesHolder.activities = JSON2Activities(activities);//Replacing old data
-		StorageService.store("Group" + groupId + "_Activities",activities);
+		StorageService.store("Group" + groupId + "_Activities",activitiesHolder.activities);
     }
 
     function fetchActivities(groupId,number){
 		var deffered = $q.defer();
 		var user = StorageService.get('User');
 
-		var number = number ? number : 10;
+		var amount = number ? number : 10;
 
-		var promise = HttpService.request(apiGroup + user.id + '/gid/'+groupId+'/from/0/to/'+number,'','GET');
+		var promise = HttpService.request(apiGroup + user.id + '/gid/'+groupId+'/from/0/to/'+amount,'','GET');
 
 		promise.then(function(res){
 			setActivities(groupId,JSON2Activities(res.data));//Replacing old data
@@ -76,12 +79,13 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		activitiesHolder.groupId = gid//Replacing old data
 	}
 	function fetchTopActivities(number){
-		
 		var deffered = $q.defer();
 		var user = StorageService.get('User');
 
-		var number = number ? number : 10;
-		var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+number,'','GET');
+		var amount = number ? number : 10;
+		// alert("T:"+apiUser + user.id + '/from/0/to/'+amount);
+		var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+amount,'','GET');
+		// var promise = HttpService.request(apiUser + user.id + '/from/0/to/70','','GET');
 
 		promise.then(function(res){
 			//console.log("success:"+JSON.stringify(res));
@@ -97,7 +101,8 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 			deffered.resolve(activitiesHolder);
 			
         },function(err){
-			console.log("failed"+JSON.stringify(err));
+        	// alert("ish");
+			console.error("ActivitySerceice:fetchingTopActivities() failed:"+JSON.stringify(err));
           	deffered.reject(activitiesHolder);
         });
 
@@ -108,26 +113,26 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 	return {
 		getMoreActivities : function(group){
 			//If the given group is the top group
+			// alert("getMore():groupId:" + group.id + ",length:" + (activitiesHolder.activities.length + 10) + "activities:" + JSON.stringify(activitiesHolder.activities) + ":group.id:" + group.id);
 			if(group.type == 1){
-				fetchTopActivities(activitiesHolder.activities.length + 10);
+				return fetchTopActivities(activitiesHolder.activities.length + 10);
 			}
-
-			return fetchActivities(group.id,activitiesHolder.activities.length+10);
+			return fetchActivities(group.id,activitiesHolder.activities.length + 10);
 		},
 		updateActivities : function(group){
 			//If the given group is the top group
 			if(group.type == 1){
-				fetchTopActivities(activitiesHolder.activities.length);
+				return fetchTopActivities(activitiesHolder.activities.length);
 			}
 
 			return fetchActivities(group.id , activitiesHolder.activities.length);
 		},
-		getActivities : function(group){
+		getActivities : function(group,number){
+			var amount = number ? number : 10;
 			var deffered = $q.defer();
 			//Checking runtime memory for activities for this group
-			if( group.id == activitiesHolder.id && activitiesHolder.activities.length > 0){
+			if( group.id == activitiesHolder.groupId && activitiesHolder.activities.length > 0){
 				deffered.resolve(activitiesHolder);
-
 				//Because we don't know if the stored activities are up to date, we start a background update against the server as well
 				this.updateActivities(group);
 				return deffered.promise;
@@ -159,9 +164,9 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 
 				//Fetching activities for this group from server
 				if(group.type == 1){
-					return fetchTopActivities(10);
+					return fetchTopActivities(amount);
 				}
-				return fetchActivities(group.id , 10);
+				return fetchActivities(group.id , amount);
 			}
 			deffered.promise;
 		}

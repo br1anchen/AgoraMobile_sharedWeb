@@ -1,15 +1,5 @@
 'use strict';
 app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope','$state',function($scope,$log,$location,$timeout,$rootScope,$state){
-
-    $scope.$on("notify",function(notification){
-        alert("event in indexCtrl");
-    })
-
-    $scope.notify = function(msg){
-        $rootScope.$broadcast("notify");
-        $rootScope.notify = msg;
-    }
-
     $scope.currentGroup =  {
         id : 110,
         name : "Default Group",
