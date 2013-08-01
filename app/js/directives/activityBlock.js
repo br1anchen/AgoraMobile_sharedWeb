@@ -1,7 +1,7 @@
 'use strict';
 //Activity Block Directive
 
-app.directive('activityBlock', function factory($log) {
+app.directive('activityBlock', function factory($log,AppService) {
   var directiveObj = {
     priority: 0,
     replace: true,
@@ -16,18 +16,17 @@ app.directive('activityBlock', function factory($log) {
 
       activity:"="
     },
-    controller: ['$scope', '$element', '$attrs', '$transclude',function($scope, $element, $attrs, $transclude){
-      
-    }],
+    controller:function($scope){
+      $scope.picURL = AppService.getBaseURL() +'/image' + $scope.activity.pic;
+    },
     link: function postLink(scope, iElement, iAttrs) {
 
     },
     template: 
-    '<div id="activityBlock">'+
-        '<img id="peopleImg" src="{{activity.posterImg}}"></img>' +
-        '<p id="date">{{activity.timestamp}}</p>' +
-        '<a id="file" href="{{activity.file}}">{{activity.fileName}}</a>' +
-        '<p id="content">{{activity.body}}</p>' +
+    '<div class="activityBlock">'+
+        '<img class="peopleImg" ng-src="{{picURL}}"></img>' +
+        '<span class="content"><span class="action" >{{activity.action}}</span>, <span class="reference">{{activity.reference}}</span></span>' +
+        '<span class="date">{{activity.timestamp | timeago | camelcase}}</span>' +
     '</div>'
   };
   return directiveObj;

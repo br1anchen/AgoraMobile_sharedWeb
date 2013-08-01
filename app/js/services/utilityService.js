@@ -3,6 +3,7 @@
 angular.module('app.utilityService',[]).
 factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 
+
 	return {
 		base64:{
 			// private property

@@ -2,52 +2,21 @@
 
 app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state){
 
-	// $state.transitionTo('stage.wiki.page',{nodeId:nId,title:t});
-	// $state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
-
 	function renderActLogs(){
 		//console.log('render act logs');
 		
-		$scope.showConentHeader = true;
-		
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-		console.log(connect);
-
-		
-		if(connect == 'No network connection'){
-			if(StorageService.get("Group" + groupId + "_ActLog0")){
-				for(var i= 0;i < 10; i ++){
-					$scope.activities.push(StorageService.get("Group" + groupId + "_ActLog" + i ));
-				}
-			}else{
-				console.log("no internetConnection and no stored activities");
+		ActivityService.getActivities($scope.currentGroup,30).then(
+			function(activitiesHolder){
+				// alert(JSON.stringify($scope.currentGroup));
+				// alert(JSON.stringify(activitiesHolder.activities));
+				$scope.activitiesHolder = activitiesHolder;
+				
+			},
+			function(error){
+				// alert("error:"+JSON.stringify(error));
+				console.log(error);
 			}
-		}else{
-			ActivityService.getActivities($scope.currentGroup).then(
-				function(activities){
-					$scope.activities = activities;
-				},
-				function(error){
-					console.log(error);
-				}
-			);
-		}
-		
-		// $scope.activities = [];
-		// for(var i = 0; i <10 ; i++){
-		// 	var act = {
-		// 	    body : "Stian Borgesen uploaded a new document in group" + $scope.currentGroup.id,
-		//         groupId : 250926,
-		//         className : "File",
-		//         classPK : "File" + i,
-		//         timestamp : "09-07-2013",
-		//         involved : "Brian Chen",
-		//         posterImg : "https://agora.uninett.no/image/user_male_portrait?img_id=254940",
-		//         file : "https://agora.uninett.no/c/document_library/get_file?groupId=250926&folderId=0&title=login.sh",
-		//         fileName : "login.sh"
-		// 	};
-		// 	$scope.activities.push(act);
-		// }
+		);
 	}
 
 	if($scope.currentGroup.id != 110 && $state.is('stage.activityFeed')){
@@ -61,40 +30,32 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 	$scope.$on('scrollableUpdate',function(){
 		$scope.loading = true;
 
-		//Real update comes here:
-		// ActivityService.updateActivities($scope.currentGroup.id).then(
-		// 	function(){
-
-		// 	},
-		// 	function(){
-
-		// 	}
-		// );
-
-		//Dummy code to make it seam like it'a updating
-		$timeout(function(){
-			$scope.loading = false;
-		},3000);
+		//Updating content
+		ActivityService.updateActivities($scope.currentGroup).then(
+			function(res){
+				$scope.loading = false;
+			},
+			function(error){
+				console.error("ActivityCtrl: Update failed");
+				$rootScope.$broadcast("notification","Update failed");
+				$scope.loading = false;
+			}
+		);
 	});
 
-	var appendcounter = 0;
 	$scope.$on('scrollableAppend',function(){
+		$scope.loading = true;
 
-		$timeout(function(){ //Inside $timeout to update childscope
-
-			var act = {
-			    body : "Stian Borgesen uploaded a new document(older" + ++appendcounter + ")",
-		        groupId : 250926,
-		        className : "File",
-		        classPK : "File",
-		        timestamp : "09-07-2013",
-		        involved : "Brian Chen",
-		        posterImg : "https://agora.uninett.no/image/user_male_portrait?img_id=254940",
-		        file : "https://agora.uninett.no/c/document_library/get_file?groupId=250926&folderId=0&title=login.sh",
-		        fileName : "login.sh"
-			};
-			$scope.activities.push(act);
-
-		});
+		//Appending content
+		ActivityService.getMoreActivities($scope.currentGroup).then(
+			function(res){
+				$scope.loading = false;
+			},
+			function(error){
+				console.error("Append failed");
+				$rootScope.$broadcast("notification","Append failed");
+				$scope.loading = false;
+			}
+		)
 	});
 }])

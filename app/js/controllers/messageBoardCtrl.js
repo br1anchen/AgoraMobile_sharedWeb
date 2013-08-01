@@ -6,83 +6,51 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 		console.log('render Categories');
 
 		$scope.showConentHeader = true;
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-		
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			var storedCats = StorageService.get('Group' + $scope.currentGroup.id + '_CategoryIDs');
-			if(storedCats){
-				angular.forEach(storedCats,function(cId,k){
-					$scope.categories.push(StorageService.get('Category' + cId));
-				});
-				$('#noCategory').css("visibility", "hidden");
+		MessageBoardService.fetchCategories($scope.currentGroup.id).then(function(rep){
+			console.log(rep);
+			$scope.categories = MessageBoardService.getCategories();
+			if(!$scope.categories){
+				$('#noCategory').css("visibility", "visible");
 			}else{
-				console.log('no stored categories');
+				$('#noCategory').css("visibility", "hidden");
 			}
-		}else{
-			MessageBoardService.fetchCategories($scope.currentGroup.id).then(function(rep){
-				console.log(rep);
-				$scope.categories = MessageBoardService.getCategories();
-				if(!$scope.categories){
-					$('#noCategory').css("visibility", "visible");
-				}else{
-					$('#noCategory').css("visibility", "hidden");
-				}
-			},function(error){
-				console.log(error);
-			});
-		}
-
+		},function(error){
+			console.log(error);
+		});
 	}
 
 	function renderThreads (groupId,categoryId){
 		console.log('render Threads');
 		
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-		
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			MessageBoardService.fetchThreads(groupId,categoryId).then(function(rep){
-				console.log(rep);
-				$scope.threads = MessageBoardService.getThreads();
+		MessageBoardService.fetchThreads(groupId,categoryId).then(function(rep){
+			console.log(rep);
+			$scope.threads = MessageBoardService.getThreads();
 
-				if(!$scope.threads){
-					$('#noThread').css("visibility", "visible");
-				}else{
-					$('#noThread').css("visibility", "hidden");
-				}
-			},function(error){
-				console.log(error);
-			});
-		}
-
+			if(!$scope.threads){
+				$('#noThread').css("visibility", "visible");
+			}else{
+				$('#noThread').css("visibility", "hidden");
+			}
+		},function(error){
+			console.log(error);
+		});
 	}
 
 	function renderMessages (groupId,categoryId,threadId){
 		console.log('render Messages');
 		
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-		
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			MessageBoardService.fetchMessages(groupId,categoryId,threadId).then(function(rep){
-				console.log(rep);
-				$scope.messages = MessageBoardService.getMessages();
+		MessageBoardService.fetchMessages(groupId,categoryId,threadId).then(function(rep){
+			console.log(rep);
+			$scope.messages = MessageBoardService.getMessages();
 
-				if(!$scope.threads){
-					$('#noMessage').css("visibility", "visible");
-				}else{
-					$('#noMessage').css("visibility", "hidden");
-				}
-			},function(error){
-				console.log(error);
-			});
-		}
-
+			if(!$scope.threads){
+				$('#noMessage').css("visibility", "visible");
+			}else{
+				$('#noMessage').css("visibility", "hidden");
+			}
+		},function(error){
+			console.log(error);
+		});
 	}
 
 	if($scope.currentGroup.id != 110 && $state.is('stage.messageBoard.categories')){

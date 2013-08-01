@@ -130,6 +130,8 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             innerWrapper.css('height',wrapper.height());
             innerWrapper.css('width',wrapper.width());
             innerWrapper.css('overflow-y','scroll');
+            innerWrapper.css('overflow-x','hidden');
+
 
             var prevScrollTop = innerWrapper.scrollTop(); // Used to determin scroll direction
             //Triggering update when scrolling is near the bottom

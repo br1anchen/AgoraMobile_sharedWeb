@@ -1,7 +1,7 @@
 <div>
     <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
         <div id="menu" ng-controller="MenuCtrl">
-            <img id="userPortrait" src="{{user.portraitImgUrl}}" />
+            <img id="userPortrait" ng-src="{{user.portraitImgUrl}}" />
             <h3>{{user.fullName}}</h3>
             <ul class="nav nav-list groups">
                 <li data-ng-click="switchGroup('top')">
@@ -56,8 +56,7 @@
                 </div>
             </div>
             <div class="expand center" ui-view></div>
-
-            <notifier id="notifier"></notifier>
+            <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
         </div>
     </div>
 </div>

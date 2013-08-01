@@ -4,6 +4,7 @@ describe('GroupService',function(){
 
 	var StorageService;
 	var $httpBackend;
+	var AppService;
 	//test user info
 	var testUser = {
       	screenName : "testUser",
@@ -16,10 +17,11 @@ describe('GroupService',function(){
 	beforeEach(module('app.storageService'));
 
 	beforeEach(inject(function($injector){
+		AppService = $injector.get('AppService');
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/group/get-user-places/-class-names/max/10'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -31,7 +33,7 @@ describe('GroupService',function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET('https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/group/get-user-places/-class-names/max/10'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -43,13 +45,6 @@ describe('GroupService',function(){
 
 		StorageService = $injector.get('StorageService');
 
-		//drop all the groups data
-		StorageService.remove("GroupIDs");
-		StorageService.remove("TopGroup");
-
-		//delete stored user info
-		StorageService.remove('User');
-
     	//store all usefull info in local storage
     	StorageService.store('User',testUser);
 
@@ -58,6 +53,8 @@ describe('GroupService',function(){
 	afterEach(function() {
 	  	$httpBackend.verifyNoOutstandingExpectation();
 	  	$httpBackend.verifyNoOutstandingRequest();
+
+	  	StorageService.clear();
 	});
 
 	it('Testing fetch groups with first time correct authentication',inject(function(GroupService){	

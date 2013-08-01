@@ -4,7 +4,6 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
    if(!StorageService.get('TopGroup')){
      GroupService.fetchGroups().then(
       function(rep){
-       console.log(rep);
        $scope.groups = GroupService.getGroups();
        $scope.user = StorageService.get('User');
        cacheImage($scope.user.portraitImgUrl);
@@ -15,7 +14,6 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
    }
    else{
      GroupService.updateGroups().then(function(rep){
-        console.log(rep);
         $scope.groups = GroupService.getGroups();
         $scope.user = StorageService.get('User');
         $scope.user.portraitImgUrl = StorageService.get('UserPortraitImage');
