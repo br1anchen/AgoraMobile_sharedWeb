@@ -6,20 +6,14 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 		$scope.showConentHeader = true;
 
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
+		DocumentService.fetchFolders($scope.currentGroup.id);
 		
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			DocumentService.fetchFolders($scope.currentGroup.id);
-			
-			DocumentService.fetchFileObjs($scope.currentGroup.id).then(function(rep){
-				$scope.folder = DocumentService.getFolderWithFiles();
-			},function(err){
-				console.log(err);
-			});
-		}
+		DocumentService.fetchFileObjs($scope.currentGroup.id).then(function(rep){
+			$scope.folder = DocumentService.getFolderWithFiles();
+		},function(err){
+			console.log(err);
+		});
+
 	}
 
 	function renderFolder(groupId,folderId){
@@ -27,14 +21,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 		$scope.showConentHeader = true;
 
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-		
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			$scope.folder = DocumentService.getFolderContent(groupId,folderId);
-		}
+		$scope.folder = DocumentService.getFolderContent(groupId,folderId);
+
 	}
 
 	function renderFile(groupId,folderId,fileTitle){
@@ -42,14 +30,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 		$scope.showConentHeader = true;
 		
-		var connect = UtilityService.internetConnection.checkConnection(navigator.connection.type);
-		
-		if(connect == 'No network connection'){
-			console.log('no internet');
-			
-		}else{
-			$scope.file = DocumentService.getFile(groupId,folderId,fileTitle);
-		}
+		$scope.file = DocumentService.getFile(groupId,folderId,fileTitle);
+
 	}
 
 	if($state.is('stage.documents.root')){
@@ -83,7 +65,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 							console.log(rep);
 						},function(err){
 							console.log(err);
-						}, "ExternalFileUtil", "openWith",[encodeURI(dir), 'public.jpeg']);
+						}, "ExternalFileUtil", "openWith",[encodeURI(dir), UtilityService.iosUTI.getUTIByExtension(file.extension)]);
 		},function(err){
 			console.log(err);
 		});

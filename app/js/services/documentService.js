@@ -217,9 +217,14 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 					var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
 
+					var localfileDir = file.remoteFileDir.replace(/\s+/g,'');
+					if(localfileDir.split('.').pop() == localfileDir){
+						localfileDir = localfileDir + '.' + file.extension;
+					}
+
 					fileTransfer.download(
 					    uri,
-					    filesDir.fullPath + '/' + file.groupId + file.remoteFileDir,
+					    filesDir.fullPath + '/' + file.groupId + localfileDir,
 					    function(entry) {
 					    	
 					        console.log("download complete: " + entry.fullPath);
