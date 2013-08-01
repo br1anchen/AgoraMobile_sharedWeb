@@ -127,8 +127,9 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
 
             innerWrapper.css('position','absolute');
 
-            innerWrapper.css('height',wrapper.height());
-            innerWrapper.css('width',wrapper.width());
+            // innerWrapper.css('height',wrapper.height());
+            innerWrapper.css('height','100%');
+            innerWrapper.css('width','100%');
             innerWrapper.css('overflow-y','scroll');
             innerWrapper.css('overflow-x','hidden');
 

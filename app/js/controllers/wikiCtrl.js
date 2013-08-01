@@ -23,7 +23,7 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	function renderWikiPage(title,nId){
 		console.log('render wiki page');
 
-		$scope.showConentHeader = true;
+		//$scope.showConentHeader = true;
 		WikiPageService.fetchWikiPage(title,nId).then(function(rep){
 			$scope.currentPage = WikiPageService.getWikipage();
 		},function(err){

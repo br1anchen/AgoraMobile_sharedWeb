@@ -15,7 +15,7 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
         },
         template:
             '<div class="notifier">'+
-                '<span class="notification" data-ng-bind=notification></span>'+
+                '<span class="notification" ng-bind-html-unsafe="notification"></span>'+
             '</div>'
         ,
         link: function(scope, element, attrs) {
@@ -23,11 +23,11 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
             element.css('display','none');
 
             scope.notificationQue = [];
-
-            //Litsents for notification broadcasts
+            var show =  false;
+            //Listener for notification broadcasts
             $rootScope.$on("notification",function(e,notification){
-                console.log("notifyinit")
-                if(!scope.show){
+                console.log("notification added:"+notification)
+                if(!show){
                     scope.notification = notification;
                     flash();
                 }
@@ -35,26 +35,11 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
                     scope.notificationQue.push(notification);
                 }
             })
-            scope.show =  false;                
             //Flashes a notifivation
             function flash(){
-                $timeout(function(){scope.show = true;});
-                $timeout(function(){
-                    //Flashes a new notification if present
-                    if(scope.notificationQue.length > 0){
-                        scope.notification = scope.notificationQue.shift();
-                        flash();
-
-                    }
-                    else{
-                        scope.show = false;
-                    }
-                },3000);
-            }
-
-            scope.$watch('show',function(newValue,oldValue){
-                console.log(scope.animation);
-                if(newValue){
+                if(!show){
+                    //Show animation
+                    show = true;
                     switch(scope.animation){
                         case 'slideVertical':
                             element.slideDown();
@@ -64,17 +49,27 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
                         break;
                     }
                 }
-                else{
-                    switch(scope.animation){
-                        case 'slideVertical':
-                            element.slideUp();
-                        break;
-                        case 'fade':
+                $timeout(function(){
+                    //Flashes a new notification if present
+                    if(scope.notificationQue.length > 0){
+                        scope.notification = scope.notificationQue.shift();
+                        flash();
 
-                        break;
                     }
-                }
-            })
+                    else{
+                        show = false;
+                        //hide animation
+                        switch(scope.animation){
+                            case 'slideVertical':
+                                element.slideUp();
+                            break;
+                            case 'fade':
+
+                            break;
+                        }
+                    }
+                },3000);
+            }
         }
     }
 })

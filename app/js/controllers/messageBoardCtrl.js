@@ -22,6 +22,7 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 	function renderThreads (groupId,categoryId){
 		console.log('render Threads');
 		
+		$scope.showConentHeader = true;
 		MessageBoardService.fetchThreads(groupId,categoryId).then(function(rep){
 			console.log(rep);
 			$scope.threads = MessageBoardService.getThreads();
