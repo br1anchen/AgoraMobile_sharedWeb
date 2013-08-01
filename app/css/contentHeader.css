@@ -23,7 +23,6 @@
 #fixedContentHeader{
 	z-index: 1;
 	position: absolute;
-	top:12%;
 	width:100%;
 }
 #contentHeader *{

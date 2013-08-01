@@ -59,7 +59,11 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 		)
 	});
 	$scope.goToGroup = function(group){
-		$rootScope.$broadcast("notification","Already showing activityfeed");
-		$rootScope.$broadcast("notification","Click on <i class='icon-align-justify'></i> to change group");
+		$rootScope.$broadcast("notification",
+			"Already showing activityfeed"
+		);
+		$rootScope.$broadcast("notification",
+			"Click on <i class='icon-align-justify'></i> to change group"
+		);
 	}
 }])
