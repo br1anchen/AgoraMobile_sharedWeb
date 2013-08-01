@@ -119,7 +119,6 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 			file.remoteFileDir = getAllNestedFolders(file.folderId) + '/' + file.title;
 			
-			console.log(file.remoteFileDir);
 			StorageService.store('Group' + groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title, file)
 		});
 

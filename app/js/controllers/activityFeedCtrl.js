@@ -5,6 +5,8 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 	function renderActLogs(){
 		//console.log('render act logs');
 		
+		$scope.showConentHeader = true;
+		
 		ActivityService.getActivities($scope.currentGroup,30).then(
 			function(activitiesHolder){
 				// alert(JSON.stringify($scope.currentGroup));
