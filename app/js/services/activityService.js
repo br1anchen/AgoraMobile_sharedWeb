@@ -137,7 +137,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 				this.updateActivities(group);
 				return deffered.promise;
 			}
-			//Fetching activities for this group if present in webstorage
+			//Fetching activities from webstorage if present in webstorage
 			else{
 				var activities;
 				if(group.type == 1){

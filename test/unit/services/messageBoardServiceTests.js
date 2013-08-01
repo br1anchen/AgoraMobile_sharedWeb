@@ -96,84 +96,80 @@ describe('MessageBoardService',function(){
 
 	it('Testing fetch message board categories first time',inject(function(MessageBoardService){
 
-		var categories;
+		var categoriesHolder;
 
-		var promise = MessageBoardService.fetchCategories(10157);
+		var promise = MessageBoardService.getCategories({id:10157});
 
 		promise.then(function(rep){
-			categories = MessageBoardService.getCategories();
+			categoriesHolder = rep;
+		});
+
+		$httpBackend.flush();
+		expect(categoriesHolder.categories.length).toBe(3);
+	}));
+
+	it('Testing after fetch message board categories and store them',inject(function(MessageBoardService,StorageService){
+
+		var categories;
+
+		var promise = MessageBoardService.getCategories({id:10157});
+
+		promise.then(function(rep){
+			categories = StorageService.get("Group10157_Categories");
 		});
 
 		$httpBackend.flush();
 		expect(categories.length).toBe(3);
 	}));
 
-	it('Testing after fetch message board categories and store them',inject(function(MessageBoardService,StorageService){
-
-		var categoryIds;
-
-		var promise = MessageBoardService.fetchCategories(10157);
-
-		promise.then(function(rep){
-			categoryIds = StorageService.get("Group10157_CategoryIDs");
-		});
-
-		$httpBackend.flush();
-		expect(categoryIds.length).toBe(3);
-	}));
-
 	it('Testing fetch threads by category ID',inject(function(MessageBoardService){
 
-		var threads;
+		var threadsHolder;
 
-		var promise = MessageBoardService.fetchCategories(10157);
+		var promise = MessageBoardService.getCategories({id:10157});
 
 		promise.then(function(rep){
-			MessageBoardService.fetchThreads(10157,19297).then(function(rep){
-				threads = MessageBoardService.getThreads();
+			MessageBoardService.getThreads({id:10157},19297).then(function(rep){
+				threadsHolder = rep;
 			});
 		});
 
 		$httpBackend.flush();
-		expect(threads.length).toBe(4);
+		expect(threadsHolder.threads.length).toBe(4);
 	}));
 
-	it('Testing after fetched threads by category ID and store them',inject(function(MessageBoardService,StorageService){
+	it('Testing threads after getThreads',inject(function(MessageBoardService,StorageService){
 
-		var threadIds;
+		var threadsHolder;
 
-		var promise = MessageBoardService.fetchCategories(10157);
-
-		promise.then(function(rep){
-			MessageBoardService.fetchThreads(10157,19297).then(function(rep){
-				threadIds = StorageService.get("Category19297_ThreadIDs");
-			});
+		var promise = MessageBoardService.getThreads({id:10157},19297).then(function(rep){
+			threadsHolder = rep;
 		});
 
 		$httpBackend.flush();
-		expect(threadIds.length).toBe(4);
+		expect(threadsHolder.threads.length).toBe(4);
 
-		var category = StorageService.get("Category19297");
-		expect(category.threadIds.length).toBe(4);
+		var threads = StorageService.get('Group' + 10157 + '_Category' + 19297 + '_Threads');
+		expect(threads.length).toBe(4);
 	}));
 
 	it('Testing fetch messages by threadId&categoryId&groupId',inject(function(MessageBoardService){
 
-		var messages;
+		var messagesHolder;
 
-		var promise = MessageBoardService.fetchMessages(10157,19297,19300).then(function(rep){
-			messages = MessageBoardService.getMessages();
+		var promise = MessageBoardService.getMessages(10157,19297,19300).then(function(rep){
+			messagesHolder = rep;
 		});
 		
 		$httpBackend.flush();
-		expect(messages.length).toBe(1);
+		expect(messagesHolder.messages.length).toBe(1);
 	}));
 
 	it('Testing fetch messages then store them',inject(function(MessageBoardService,StorageService){
 
 		var messageIds;
 
-		var promise = MessageBoardService.fetchMessages(10157,19297,19300).then(function(rep){
+		var promise = MessageBoardService.getMessages(10157,19297,19300).then(function(rep){
 			messageIds = StorageService.get("Thread19300_MessageIDs");
 		});
 		
