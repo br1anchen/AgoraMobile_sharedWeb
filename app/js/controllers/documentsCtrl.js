@@ -1,6 +1,6 @@
 'use strict';
-app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,$state,$stateParams){
-	
+app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,AppService,$state,$stateParams){
+
 	function renderDirectory(){
 		console.log('render Document Directory');
 
@@ -77,6 +77,17 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	$scope.showFile = function(file){
 		console.log('show file: ' + file.title);
+
+		DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+			cordova.exec(function(rep){
+							console.log(rep);
+						},function(err){
+							console.log(err);
+						}, "ExternalFileUtil", "openWith",[encodeURI(dir), 'public.jpeg']);
+		},function(err){
+			console.log(err);
+		});
+
 	}
 
 	$scope.upFolder = function(folderId){
