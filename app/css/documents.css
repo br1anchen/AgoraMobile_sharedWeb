@@ -23,8 +23,8 @@
 
 #DCFolder ul li{
 	text-align: left;
-	line-height:1.8em;
-	font-size: 1.4em;
+	line-height:2em;
+	font-size: 1.9em;
 }
 
 #DCFolder .folderList>:first-child, #DCFolder .fileList>:first-child{
@@ -37,8 +37,8 @@
 #DCFolder #detailBtn{
 	float: right;
 	margin-right: 10px;
-	line-height:1.4em;
-	font-size: 1.2em;
+	padding-top: 5px;
+	font-size: 1.6em;
 }
 
 #documents #backBtn{
