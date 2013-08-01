@@ -65,6 +65,14 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 							console.log(rep);
 						},function(err){
 							console.log(err);
+							navigator.notification.alert(
+                                'Your device has no application to open this file',
+                                function(){
+
+                                },
+                                'Agora Mobile',
+                                'I understand'
+                            );
 						}, "ExternalFileUtil", "openWith",[encodeURI(dir), UtilityService.iosUTI.getUTIByExtension(file.extension)]);
 		},function(err){
 			console.log(err);
