@@ -61,7 +61,8 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			version: json.version,
 			versionUserId: json.versionUserId,
 			versionUserName: json.versionUserName,
-			localFileDir: ''
+			localFileDir: '',
+			remoteFileDir: ''
 		}
 	}
 
@@ -104,13 +105,29 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	}
 
 	function factoryFiles(data,groupId){
+		var getAllNestedFolders = function(fId){
+			if(fId != 0){
+				var folder = StorageService.get('Group' + groupId + '_Folder' + fId);
+				return getAllNestedFolders(folder.parentFolderId) + '/' + folder.name;
+			}else{
+				return '';
+			}
+		}
+
+		angular.forEach(data,function(f,k){
+			var file = JSON2File(f);
+
+			file.remoteFileDir = getAllNestedFolders(file.folderId) + '/' + file.title;
+			
+			console.log(file.remoteFileDir);
+			StorageService.store('Group' + groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title, file)
+		});
+
 		var putFile2Folder = function(fNode){
 			var files = [];
 
 			angular.forEach(data,function(f,k){
-				var file = JSON2File(f);
-
-				StorageService.store('Group' + groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title, file);
+				var file = 	StorageService.get('Group' + groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);;
 
 				if(file.folderId == fNode.folderId){
 					files.push(file);
@@ -130,6 +147,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		}
 
 		putFile2Folder(FoldersTreeHolder.rootFolder);
+
 	}
 
 	function getFileSystem(){
@@ -190,19 +208,19 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			return StorageService.get('Group' + groupId + '_Folder' + folderId + '_FileTitle:' + fileTitle);
 		},
 
-		downloadFile : function(groupUrl,folderName,file){
+		downloadFile : function(groupUrl,file){
 			var deffered = $q.defer();
 			var downloadURL= "";
 
 			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
 			    function(filesDir){
 			        var fileTransfer = new FileTransfer();
-			        if(folderName == 'rootFolder'){folderName = '';}
-					var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library/' + folderName + '/' + file.title);
+
+					var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
 
 					fileTransfer.download(
 					    uri,
-					    filesDir.fullPath + '/' + file.groupId + '/' + file.title,
+					    filesDir.fullPath + '/' + file.groupId + file.remoteFileDir,
 					    function(entry) {
 					    	
 					        console.log("download complete: " + entry.fullPath);

@@ -78,7 +78,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	$scope.showFile = function(file){
 		console.log('show file: ' + file.title);
 
-		DocumentService.downloadFile($scope.currentGroup.friendlyURL,$scope.folder.name,file).then(function(dir){
+		DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
 			cordova.exec(function(rep){
 							console.log(rep);
 						},function(err){
