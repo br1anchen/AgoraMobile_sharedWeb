@@ -153,28 +153,18 @@ describe('MessageBoardService',function(){
 		expect(threads.length).toBe(4);
 	}));
 
-	it('Testing fetch messages by threadId&categoryId&groupId',inject(function(MessageBoardService){
+	it('Testing getMessages',inject(function(MessageBoardService){
 
 		var messagesHolder;
+		var messages;
 
-		var promise = MessageBoardService.getMessages(10157,19297,19300).then(function(rep){
+		var promise = MessageBoardService.getMessages({id:10157},19297,19300).then(function(rep){
 			messagesHolder = rep;
+			messages = StorageService.get("Group" + 10157 + "_Category" + 19297 + "_Thread" + 19300 + "_Messages");
 		});
 		
 		$httpBackend.flush();
 		expect(messagesHolder.messages.length).toBe(1);
+		expect(messages.length).toBe(1);
 	}));
-
-	it('Testing fetch messages then store them',inject(function(MessageBoardService,StorageService){
-
-		var messageIds;
-
-		var promise = MessageBoardService.getMessages(10157,19297,19300).then(function(rep){
-			messageIds = StorageService.get("Thread19300_MessageIDs");
-		});
-		
-		$httpBackend.flush();
-		expect(messageIds.length).toBe(1);
-	}));
-
 });

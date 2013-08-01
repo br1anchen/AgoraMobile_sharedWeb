@@ -124,31 +124,17 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
         storeThreads(gid,categoryId,threads);
     }
 
-    function storeMessages(msgs,cId,tId){
-    	messages = [];
-    	messageIds = [];
-
-    	angular.forEach(msgs,function(m,k){
-
-    		var message = JSON2Msg(m);
-    		messages.push(message);
-    		messageIds.push(message.messageId);
-
-    		StorageService.store('Message' + message.messageId,message);
-    	});
-
-    	threads = jQuery.map(threads,function(t){
-    		if(t.threadId == tId){
-    			t.messageIds = messageIds;
-    		}
-    		StorageService.store('Thread' + t.threadId,t);
-    		return t;
-    	});
-
-    	threadsHolder.threads = threads;
-    	messagesHolder.messages = messages;
-    	StorageService.store('Thread' + tId + '_MessageIDs',messageIds);
+    //Sets the webstorage
+	function storeMessages(gid, categoryId, threadId, messages){
+		StorageService.store('Group' + gid + '_Category' + categoryId + '_Thread' + threadId + "_Messages",messages);
+	}
+	//Sets the runtime memory and webstorage
+    function setMessages(gid,categoryId,threadId,messages){
+        messagesHolder.messages = messages;
+        messagesHolder.groupId = gid;
+        storeMessages(gid, categoryId, threadId, messages);
     }
+
     function fetchCategories(groupId){
     	var deffered = $q.defer();
 
@@ -168,15 +154,17 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	          deffered.resolve(categoriesHolder);
 
 	        },function(err){
-	          deffered.reject("MessageBoardService.fetchCategories:Failed to get categories from server");
+	          deffered.reject("MessageBoardService.fetchCategories():MessageBoardService.fetchCategories:Failed to get categories for group "+ groupId);
+	          console.error("MessageBoardService.fetchCategories:Failed to get categories for group "+ groupId);
 	        });
 
 			return deffered.promise;
     }
-    function fetchThreads(groupId,categoryId){
+    function fetchThreads(groupId, categoryId, number){
+    	var amount = number ? number : 20;
     	var deffered = $q.defer();
 
-		var promise = HttpService.request(ThreadsApiUrl + groupId + '/category-id/' + categoryId + '/status/0/start/0/end/20','','GET');
+		var promise = HttpService.request(ThreadsApiUrl + groupId + '/category-id/' + categoryId + '/status/0/start/0/end/' + amount,'','GET');
 
 		promise.then(function(rep){
 			var threads = [];
@@ -210,7 +198,30 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 
 			return deffered.promise;
 		},function(err){
-			deffered.reject("Could not fetch threads for category " + categoryId);
+			deffered.reject('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);
+			console.error('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);
+		});
+
+		return deffered.promise;
+    }
+    function fetchMessages(groupId, categoryId, threadId, number){
+    	var amount = number ? number : 20;
+    	var deffered = $q.defer();
+
+		var promise = HttpService.request(MessagesApiUrl + groupId + '/category-id/' + categoryId + '/thread-id/' + threadId + '/status/0/start/0/end/' + amount,'','GET');
+
+		promise.then(function(rep){
+			var messages = [];
+
+			angular.forEach(rep.data,function(m,k){
+	    		var message = JSON2Msg(m);
+	    		messages.push(message);
+	    	});
+	    	setMessages(groupId,categoryId,threadId,messages);
+			deffered.resolve(messagesHolder);
+		},function(err){
+			deffered.reject("MessageBoardService.fetchMessages():Colud not fetch messages for thread " + threadId);
+			console.error("Colud not fetch messages for thread " + threadId);
 		});
 
 		return deffered.promise;
@@ -245,6 +256,9 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			}
 			
 		},
+		updateCategories : function(group){
+			return fetchCategories(group.id);
+		},
 		getThreads : function(group,categoryId){
 			var deffered = $q.defer();
 
@@ -271,22 +285,44 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			}
 
 		},
-
-		getMessages : function(groupId,categoryId,threadId){
+		updateThreads : function(group,categoryId){
+			return fetchThreads(group.id, categoryId, threadsHolder.threads.length);
+		},
+		getMoreThreads : function(group, categoryId, amount){
+			var add = amount ? amount : 20;
+			return fetchThreads(group.id, categoriyId, threadsHolder.threads.length + add);
+		},
+		getMessages : function(group,categoryId,threadId){
 			var deffered = $q.defer();
 
-			var promise = HttpService.request(MessagesApiUrl + groupId + '/category-id/' + categoryId + '/thread-id/' + threadId + '/status/0/start/0/end/20','','GET');
-
-			promise.then(function(rep){
-
-				storeMessages(rep.data,categoryId,threadId);
-
+			//Returning whatever is in the runtime memory if the groupe is the same
+			if(messagesHolder.groupId == group.id){
 				deffered.resolve(messagesHolder);
-			},function(err){
-				deffered.reject("messages failed fetched for thread " + threadId);
-			});
-
-			return deffered.promise;
-		}
+				
+				//Updates in the background even if it has categories localy
+				fetchMessages(group.id,categoryId,threadId);
+				return deffered.promise;
+			}
+			//Tries to fetch from Webstorage
+			var messages = StorageService.get('Group' + group.id + '_Category' + categoryId + '_Thread' + threadId + "_Messages");
+			if(messages){
+				setMessages(group.id,categoryId, threadId,messages);
+				deffered.resolve(messagesHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchMessages(group.id, categoryId, threadId);
+				return deffered.promise;
+			}
+			else{
+				return fetchMessages(group.id, categoryId, threadId);
+			}
+		},
+		updateMessages : function (group, categoryId, threadId){
+			return fetchMessages(group.id, categoryId, threadId, messagesHolder.messages.length);
+		},
+		getMoreMessages : function(group, categoryId, threadId, amount){
+			var add = amount ? amount : 20;
+			return fetchMessages(group.id, categoriyId, messagesHolder.messages.length + add);
+		},
 	}
 }])

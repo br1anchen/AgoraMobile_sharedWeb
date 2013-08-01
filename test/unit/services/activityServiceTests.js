@@ -187,7 +187,7 @@ describe('ActivityService',function(){
         });
 
         $httpBackend.flush();
-        expect(activitiesHolder.activities.length).toBe(10);
+        expect(activitiesHolder.activities.length).toBe(20);
     }));
 
     //For this test to work you need to remove the updateActivities() call in ActicityService executed when activities are fetched from the local storage

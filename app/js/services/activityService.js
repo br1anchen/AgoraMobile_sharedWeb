@@ -58,7 +58,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		var deffered = $q.defer();
 		var user = StorageService.get('User');
 
-		var amount = number ? number : 10;
+		var amount = number ? number : 20;
 
 		var promise = HttpService.request(apiGroup + user.id + '/gid/'+groupId+'/from/0/to/'+amount,'','GET');
 
