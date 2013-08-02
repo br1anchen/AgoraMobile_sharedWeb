@@ -25,6 +25,7 @@
 	text-align: left;
 	line-height:2em;
 	font-size: 1.9em;
+	border-bottom: 1px solid #ccc;
 }
 
 #DCFolder .folderList>:first-child, #DCFolder .fileList>:first-child{
@@ -38,8 +39,8 @@
 	float: right;
 	margin-right: 10px;
 	padding-top: 5px;
-	font-size: 1.6em;
-	padding-right: 5px;
+	font-size: 1.4em;
+	padding-right: 10px;
 }
 
 #documents #backBtn{

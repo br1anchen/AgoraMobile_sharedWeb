@@ -442,7 +442,7 @@ factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 				});
 
 				if(uti == ''){
-					return 'com.adobe.pdf';
+					return 'noUti';
 				}else{
 					return uti;
 				}
