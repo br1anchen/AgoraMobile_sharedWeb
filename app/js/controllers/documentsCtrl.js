@@ -58,25 +58,45 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	$scope.showFile = function(file){
-		console.log('show file: ' + file.title);
 
-		DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
-			cordova.exec(function(rep){
-							console.log(rep);
-						},function(err){
-							console.log(err);
-							navigator.notification.alert(
-                                'Your device has no application to open this file',
-                                function(){
+		var validUTI = UtilityService.iosUTI.getUTIByExtension(file.extension);
 
-                                },
-                                'Agora Mobile',
-                                'I understand'
-                            );
-						}, "ExternalFileUtil", "openWith",[encodeURI(dir), UtilityService.iosUTI.getUTIByExtension(file.extension)]);
-		},function(err){
-			console.log(err);
-		});
+		if(validUTI != 'noUti'){
+			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+				cordova.exec(function(rep){
+								console.log(rep);
+							},function(err){
+								console.log(err);
+								navigator.notification.alert(
+	                                'Failed to open the file',
+	                                function(){
+
+	                                },
+	                                'Agora Mobile',
+	                                'OK'
+	                            );
+							}, "ExternalFileUtil", "openWith",[encodeURI(dir), validUTI]);
+			},function(err){
+				console.log(err);
+				navigator.notification.alert(
+                    'Failed to download file',
+                    function(){
+
+                    },
+                    'Agora Mobile',
+                    'OK'
+                );
+			});
+		}else{
+			navigator.notification.alert(
+                'Your device has no application to open this file',
+                function(){
+
+                },
+                'Agora Mobile',
+                'I understand'
+            );
+		}
 
 	}
 
