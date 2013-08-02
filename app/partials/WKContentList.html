@@ -6,13 +6,17 @@
 </div>
 
 <script type="text/ng-template"  id="nestList">
-    <summary class = "leafSummary">
-		<i class="icon-folder-close-alt" ng-show="node.childrenNodes.length > 0"></i><i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>&nbsp;&nbsp;&nbsp;
-		<a style="text-decoration: none;" data-ng-click="showWiki(node.title,nodeId)">{{node.title}}</a>
-    </summary>
-    <details class = "leaf" ng-repeat="node in node.childrenNodes" ng-include="'nestList'"></details>
+    <span class="leafTitle">
+	<i class="icon-folder-close-alt" ng-show="node.childrenNodes.length > 0" id="icon_{{node.title}}" data-ng-click="openChildren(node)"></i><i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>&nbsp;&nbsp;&nbsp;
+	<a style="text-decoration: none;" data-ng-click="showWiki(node.title,nodeId)">{{node.title}}</a>
+    </span>
+    <ul id="cUl_{{node.title}}" class="closeList leaf" >
+        <li ng-repeat="node in node.childrenNodes" ng-include="'nestList'" id="node_{{node.title}}"></li>
+    </ul>
 </script>
 
 <div id="contentList" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<details class="root" ng-repeat="node in listTree" ng-include="'nestList'"></details>
+    <ul class="openList root">
+        <li ng-repeat="node in listTree" ng-include="'nestList'" id="node_{{node.title}}"></li>
+    </ul>
 </div>

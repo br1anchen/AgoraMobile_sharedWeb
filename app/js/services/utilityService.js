@@ -3,6 +3,280 @@
 angular.module('app.utilityService',[]).
 factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 
+	var utiList = [
+		{
+			tag: 'txt',
+			uti: 'public.plain-text'
+		},
+		{
+			tag: 'rtf',
+			uti: 'public.rtf'
+		},
+		{
+			tag: 'html',
+			uti: 'public.html'
+		},
+		{
+			tag: 'htm',
+			uti: 'public.html'
+		},
+		{
+			tag: 'xml',
+			uti: 'public.xml'
+		},
+		{
+			tag: 'c',
+			uti: 'public.c-source'
+		},
+		{
+			tag: 'm',
+			uti: 'public.objective-c-source'
+		},
+		{
+			tag: 'cp',
+			uti: 'public.c-plus-plus-source'
+		},
+		{
+			tag: 'cpp',
+			uti: 'public.c-plus-plus-source'
+		},
+		{
+			tag: 'c++',
+			uti: 'public.c-plus-plus-source'
+		},
+		{
+			tag: 'cc',
+			uti: 'public.c-plus-plus-source'
+		},
+		{
+			tag: 'cxx',
+			uti: 'public.c-plus-plus-source'
+		},
+		{
+			tag: 'mm',
+			uti: 'public.objective-c-plus-​plus-source'
+		},
+		{
+			tag: 'h',
+			uti: 'public.c-header'
+		},
+		{
+			tag: 'js',
+			uti: 'com.netscape.javascript-​source'
+		},
+		{
+			tag: 'sh',
+			uti: 'public.shell-script'
+		},
+		{
+			tag: 'php',
+			uti: 'public.php-script'
+		},
+		{
+			tag: 'class',
+			uti: 'com.sun.java-class'
+		},
+		{
+			tag: 'jar',
+			uti: 'com.sun.java-archive'
+		},
+		{
+			tag: 'qtz',
+			uti: 'com.apple.quartz-​composer-composition'
+		},
+		{
+			tag: 'gtar',
+			uti: 'org.gnu.gnu-tar-archive'
+		},
+		{
+			tag: 'tar',
+			uti: 'public.tar-archive'
+		},
+		{
+			tag: 'gz',
+			uti: 'org.gnu.gnu-zip-archive'
+		},
+		{
+			tag: 'tgz',
+			uti: 'org.gnu.gnu-zip-tar-archive'
+		},
+		{
+			tag: 'vcf',
+			uti: 'public.vcard'
+		},
+		{
+			tag: 'jpg',
+			uti: 'public.jpeg'
+		},
+		{
+			tag: 'jpeg',
+			uti: 'public.jpeg'
+		},
+		{
+			tag: 'jp2',
+			uti: 'public.jpeg-2000'
+		},
+		{
+			tag: 'tif',
+			uti: 'public.tiff'
+		},
+		{
+			tag: 'tiff',
+			uti: 'public.tiff'
+		},
+		{
+			tag: 'pic',
+			uti: 'com.apple.pict'
+		},
+		{
+			tag: 'pct',
+			uti: 'com.apple.pict'
+		},
+		{
+			tag: 'pict',
+			uti: 'com.apple.pict'
+		},
+		{
+			tag: 'pntg',
+			uti: 'com.apple.macpaint-image'
+		},
+		{
+			tag: 'png',
+			uti: 'public.png'
+		},
+		{
+			tag: 'xbm',
+			uti: 'public.xbitmap-image'
+		},
+		{
+			tag: 'qif',
+			uti: 'com.apple.quicktime-image'
+		},
+		{
+			tag: 'qtif',
+			uti: 'com.apple.quicktime-image'
+		},
+		{
+			tag: 'icns',
+			uti: 'com.apple.icns'
+		},
+		{
+			tag: 'mov',
+			uti: 'com.apple.quicktime-movie'
+		},
+		{
+			tag: 'qt',
+			uti: 'com.apple.quicktime-movie'
+		},
+		{
+			tag: 'avi',
+			uti: 'public.avi'
+		},
+		{
+			tag: 'vfw',
+			uti: 'public.avi'
+		},
+		{
+			tag: 'mpg',
+			uti: 'public.mpeg'
+		},
+		{
+			tag: 'mpeg',
+			uti: 'public.mpeg'
+		},
+		{
+			tag: 'mp4',
+			uti: 'public.mpeg-4'
+		},
+		{
+			tag: 'mp3',
+			uti: 'public.mp3'
+		},
+		{
+			tag: 'm4a',
+			uti: 'public.mpeg-4-audio'
+		},
+		{
+			tag: 'caf',
+			uti: 'com.apple.coreaudio-​format'
+		},
+		{
+			tag: 'zip',
+			uti: 'com.pkware.zip-archive'
+		},
+		{
+			tag: 'pdf',
+			uti: 'com.adobe.pdf'
+		},
+		{
+			tag: 'ps',
+			uti: 'com.adobe.postscript'
+		},
+		{
+			tag: 'eps',
+			uti: 'com.adobe.encapsulated-​postscript'
+		},
+		{
+			tag: 'psd',
+			uti: 'com.adobe.photoshop-​image'
+		},
+		{
+			tag: 'ai',
+			uti: 'com.adobe.illustrator.ai-​image'
+		},
+		{
+			tag: 'gif',
+			uti: 'com.compuserve.gif'
+		},
+		{
+			tag: 'bmp',
+			uti: 'com.microsoft.bmp'
+		},
+		{
+			tag: 'ico',
+			uti: 'com.microsoft.ico'
+		},
+		{
+			tag: 'doc',
+			uti: 'com.microsoft.word.doc'
+		},
+		{
+			tag: 'xls',
+			uti: 'com.microsoft.excel.xls'
+		},
+		{
+			tag: 'ppt',
+			uti: 'com.microsoft.powerpoint.​ppt'
+		},
+		{
+			tag: 'wav',
+			uti: 'com.microsoft.waveform-​audio'
+		},
+		{
+			tag: 'asf',
+			uti: 'com.microsoft.advanced-​systems-format'
+		},
+		{
+			tag: 'wmv',
+			uti: 'com.microsoft.windows-​media-wmv'
+		},
+		{
+			tag: 'wma',
+			uti: 'com.microsoft.windows-​media-wma'
+		},
+		{
+			tag: 'key',
+			uti: 'com.apple.keynote.key'
+		},
+		{
+			tag: 'kth',
+			uti: 'com.apple.keynote.kth'
+		},
+		{
+			tag: 'rm',
+			uti: 'com.real.realmedia'
+		}
+	];
 
 	return {
 		base64:{
@@ -152,6 +426,27 @@ factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 		        states[Connection.NONE]     = 'No network connection';
 
 		        return states[conType];
+			}
+		},
+
+		iosUTI:{
+			getUTIByExtension:function(extension){
+
+				var uti = '';
+
+				angular.forEach(utiList,function(u,k){
+
+					if(u.tag == extension){
+						uti = u.uti;
+					}
+				});
+
+				if(uti == ''){
+					return 'noUti';
+				}else{
+					return uti;
+				}
+				
 			}
 		}
 	}

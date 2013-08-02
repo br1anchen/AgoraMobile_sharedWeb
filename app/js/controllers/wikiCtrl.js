@@ -5,6 +5,7 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	function renderContentList(){
 		console.log('render content list');
 
+		$scope.showConentHeader = true;
 		WikiPageService.fetchMainNode($scope.currentGroup.id).then(function(rep){
 			console.log(rep);
 			$scope.nodeId = WikiPageService.getMainNode().nodeId;
@@ -22,6 +23,7 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	function renderWikiPage(title,nId){
 		console.log('render wiki page');
 
+		//$scope.showConentHeader = true;
 		WikiPageService.fetchWikiPage(title,nId).then(function(rep){
 			$scope.currentPage = WikiPageService.getWikipage();
 		},function(err){
@@ -53,6 +55,22 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 		if(t != 'default'){
 			$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:t});
 		}
+	}
+
+	$scope.openChildren = function(node){
+		var cUl = 'cUl_' + node.title;
+		var nIcon = 'icon_' + node.title;
+
+		var ulElement  = document.getElementById(cUl);
+      	var iconElement = document.getElementById(nIcon);
+
+    	if ($(ulElement).hasClass('closeList')){
+    		$(ulElement).removeClass('closeList').addClass('openList');
+       		$(iconElement).removeClass('icon-folder-close-alt').addClass('icon-folder-open-alt');
+    	} else {
+    		$(ulElement).removeClass('openList').addClass('closeList');
+       		$(iconElement).removeClass('icon-folder-open-alt').addClass('icon-folder-close-alt');
+    	}
 	}
 
 }])

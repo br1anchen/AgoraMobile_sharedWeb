@@ -78,7 +78,8 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
         id : json.groupId,
         name : json.name,
         type : json.type,
-        site : json.site
+        site : json.site,
+        friendlyURL : json.friendlyURL
       }
     }
 

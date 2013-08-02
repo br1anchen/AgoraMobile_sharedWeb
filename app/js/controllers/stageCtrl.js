@@ -4,7 +4,8 @@ app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope',
         id : 110,
         name : "Default Group",
         type : 1,
-        site : true
+        site : true,
+        friendlyURL : ''
     };
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar){
@@ -22,6 +23,7 @@ app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope',
 	}
 
 	$scope.path = function(path) {
+        console.log(path);
         $state.transitionTo(path); // path not hash
     }
     $scope.stateIs = function(state){

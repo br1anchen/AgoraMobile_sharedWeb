@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','infinite-scroll','ngCookies','ui.state','app.filters.timeago','app.filters.camelcase','app.documentService'])
+var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','app.documentService','infinite-scroll','ngCookies','ui.state','app.filters.timeago','app.filters.camelcase'])
 
 .config(['$stateProvider','$routeProvider','$httpProvider', function($stateProvider,$routeProvider,$httpProvider) {
 	$routeProvider.otherwise('/login');
@@ -40,8 +40,23 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			controller: 'MessageBoardCtrl'
 		})
 		.state('stage.documents',{
+			abstract: true,
 			url:'/documents',
 			templateUrl: 'partials/documents.html',
+		})
+		.state('stage.documents.root',{
+			url:'',
+			templateUrl: 'partials/DCFolder.html',
+			controller: 'DocumentsCtrl'
+		})
+		.state('stage.documents.folder',{
+			url:'/folder/{folderId}',
+			templateUrl: 'partials/DCFolder.html',
+			controller: 'DocumentsCtrl'
+		})
+		.state('stage.documents.file',{
+			url:'/folder/{folderId}/file/{fileTitle}',
+			templateUrl: 'partials/DCFileDetail.html',
 			controller: 'DocumentsCtrl'
 		})
 		.state('stage.wiki',{
