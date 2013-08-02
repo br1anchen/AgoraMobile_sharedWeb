@@ -26,7 +26,6 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
         <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 
-        <!--<script type="text/javascript" src="../../cordova.js"></script>-->
         <script type="text/javascript" src="../../cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
@@ -89,10 +88,11 @@
         <script src="js/directives/scrollable.js"></script>
         <script src="js/directives/spinner.js"></script>
         <script src="js/directives/notifier.js"></script>
+        <script src="js/directives/gestureBroadcast.js"></script>
         
         <!--controllers-->
         <script src="js/controllers/mainCtrl.js"></script>
-        <script src="js/controllers/indexCtrl.js"></script>
+        <script src="js/controllers/stageCtrl.js"></script>
         <script src="js/controllers/loginCtrl.js"></script>
         <script src="js/controllers/menuCtrl.js"></script>
         <script src="js/controllers/notificationCtrl.js"></script>
@@ -121,7 +121,7 @@
 
         <title>Agora Mobile</title>
     </head>
-    <body data-ng-controller="MainCtrl">
+    <body id="application" data-ng-controller="MainCtrl" gesture-broadcast>
         <div ui-view></div>
         
     </body>

@@ -31,11 +31,8 @@
 }
 
 #contentHeader  .currentGroup, #fixedContentHeader .currentGroup{
-	text-align: center;
 	font-size: 1.5em;
-	float:left;
-	width:100%;
-	overflow: hidden;
+	float:center;
 }
 #contentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{
 	display: inline-block;

@@ -38,11 +38,14 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             triggerDistance:'@',//Optional trigger configuration
             preventEvents:'@',//Not implemented yet. Shoud be able to prevent $emit events with this
             loading:'@',
-            loadingColor:'@'
+            loadingColor:'@',
+            scrollEase:'@'
         },
 
         controller:function($scope){
             //Default configurations
+            // $scope.scrollEase = $scope.scrollEase ? $scope.scrollEase : 0;
+            $scope.scrollEase = 0;
 
             //Setting default criteria for the update function if given. Distance from the bottom
             $scope.triggerDistanceDefault = 150;// Distance from bottom at update event trigger
@@ -116,7 +119,6 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             '</div>'
         ,
         link: function(scope, element, attrs) {
-            
             //Setting up scrollable element by doing DOM stuff
             var wrapper = $(element);
             var innerWrapper = element.children();
@@ -131,24 +133,26 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             innerWrapper.css('height','100%');
             innerWrapper.css('width','100%');
             innerWrapper.css('overflow-y','scroll');
-            innerWrapper.css('overflow-x','hidden');
+            innerWrapper.css('overflow-x','scroll');
 
 
             var prevScrollTop = innerWrapper.scrollTop(); // Used to determin scroll direction
             //Triggering update when scrolling is near the bottom
             innerWrapper.on('scroll',function(event){
-                onScrollTrigger.fire();
-                if( prevScrollTop < innerWrapper.scrollTop() ){//Scrolling down
-                    onScrollDownTrigger.fire();
-                    if( ( content.height() - (scope.triggerDistance || scope.triggerDistanceDefault) ) < (innerWrapper.height() + innerWrapper.scrollTop() ) ) {//Checking append criterias
-                        scope.lastAppendHeight = innerWrapper.scrollTop();
-                        onAppendTrigger.fire();
+                if( Math.abs( innerWrapper.scrollTop() - prevScrollTop) > scope.scrollEase){
+                    onScrollTrigger.fire();
+                    if( prevScrollTop < innerWrapper.scrollTop() ){//Scrolling down
+                        onScrollDownTrigger.fire();
+                        if( ( content.height() - (scope.triggerDistance || scope.triggerDistanceDefault) ) < (innerWrapper.height() + innerWrapper.scrollTop() ) ) {//Checking append criterias
+                            scope.lastAppendHeight = innerWrapper.scrollTop();
+                            onAppendTrigger.fire();
+                        }
                     }
+                    else if( prevScrollTop > innerWrapper.scrollTop() ){//Scrolling up
+                        onScrollUpTrigger.fire()
+                    }
+                    prevScrollTop = innerWrapper.scrollTop();// To make sure only scrolling down triggers this event
                 }
-                else if( prevScrollTop > innerWrapper.scrollTop() ){//Scrolling up
-                    onScrollUpTrigger.fire()
-                }
-                prevScrollTop = innerWrapper.scrollTop();// To make sure only scrolling down triggers this event
             })
 
             wrapper.hammer().on('swipedown',function(event){
@@ -156,7 +160,13 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                     $timeout(function(){onUpdateTrigger.fire()});
                 }
             })
-            wrapper.hammer().on('swipeup',function(event){
+            wrapper.hammer().on('swiperight',function(event){
+                console.log("swipeRight")
+                $timeout(function(){$rootScope.$broadcast("swipeRight")});
+            })
+            wrapper.hammer().on('swipeleft',function(event){
+                $timeout(function(){$rootScope.$broadcast("swipeLeft")});
+                console.log("swipeLeft")
             })
 
             var opts = {

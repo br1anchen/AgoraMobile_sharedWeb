@@ -72,7 +72,7 @@ describe('MessageBoardService',function(){
 			});
 		}
 
-		$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/20'
+		$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/40'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

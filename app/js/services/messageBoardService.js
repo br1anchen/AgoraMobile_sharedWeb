@@ -12,6 +12,9 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	var RootMessageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-message/message-id/";
 	var MessagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-thread-messages/group-id/";
 
+	var threadsIncrement = 20;
+	var messagesIncrement = 40;
+
 	var categoriesHolder = {
 		categories : [],
 		groupId:undefined
@@ -19,20 +22,16 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 
 	var threadsHolder = {
 		threads : [],
-		groupId:undefined
+		groupId:undefined,
+		categoryId:undefined
 	};
 
 	var messagesHolder = {
 		messages : [],
-		groupId:undefined
+		groupId:undefined,
+		categoryId:undefined,
+		threadId:undefined
 	};
-
-    var categories = [];
-    var categoryIds = [];
-    var threads = [];
-    var threadIds = [];
-    var messages = [];
-    var messageIds = [];
 
     function JSON2Cat(json){//parse json to category obj
 	    return {
@@ -121,6 +120,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
     function setThreads(gid,categoryId,threads){
         threadsHolder.threads = threads;
         threadsHolder.groupId = gid;
+        threadsHolder.categoryId = categoryId
         storeThreads(gid,categoryId,threads);
     }
 
@@ -132,6 +132,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
     function setMessages(gid,categoryId,threadId,messages){
         messagesHolder.messages = messages;
         messagesHolder.groupId = gid;
+        messagesHolder.categoryId = categoryId;
+        messagesHolder.threadId = threadId;
         storeMessages(gid, categoryId, threadId, messages);
     }
 
@@ -161,7 +163,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			return deffered.promise;
     }
     function fetchThreads(groupId, categoryId, number){
-    	var amount = number ? number : 20;
+    	var amount = (number && number > threadsIncrement) ? number : threadsIncrement;
     	var deffered = $q.defer();
 
 		var promise = HttpService.request(ThreadsApiUrl + groupId + '/category-id/' + categoryId + '/status/0/start/0/end/' + amount,'','GET');
@@ -173,12 +175,14 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 				threads.push(thread);
 			})
 
-			setThreads(groupId,categoryId,threads);
-			//We resolve before we have thread title to show something as fast as posible, then do a async call to get thread title, and update title in the background
-			deffered.resolve(threadsHolder);
+			//We resolve after all titles have been fetched for each thread. 
+			//For some reason titles are not returned by the API, and we have to do idividual request to get them
 
-			//Update all thread titles in the background:
-			deffered.promise.then(function(){
+			//Update all thread titles
+			promise.then(function(){
+
+				var promiseObjects = [];
+
 				angular.forEach(threads,function(thread,key){
 
 					var promise = HttpService.request(RootMessageApiUrl + thread.rootMessageId,'','GET');
@@ -193,6 +197,12 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		    				console.log('MessageBoardService.fetchThreads() could not fetch title in background for thread ' + thread);
 		    			}
 	    			);
+	    			promiseObjects.push(promise);
+				})
+
+				$q.all(promiseObjects).then(function(){
+					setThreads(groupId,categoryId,threads);
+					deffered.resolve(threadsHolder);
 				})
 			})
 
@@ -205,7 +215,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		return deffered.promise;
     }
     function fetchMessages(groupId, categoryId, threadId, number){
-    	var amount = number ? number : 20;
+    	var amount = (number && number > messagesIncrement) ? number : messagesIncrement;
     	var deffered = $q.defer();
 
 		var promise = HttpService.request(MessagesApiUrl + groupId + '/category-id/' + categoryId + '/thread-id/' + threadId + '/status/0/start/0/end/' + amount,'','GET');
@@ -254,20 +264,19 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			else{
 				return fetchCategories(group.id);
 			}
-			
 		},
 		updateCategories : function(group){
 			return fetchCategories(group.id);
 		},
-		getThreads : function(group,categoryId){
+		getThreads : function(group, categoryId, number){
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(threadsHolder.groupId == group.id){
+			if(threadsHolder.groupId == group.id && threadsHolder.categoryId == categoryId){
 				deffered.resolve(threadsHolder);
 				
 				//Updates in the background even if it has categories localy
-				fetchThreads(group.id,categoryId);
+				fetchThreads(group.id,categoryId, number);
 				return deffered.promise;
 			}
 			//Tries to fetch from Webstorage
@@ -277,30 +286,31 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 				deffered.resolve(threadsHolder);
 				
 				//Updates in the background even if it has categories localy
-				fetchThreads(group.id,categoryId);
+				fetchThreads(group.id,categoryId, number);
 				return deffered.promise;
 			}
 			else{
-				return fetchThreads(group.id,categoryId);
+				return fetchThreads(group.id,categoryId, number);
 			}
-
 		},
 		updateThreads : function(group,categoryId){
-			return fetchThreads(group.id, categoryId, threadsHolder.threads.length);
+			var amount = (threadsHolder.threads.length > threadsIncrement) ? threadsHolder.threads.length : threadsIncrement;
+			return fetchThreads(group.id, amount );
 		},
-		getMoreThreads : function(group, categoryId, amount){
-			var add = amount ? amount : 20;
-			return fetchThreads(group.id, categoriyId, threadsHolder.threads.length + add);
+		getMoreThreads : function(group, categoryId){
+			var amount = (threadsHolder.threads.length > threadsIncrement) ? threadsHolder.threads.length * 2 : threadsIncrement * 2;
+			
+			return fetchThreads(group.id, categoryId, amount);
 		},
-		getMessages : function(group,categoryId,threadId){
+		getMessages : function(group, categoryId, threadId, number){
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(messagesHolder.groupId == group.id){
+			if(messagesHolder.groupId == group.id && messagesHolder.categoryId == categoryId && messagesHolder.threadId == threadId){
 				deffered.resolve(messagesHolder);
 				
 				//Updates in the background even if it has categories localy
-				fetchMessages(group.id,categoryId,threadId);
+				fetchMessages(group.id,categoryId,threadId, number);
 				return deffered.promise;
 			}
 			//Tries to fetch from Webstorage
@@ -310,19 +320,20 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 				deffered.resolve(messagesHolder);
 				
 				//Updates in the background even if it has categories localy
-				fetchMessages(group.id, categoryId, threadId);
+				fetchMessages(group.id, categoryId, threadId, number);
 				return deffered.promise;
 			}
 			else{
-				return fetchMessages(group.id, categoryId, threadId);
+				return fetchMessages(group.id, categoryId, threadId, number);
 			}
 		},
 		updateMessages : function (group, categoryId, threadId){
-			return fetchMessages(group.id, categoryId, threadId, messagesHolder.messages.length);
+			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length : messagesIncrement
+			return fetchMessages(group.id, categoryId, threadId, amount);
 		},
 		getMoreMessages : function(group, categoryId, threadId, amount){
-			var add = amount ? amount : 20;
-			return fetchMessages(group.id, categoriyId, messagesHolder.messages.length + add);
+			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length * 2 : messagesIncrement * 2;
+			return fetchMessages(group.id, categoryId, threadId, amount);
 		},
 	}
 }])

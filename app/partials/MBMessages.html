@@ -7,10 +7,14 @@
 </div>
 
 <div id="messages" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div data-ng-repeat="message in messages" id="MBmessage">
-		<h3>{{message.subject}}</h3>
-		<p id="date">{{message.modifiedDate}}</p>
-		<p id="poster">Message By <strong>{{message.userName}}</strong></p>
+	<div data-ng-repeat="message in messagesHolder.messages" id="MBmessage">
+		<div class="messageHeader">
+			<h3>{{message.subject}}</h3>
+			<p class="poster">Message By 
+				<strong>{{message.userName}}</strong>
+				at {{message.modifiedDate}}
+			</p>
+		</div>
 		<div id="body" ng-bind-html-unsafe="message.body"></div>
 	</div>
 	<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
