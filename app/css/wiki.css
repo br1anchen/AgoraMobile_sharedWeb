@@ -24,11 +24,12 @@
 	text-align: left;
 }
 #wiki #contentList .leafTitle{
+	margin: auto 0px;
 	text-align: left;
 	font-size: 20px;
-	padding: 10px 0px;
-	margin-top: 5px;
+	padding: auto 0px;
 	line-height: 35px;
+	border-bottom: 1px solid #ccc;
 }
 
 #wiki summary::-webkit-details-marker {
