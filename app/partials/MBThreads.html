@@ -6,7 +6,7 @@
     </span>
 </div>
 <div id="threads" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div data-ng-repeat="thread in threads" id="MBthread" data-ng-click="showMessages(thread)">
+	<div data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
 		<h3>{{thread.title}}</h3>
 		<p>Latest Post: {{thread.lastPostDate}}<br /></p>
 		<p>

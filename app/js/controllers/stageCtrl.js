@@ -1,5 +1,5 @@
 'use strict';
-app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope','$state',function($scope,$log,$location,$timeout,$rootScope,$state){
+app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope','$state',function($scope,$log,$location,$timeout,$rootScope,$state){
     $scope.currentGroup =  {
         id : 110,
         name : "Default Group",
@@ -7,6 +7,11 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
         site : true,
         friendlyURL : ''
     };
+    $scope.$on("swipeleft",function(e,data){
+        if(data.id == "application" && $scope.menuVar){
+            $scope.toggleMenu();
+        }
+    })
 
 	$scope.toggleMenu = function(){
         if(!$scope.menuVar){
@@ -18,6 +23,7 @@ app.controller('IndexCtrl',['$scope','$log','$location','$timeout','$rootScope',
 	}
 
 	$scope.path = function(path) {
+        console.log(path);
         $state.transitionTo(path); // path not hash
     }
     $scope.stateIs = function(state){

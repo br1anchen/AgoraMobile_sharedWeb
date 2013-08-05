@@ -5,7 +5,7 @@
     </span>
 </div>
 <div id="categories" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div data-ng-repeat="category in categories" id="MBcategory" data-ng-click="showTreads(category)">
+	<div data-ng-repeat="category in categoriesHolder.categories" id="MBcategory" data-ng-click="showTreads(category)">
 		<h3>{{category.name}}</h3>
 		<p> <strong>Thread: </strong>{{category.threadCount}}&nbsp;&nbsp;&nbsp;&nbsp;<strong>Message: </strong>{{category.messageCount}}</p>
 	</div>

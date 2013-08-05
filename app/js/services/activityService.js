@@ -9,6 +9,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 	//class entity in ActivityService
 	var apiUser = AppService.getBaseURL() +  "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
 	var apiGroup = AppService.getBaseURL() + "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
+	var appendIncrement = 20;
 
 	var activitiesHolder = {
 		activities :[],
@@ -58,7 +59,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		var deffered = $q.defer();
 		var user = StorageService.get('User');
 
-		var amount = number ? number : 10;
+		var amount = number ? number : appendIncrement;
 
 		var promise = HttpService.request(apiGroup + user.id + '/gid/'+groupId+'/from/0/to/'+amount,'','GET');
 
@@ -75,6 +76,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		return deffered.promise;
 	}
 	function setActivities(gid,activities){
+		activities.reverse();//For some reason the Agora API returns the activities as the oldest ones first, so we revert it
 		activitiesHolder.activities = activities;//Replacing old data
 		activitiesHolder.groupId = gid//Replacing old data
 	}
@@ -82,7 +84,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		var deffered = $q.defer();
 		var user = StorageService.get('User');
 
-		var amount = number ? number : 10;
+		var amount = number ? number : appendIncrement;
 		// alert("T:"+apiUser + user.id + '/from/0/to/'+amount);
 		var promise = HttpService.request(apiUser + user.id + '/from/0/to/'+amount,'','GET');
 		// var promise = HttpService.request(apiUser + user.id + '/from/0/to/70','','GET');
@@ -112,23 +114,25 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
     //return value in Activity Service
 	return {
 		getMoreActivities : function(group){
+			var amount = activitiesHolder.activities.length <= appendIncrement ? appendIncrement : activitiesHolder.activities.length;
+
 			//If the given group is the top group
-			// alert("getMore():groupId:" + group.id + ",length:" + (activitiesHolder.activities.length + 10) + "activities:" + JSON.stringify(activitiesHolder.activities) + ":group.id:" + group.id);
 			if(group.type == 1){
-				return fetchTopActivities(activitiesHolder.activities.length + 10);
+				return fetchTopActivities(amount + appendIncrement);
 			}
-			return fetchActivities(group.id,activitiesHolder.activities.length + 10);
+			return fetchActivities(group.id,amount + appendIncrement);
 		},
 		updateActivities : function(group){
+			var amount = activitiesHolder.activities.length <= appendIncrement ? appendIncrement : activitiesHolder.activities.length;
 			//If the given group is the top group
 			if(group.type == 1){
-				return fetchTopActivities(activitiesHolder.activities.length);
+				return fetchTopActivities( amount );
 			}
-
-			return fetchActivities(group.id , activitiesHolder.activities.length);
+			return fetchActivities(group.id , amount );
 		},
 		getActivities : function(group,number){
-			var amount = number ? number : 10;
+			var amount = number ? number : appendIncrement;
+			amount = amount <= appendIncrement ? appendIncrement : amount;
 			var deffered = $q.defer();
 			//Checking runtime memory for activities for this group
 			if( group.id == activitiesHolder.groupId && activitiesHolder.activities.length > 0){
@@ -137,7 +141,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 				this.updateActivities(group);
 				return deffered.promise;
 			}
-			//Fetching activities for this group if present in webstorage
+			//Fetching activities from webstorage if present in webstorage
 			else{
 				var activities;
 				if(group.type == 1){
@@ -164,11 +168,17 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 
 				//Fetching activities for this group from server
 				if(group.type == 1){
-					return fetchTopActivities(amount);
+					return fetchTopActivities( amount );
 				}
 				return fetchActivities(group.id , amount);
 			}
 			deffered.promise;
+		},
+		getAppendIncrement : function(){
+			return appendIncrement;
+		},
+		setAppendIncremetn : function(increment){
+			getAppendIncrement = increment;
 		}
 	}
 }])

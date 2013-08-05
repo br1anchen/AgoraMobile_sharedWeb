@@ -16,7 +16,6 @@ app.controller('LoginCtrl',['$scope','$log','LoginService','$state',function($sc
 
 			LoginService.login($scope.username,$scope.password).then(
 				function(rep){
-					console.log("Login success!:"+JSON.stringify(rep));
 					LoginService.getUserInfo($scope.username,rep.data.companyId).then(function(rep){
 						console.log("store user");
 

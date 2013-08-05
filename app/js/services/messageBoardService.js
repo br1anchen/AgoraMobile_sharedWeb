@@ -12,24 +12,26 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	var RootMessageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-message/message-id/";
 	var MessagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-thread-messages/group-id/";
 
-	var categoryHolder = {
-		categories : []
+	var threadsIncrement = 20;
+	var messagesIncrement = 40;
+
+	var categoriesHolder = {
+		categories : [],
+		groupId:undefined
 	};
 
-	var threadHolder = {
-		threads : []
+	var threadsHolder = {
+		threads : [],
+		groupId:undefined,
+		categoryId:undefined
 	};
 
-	var messageHolder = {
-		messages : []
+	var messagesHolder = {
+		messages : [],
+		groupId:undefined,
+		categoryId:undefined,
+		threadId:undefined
 	};
-
-    var categories = [];
-    var categoryIds = [];
-    var threads = [];
-    var threadIds = [];
-    var messages = [];
-    var messageIds = [];
 
     function JSON2Cat(json){//parse json to category obj
 	    return {
@@ -100,151 +102,238 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			userName : json.userName
     	}
     }
-
-    function storeCategoryList(cats,gId){
-    	categories = [];// drop old data
-    	categoryIds = [];
-
-        angular.forEach(cats,function(c,k){
-
-			var category = JSON2Cat(c);
-
-    		categoryIds.push(category.categoryId);
-    		categories.push(category);
-
-    		StorageService.store('Category' + category.categoryId,category);
-
-        });
-
-        categoryHolder.categories = categories;
-        StorageService.store('Group' + gId + '_CategoryIDs',categoryIds);
+    //Sets the webstorage
+    function storeCategories(gid,categories){
+    	StorageService.store('Group' + gid + '_Categories',categories);
+    }
+    //Sets the runtime memory and webstorage
+    function setCategories(gid,categories){
+        categoriesHolder.categories = categories;
+        categoriesHolder.groupId = gid;
+        storeCategories(gid,categories);
+    }
+    //Sets the webstorage
+	function storeThreads(gid, categoryId, threads){
+		StorageService.store('Group' + gid + '_Category' + categoryId + '_Threads',threads);
+	}
+	//Sets the runtime memory and webstorage
+    function setThreads(gid,categoryId,threads){
+        threadsHolder.threads = threads;
+        threadsHolder.groupId = gid;
+        threadsHolder.categoryId = categoryId
+        storeThreads(gid,categoryId,threads);
     }
 
-    function storeThreads(ths,cId){
-    	threads = [];
-    	threadIds = [];
-
-    	angular.forEach(ths,function(t,k){
-    		var title = '';
-
-    		var thread = JSON2Thread(t);
-    		threads.push(thread);
-    		threadIds.push(thread.threadId);
-
-			var promise = HttpService.request(RootMessageApiUrl + t.rootMessageId,'','GET');
-			promise.then(function(rep){
-				title = rep.data.subject;
-    			thread.title = title;
-
-    			StorageService.store('Thread' + thread.threadId,thread);
-    		});
-    	});
-
-    	categories = jQuery.map(categories,function(c){
-    		if(c.categoryId == cId){
-    			c.threadIds = threadIds;
-    		}
-    		StorageService.store('Category' + c.categoryId,c);
-    		return c;
-    	});
-
-    	categoryHolder.categories = categories;
-    	threadHolder.threads = threads;
-    	StorageService.store('Category' + cId + '_ThreadIDs',threadIds);
+    //Sets the webstorage
+	function storeMessages(gid, categoryId, threadId, messages){
+		StorageService.store('Group' + gid + '_Category' + categoryId + '_Thread' + threadId + "_Messages",messages);
+	}
+	//Sets the runtime memory and webstorage
+    function setMessages(gid,categoryId,threadId,messages){
+        messagesHolder.messages = messages;
+        messagesHolder.groupId = gid;
+        messagesHolder.categoryId = categoryId;
+        messagesHolder.threadId = threadId;
+        storeMessages(gid, categoryId, threadId, messages);
     }
 
-    function storeMessages(msgs,cId,tId){
-    	messages = [];
-    	messageIds = [];
-
-    	angular.forEach(msgs,function(m,k){
-
-    		var message = JSON2Msg(m);
-    		messages.push(message);
-    		messageIds.push(message.messageId);
-
-    		StorageService.store('Message' + message.messageId,message);
-    	});
-
-    	threads = jQuery.map(threads,function(t){
-    		if(t.threadId == tId){
-    			t.messageIds = messageIds;
-    		}
-    		StorageService.store('Thread' + t.threadId,t);
-    		return t;
-    	});
-
-    	threadHolder.threads = threads;
-    	messageHolder.messages = messages;
-    	StorageService.store('Thread' + tId + '_MessageIDs',messageIds);
-    }
-
-    //return value in Message Board Service
-	return {
-
-		fetchCategories : function(groupId){
-			var deffered = $q.defer();
+    function fetchCategories(groupId){
+    	var deffered = $q.defer();
 
 			var promise = HttpService.request(CategoryApiUrl + groupId,'','GET');
 
 			promise.then(function(rep){
 
-	          storeCategoryList(rep.data,groupId);
+				var categories = [];
+
+				angular.forEach(rep.data,function(c,k){
+					var category = JSON2Cat(c);
+		    		categories.push(category);
+		        });
+
+		        setCategories(groupId,categories);
 	          
-	          deffered.resolve("messageBoard categories fetched");
+	          deffered.resolve(categoriesHolder);
 
 	        },function(err){
-	          deffered.reject("messageBoard categories failed to get");
+	          deffered.reject("MessageBoardService.fetchCategories():MessageBoardService.fetchCategories:Failed to get categories for group "+ groupId);
+	          console.error("MessageBoardService.fetchCategories:Failed to get categories for group "+ groupId);
 	        });
 
 			return deffered.promise;
-		},
+    }
+    function fetchThreads(groupId, categoryId, number){
+    	var amount = (number && number > threadsIncrement) ? number : threadsIncrement;
+    	var deffered = $q.defer();
 
-		getCategories : function(){
-			return categoryHolder.categories.length > 0 ? categoryHolder.categories : undefined;
-		},
+		var promise = HttpService.request(ThreadsApiUrl + groupId + '/category-id/' + categoryId + '/status/0/start/0/end/' + amount,'','GET');
 
-		fetchThreads : function(groupId,categoryId){
-			var deffered = $q.defer();
+		promise.then(function(rep){
+			var threads = [];
+			angular.forEach(rep.data,function(t,k){
+				var thread = JSON2Thread(t);
+				threads.push(thread);
+			})
 
-			var promise = HttpService.request(ThreadsApiUrl + groupId + '/category-id/' + categoryId + '/status/0/start/0/end/20','','GET');
+			//We resolve after all titles have been fetched for each thread. 
+			//For some reason titles are not returned by the API, and we have to do idividual request to get them
 
-			promise.then(function(rep){
+			//Update all thread titles
+			promise.then(function(){
 
-				storeThreads(rep.data,categoryId);
+				var promiseObjects = [];
 
-				deffered.resolve("threads fetched for category " + categoryId);
-			},function(err){
-				deffered.reject("threads failed fetched for category " + categoryId);
-			});
+				angular.forEach(threads,function(thread,key){
+
+					var promise = HttpService.request(RootMessageApiUrl + thread.rootMessageId,'','GET');
+					promise.then(
+						function(rep){
+							//Sets the title for this thread
+			    			thread.title = rep.data.subject;
+			    			//Runtimememory is updated by object reference, but we need to update webstrage with thread title
+			    			storeThreads(groupId,categoryId,threads);
+		    			},
+		    			function(error){
+		    				console.log('MessageBoardService.fetchThreads() could not fetch title in background for thread ' + thread);
+		    			}
+	    			);
+	    			promiseObjects.push(promise);
+				})
+
+				$q.all(promiseObjects).then(function(){
+					setThreads(groupId,categoryId,threads);
+					deffered.resolve(threadsHolder);
+				})
+			})
 
 			return deffered.promise;
+		},function(err){
+			deffered.reject('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);
+			console.error('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);
+		});
 
-		},
+		return deffered.promise;
+    }
+    function fetchMessages(groupId, categoryId, threadId, number){
+    	var amount = (number && number > messagesIncrement) ? number : messagesIncrement;
+    	var deffered = $q.defer();
 
-		getThreads : function(){
-			return threadHolder.threads.length > 0 ? threadHolder.threads : undefined;
-		},
+		var promise = HttpService.request(MessagesApiUrl + groupId + '/category-id/' + categoryId + '/thread-id/' + threadId + '/status/0/start/0/end/' + amount,'','GET');
 
-		fetchMessages : function(groupId,categoryId,threadId){
+		promise.then(function(rep){
+			var messages = [];
+
+			angular.forEach(rep.data,function(m,k){
+	    		var message = JSON2Msg(m);
+	    		messages.push(message);
+	    	});
+	    	setMessages(groupId,categoryId,threadId,messages);
+			deffered.resolve(messagesHolder);
+		},function(err){
+			deffered.reject("MessageBoardService.fetchMessages():Colud not fetch messages for thread " + threadId);
+			console.error("Colud not fetch messages for thread " + threadId);
+		});
+
+		return deffered.promise;
+    }
+
+    //return value in Message Board Service
+	return {
+
+		getCategories : function(group){
 			var deffered = $q.defer();
 
-			var promise = HttpService.request(MessagesApiUrl + groupId + '/category-id/' + categoryId + '/thread-id/' + threadId + '/status/0/start/0/end/20','','GET');
-
-			promise.then(function(rep){
-
-				storeMessages(rep.data,categoryId,threadId);
-
-				deffered.resolve("messages fetched for thread " + threadId);
-			},function(err){
-				deffered.reject("messages failed fetched for thread " + threadId);
-			});
-
-			return deffered.promise;
+			//Returning whatever is in the runtime memory if the groupe is the same
+			if(categoriesHolder.groupId == group.id){
+				deffered.resolve(categoriesHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchCategories(group.id);
+				return deffered.promise;
+			}
+			//Tries to fetch from Webstorage
+			var categories = StorageService.get('Group' + group.id + '_Categories');
+			if(categories){
+				setCategories(group.id,categories);
+				deffered.resolve(categoriesHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchCategories(group.id);
+				return deffered.promise;
+			}
+			else{
+				return fetchCategories(group.id);
+			}
 		},
+		updateCategories : function(group){
+			return fetchCategories(group.id);
+		},
+		getThreads : function(group, categoryId, number){
+			var deffered = $q.defer();
 
-		getMessages : function(){
-			return messageHolder.messages.length > 0 ? messageHolder.messages : undefined;
-		}
+			//Returning whatever is in the runtime memory if the groupe is the same
+			if(threadsHolder.groupId == group.id && threadsHolder.categoryId == categoryId){
+				deffered.resolve(threadsHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchThreads(group.id,categoryId, number);
+				return deffered.promise;
+			}
+			//Tries to fetch from Webstorage
+			var threads = StorageService.get('Group' + group.id + '_Category' + categoryId + '_Threads');
+			if(threads){
+				setThreads(group.id,categoryId,threads);
+				deffered.resolve(threadsHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchThreads(group.id,categoryId, number);
+				return deffered.promise;
+			}
+			else{
+				return fetchThreads(group.id,categoryId, number);
+			}
+		},
+		updateThreads : function(group,categoryId){
+			var amount = (threadsHolder.threads.length > threadsIncrement) ? threadsHolder.threads.length : threadsIncrement;
+			return fetchThreads(group.id, amount );
+		},
+		getMoreThreads : function(group, categoryId){
+			var amount = (threadsHolder.threads.length > threadsIncrement) ? threadsHolder.threads.length * 2 : threadsIncrement * 2;
+			
+			return fetchThreads(group.id, categoryId, amount);
+		},
+		getMessages : function(group, categoryId, threadId, number){
+			var deffered = $q.defer();
+
+			//Returning whatever is in the runtime memory if the groupe is the same
+			if(messagesHolder.groupId == group.id && messagesHolder.categoryId == categoryId && messagesHolder.threadId == threadId){
+				deffered.resolve(messagesHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchMessages(group.id,categoryId,threadId, number);
+				return deffered.promise;
+			}
+			//Tries to fetch from Webstorage
+			var messages = StorageService.get('Group' + group.id + '_Category' + categoryId + '_Thread' + threadId + "_Messages");
+			if(messages){
+				setMessages(group.id,categoryId, threadId,messages);
+				deffered.resolve(messagesHolder);
+				
+				//Updates in the background even if it has categories localy
+				fetchMessages(group.id, categoryId, threadId, number);
+				return deffered.promise;
+			}
+			else{
+				return fetchMessages(group.id, categoryId, threadId, number);
+			}
+		},
+		updateMessages : function (group, categoryId, threadId){
+			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length : messagesIncrement
+			return fetchMessages(group.id, categoryId, threadId, amount);
+		},
+		getMoreMessages : function(group, categoryId, threadId, amount){
+			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length * 2 : messagesIncrement * 2;
+			return fetchMessages(group.id, categoryId, threadId, amount);
+		},
 	}
 }])

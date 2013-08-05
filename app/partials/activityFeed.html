@@ -4,7 +4,7 @@
         <span>{{currentGroup.name}}</span>
     </span>
 </div>
-<div id="activityFeed" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+<div id="activityFeed" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="50">
 	<div data-ng-repeat="activity in activitiesHolder.activities" class="activity">
 		<activity-block activity="activity"></activity-block>
 	</div>

@@ -47,7 +47,6 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
             deffered.resolve("user data fetched");
 
-            console.log("screenName :" + user.screenName);
             //store user screen name
             StorageService.store('User',user);
 
