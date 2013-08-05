@@ -27,6 +27,12 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	function renderFile(groupId,folderId,fileTitle){
 		console.log('load file');
+		if(parseInt(folderId) == 0){
+			$scope.folderName = "Documents";
+		}
+		else{
+			$scope.folderName = StorageService.get('Group' + groupId + '_Folder'+folderId).name;
+		}
 
 		$scope.showConentHeader = true;
 		
@@ -54,7 +60,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	$scope.fileDetail = function(file){
-		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
+		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title,folderTitle:$scope.folder.name});
 	}
 
 	$scope.showFile = function(file){

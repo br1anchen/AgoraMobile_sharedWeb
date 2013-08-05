@@ -6,8 +6,12 @@
 #messageBoard #backBtn{
 	z-index: 2;
 	font-size: 1.5em;
-	left:1em;
+	left:0em;
+	padding-left:0.7em;
 	position: absolute;
+}
+#messageBoard #backBtn i{
+	padding-right: 0.2em;
 }
 
 #MBcategory h3{
@@ -56,13 +60,11 @@
 
 
 #messageBoard #MBmessage{
-	padding: 5px 5px 0px 5px;
-	margin-left: 5px;
-	margin-top: 5px;
-	padding-bottom: 5px;
-	-moz-box-shadow: -2px 2px 1px 1px #ffffff;
+	padding: 5px 5px 5px 5px;
+/*	-moz-box-shadow: -2px 2px 1px 1px #ffffff;
 	-webkit-box-shadow: -2px 2px 1px 1px #ffffff;
-	box-shadow: -2px 2px 1px 1px #ffffff;
+	box-shadow: -2px 2px 1px 1px #ffffff;*/
+	border-bottom: 0.15em solid #BABABA;
 }
 
 #MBmessage h3{

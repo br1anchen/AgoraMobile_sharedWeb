@@ -1,5 +1,10 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<span id="backBtn" data-ng-click="backFolder(file.folderId)"><i class="icon-chevron-left"></i>Back Folder</span>
+	<div id="backBtn" data-ng-click="backFolder(file.folderId)">
+		<div class="content">
+			<i class="icon-chevron-left"></i></i><span class="text">{{folderName}}</span>
+		</div>
+		<div class="transition"></div>
+	</div>
     <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>

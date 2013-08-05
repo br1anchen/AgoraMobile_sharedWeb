@@ -10,7 +10,7 @@
 	<i class="icon-folder-close-alt" ng-show="node.childrenNodes.length > 0" id="icon_{{node.title}}" data-ng-click="openChildren(node)"></i><i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>&nbsp;&nbsp;&nbsp;
 	<a style="text-decoration: none;" data-ng-click="showWiki(node.title,nodeId)">{{node.title}}</a>
     </span>
-    <ul id="cUl_{{node.title}}" class="closeList leaf" >
+    <ul id="cUl_{{node.title}}" class="closeList leaf" ng-class="{firstWikiNode : node.title=='Tavle - Start'}">
         <li ng-repeat="node in node.childrenNodes" ng-include="'nestList'" id="node_{{node.title}}"></li>
     </ul>
 </script>

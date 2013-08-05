@@ -83,6 +83,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 						}
 
 						StorageService.store('Group' + gId + '_Folder' + folder.folderId,folder);
+						console.log('Group' + gId + '_Folder' + folder.folderId);
 
 						folders.push(folderNode);
 					});
