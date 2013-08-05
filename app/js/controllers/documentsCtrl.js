@@ -71,7 +71,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 							},function(err){
 								console.log(err);
 								navigator.notification.alert(
-	                                'Failed to open the file',
+	                                'Your device has no application to open this file',
 	                                function(){
 	                                	
 	                                },
@@ -94,7 +94,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 		}else{
 			$scope.loading = false;
 			navigator.notification.alert(
-                'Your device has no application to open this file',
+                'This file type is not support to open',
                 function(){
 
                 },
