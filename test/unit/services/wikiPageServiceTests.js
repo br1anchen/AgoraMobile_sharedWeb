@@ -85,52 +85,20 @@ describe('WikiPageService',function(){
 	  	$httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('Testing fetch message board categories first time',inject(function(WikiPageService,StorageService){
+	it('Testing fetch wiki pages and generate wiki content tree',inject(function(WikiPageService){
+		var treeHolder;
 
-		var mainNode;
-
-		var promise = WikiPageService.fetchMainNode(10157);
+		var promise = WikiPageService.getWikiContentTree({id:10157});
 
 		promise.then(function(rep){
-			mainNode = WikiPageService.getMainNode();
+			treeHolder = rep;
 		});
 
 		$httpBackend.flush();
-		expect(mainNode.groupId).toBe(10157);
-		expect(StorageService.get('Group10157_WikiNode' + mainNode.nodeId)).not.toBe(undefined);
-	}));
+		expect(treeHolder.contentTree.length).toBe(1);
+		expect(treeHolder.contentTree[0].childrenNodes.length).toBe(4);
+		expect(treeHolder.contentTree[0].title).toBe("Tavle - Start");
 
-	it('Testing fetch pages under main node',inject(function(WikiPageService){
-		var pages;
-
-		var promise = WikiPageService.fetchMainNode(10157);
-
-		promise.then(function(rep){
-			WikiPageService.fetchWikiPages(10758).then(function(rep){
-				pages = WikiPageService.getWikiPages();
-			});
-		});
-
-		$httpBackend.flush();
-		expect(pages.length).toBe(17);
-	}));
-
-	it('Testing after refactory pages and store them',inject(function(WikiPageService,StorageService){
-		var page;
-
-		var promise = WikiPageService.fetchMainNode(10157);
-
-		promise.then(function(rep){
-			WikiPageService.fetchWikiPages(10758).then(function(rep){
-				page = StorageService.get("Group10157_WikiPageTitle:Tavle - Start");
-			});
-		});
-
-		$httpBackend.flush();
-		expect(page.childrenPagesTitle.length).toBe(4);
-
-		page = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
-		expect(page.childrenPagesTitle.length).toBe(3);
 	}));
 
 	it('Testing fetch single wiki page and update it', inject(function(WikiPageService,StorageService){
@@ -158,23 +126,6 @@ describe('WikiPageService',function(){
 		expect(storedPage.version).toBe(1.1);
 		
 
-	}));
-
-	it('Testing generate wiki tree',inject(function(WikiPageService){
-		var tree;
-
-		var promise = WikiPageService.fetchMainNode(10157);
-
-		promise.then(function(rep){
-			WikiPageService.fetchWikiPages(10758).then(function(rep){
-				tree = WikiPageService.getWikiTree();
-			});
-		});
-
-		$httpBackend.flush();
-		expect(tree.length).toBe(1);
-		expect(tree[0].childrenNodes.length).toBe(4);
-		expect(tree[0].title).toBe("Tavle - Start");
 	}));
 
 });
