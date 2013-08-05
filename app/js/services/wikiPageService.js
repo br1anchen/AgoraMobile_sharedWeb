@@ -170,6 +170,10 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 
 		promise.then(function(rep){
 			var page = JSON2Page(rep.data);
+			var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
+
+			page.childrenPagesTitle = storedPage.childrenPagesTitle;
+
 			setWikiPage(gId,nId,page);
 			storeWikiPage(gId,title,page);
 
@@ -183,28 +187,6 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 
     //return value in Wiki Page Service
 	return {
-
-		fetchWikiPage : function(title,nodeId) {
-			var deffered = $q.defer();
-
-			var promise = HttpService.request(PageApiUrl + nodeId + '/title/' + title,'','GET');
-
-			promise.then(function(rep){
-
-	          updatePage(rep.data);
-	          
-	          deffered.resolve("wiki page fetched for title " + title);
-
-	        },function(err){
-	          deffered.reject("wiki page failed to get");
-	        });
-
-			return deffered.promise;
-		},
-
-		getWikipage : function() {
-			return wikiPageHolder.page;
-		},
 
 		getWikiContentTree : function(group) {
 			
