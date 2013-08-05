@@ -60,9 +60,12 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	$scope.showFile = function(file){
 
 		var validUTI = UtilityService.iosUTI.getUTIByExtension(file.extension);
+		$scope.loading = true;
 
 		if(validUTI != 'noUti'){
+			
 			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+				$scope.loading = false;
 				cordova.exec(function(rep){
 								console.log(rep);
 							},function(err){
@@ -70,7 +73,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 								navigator.notification.alert(
 	                                'Failed to open the file',
 	                                function(){
-
+	                                	$scope.loading = false;
 	                                },
 	                                'Agora Mobile',
 	                                'OK'
@@ -81,7 +84,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 				navigator.notification.alert(
                     'Failed to download file',
                     function(){
-
+                    	$scope.loading = false;
                     },
                     'Agora Mobile',
                     'OK'
@@ -91,7 +94,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 			navigator.notification.alert(
                 'Your device has no application to open this file',
                 function(){
-
+                	$scope.loading = false;
                 },
                 'Agora Mobile',
                 'I understand'
