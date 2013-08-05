@@ -12,7 +12,9 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 	var PageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikipage/get-page/node-id/";
 
 	var wikiPageHolder = {
-		page : {}
+		page : {},
+		nodeId : undefined,
+		groupId : undefined
 	};
 
 	var wikiTreeHolder = {
@@ -61,10 +63,20 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 		StorageService.store('Group' + gId + '_WikiContentTree',tree);
 	}
 
+	function storeWikiPage(gId,title,page){
+		StorageService.store('Group' + gId + '_WikiPageTitle:' + title,page);
+	}
+
 	function setWikiTree(gId,mNode,tree){
 		wikiTreeHolder.contentTree = tree;
 		wikiTreeHolder.mainNode = mNode;
 		wikiTreeHolder.groupId = gId;
+	}
+
+	function setWikiPage(gId,nId,page){
+		wikiPageHolder.page = page;
+		wikiPageHolder.nodeId = nId;
+		wikiPageHolder.groupId = gId;
 	}
 
 	function factoryPages2Store(data){
@@ -95,7 +107,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
         });
 
         angular.forEach(pages,function(p,k){
-        	StorageService.store('Group' + p.groupId + '_WikiPageTitle:' + p.title,p);
+        	storeWikiPage(p.groupId,p.title,p);
         });
 
         return pages;
@@ -151,21 +163,24 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 		return deffered.promise;
 	}
 
-	function updatePage(data){
-		var page = JSON2Page(data);
-		var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
+	function fetchWikiPage(gId,nId,title){
+		var deffered = $q.defer();
 
-		if(page.version > storedPage.version){
+		var promise = HttpService.request(PageApiUrl + nId + '/title/' + title,'','GET');
 
-			storedPage.content = page.content;
-			storedPage.version = page.version;
+		promise.then(function(rep){
+			var page = JSON2Page(rep.data);
+			setWikiPage(gId,nId,page);
+			storeWikiPage(gId,title,page);
 
-			StorageService.store('Group' + storedPage.groupId + '_WikiPageTitle:' + storedPage.title, storedPage);
-		}
+			deffered.resolve(wikiPageHolder)
+		},function(err){
+			deffered.reject('wikiPageService.fetchWikiPage: wiki page failed to fetch');
+		});
 
-		wikiPageHolder.page = storedPage;
-
+		return deffered.promise;
 	}
+
     //return value in Wiki Page Service
 	return {
 
@@ -208,7 +223,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			var mainNode = StorageService.get('Group' + group.id + '_WikiMainNode');
 
 			if(contentTree && mainNode){
-				setThreads(group.id,mainNode,contentTree);
+				setWikiTree(group.id,mainNode,contentTree);
 				deffered.resolve(wikiTreeHolder);
 				
 				//Updates in the background even if it has content Tree localy
@@ -217,6 +232,34 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			}
 			else{
 				return fetchContentTree(group.id);
+			}
+		},
+
+		getWikiPage : function(group,nodeId,title){
+
+			var deffered = $q.defer();
+
+			//Returning whatever is in the runtime memory if the groupe is the same
+			if(wikiPageHolder.groupId == group.id){
+				deffered.resolve(wikiPageHolder);
+				
+				//Updates in the background even if it has page localy
+				fetchWikiPage(group.id,nodeId,title);
+				return deffered.promise;
+			}
+			//Tries to fetch from Webstorage
+			var page = StorageService.get('Group' + group.id + '_WikiPageTitle:' + title);
+
+			if(page){
+				setWikiPage(group.id,nodeId,page);
+				deffered.resolve(wikiPageHolder);
+				
+				//Updates in the background even if it has page localy
+				fetchWikiPage(group.id,nodeId,title);
+				return deffered.promise;
+			}
+			else{
+				return fetchWikiPage(group.id,nodeId,title);
 			}
 		}
 	}

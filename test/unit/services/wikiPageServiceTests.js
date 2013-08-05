@@ -85,7 +85,7 @@ describe('WikiPageService',function(){
 	  	$httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('Testing fetch wiki pages and generate wiki content tree',inject(function(WikiPageService){
+	it('Testing fetch wiki pages and generate wiki content tree',inject(function(WikiPageService,StorageService){
 		var treeHolder;
 
 		var promise = WikiPageService.getWikiContentTree({id:10157});
@@ -98,33 +98,25 @@ describe('WikiPageService',function(){
 		expect(treeHolder.contentTree.length).toBe(1);
 		expect(treeHolder.contentTree[0].childrenNodes.length).toBe(4);
 		expect(treeHolder.contentTree[0].title).toBe("Tavle - Start");
+		expect(StorageService.get('Group10157_WikiMainNode').nodeId).toBe(10758);
 
 	}));
 
-	it('Testing fetch single wiki page and update it', inject(function(WikiPageService,StorageService){
-		var page;
+	it('Testing fetch single wiki page and store it', inject(function(WikiPageService){
+		var pageHolder;
 
-		StorageService.store("Group10157_WikiPageTitle:Dokumenter",{
-			groupId: 10157,
-			title: 'Dokumenter',
-			version: 1.0
-		});
-		page = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
-		expect(page.companyId).toBe(undefined);
-
-		var promise = WikiPageService.fetchWikiPage("Dokumenter",10758);
+		var promise = WikiPageService.getWikiPage({id:10157},10758,"Dokumenter");
 
 		promise.then(function(rep){
-			page = WikiPageService.getWikipage();
+			pageHolder = rep;
 		});
 
 		$httpBackend.flush();
 
-		expect(page.version).toBe(1.1);
+		expect(pageHolder.page.version).toBe(1.1);
 
 		var storedPage = StorageService.get("Group10157_WikiPageTitle:Dokumenter");
 		expect(storedPage.version).toBe(1.1);
-		
 
 	}));
 
