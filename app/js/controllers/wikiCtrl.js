@@ -6,44 +6,34 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 		console.log('render content list');
 
 		$scope.showConentHeader = true;
-		WikiPageService.fetchMainNode($scope.currentGroup.id).then(function(rep){
-			console.log(rep);
-			$scope.nodeId = WikiPageService.getMainNode().nodeId;
-			WikiPageService.fetchWikiPages($scope.nodeId).then(function(rep){
-				console.log(rep);
-				$scope.listTree = WikiPageService.getWikiTree();
-			},function(err){
-				console.log(err);
-			});
-		},function(error){
-			console.log(error);
+		$scope.loading = true;
+		WikiPageService.getWikiContentTree($scope.currentGroup).then(function(wikiTreeHolder){
+			$scope.wikiTreeHolder = wikiTreeHolder;
+			$scope.loading = false;
 		});
 	}
 
-	function renderWikiPage(title,nId){
+	function renderWikiPage(group,nId,title){
 		console.log('render wiki page');
 
 		//$scope.showConentHeader = true;
-		WikiPageService.fetchWikiPage(title,nId).then(function(rep){
-			$scope.currentPage = WikiPageService.getWikipage();
-		},function(err){
-			console.log(err);
+		$scope.loading = true;
+		WikiPageService.getWikiPage(group,nId,title).then(function(wikiPageHolder){
+			$scope.wikiPageHolder = wikiPageHolder;
+			$scope.loading = false;
 		});
 	}
 
-	if($scope.currentGroup.id != 110 && $state.is('stage.wiki.contentlist')){
-		$scope.listTree = [];
-		$scope.nodeId;
+	if($state.is('stage.wiki.contentlist')){
 		renderContentList();
 	}
 
 	if($state.is('stage.wiki.page')){
-		$scope.currentPage = {};
 		$scope.childrenp = 'default';
-		renderWikiPage($stateParams.title,$stateParams.nodeId);
+		renderWikiPage($scope.currentGroup,$stateParams.nodeId,$stateParams.title);
 	}
 
-	$scope.showWiki = function (t,nId){
+	$scope.showWiki = function (nId,t){
 		$state.transitionTo('stage.wiki.page',{nodeId:nId,title:t});
 	}
 

@@ -8,7 +8,7 @@
 <script type="text/ng-template"  id="nestList">
     <span class="leafTitle">
 	<i class="icon-folder-close-alt" ng-show="node.childrenNodes.length > 0" id="icon_{{node.title}}" data-ng-click="openChildren(node)"></i><i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>&nbsp;&nbsp;&nbsp;
-	<a style="text-decoration: none;" data-ng-click="showWiki(node.title,nodeId)">{{node.title}}</a>
+	<a style="text-decoration: none;" data-ng-click="showWiki(wikiTreeHolder.mainNode.nodeId,node.title)">{{node.title}}</a>
     </span>
     <ul id="cUl_{{node.title}}" class="closeList leaf" ng-class="{firstWikiNode : node.title=='Tavle - Start'}">
         <li ng-repeat="node in node.childrenNodes" ng-include="'nestList'" id="node_{{node.title}}"></li>
@@ -17,6 +17,6 @@
 
 <div id="contentList" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
     <ul class="openList root">
-        <li ng-repeat="node in listTree" ng-include="'nestList'" id="node_{{node.title}}"></li>
+        <li ng-repeat="node in wikiTreeHolder.contentTree" ng-include="'nestList'" id="node_{{node.title}}"></li>
     </ul>
 </div>

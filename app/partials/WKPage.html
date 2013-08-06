@@ -6,8 +6,8 @@
 		        <i class="icon-home home"></i>
 		        <span>{{currentGroup.name}}</span>
 		    </td>
-		    <td class="navbarEle" id="parentPage" ng-show="currentPage.parentTitle == ''"></td>
-    		<td class="navbarEle" id="parentPage" ng-show="currentPage.parentTitle != ''" data-ng-click="showWiki(currentPage.parentTitle,currentPage.nodeId)">
+		    <td class="navbarEle" id="parentPage" ng-show="wikiPageHolder.page.parentTitle == ''"></td>
+    		<td class="navbarEle" id="parentPage" ng-show="wikiPageHolder.page.parentTitle != ''" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
     			<i class="icon-collapse-top">&nbsp;ParentPage</i>
     		</td>
     	</tr>
@@ -17,8 +17,8 @@
 <div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<select id="childrenPick" ng-model="childrenp" ng-change="selectWiki(childrenp)">
 		<option value="default">Children Pages</option>
-		<option ng-repeat="cp in currentPage.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+		<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
 	</select>
-	<h3>{{currentPage.title}}</h3>
-	<div id="content" ng-bind-html-unsafe="currentPage.content"></div>
+	<h3>{{wikiPageHolder.page.title}}</h3>
+	<div id="content" ng-bind-html-unsafe="wikiPageHolder.page.content"></div>
 </div>

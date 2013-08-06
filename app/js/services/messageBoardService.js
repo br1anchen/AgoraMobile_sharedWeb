@@ -179,34 +179,31 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			//For some reason titles are not returned by the API, and we have to do idividual request to get them
 
 			//Update all thread titles
-			promise.then(function(){
 
-				var promiseObjects = [];
+			var promiseObjects = [];
 
-				angular.forEach(threads,function(thread,key){
+			angular.forEach(threads,function(thread,key){
 
-					var promise = HttpService.request(RootMessageApiUrl + thread.rootMessageId,'','GET');
-					promise.then(
-						function(rep){
-							//Sets the title for this thread
-			    			thread.title = rep.data.subject;
-			    			//Runtimememory is updated by object reference, but we need to update webstrage with thread title
-			    			storeThreads(groupId,categoryId,threads);
-		    			},
-		    			function(error){
-		    				console.log('MessageBoardService.fetchThreads() could not fetch title in background for thread ' + thread);
-		    			}
-	    			);
-	    			promiseObjects.push(promise);
-				})
-
-				$q.all(promiseObjects).then(function(){
-					setThreads(groupId,categoryId,threads);
-					deffered.resolve(threadsHolder);
-				})
+				var promise = HttpService.request(RootMessageApiUrl + thread.rootMessageId,'','GET');
+				promise.then(
+					function(rep){
+						//Sets the title for this thread
+		    			thread.title = rep.data.subject;
+		    			//Runtimememory is updated by object reference, but we need to update webstrage with thread title
+		    			storeThreads(groupId,categoryId,threads);
+	    			},
+	    			function(error){
+	    				console.log('MessageBoardService.fetchThreads() could not fetch title in background for thread ' + thread);
+	    			}
+    			);
+    			promiseObjects.push(promise);
 			})
 
-			return deffered.promise;
+			$q.all(promiseObjects).then(function(){
+				setThreads(groupId,categoryId,threads);
+				deffered.resolve(threadsHolder);
+			})
+
 		},function(err){
 			deffered.reject('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);
 			console.error('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);

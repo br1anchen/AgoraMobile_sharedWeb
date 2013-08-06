@@ -66,17 +66,20 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	$scope.showFile = function(file){
 
 		var validUTI = UtilityService.iosUTI.getUTIByExtension(file.extension);
+		$scope.loading = true;
 
 		if(validUTI != 'noUti'){
+			
 			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+				$scope.loading = false;
 				cordova.exec(function(rep){
 								console.log(rep);
 							},function(err){
 								console.log(err);
 								navigator.notification.alert(
-	                                'Failed to open the file',
+	                                'Your device has no application to open this file',
 	                                function(){
-
+	                                	
 	                                },
 	                                'Agora Mobile',
 	                                'OK'
@@ -84,18 +87,20 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 							}, "ExternalFileUtil", "openWith",[encodeURI(dir), validUTI]);
 			},function(err){
 				console.log(err);
+				$scope.loading = false;
 				navigator.notification.alert(
                     'Failed to download file',
                     function(){
-
+                    	
                     },
                     'Agora Mobile',
                     'OK'
                 );
 			});
 		}else{
+			$scope.loading = false;
 			navigator.notification.alert(
-                'Your device has no application to open this file',
+                'This file type is not support to open',
                 function(){
 
                 },
