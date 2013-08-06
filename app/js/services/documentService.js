@@ -169,8 +169,15 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 					angular.forEach(rep.data,function(f,k){
 						var file = JSON2File(f);
 
-						file.remoteFileDir = getAllNestedFolders(file.folderId) + '/' + file.title;
-
+						var storedFile = StorageService.get('Group' + file.groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title);
+						if(storedFile){
+							if(storedFile.version == file.version){
+								file.localFileDir = storedFile.localFileDir;
+							}
+							file.remoteFileDir = storedFile.remoteFileDir;
+						}else{
+							file.remoteFileDir = getAllNestedFolders(file.folderId) + '/' + file.title;
+						}
 						subfiles.push(file);
 						storeFile(gId,file.folderId,file.title,file);
 					});
