@@ -27,6 +27,12 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	function renderFile(groupId,folderId,fileTitle){
 		console.log('load file');
+		if(parseInt(folderId) == 0){
+			$scope.folderName = "Documents";
+		}
+		else{
+			$scope.folderName = StorageService.get('Group' + groupId + '_Folder'+folderId).name;
+		}
 
 		$scope.showConentHeader = true;
 		

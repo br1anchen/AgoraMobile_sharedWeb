@@ -1,21 +1,11 @@
 #contentHeader, #fixedContentHeader {
-	background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
+	background-color: rgb(228, 228, 228);
 	
 	font-weight: bold;
-	height: 3em;
-	line-height: 3em;
-	padding: 0.5em;
+	height: 4em;
+	line-height: 4em;
 	overflow: hidden;
+	border-bottom: 0.15em solid #BABABA;
 }
 #contentHeader .home, #fixedContentHeader .home{
 	/*float:left;*/
@@ -25,22 +15,49 @@
 	position: absolute;
 	width:100%;
 }
-#contentHeader *{
-	z-index: 0 !important;
-	outline: solid ;
-}
 
-#contentHeader  .currentGroup, #fixedContentHeader .currentGroup{
+#fixedContentHeader  .currentGroup{
 	font-size: 1.5em;
 	float:center;
 }
-#contentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{
+#fixedContentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{
 	display: inline-block;
 	width:0.8em;
 	height: 0.8em;
-	/*background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));*/
 	color:#ed1c24;
 }
-/*.spinnerHolder{
-	position: relative;
-}*/
+
+#fixedContentHeader #backBtn{
+	z-index: 2;
+	position: absolute;
+	font-size: 1.5em;
+	width:37%;
+	height: 100%;
+	overflow: hidden;
+	left:0em;
+}
+#fixedContentHeader #backBtn .content{
+	width:70%;
+	height: 100%;
+	text-align: left;
+	padding-left: 0.7em;
+}
+#fixedContentHeader #backBtn .text {
+	position: absolute;
+	width: 100%;
+}
+#fixedContentHeader #backBtn .transition{
+	position: absolute;
+	width:30%;
+	display: inline-block;
+	top:0em;
+	right:0em;
+	height: 100%;
+	background-image: -webkit-gradient(
+      linear, right top, left top, from(rgba(228, 228, 228, 1.0)),
+      to(rgba(228, 228, 228, 0))
+    );
+}
+#fixedContentHeader #backBtn i{
+	padding-right: 0.2em;
+}

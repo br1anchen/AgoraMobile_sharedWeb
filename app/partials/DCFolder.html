@@ -1,5 +1,10 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<span id="upBtn" data-ng-click="upFolder(folder.parentFolderId)" ng-show="folder.folderId != 0"><i class="icon-collapse-top"></i>Up</span>
+	<div id="backBtn" data-ng-click="upFolder(folder.parentFolderId)" ng-show="folder.folderId != 0">
+		<div class="content">
+			<i class="icon-level-up"></i></i><span class="text">{{folder.name}}</span>
+		</div>
+		<div class="transition"></div>
+	</div>
     <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
@@ -8,17 +13,42 @@
 <div id="DCFolder" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 
 	<ul class="folderList">
-		<li>Folders</li>
-		<li ng-show="folder.subFolders.length == 0">No subFolders</li>
-		<li data-ng-repeat="sub in folder.subFolders" id="MBthread" data-ng-click="gotoFolder(sub)">
-			<i class="icon-folder-close-alt"></i>&nbsp;&nbsp;{{sub.name}}
+		<li id="folders" ng-show="folder.subFolders.length != 0">
+			<span class="text">FOLDERS</span>
+		</li>
+		<!-- <li ng-show="folder.subFolders.length == 0">No subFolders</li> -->
+		<li class="content row" data-ng-repeat="sub in folder.subFolders" data-ng-click="gotoFolder(sub)">
+			<div class="rowIcon">
+				<div class="iconHolder">
+					<i class="icon-folder-close-alt icon-2x"></i>
+				</div>
+			</div>
+			
+			<div class="textHolder">
+					<span class="rowText">{{sub.name}}</span>
+			</div>
 		</li>
 	</ul>
 	<ul class="fileList">
-		<li>Files</li>
-		<li ng-show="folder.files.length == 0">No files</li>
-		<li data-ng-repeat="file in folder.files" id="MBthread">
-			<span data-ng-click="showFile(file)"><i class="icon-file-alt"></i>&nbsp;&nbsp;{{file.title}}</span><i class="icon-circle-arrow-right" id="detailBtn" data-ng-click="fileDetail(file)"></i>
+		<li id="files" ng-show="folder.files.length != 0">
+			<span class="text">FILES</span>
+		</li>
+		<li class="content" data-ng-repeat="file in folder.files" >
+			<span class="row" data-ng-click="showFile(file)">
+				<div class="rowIcon" >
+					<div class="iconHolder">
+						<i class="icon-file-alt icon-2x"></i>
+					</div>
+				</div>
+				
+				<div class="textHolder" >
+						<span class="rowText">{{file.title}}</span>
+				</div>
+			</span>
+			<div class="fileInfoTransition"></div>
+			<div class="fileInfo" data-ng-click="fileDetail(file)">
+				<i class="icon-info-sign icon-2x" class="detailBtn" ></i>
+			</div>
 		</li>
 	</ul>
 
