@@ -10,6 +10,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	var FileNumberApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries-count/group-id/";
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
 	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-group-file-entries/group-id/";
+	var FolderFilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entries/repository-id/";
 	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav";
 
 	var FoldersTreeHolder = {
@@ -21,7 +22,31 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		}
 	};
 
+	var folderHolder = {
+		folder : {},
+		folderId : undefined,
+		groupId : undefined
+	};
+
+	var fileHolder = {
+		file : {},
+		folderId : undefined,
+		groupId : undefined
+	};
+
 	var rootFS;
+
+	function getFileSystem(){
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+			console.log(fileSystem.name);
+    		console.log(fileSystem.root.name);
+			rootFS = fileSystem.root;
+		}, function(evt){
+			console.log(evt.target.error.code);
+		});
+	}
+
+	//getFileSystem();
 
 	function JSON2Folder(json){
 		return {
@@ -66,6 +91,26 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		}
 	}
 
+	function storeFolder(gId,fId,folder){
+		StorageService.store('Group' + gId + '_Folder' + fId,folder);
+	}
+
+	function storeFile(gId,fId,fTitle,file){
+		StorageService.store('Group' + gId + '_Folder' + fId + '_FileTitle:' + fTitle, file)
+	}
+
+	function setFolder(gId,fId,folder){
+		folderHolder.groupId = gId;
+		folderHolder.folderId = fId;
+		folderHolder.folder = folder;
+	}
+
+	function setFile(gId,fId,file){
+		fileHolder.groupId = gId;
+		fileHolder.folderId = fId;
+		fileHolder.file = file;
+	}
+
 	function factoryFolders(gId){
 
 		var getSubFolders = function (fId) {
@@ -82,7 +127,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 							subFolders: getSubFolders(folder.folderId)
 						}
 
-						StorageService.store('Group' + gId + '_Folder' + folder.folderId,folder);
+						storeFolder(gId,folder.folderId,folder);
 
 						folders.push(folderNode);
 					});
@@ -90,7 +135,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 					if(fId != 0){//update parentFolder with subfolders
 						var parentFolder = StorageService.get('Group' + gId + '_Folder' + fId);
 						parentFolder.subFolders = folders;
-						StorageService.store('Group' + gId + '_Folder' + fId, parentFolder);
+						storeFolder(gId,fId,parentFolder);
 					}
 				}
 			},function(err){
@@ -104,10 +149,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 	}
 
-	function factoryFiles(data,groupId){
+	function factoryFiles(data,gId){
 		var getAllNestedFolders = function(fId){
 			if(fId != 0){
-				var folder = StorageService.get('Group' + groupId + '_Folder' + fId);
+				var folder = StorageService.get('Group' + gId + '_Folder' + fId);
 				return getAllNestedFolders(folder.parentFolderId) + '/' + folder.name;
 			}else{
 				return '';
@@ -119,14 +164,14 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 			file.remoteFileDir = getAllNestedFolders(file.folderId) + '/' + file.title;
 			
-			StorageService.store('Group' + groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title, file)
+			storeFile(gId,file.folderId,file.title,file);
 		});
 
 		var putFile2Folder = function(fNode){
 			var files = [];
 
 			angular.forEach(data,function(f,k){
-				var file = 	StorageService.get('Group' + groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);;
+				var file = 	StorageService.get('Group' + gId + '_Folder' + f.folderId + '_FileTitle:' + f.title);;
 
 				if(file.folderId == fNode.folderId){
 					files.push(file);
@@ -135,9 +180,9 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 			fNode.files = files;
 			if(fNode.folderId != 0){
-				var storedFolder = StorageService.get('Group' + groupId + '_Folder' + fNode.folderId);
+				var storedFolder = StorageService.get('Group' + gId + '_Folder' + fNode.folderId);
 				storedFolder.files = files;
-				StorageService.store('Group' + groupId + '_Folder' + fNode.folderId,storedFolder);
+				storeFolder(gId,fNode.folderId,storedFolder);
 			}
 
 			angular.forEach(fNode.subFolders,function(sn,k){
@@ -149,20 +194,120 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 	}
 
-	function getFileSystem(){
-		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
-			console.log(fileSystem.name);
-    		console.log(fileSystem.root.name);
-			rootFS = fileSystem.root;
-		}, function(evt){
-			console.log(evt.target.error.code);
-		});
-	}
+	function fetchFolderContent(gId,fId){
+		var deffered = $q.defer();
 
-	getFileSystem();
+		if(fId == 0){
+			var rootFolder = {
+				folderId: 0,
+				name: 'rootFolder',
+				subFolders: [],
+				files:[],
+				groupId : gId
+			}
+			storeFolder(gId,0,rootFolder);
+		}
+
+		var promiseObjects = [];
+
+		//fetch all folder content
+		var getSubContent = function (folderId) {
+			var subfolders = [];
+			var subfiles = [];
+
+			var folderPromise = HttpService.request(FoldersApiUrl + gId + '/parent-folder-id/' + folderId,'','GET').then(function(rep){
+				if(rep.data.length != 0){
+					angular.forEach(rep.data,function(f,k){
+						var folder = JSON2Folder(f);
+
+						storeFolder(gId,folder.folderId,folder);
+
+						var subfolder = {
+							folderId : folder.folderId,
+							name : folder.name,
+							groupId : folder.groupId
+						}
+						subfolders.push(subfolder);
+
+						if(fId == 0){
+							getSubContent(folder.folderId);
+						}
+					});
+				}
+				
+				//update parentFolder with subfolders
+				var parentFolder = StorageService.get('Group' + gId + '_Folder' + folderId);
+				parentFolder.subFolders = subfolders;
+				storeFolder(gId,folderId,parentFolder);
+
+			},function(err){
+				console.log("documentService.getSubContent: subfolders failed to fetch");
+				deffered.reject("documentService.getSubContent: subfolders failed to fetch");
+			});
+
+			promiseObjects.push(folderPromise);
+
+			var filePromise = HttpService.request(FolderFilesApiUrl + gId + '/folder-id/' + folderId,'','GET').then(function(rep){
+				if(rep.data.length != 0){
+					angular.forEach(rep.data,function(f,k){
+						var file = JSON2File(f);
+
+						subfiles.push(file);
+						storeFile(gId,file.folderId,file.title,file);
+					});
+				}
+
+				//update parentFolder with subfiles
+				var parentFolder = StorageService.get('Group' + gId + '_Folder' + folderId);
+				parentFolder.files = subfiles;
+				storeFolder(gId,folderId,parentFolder);
+
+			},function(err){
+				console.log("documentService.getSubContent: sub files failed to fetch");
+				deffered.reject("documentService.getSubContent: sub files failed to fetch");
+			});
+			
+			promiseObjects.push(filePromise);
+		}
+		
+		getSubContent(fId);
+
+		$q.all(promiseObjects).then(function(){
+			setFolder(gId,fId,StorageService.get('Group' + gId + '_Folder' + fId));
+			deffered.resolve(folderHolder);
+		});
+
+		return deffered.promise;
+	}
 
     //return value in Document Service
 	return {
+		getDirectory : function (group,folderId) {
+			var deffered = $q.defer();
+
+			//Returning whatever is in the runtime memory if the groupe is the same
+			if(folderHolder.groupId == group.id && folderHolder.folder.folderId == folderId){
+				deffered.resolve(folderHolder);
+				
+				//Updates in the background even if it has folder content localy
+				fetchFolderContent(group.id,folderId);
+				return deffered.promise;
+			}
+			//Tries to fetch from Webstorage
+			var folder = StorageService.get('Group' + group.id + '_Folder' + folderId);
+			if(folder){
+				setFolder(group.id,folderId,folder);
+				deffered.resolve(folderHolder);
+				
+				//Updates in the background even if it has folder content localy
+				fetchFolderContent(group.id,folderId);
+				return deffered.promise;
+			}
+			else{
+				return fetchFolderContent(group.id,folderId);
+			}
+		},
+
 		fetchFolders : function (groupId) {
 			factoryFolders(groupId);
 		},
@@ -232,7 +377,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 					        downloadURL = entry.fullPath;
 
 							file.localFileDir = entry.fullPath;
-							StorageService.store('Group' + file.groupId + '_Folder' + file.folderId + '_FileTitle:' + file.title,file);
+							storeFile(file.groupId,file.folderId,file.title,file);
 					    	
 					    	$timeout(function(){
 					    		deffered.resolve(downloadURL);
@@ -261,7 +406,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			        console.log(error);
 
 			        $timeout(function(){
-			    		deffered.resolve("Direcoty created failed");
+			    		deffered.reject("Directory created failed");
 			    	});
 			        
 			    }
