@@ -241,7 +241,16 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 				return deffered.promise;
 			}
 			else{
-				return fetchWikiPage(group.id,nodeId,title);
+
+				fetchContentTree(group.id).then(function(rep){
+					var page = StorageService.get('Group' + group.id + '_WikiPageTitle:' + title);
+					setWikiPage(group.id,nodeId,page);
+					deffered.resolve(wikiPageHolder);
+				},function(err){
+					deffered.reject("wikiPageService.fetchContentTree: init content tree failed");
+				});
+
+				return deffered.promise;
 			}
 		}
 	}
