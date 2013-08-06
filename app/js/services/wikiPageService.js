@@ -240,7 +240,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 				fetchWikiPage(group.id,nodeId,title);
 				return deffered.promise;
 			}
-			else{
+			else{//init content tree if no localstorage to show single wiki page
 
 				fetchContentTree(group.id).then(function(rep){
 					var page = StorageService.get('Group' + group.id + '_WikiPageTitle:' + title);

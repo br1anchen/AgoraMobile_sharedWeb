@@ -245,7 +245,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 				
 				return deffered.promise;
 			}
-			else{
+			else{//init directory if no localstorage to show single file detail
 
 				fetchFolderContent(group.id,folderId).then(function(rep){
 					var file = StorageService.get('Group' + group.id + '_Folder' + folderId + '_FileTitle:' + fileTitle);
