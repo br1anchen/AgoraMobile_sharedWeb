@@ -177,7 +177,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			setWikiPage(gId,nId,page);
 			storeWikiPage(gId,title,page);
 
-			deffered.resolve(wikiPageHolder)
+			deffered.resolve(wikiPageHolder);
 		},function(err){
 			deffered.reject('wikiPageService.fetchWikiPage: wiki page failed to fetch');
 		});

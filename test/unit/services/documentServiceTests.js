@@ -130,38 +130,9 @@ describe('DocumentService',function(){
 	afterEach(function() {
 	  	$httpBackend.verifyNoOutstandingExpectation();
 	  	$httpBackend.verifyNoOutstandingRequest();
+
+        StorageService.clear();
 	});
-
-	it('Testing fetch folders and refacotry them',inject(function(DocumentService){
-		var rootFolder;
-
-		DocumentService.fetchFolders(250926);
-
-		$httpBackend.flush();
-		rootFolder = DocumentService.getFolders();
-		expect(rootFolder.subFolders.length).toBe(2);
-
-		var folder = StorageService.get('Group250926_Folder257002');
-		expect(folder.subFolders.length).toBe(1);
-	}));
-
-	it('Testing fetch all files and refactory them within folders',inject(function(DocumentService){
-		var rootFolder;
-
-		DocumentService.fetchFolders(250926);
-
-		$httpBackend.flush();
-
-		var promise = DocumentService.fetchFileObjs(250926);
-
-		promise.then(function(rep){
-			rootFolder = DocumentService.getFolderWithFiles();
-		});
-
-		$httpBackend.flush();
-		expect(rootFolder.files.length).toBe(3);
-
-	}));
 
     it('Testing fetch all files and folders in directory',inject(function(DocumentService){
         var folderHolder;
@@ -190,6 +161,23 @@ describe('DocumentService',function(){
         expect(storedFolder.files.length).toBe(1);
         expect(storedFolder.subFolders.length).toBe(0);
 
-    }))
+    }));
+
+    it('Testing ask one single file to fetch whole directory',inject(function(DocumentService){
+        var fileHolder;
+
+        DocumentService.getFile({id:250926},0,'21_p4.jpg').then(function(rep){
+
+            fileHolder = rep;
+        })
+
+        $httpBackend.flush();
+        var storedFolder = StorageService.get('Group250926_Folder0');
+        expect(storedFolder.files.length).toBe(3);
+        expect(storedFolder.subFolders.length).toBe(2);
+        expect(fileHolder.file.title).toBe('21_p4.jpg');
+
+
+    }));
 
 });
