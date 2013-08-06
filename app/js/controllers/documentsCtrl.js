@@ -6,53 +6,51 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 		$scope.showConentHeader = true;
 
-		DocumentService.fetchFolders($scope.currentGroup.id);
-		
-		DocumentService.fetchFileObjs($scope.currentGroup.id).then(function(rep){
-			$scope.folder = DocumentService.getFolderWithFiles();
-		},function(err){
-			console.log(err);
+		$scope.loading = true;
+		DocumentService.getDirectory($scope.currentGroup,0).then(function(rep){
+			$scope.folderHolder = rep;
+			$scope.loading = false;
 		});
 
 	}
 
-	function renderFolder(groupId,folderId){
+	function renderFolder(group,folderId){
 		console.log('render Folder Content');
 
 		$scope.showConentHeader = true;
-
-		$scope.folder = DocumentService.getFolderContent(groupId,folderId);
+		$scope.loading = true;
+		DocumentService.getDirectory(group,folderId).then(function(rep){
+			$scope.folderHolder = rep;
+			$scope.loading = false;
+		});
 
 	}
 
-	function renderFile(groupId,folderId,fileTitle){
+	function renderFile(group,folderId,fileTitle){
 		console.log('load file');
-		if(parseInt(folderId) == 0){
-			$scope.folderName = "Documents";
-		}
-		else{
-			$scope.folderName = StorageService.get('Group' + groupId + '_Folder'+folderId).name;
-		}
+		
+		$scope.folderName = StorageService.get('Group' + group.id + '_Folder'+folderId).name;
 
 		$scope.showConentHeader = true;
 		
-		$scope.file = DocumentService.getFile(groupId,folderId,fileTitle);
+		$scope.loading = true;
+		DocumentService.getFile(group,folderId,fileTitle).then(function(rep){
+			$scope.fileHolder = rep;
+			$scope.loading = false;
+		});
 
 	}
 
 	if($state.is('stage.documents.root')){
-		$scope.folder = {};
 		renderDirectory();
 	}
 
 	if($state.is('stage.documents.folder')){
-		$scope.folder = {};
-		renderFolder($scope.currentGroup.id,$stateParams.folderId);
+		renderFolder($scope.currentGroup,$stateParams.folderId);
 	}
 
 	if($state.is('stage.documents.file')){
-		$scope.file = {};
-		renderFile($scope.currentGroup.id,$stateParams.folderId,$stateParams.fileTitle);
+		renderFile($scope.currentGroup,$stateParams.folderId,$stateParams.fileTitle);
 	}
 
 	$scope.gotoFolder = function(folder){
@@ -111,19 +109,12 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	}
 
-	$scope.upFolder = function(folderId){
+	$scope.toFolder = function(folderId){
 		if(folderId != 0){
 			$state.transitionTo('stage.documents.folder',{folderId:folderId});
 		}else{
 			$state.transitionTo('stage.documents.root');
 		}
 	}
-
-	$scope.backFolder = function(folderId){
-		if(folderId != 0){
-			$state.transitionTo('stage.documents.folder',{folderId:folderId});
-		}else{
-			$state.transitionTo('stage.documents.root');
-		}
-	}
+	
 }])

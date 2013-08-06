@@ -36,7 +36,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		});
 	}
 
-	//getFileSystem();
+	getFileSystem();
 
 	function JSON2Folder(json){
 		return {
@@ -107,7 +107,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		if(fId == 0){
 			var rootFolder = {
 				folderId: 0,
-				name: 'rootFolder',
+				name: 'Documents',
 				subFolders: [],
 				files:[],
 				groupId : gId
