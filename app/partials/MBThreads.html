@@ -1,9 +1,14 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<span id="backBtn" data-ng-click="backToCategory()" ><i class="icon-chevron-left"></i>Back</span>
-    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+	<div id="backBtn" data-ng-click="backToCategory()" >
+		<div class="content">
+			<i class="icon-chevron-left"></i></i><span class="text">Categories</span>
+		</div>
+		<div class="transition"></div>
+	</div>
+    <div class="currentGroup" data-ng-click="goToGroup(currentGroup)">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
-    </span>
+    </div>
 </div>
 <div id="threads" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">

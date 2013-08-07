@@ -14,15 +14,21 @@
 	padding-right: 0.2em;
 }
 
-#MBcategory h3{
-	font-size: 1.5em;
-	margin: 0 auto;
-	padding: 0 auto;
+#messageBoard #MBcategory{
+	border-bottom: 0.15em solid #BABABA;
+}
+#messageBoard #MBcategory .title{
+	line-height: 2em;
+	font-size: 1.9em;
 	color: #5b677d;
+	background-color: #D1D1D1;
 }
 
-#MBcategory p{
+#messageBoard #MBcategory .content{
+	padding: 1em;
 	font-size: 1em;
+	font-weight: bold;
+	line-height: 3em;
 }
 
 #noCategory{
@@ -32,7 +38,7 @@
 	padding: 5px auto;
 }
 
-#MBthread h3{
+#messageBoard #MBthread h3{
 	font-size: 1.3em;
 	margin: 0 auto;
 	padding: 0 auto;
@@ -49,13 +55,6 @@
 }
 
 #messageBoard #MBthread, #messageBoard #MBmessage, #messageBoard #MBcategory{
-	padding: 5px 5px 0px 5px;
-	/*margin-left: 5px;
-	margin-top: 5px;*/
-	padding-bottom: 5px;
-	-moz-box-shadow: -2px 2px 1px 1px #ffffff;
-	-webkit-box-shadow: -2px 2px 1px 1px #ffffff;
-	box-shadow: -2px 2px 1px 1px #ffffff;
 }
 
 

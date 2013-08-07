@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageService','UtilityService',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService){
+app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageService','UtilityService','StorageService',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
 	
 	function renderContentList(){
 		console.log('render content list');
@@ -22,6 +22,25 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 			$scope.wikiPageHolder = wikiPageHolder;
 			$scope.loading = false;
 		});
+	}
+	$scope.linkify = function(content){
+		var e = $(document.createElement('div'));
+		e.append(content);
+		//Searching for anchor elements in elements DOM
+		var anchors = e.find('a');
+		angular.forEach(anchors,function(a,k){
+			a = $(a);
+			var href = a.attr('href');
+			var parts = href.split('/');
+			var wikiName = parts[parts.length-1].replace(/\+/g,' ');
+			var page = StorageService.get('Group' + $scope.currentGroup.id + '_WikiPageTitle:' + wikiName);
+
+			if(page){
+				a.removeAttr('href');
+				a.attr('data-ng-click','selectWiki('+wikiName+')');
+			}
+		})
+		return e.html();
 	}
 
 	if($state.is('stage.wiki.contentlist')){
@@ -48,19 +67,25 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
 	}
 
 	$scope.openChildren = function(node){
+		if(node.title == 'Tavle - Start') return;
 		var cUl = 'cUl_' + node.title;
 		var nIcon = 'icon_' + node.title;
 
-		var ulElement  = document.getElementById(cUl);
-      	var iconElement = document.getElementById(nIcon);
+		var ulElement  = $(document.getElementById(cUl));
+      	var iconElement = $(document.getElementById(nIcon));
 
-    	if ($(ulElement).hasClass('closeList')){
-    		$(ulElement).removeClass('closeList').addClass('openList');
-       		$(iconElement).removeClass('icon-folder-close-alt').addClass('icon-folder-open-alt');
+    	if (ulElement.hasClass('closeList')){
+    		ulElement.removeClass('closeList').addClass('openList');
+       		iconElement.removeClass('icon-folder-close-alt').addClass('icon-folder-open-alt');
+       		var i = $(ulElement.parent().find('.leafTitle')[0]).find('.unfold>');
+       		i.removeClass('icon-level-down');
+       		i.addClass('icon-level-up');
     	} else {
-    		$(ulElement).removeClass('openList').addClass('closeList');
-       		$(iconElement).removeClass('icon-folder-open-alt').addClass('icon-folder-close-alt');
+    		ulElement.removeClass('openList').addClass('closeList');
+       		iconElement.removeClass('icon-folder-open-alt').addClass('icon-folder-close-alt');
+       		var i = $(ulElement.parent().find('.leafTitle')[0]).find('.unfold>');
+       		i.removeClass('icon-level-up');
+       		i.addClass('icon-level-down');
     	}
 	}
-
 }])

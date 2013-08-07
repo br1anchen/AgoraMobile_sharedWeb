@@ -1,24 +1,34 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<table width="96%">
-        <tr>
-			<td id="listBtn" class="navbarEle" data-ng-click="showList()"><i class="icon-list-alt"></i></td>
-		    <td class="currentGroup navbarEle" data-ng-click="goToGroup(currentGroup)" width="35%">
-		        <i class="icon-home home"></i>
-		        <span>{{currentGroup.name}}</span>
-		    </td>
-		    <td class="navbarEle" id="parentPage" ng-show="wikiPageHolder.page.parentTitle == ''"></td>
-    		<td class="navbarEle" id="parentPage" ng-show="wikiPageHolder.page.parentTitle != ''" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
-    			<i class="icon-collapse-top">&nbsp;ParentPage</i>
-    		</td>
-    	</tr>
-	</table>
+	<div id="backBtn" data-ng-click="backToThread()">
+		<div class="content" ng-show="wikiPageHolder.page.parentTitle != ''" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
+			<i class="icon-chevron-left"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
+		</div>
+		<div class="transition"></div>
+	</div>
+    <div class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+        <i class="icon-home home"></i>
+        <span>{{currentGroup.name}}</span>
+    </div>
+    <div class="right" data-ng-click="showList()">
+    	<i class="icon-list-alt icon-2x"></i>
+    </div>
 </div>
 
 <div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<select id="childrenPick" ng-model="childrenp" ng-change="selectWiki(childrenp)">
-		<option value="default">Children Pages</option>
-		<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
-	</select>
-	<h3>{{wikiPageHolder.page.title}}</h3>
-	<div id="content" ng-bind-html-unsafe="wikiPageHolder.page.content"></div>
+	<div class="header">
+		<span class="title">{{wikiPageHolder.page.title}}</span>
+		<span ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
+			<i class="toChildren icon-level-down icon-2x" selector>
+				<option value="default">Children Pages</option>
+				<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+			</i>
+			
+			<!-- <select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
+				<option value="default">Children Pages</option>
+				<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+			</select> -->
+		</span>
+	</div>
+	<div id="content" wiki-page-content ></div>
+	<!-- <div id="content" ng-bind-html-unsafe="wikiPageHolder.page.content"></div> -->
 </div>
