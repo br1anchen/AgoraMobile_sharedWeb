@@ -24,6 +24,13 @@
 	border-bottom: 0.15em solid #BABABA;
 	line-height: 4em;
 	vertical-align: middle;
+	position: relative;
+}
+#wiki .clickableHeader{
+	color: #0088cc;
+}
+#wiki .clickableHeader .title{
+	text-decoration: underline;
 }
 #wiki .title{
 	font-size: 2.5em;
@@ -34,16 +41,16 @@
 #wiki .toChildren{
 	display: inline-block;
 	vertical-align: -webkit-baseline-middle;
+	position: relative;
+	overflow: hidden;
 }
 #wiki .header select{
-	/*display: blcok;*/
-	/*border: none;
-	background: white;
-	width: 6em;
-	margin-bottom: 0;
-	display: inline-block;
-	vertical-align: -webkit-baseline-middle;
-	margin: 0;*/
+	position: absolute;
+	opacity: 0.0;
+	width: 95%;
+	height: 100%;
+	right: 0;
+	z-index:2;
 }
 #wiki #content{
 	text-align: left;
