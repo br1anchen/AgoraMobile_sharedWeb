@@ -1,5 +1,5 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<div id="backBtn" data-ng-click="backFolder(file.folderId)">
+	<div id="backBtn" data-ng-click="toFolder(fileHolder.file.folderId)">
 		<div class="content">
 			<i class="icon-chevron-left"></i></i><span class="text">{{folderName}}</span>
 		</div>
@@ -11,9 +11,9 @@
     </span>
 </div>
 <div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<h3>{{file.title}}</h3>
-	<img ng-src="{{file.localFileDir}}" ng-show="file.localFileDir != ''" />
-	<p>Fifle Type:&nbsp;&nbsp;<strong>{{file.extension}}</strong>&nbsp;&nbsp;File Version:&nbsp;&nbsp;<strong>{{file.version}}</strong></p><br />
-	<p>Created by:&nbsp;&nbsp;<strong>{{file.userName}}</strong><br />At&nbsp;<strong>{{file.createDate}}</strong></p><br />
-	<p>Last Modified by:&nbsp;<strong>{{file.versionUserName}}</strong><br />At&nbsp;<strong>{{file.modifiedDate}}</strong></p>
+	<h3>{{fileHolder.file.title}}</h3>
+	<img ng-src="{{fileHolder.file.localFileDir}}" ng-show="fileHolder.file.localFileDir != ''" />
+	<p>Fifle Type:&nbsp;&nbsp;<strong>{{fileHolder.file.extension}}</strong>&nbsp;&nbsp;File Version:&nbsp;&nbsp;<strong>{{fileHolder.file.version}}</strong></p><br />
+	<p>Created by:&nbsp;&nbsp;<strong>{{fileHolder.file.userName}}</strong><br />At&nbsp;<strong>{{fileHolder.file.createDate}}</strong></p><br />
+	<p>Last Modified by:&nbsp;<strong>{{fileHolder.file.versionUserName}}</strong><br />At&nbsp;<strong>{{fileHolder.file.modifiedDate}}</strong></p>
 </div>

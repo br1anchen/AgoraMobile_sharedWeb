@@ -1,7 +1,7 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<div id="backBtn" data-ng-click="upFolder(folder.parentFolderId)" ng-show="folder.folderId != 0">
+	<div id="backBtn" data-ng-click="toFolder(folderHolder.folder.parentFolderId)" ng-show="folderHolder.folder.folderId != 0">
 		<div class="content">
-			<i class="icon-level-up"></i></i><span class="text">{{folder.name}}</span>
+			<i class="icon-level-up"></i></i><span class="text">{{folderHolder.folder.name}}</span>
 		</div>
 		<div class="transition"></div>
 	</div>
@@ -13,11 +13,11 @@
 <div id="DCFolder" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 
 	<ul class="folderList">
-		<li id="folders" ng-show="folder.subFolders.length != 0">
+		<li id="folders" ng-show="folderHolder.folder.subFolders.length != 0">
 			<span class="text">FOLDERS</span>
 		</li>
 		<!-- <li ng-show="folder.subFolders.length == 0">No subFolders</li> -->
-		<li class="content row" data-ng-repeat="sub in folder.subFolders" data-ng-click="gotoFolder(sub)">
+		<li class="content row" data-ng-repeat="sub in folderHolder.folder.subFolders" data-ng-click="gotoFolder(sub)">
 			<div class="rowIcon">
 				<div class="iconHolder">
 					<i class="icon-folder-close-alt icon-2x"></i>
@@ -30,10 +30,10 @@
 		</li>
 	</ul>
 	<ul class="fileList">
-		<li id="files" ng-show="folder.files.length != 0">
+		<li id="files" ng-show="folderHolder.folder.files.length != 0">
 			<span class="text">FILES</span>
 		</li>
-		<li class="content" data-ng-repeat="file in folder.files" >
+		<li class="content" data-ng-repeat="file in folderHolder.folder.files" >
 			<span class="row" data-ng-click="showFile(file)">
 				<div class="rowIcon" >
 					<div class="iconHolder">

@@ -177,7 +177,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			setWikiPage(gId,nId,page);
 			storeWikiPage(gId,title,page);
 
-			deffered.resolve(wikiPageHolder)
+			deffered.resolve(wikiPageHolder);
 		},function(err){
 			deffered.reject('wikiPageService.fetchWikiPage: wiki page failed to fetch');
 		});
@@ -240,8 +240,17 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 				fetchWikiPage(group.id,nodeId,title);
 				return deffered.promise;
 			}
-			else{
-				return fetchWikiPage(group.id,nodeId,title);
+			else{//init content tree if no localstorage to show single wiki page
+
+				fetchContentTree(group.id).then(function(rep){
+					var page = StorageService.get('Group' + group.id + '_WikiPageTitle:' + title);
+					setWikiPage(group.id,nodeId,page);
+					deffered.resolve(wikiPageHolder);
+				},function(err){
+					deffered.reject("wikiPageService.fetchContentTree: init content tree failed");
+				});
+
+				return deffered.promise;
 			}
 		}
 	}

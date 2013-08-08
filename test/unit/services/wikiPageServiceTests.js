@@ -83,6 +83,8 @@ describe('WikiPageService',function(){
 	afterEach(function() {
 	  	$httpBackend.verifyNoOutstandingExpectation();
 	  	$httpBackend.verifyNoOutstandingRequest();
+
+	  	StorageService.clear();
 	});
 
 	it('Testing fetch wiki pages and generate wiki content tree',inject(function(WikiPageService,StorageService){
