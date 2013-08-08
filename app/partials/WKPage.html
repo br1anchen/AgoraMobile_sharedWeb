@@ -18,14 +18,14 @@
 	<div class="header" data-ng-class="{clickableHeader:wikiPageHolder.page.childrenPagesTitle.length > 0}">
 		<span class="title">
 			{{wikiPageHolder.page.title}}
+			<span ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
+			<select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
+				<option value="default">Children Pages</option>
+				<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+			</select>
+			<i class="toChildren icon-level-down icon">
+			</i>
 		</span>
-		<span ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
-		<select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
-			<option value="default">Children Pages</option>
-			<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
-		</select>
-		<i class="toChildren icon-level-down icon-2x">
-		</i>
 		</span>
 	</div>
 	<div id="content" wiki-page-content ></div>

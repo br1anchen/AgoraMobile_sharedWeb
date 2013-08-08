@@ -40,7 +40,6 @@
 }
 #wiki .toChildren{
 	display: inline-block;
-	vertical-align: -webkit-baseline-middle;
 	position: relative;
 	overflow: hidden;
 }
@@ -50,6 +49,7 @@
 	width: 95%;
 	height: 100%;
 	right: 0;
+	top:0;
 	z-index:2;
 }
 #wiki #content{
