@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope','$state','GroupService','StorageService',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService){
+app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService){
     
     //Hide menu on swype gesture
     $scope.$on("swipeleft",function(e,data){
@@ -69,11 +69,9 @@ app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope',
 
     //Fetches groups when this controller is loaded, and navigates to activities when groups are present
     $scope.loadingGroups = true;
-    GroupService.getGroups().then(function(groupsHolder){
-        // $timeout(function(){
-            $scope.loadingGroups = false;
-            $scope.groupsHolder = groupsHolder;
-            $scope.goToGroup();
-        // })
+    $scope.gettingGroupsPromise = GroupService.getGroups().then(function(groupsHolder){
+        $scope.loadingGroups = false;
+        $scope.groupsHolder = groupsHolder;
+        $scope.goToGroup();
     })
-}])
+})

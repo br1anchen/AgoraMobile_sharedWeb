@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','app.documentService','infinite-scroll','ngCookies','ui.state','app.filters.timeago','app.filters.camelcase'])
+var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storageService','app.loginService','app.groupService','app.activityService','app.httpService','app.messageBoardService','app.appService','app.wikiPageService','app.documentService','infinite-scroll','ngCookies','ui.state','app.filters.timeago','app.filters.camelcase','app.contentService'])
 
 .config(['$stateProvider','$routeProvider','$httpProvider', function($stateProvider,$routeProvider,$httpProvider) {
 	$routeProvider.otherwise('/login');

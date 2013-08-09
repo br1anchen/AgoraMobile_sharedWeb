@@ -1,51 +1,75 @@
 'use strict';
 
-app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state','$q',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state,$q){
-
-	$scope.loading = true;
-
-	ActivityService.getActivities($scope.currentGroup,30).then(
-		function(activitiesHolder){
-			$scope.activitiesHolder = activitiesHolder;
-			$scope.loading = false;
-		},
-		function(error){
-			console.error("ActivityCtrl: getActivities() failed");
-			$rootScope.$broadcast("notification","Get activities failed");
-			$rootScope.$broadcast("notification","Are you online?");
-			$scope.loading = false;
-		}
-	);
-
-	$scope.$on('scrollableUpdate',function(){
+app.controller('ActivityFeedCtrl',
+	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService){
+		
 		$scope.loading = true;
 
-		//Updating content
-		ActivityService.updateActivities($scope.currentGroup).then(
-			function(res){
-				$scope.loading = false;
+		//If not group is present we wait for it to load:
+		$scope.gettingGroupsPromise.then(
+			function(){
+				//When group is present we load the activities for this group
+				ActivityService.getActivities($scope.currentGroup,30).then(
+					function(activitiesHolder){
+						$scope.activitiesHolder = activitiesHolder;
+						$scope.loading = false;
+					},
+					function(error){
+						console.error("ActivityCtrl: getActivities() failed");
+						$rootScope.$broadcast("notification","Get activities failed");
+						$rootScope.$broadcast("notification","Are you online?");
+						$scope.loading = false;
+					}
+				)
+				//After the activities are loaded, we try to load everything else in this group before the user click something.
+				.then(
+					function(){
+						ContentService.loadGroupContent($scope.currentGroup);
+					}
+				)
 			},
-			function(error){
-				console.error("ActivityCtrl: Update failed");
-				$rootScope.$broadcast("notification","Update failed");
-				$scope.loading = false;
-			}
-		);
-	});
-
-	$scope.$on('scrollableAppend',function(){
-		$scope.loading = true;
-
-		//Appending content
-		ActivityService.getMoreActivities($scope.currentGroup).then(
-			function(res){
-				$scope.loading = false;
-			},
-			function(error){
-				console.error("Append failed");
-				$rootScope.$broadcast("notification","Append failed");
+			function(){
+				console.error("ActivityCtrl:Group not available");
+				$rootScope.$broadcast("notification","No groups");
 				$scope.loading = false;
 			}
 		)
-	});
-}])
+		
+		//Getting all content for this group background
+		.then(function(){
+
+		});
+
+		$scope.$on('scrollableUpdate',function(){
+			$scope.loading = true;
+
+			//Updating content
+			ActivityService.updateActivities($scope.currentGroup).then(
+				function(res){
+					$scope.loading = false;
+				},
+				function(error){
+					console.error("ActivityCtrl: Update failed");
+					$rootScope.$broadcast("notification","Update failed");
+					$scope.loading = false;
+				}
+			);
+		});
+
+		$scope.$on('scrollableAppend',function(){
+			$scope.loading = true;
+
+			//Appending content
+			ActivityService.getMoreActivities($scope.currentGroup).then(
+				function(res){
+					$scope.loading = false;
+				},
+				function(error){
+					console.error("Append failed");
+					$rootScope.$broadcast("notification","Append failed");
+					$scope.loading = false;
+				}
+			)
+		});
+	}
+)

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageService','UtilityService','StorageService',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
+app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
 	
 	function renderContentList(){
 		console.log('render content list');
@@ -88,4 +88,4 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
        		i.addClass('icon-level-down');
     	}
 	}
-}])
+})

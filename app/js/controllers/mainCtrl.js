@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeout','$state',function($scope,$log,$location,StorageService,$timeout,$state){
+app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout,$state){
 
 	checkUserInfo();
 
@@ -12,4 +12,4 @@ app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeou
 		}
 	}
 
-}]);
+});

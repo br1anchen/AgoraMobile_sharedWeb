@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupService','$rootScope','$cookies','$state','LoginService',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies,$state,LoginService){
+app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies,$state,LoginService){
 
   //'User' should be there because login was successfull
    $scope.user = StorageService.get('User');
@@ -38,4 +38,4 @@ app.controller('MenuCtrl',['$scope','$log','$location','StorageService','GroupSe
   $scope.logout = function(){
     LoginService.logOut();
   }
-}])
+})
