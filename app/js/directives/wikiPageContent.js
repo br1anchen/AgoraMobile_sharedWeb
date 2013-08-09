@@ -32,6 +32,12 @@ app.directive('wikiPageContent', function factory($compile,StorageService) {
 						a.removeAttr('href');
 						a.attr('data-ng-click',"path('stage.wiki.contentlist')");
 					break;
+					default:
+						//If the link is not understood, and related to Agora, we remove the achor
+						if(href.indexOf('agora') > 0){
+							a.replaceWith('<span>'+a.html()+'</span>');
+						}
+						break;
 				}
 			}
 		})

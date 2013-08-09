@@ -3,46 +3,35 @@
 	margin-top:4em;
 }
 
-#messageBoard #backBtn{
-	z-index: 2;
-	font-size: 1.5em;
-	left:0em;
-	padding-left:0.7em;
-	position: absolute;
+#messageBoard #MBcategory, #messageBoard #MBthread, #messageBoard #MBmessage{
+	border-bottom: 0.2em solid #BABABA;
+	position: relative;
+	text-align: left;
+	font-size: 1em;
 }
-#messageBoard #backBtn i{
-	padding-right: 0.2em;
-}
-
-#messageBoard #MBcategory{
-	border-bottom: 0.15em solid #BABABA;
-}
-#messageBoard #MBcategory .title{
+#messageBoard #MBthread .title, #messageBoard #MBcategory .title, #messageBoard #MBmessage .title{
 	line-height: 2em;
 	font-size: 1.9em;
 	color: #5b677d;
 	background-color: #D1D1D1;
-}
-
-#messageBoard #MBcategory .content{
-	padding: 1em;
-	font-size: 1em;
 	font-weight: bold;
+	padding-left: 0.5em;
+}
+
+#messageBoard #MBcategory .content, #messageBoard #MBthread .content, #messageBoard #MBmessage .content{
+	font-size: 1.5em;
 	line-height: 3em;
+	padding-left: 0.5em;
 }
-
-#noCategory{
-	text-align: center;
-	width: 94%;
-	margin: 5px auto;
-	padding: 5px auto;
-}
-
-#messageBoard #MBthread h3{
-	font-size: 1.3em;
-	margin: 0 auto;
-	padding: 0 auto;
-	color: #5b677d;
+#messageBoard #MBthread .author{
+	position: absolute;
+	right:0;
+	bottom:0;
+	line-height:1em;
+	padding-bottom:0.2em;
+	padding-right:0.2em;
+	font-weight:normal;
+	font-size:0.7em;
 }
 
 #MBthread p:first-of-type{
@@ -50,44 +39,14 @@
 	font-weight: bold;
 }
 
-#MBthread p{
-	font-size: 1em;
-}
-
-#messageBoard #MBthread, #messageBoard #MBmessage, #messageBoard #MBcategory{
-}
-
-
-#messageBoard #MBmessage{
-	padding: 5px 5px 5px 5px;
-/*	-moz-box-shadow: -2px 2px 1px 1px #ffffff;
-	-webkit-box-shadow: -2px 2px 1px 1px #ffffff;
-	box-shadow: -2px 2px 1px 1px #ffffff;*/
-	border-bottom: 0.15em solid #BABABA;
-}
-
-#MBmessage h3{
-	font-size: 1.3em;
-	margin: 0 auto;
-	padding: 0 auto;
-	color: #5b677d;
-}
-
 #MBmessage .date{
 	font-size: 1em;
 	font-weight: bold;
 }
 
-#MBmessage .poster{
-	font-size: 1em,
-}
-#MBMessage .messageHeader{
-	border-bottom: solid;
-	text-align: center;
-}
-
-#MBmessage #body{
+#MBmessage .messageBody{
 	text-align: left;
+	padding: 1em 1em 1em 1em;
 }
 
 #xbbcode-q{

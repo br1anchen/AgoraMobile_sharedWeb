@@ -5,18 +5,20 @@
 		</div>
 		<div class="transition"></div>
 	</div>
-    <div class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+    <div class="currentGroup" data-ng-click="goToActivityFeed()">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
     </div>
 </div>
 <div id="threads" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
-		<h3>{{thread.title}}</h3>
-		<p>Latest Post: {{thread.lastPostDate}}<br /></p>
-		<p>
-			<strong>Posts: </strong>{{thread.messageCount}}&nbsp;<strong>Views: </strong>{{thread.viewCount}}&nbsp;<strong>Started by: </strong>{{thread.statusByUserName}} 
-		</p>
+		<div class="title">{{thread.title}}</div>
+		<div class="content"> 
+			<span class="latest">Latest Post: {{thread.lastPostDate}}</span><br/>
+			<span class="author"> 
+				Started by: {{thread.statusByUserName}}
+			</span>
+		</div>
 	</div>
 	<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
 </div>

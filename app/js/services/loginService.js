@@ -62,6 +62,22 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
       getFeideLoginUrl : function(){
         return HttpService.request(feideRequestUrl,'','GET');
+      },
+      logOut : function(){
+        console.log("Login out "+user.screenName);
+        StorageService.clear();
+
+        cordova.exec(function(rep){
+          console.log(rep);
+        }, function(error) {
+          console.log(error);
+          navigator.notification.alert("Log Out Error Occured", function(){
+            $state.transitionTo('stage.activityFeed');
+          }, "Sorry", "I understand");
+        }, "cookieManager","deleteCookies",[]);
+
+        //deleteAllCookies();  delete cookies by javascript which does not work in phonegap
+        $state.transitionTo('login');
       }
   }
 }]);

@@ -1,12 +1,7 @@
 'use strict';
-app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope','$state',function($scope,$log,$location,$timeout,$rootScope,$state){
-    $scope.currentGroup =  {
-        id : 110,
-        name : "Default Group",
-        type : 1,
-        site : true,
-        friendlyURL : ''
-    };
+app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope','$state','GroupService','StorageService',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService){
+    
+    //Hide menu on swype gesture
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar){
             $scope.toggleMenu();
@@ -21,23 +16,25 @@ app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope',
             $scope.menuVar = undefined;
         }
 	}
-
+    //Function to change app path
 	$scope.path = function(path) {
         console.log(path);
         $state.transitionTo(path); // path not hash
     }
+    //Function to check if state equals give state
     $scope.stateIs = function(state){
         return $state.is(state);
     }
 
+    //Function to change the active group in the application
     $scope.goToGroup = function(group){
+        if(!group) group = StorageService.get('TopGroup');
+
+        if(!group) console.error('StageCtrl.goToGroup() Could not find TopGroup');
+
         $scope.currentGroup = group;
 
-        if($location.path() != '/stage/activityFeed'){
-            $state.transitionTo('stage.activityFeed');
-        }else{
-            $rootScope.$broadcast("renderActLogs");
-        }
+       $scope.goToActivityFeed();
         
     }
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
@@ -54,5 +51,29 @@ app.controller('StageCtrl',['$scope','$log','$location','$timeout','$rootScope',
         $timeout(function(){
             $scope.showConentHeader = false;
         })
+    })
+    $scope.goToActivityFeed = function(){
+        var activityFeedState = 'stage.activityFeed';
+        if($state.is(activityFeedState)){
+            $rootScope.$broadcast("notification",
+                "Already showing activityFeed"
+            );
+            $rootScope.$broadcast("notification",
+                "Click on <i class='icon-align-justify'></i> to change group"
+            );
+        }
+        else{
+            $state.transitionTo(activityFeedState);
+        }
+    }
+
+    //Fetches groups when this controller is loaded, and navigates to activities when groups are present
+    $scope.loadingGroups = true;
+    GroupService.getGroups().then(function(groupsHolder){
+        // $timeout(function(){
+            $scope.loadingGroups = false;
+            $scope.groupsHolder = groupsHolder;
+            $scope.goToGroup();
+        // })
     })
 }])

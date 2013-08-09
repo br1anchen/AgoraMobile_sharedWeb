@@ -5,15 +5,27 @@
 		</div>
 		<div class="transition"></div>
 	</div>
-    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+    <span class="currentGroup" data-ng-click="goToActivityFeed()">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
     </span>
 </div>
 <div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<h3>{{fileHolder.file.title}}</h3>
-	<img ng-src="{{fileHolder.file.localFileDir}}" ng-show="fileHolder.file.localFileDir != ''" />
-	<p>Fifle Type:&nbsp;&nbsp;<strong>{{fileHolder.file.extension}}</strong>&nbsp;&nbsp;File Version:&nbsp;&nbsp;<strong>{{fileHolder.file.version}}</strong></p><br />
-	<p>Created by:&nbsp;&nbsp;<strong>{{fileHolder.file.userName}}</strong><br />At&nbsp;<strong>{{fileHolder.file.createDate}}</strong></p><br />
-	<p>Last Modified by:&nbsp;<strong>{{fileHolder.file.versionUserName}}</strong><br />At&nbsp;<strong>{{fileHolder.file.modifiedDate}}</strong></p>
+	<div class="title">{{fileHolder.file.title}}</div>
+	<div class = "content">
+		<img ng-src="{{fileHolder.file.localFileDir}}" ng-show="fileHolder.file.localFileDir != ''" />
+		<p>
+			Fifle Type: {{fileHolder.file.extension}} File Version:{{fileHolder.file.version}}
+		</p>
+		<br />
+		<p>
+			Created by: {{fileHolder.file.userName}}<br />
+			At {{fileHolder.file.createDate}}
+		</p>
+		<br />
+		<p>
+			Last Modified by: {{fileHolder.file.versionUserName}}<br />
+			At {{fileHolder.file.modifiedDate}}
+		</p>
+	</div>
 </div>

@@ -1,5 +1,5 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-    <span class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+    <span class="currentGroup" data-ng-click="goToActivityFeed()">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
     </span>
@@ -8,7 +8,7 @@
 <script type="text/ng-template"  id="nestList">
 	<div 
         class="leafTitle" 
-        data-ng-class="{folder:node.childrenNodes.length > 0}"
+        data-ng-class="{folder:node.childrenNodes.length > 0,page:node.childrenNodes.length == 0}"
     >
         <span data-ng-click="showWiki(wikiTreeHolder.mainNode.nodeId,node.title)">
             <div class="iconHolder">
@@ -20,7 +20,9 @@
                 <i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>
             </div>
 
-            <div class="text" data-ng-bind="node.title"></div>
+            <div class="text" >
+                <span class="title" data-ng-bind="node.title"></span>
+            </div>
         </span>
 
         <div 

@@ -46,7 +46,7 @@ app.directive('wikiPage', function factory($log,AppService) {
     '<ul'+
     '    id="cUl_{{node.title}}"'+
     '    class="closeList leaf"'+
-    '    ng-class="{firstWikiNode : node.title=='Tavle - Start'}"'+
+    '    ng-class="{firstWikiNode : node.title==\'Tavle - Start\'}"'+
     '>'+
     '    <li'+
     '        data-ng-class="{folder:node.childrenNodes.length > 0}"'+
@@ -54,7 +54,7 @@ app.directive('wikiPage', function factory($log,AppService) {
     '        ng-include="\'nestList\'"'+
     '        id="node_{{node.title}}">'+
     '    </li>'+
-    '</ul>'+
+    '</ul>'
   };
   return directiveObj;
 });

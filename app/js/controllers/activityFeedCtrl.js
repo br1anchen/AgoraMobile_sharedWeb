@@ -2,30 +2,20 @@
 
 app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService','UtilityService','StorageService','$rootScope','AppService','$state','$q',function($scope,$log,$timeout,ActivityService,UtilityService,StorageService,$rootScope,AppService,$state,$q){
 
-	function renderActLogs(){
-		//console.log('render act logs');
-		
-		ActivityService.getActivities($scope.currentGroup,30).then(
-			function(activitiesHolder){
-				// alert(JSON.stringify($scope.currentGroup));
-				// alert(JSON.stringify(activitiesHolder.activities));
-				$scope.activitiesHolder = activitiesHolder;
-				
-			},
-			function(error){
-				// alert("error:"+JSON.stringify(error));
-				console.log(error);
-			}
-		);
-	}
+	$scope.loading = true;
 
-	if($scope.currentGroup.id != 110 && $state.is('stage.activityFeed')){
-		renderActLogs();
-	}
-
-	$scope.$on('renderActLogs',function(){
-		renderActLogs();
-	});
+	ActivityService.getActivities($scope.currentGroup,30).then(
+		function(activitiesHolder){
+			$scope.activitiesHolder = activitiesHolder;
+			$scope.loading = false;
+		},
+		function(error){
+			console.error("ActivityCtrl: getActivities() failed");
+			$rootScope.$broadcast("notification","Get activities failed");
+			$rootScope.$broadcast("notification","Are you online?");
+			$scope.loading = false;
+		}
+	);
 
 	$scope.$on('scrollableUpdate',function(){
 		$scope.loading = true;
@@ -58,12 +48,4 @@ app.controller('ActivityFeedCtrl',['$scope','$log','$timeout','ActivityService',
 			}
 		)
 	});
-	$scope.goToGroup = function(group){
-		$rootScope.$broadcast("notification",
-			"Already showing activityfeed"
-		);
-		$rootScope.$broadcast("notification",
-			"Click on <i class='icon-align-justify'></i> to change group"
-		);
-	}
 }])

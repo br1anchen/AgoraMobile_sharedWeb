@@ -57,17 +57,17 @@ describe('GroupService',function(){
 	  	StorageService.clear();
 	});
 
-	it('Testing fetch groups with first time correct authentication',inject(function(GroupService){	
+	it('Testing getGroups with first time correct authentication',inject(function(GroupService){	
 
 		//fetch groups
-		var groups;
-		var promise = GroupService.fetchGroups();
+		var groupsHolder;
+		var promise = GroupService.getGroups();
 		promise.then(function(rep){
-			groups = GroupService.getGroups();
+			groupsHolder = rep;
 		});
 
 		$httpBackend.flush();
-		expect(groups).not.toBe(undefined);
+		expect(groupsHolder.groups).not.toBe(undefined);
 
 	}));
 
@@ -75,7 +75,7 @@ describe('GroupService',function(){
 
     	//get groups
     	var topGroup;
-		var promise = GroupService.fetchGroups();
+		var promise = GroupService.getGroups();
 		promise.then(function(rep){
 			topGroup = StorageService.get('TopGroup');
 		});
@@ -84,35 +84,20 @@ describe('GroupService',function(){
 		expect(topGroup).not.toBe(undefined);
 	}));
 
-	it('Testing using stored groups data to fetch',inject(function(GroupService){
 
-    	var promise = GroupService.fetchGroups();
-		promise.then(function(rep){
-			var promise = GroupService.fetchGroups();
-			promise.then(function(rep){
-				expect(rep).toBe('use stored groups');
-			});
-		});
+	it('Testing updateGroups',inject(function(GroupService,StorageService){
+		GroupService.getGroups().then(function(groupsHolder){
+			var initialNumberOfGroups = groupsHolder.groups.length;
+			groupsHolder.groups.pop();
+			expect(groupsHolder.groups.length).toBe(initialNumberOfGroups-1);
+			
+			StorageService.store('groups',groupsHolder.groups)
+
+			GroupService.updateGroups().then(function(){
+				expect(groupsHolder.groups.length).toBe(initialNumberOfGroups);
+			})
+		})
 		$httpBackend.flush();
-	}));
-
-	it('Testing get new groups to update stored groups',inject(function(GroupService,StorageService){
-
-		//remove one current group data
-		StorageService.remove("Group250926");
-		var groupIds = [];//remove one element in array
-		StorageService.store("GroupIDs",groupIds);
-
-		//update request
-		var promise = GroupService.updateGroups();
-		promise.then(function(rep){
-			groupIds = StorageService.get("GroupIDs");
-		});
-		
-
-		$httpBackend.flush();
-		expect(groupIds.length).toBe(1);
-
 	}));
 
 
