@@ -41,6 +41,8 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			return wikiDeffer.promise;
 		},
 		loadGroupContent : function(curretGroup){
+			var loadDeffer = $q.defer();
+
 			buildPromises();
 
 			//Loading all messageBoard content
@@ -89,7 +91,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 					}
 				)
 			})
-			//Loading wikies
+			//Loading wikiPages
 			.then(function(){
 				WikiPageService.getWikiContentTree(curretGroup).then(
 					function(res){
@@ -100,6 +102,16 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 					}
 				)
 			})
+			//Returns a promise resolved if everything is loaded successfully
+			.then(
+				function(res){
+					loadDeffer.resolve(res);
+				},
+				function(err){
+					loadDeffer.reject(err)
+				}
+			)
+			return loadDeffer.promise;
 		}
 	}
 })

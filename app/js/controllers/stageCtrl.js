@@ -58,7 +58,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         if(!group) group = StorageService.get('TopGroup');
         var activityFeedState = 'stage.activityFeed';
 
-        if($scope.currentGroup &&  group.id == $scope.currentGroup.id && $state.is(activityFeedState)){
+        if($scope.currentGroup &&  group && group.id == $scope.currentGroup.id && $state.is(activityFeedState)){
             $rootScope.$broadcast("notification",
                 "Already showing activityFeed"
             );

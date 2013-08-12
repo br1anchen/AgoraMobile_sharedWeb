@@ -8,7 +8,9 @@ app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout
 			$state.transitionTo('stage');
 		}else{
 			console.log("no stored user info");
-			$state.transitionTo('login');
+			$timeout(function(){
+				$location.path("/login");
+			})
 		}
 	}
 
