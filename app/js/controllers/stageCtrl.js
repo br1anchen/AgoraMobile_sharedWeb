@@ -18,7 +18,6 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 	}
     //Function to change app path
 	$scope.path = function(path) {
-        console.log(path);
         $state.transitionTo(path); // path not hash
     }
     //Function to check if state equals give state
@@ -77,6 +76,5 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $scope.gettingGroupsPromise = GroupService.getGroups().then(function(groupsHolder){
         $scope.loadingGroups = false;
         $scope.groupsHolder = groupsHolder;
-        $scope.goToActivityFeed();
     })
 })

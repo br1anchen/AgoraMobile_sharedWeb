@@ -3,8 +3,6 @@
 app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
 	
 	function renderContentList(){
-		console.log('render content list');
-
 		$scope.showConentHeader = true;
 		$scope.loading = true;
 		WikiPageService.getWikiContentTree($scope.currentGroup).then(function(wikiTreeHolder){

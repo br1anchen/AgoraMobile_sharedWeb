@@ -38,11 +38,6 @@ app.controller('ActivityFeedCtrl',
 			}
 		)
 		
-		//Getting all content for this group background
-		.then(function(){
-
-		});
-
 		$scope.$on('scrollableUpdate',function(){
 			$scope.loading = true;
 
