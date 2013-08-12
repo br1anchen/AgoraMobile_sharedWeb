@@ -15,7 +15,7 @@
 
 #DCFolder ul li{
 	text-align: left;
-	border-bottom: 0.15em solid #BABABA;
+	border-bottom: 0.2em solid #BABABA;
 }
 
 #documents .row{
@@ -43,7 +43,7 @@
 	line-height: 5em;
 }
 #documents .rowText{
-	font-size: 1.9em;
+	font-size: 1.5em;
 }
 #documents .fileInfo{
 	text-align: center;
@@ -55,12 +55,11 @@
 	top:0;
 	padding-top: 1.5em;
 	z-index:1;
-
 }
+
 #documents .fileInfoTransition{
 	width: 50px;
 	height:5em;
-	/*background-color:#E4E4E4;*/
 	position: absolute;
 	right: 50px;
 	top:0;
@@ -72,20 +71,30 @@
 }
 #documents #files , #documents #folders {
 	font-weight: bold;
-	color: black;
 	background-color: #D1D1D1;
-	font-size: 0.9em;
-	height: 3em;
+	font-size: 1.9em;
+	line-height: 2em;
+	border-bottom: none;
 }
 #documents #files .text, #documents #folders .text{
-	width: 5%;
-	display: inline-block;
-	height: 100%;
 	padding-top: 0.75em;
-	padding-left: 0.3em
+	padding-left: 0.3em;
+	color: #5b677d;
 }
 
 #documents .content{
 	height: 5em;
 	position:relative;
+}
+
+#documents #DCFileDetail .title {
+	font-size: 1.9em;
+	line-height: 2em;
+	background-color: #D1D1D1;
+}
+#documents #DCFileDetail .content p{
+	border-bottom: 0.2em solid #BABABA;
+}
+#documents #DCFileDetail .content{
+	padding-top: 1em;
 }

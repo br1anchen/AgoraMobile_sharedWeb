@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('NotificationCtrl',['$scope','$log',function($scope,$log){
+app.controller('NotificationCtrl',function($scope,$log){
   $scope.notifications = [];
 
   function addAlert(msg,type) {
@@ -17,4 +17,4 @@ app.controller('NotificationCtrl',['$scope','$log',function($scope,$log){
   // addAlert("Test serviceMessage","serviceMessage");
   // addAlert("Test regular message");
   
-}])
+})

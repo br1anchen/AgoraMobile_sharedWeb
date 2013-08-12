@@ -2,8 +2,6 @@
 app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,AppService,$state,$stateParams){
 
 	function renderDirectory(){
-		console.log('render Document Directory');
-
 		$scope.showConentHeader = true;
 
 		$scope.loading = true;

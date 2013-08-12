@@ -5,7 +5,7 @@
 		</div>
 		<div class="transition"></div>
 	</div>
-    <div class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+    <div class="currentGroup" data-ng-click="goToActivityFeed()">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
     </div>
@@ -16,7 +16,6 @@
 		<li id="folders" ng-show="folderHolder.folder.subFolders.length != 0">
 			<span class="text">FOLDERS</span>
 		</li>
-		<!-- <li ng-show="folder.subFolders.length == 0">No subFolders</li> -->
 		<li class="content row" data-ng-repeat="sub in folderHolder.folder.subFolders" data-ng-click="gotoFolder(sub)">
 			<div class="rowIcon">
 				<div class="iconHolder">

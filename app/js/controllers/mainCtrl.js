@@ -1,9 +1,5 @@
 'use strict';
-app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeout','$state',function($scope,$log,$location,StorageService,$timeout,$state){
-
-    $scope.$on("notifyTest",function(notification){
-        alert("kake");
-    })
+app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout,$state){
 
 	checkUserInfo();
 
@@ -12,8 +8,10 @@ app.controller('MainCtrl',['$scope','$log','$location','StorageService','$timeou
 			$state.transitionTo('stage.activityFeed');
 		}else{
 			console.log("no stored user info");
-			$state.transitionTo('login');
+			$timeout(function(){
+				$location.path("/login");
+			})
 		}
 	}
 
-}]);
+});

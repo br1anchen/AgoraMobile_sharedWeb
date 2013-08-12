@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.loginService',['app.httpService','app.utilityService','app.storageService','app.appService'])
-.factory('LoginService', ['$http','$log','$q','HttpService','UtilityService','StorageService','AppService',function ($http,$log,$q,HttpService,UtilityService,StorageService,AppService) {
+.factory('LoginService', function ($http,$log,$q,HttpService,UtilityService,StorageService,AppService,$state) {
 
 	//class entity in LoginService
   	var user = {
@@ -62,6 +62,21 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
 
       getFeideLoginUrl : function(){
         return HttpService.request(feideRequestUrl,'','GET');
+      },
+      logOut : function(){
+        console.log("Login out "+user.screenName);
+        StorageService.remove('User');
+
+        cordova.exec(function(rep){
+          console.log(rep);
+        }, function(error) {
+          console.log(error);
+          navigator.notification.alert("Log Out Error Occured", function(){
+          }, "Sorry", "I understand");
+        }, "cookieManager","deleteCookies",[]);
+
+        //deleteAllCookies();  delete cookies by javascript which does not work in phonegap
+        $state.transitionTo('login');
       }
   }
-}]);
+});

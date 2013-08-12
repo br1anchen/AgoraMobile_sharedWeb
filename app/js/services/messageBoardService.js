@@ -292,7 +292,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		},
 		updateThreads : function(group,categoryId){
 			var amount = (threadsHolder.threads.length > threadsIncrement) ? threadsHolder.threads.length : threadsIncrement;
-			return fetchThreads(group.id, amount );
+			return fetchThreads(group.id, categoryId,amount );
 		},
 		getMoreThreads : function(group, categoryId){
 			var amount = (threadsHolder.threads.length > threadsIncrement) ? threadsHolder.threads.length * 2 : threadsIncrement * 2;
@@ -331,6 +331,6 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		getMoreMessages : function(group, categoryId, threadId, amount){
 			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length * 2 : messagesIncrement * 2;
 			return fetchMessages(group.id, categoryId, threadId, amount);
-		},
+		}
 	}
 }])

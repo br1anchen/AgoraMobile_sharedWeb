@@ -1,9 +1,11 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoardService','StorageService','UtilityService','$state','$stateParams',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams){
+app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams){
 
 	function renderCategories (){
 		$scope.loading = true;
+		$scope.showConentHeader = true;
+
 		MessageBoardService.getCategories($scope.currentGroup).then(function(categoriesHolder){
 			$scope.categoriesHolder = categoriesHolder;
 			$scope.loading = false;
@@ -109,4 +111,4 @@ app.controller('MessageBoardCtrl',['$scope','$log','$timeout','$q','MessageBoard
 		console.log('back to Treads');
 		$state.transitionTo('stage.messageBoard.threads',{categoryId:$stateParams.categoryId})
 	}
-}])
+})

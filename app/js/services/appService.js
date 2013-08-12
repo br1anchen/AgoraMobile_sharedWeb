@@ -1,8 +1,8 @@
 angular.module('app.appService',[]).
-factory('AppService',['$log','$rootScope',function($log,$rootScope){
+factory('AppService',function($log,$rootScope){
 		// var baseURL = 'https://agora-test.uninett.no';
 		var baseURL = 'https://agora.uninett.no';
-
+		
 	return {
 		getBaseURL : function(){
 			return baseURL;
@@ -11,4 +11,4 @@ factory('AppService',['$log','$rootScope',function($log,$rootScope){
 			$rootScope.$broadcast("userMessage",message);
 		}
 	}
-}])
+})

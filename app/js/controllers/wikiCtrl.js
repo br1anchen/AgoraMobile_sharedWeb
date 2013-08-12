@@ -1,10 +1,8 @@
 'use strict';
 
-app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageService','UtilityService','StorageService',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
+app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
 	
 	function renderContentList(){
-		console.log('render content list');
-
 		$scope.showConentHeader = true;
 		$scope.loading = true;
 		WikiPageService.getWikiContentTree($scope.currentGroup).then(function(wikiTreeHolder){
@@ -95,4 +93,4 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
         ref.addEventListener('loadstop', function() { console.log('stop: ' + event.url); });
         ref.addEventListener('exit', function() { console.log(event.type); });
 	}
-}])
+})

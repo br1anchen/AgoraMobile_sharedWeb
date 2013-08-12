@@ -5,7 +5,7 @@
 		</div>
 		<div class="transition"></div>
 	</div>
-    <div class="currentGroup" data-ng-click="goToGroup(currentGroup)">
+    <div class="currentGroup" data-ng-click="goToActivityFeed()">
         <i class="icon-home home"></i>
         <span>{{currentGroup.name}}</span>
     </div>
@@ -14,13 +14,14 @@
 <div id="messages" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div data-ng-repeat="message in messagesHolder.messages" id="MBmessage">
 		<div class="messageHeader">
-			<h3>{{message.subject}}</h3>
-			<p class="poster">Message By 
-				<strong>{{message.userName}}</strong>
-				at {{message.modifiedDate}}
-			</p>
+			<div class="title" >{{message.subject}}</div>
+			<div class="content">
+				<span> 
+					Message By {{message.userName}} at {{message.modifiedDate}}
+				</span>
+			</div>
 		</div>
-		<div id="body" ng-bind-html-unsafe="message.body"></div>
+		<div class="messageBody" ng-bind-html-unsafe="message.body"></div>
 	</div>
 	<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
 </div>
