@@ -75,7 +75,7 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			controller: 'WikiCtrl'
 		})
 		.state('stage.activityFeed',{
-			url:'/activityFeed',
+			url:'/{groupId}/activityFeed',
 			templateUrl: 'partials/activityFeed.html',
 			controller: 'ActivityFeedCtrl'
 		})

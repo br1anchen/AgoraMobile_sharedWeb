@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.loginService',['app.httpService','app.utilityService','app.storageService','app.appService'])
-.factory('LoginService', ['$http','$log','$q','HttpService','UtilityService','StorageService','AppService',function ($http,$log,$q,HttpService,UtilityService,StorageService,AppService) {
+.factory('LoginService', function ($http,$log,$q,HttpService,UtilityService,StorageService,AppService,$state) {
 
 	//class entity in LoginService
   	var user = {
@@ -72,7 +72,6 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         }, function(error) {
           console.log(error);
           navigator.notification.alert("Log Out Error Occured", function(){
-            $state.transitionTo('stage.activityFeed');
           }, "Sorry", "I understand");
         }, "cookieManager","deleteCookies",[]);
 
@@ -80,4 +79,4 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
         $state.transitionTo('login');
       }
   }
-}]);
+});

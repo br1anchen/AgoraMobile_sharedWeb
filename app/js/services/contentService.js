@@ -80,11 +80,25 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			)
 			//Loading documents
 			.then(function(){
-				//TODO
+				DocumentService.getDirectory(curretGroup,0).then(
+					function(res){
+						documentsDeffer.resolve(res);
+					},
+					function(err){
+						documentsDeffer.reject(err);
+					}
+				)
 			})
 			//Loading wikies
 			.then(function(){
-				//TODO
+				WikiPageService.getWikiContentTree(curretGroup).then(
+					function(res){
+						documentsDeffer.resolve(res);
+					},
+					function(err){
+						documentsDeffer.reject(err);
+					}
+				)
 			})
 		}
 	}

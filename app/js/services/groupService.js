@@ -30,12 +30,14 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
           var groups = [];
 
           angular.forEach(rep.data, function(g, k){
-          var group = JSON2Group(g);
+            var group = JSON2Group(g);
 
-          if(g.site && g.type == 1){//type 1 as top guest group
-            StorageService.store("TopGroup",group);  
-          }
-          groups.push(g);
+            if(g.site && g.type == 1){//type 1 as top guest group
+              StorageService.store("TopGroup",group);  
+            }
+            else{
+              groups.push(group);
+            }
           })
           setGroups(groups);
           deffered.resolve(groupsHolder);

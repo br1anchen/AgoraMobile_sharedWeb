@@ -13,6 +13,9 @@ app.controller('ActivityFeedCtrl',
 					function(activitiesHolder){
 						$scope.activitiesHolder = activitiesHolder;
 						$scope.loading = false;
+						if(activitiesHolder.activities.length == 0){
+							$rootScope.$broadcast("notification","No activities");
+						}
 					},
 					function(error){
 						console.error("ActivityCtrl: getActivities() failed");
