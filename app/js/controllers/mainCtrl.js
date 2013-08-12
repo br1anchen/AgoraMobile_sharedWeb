@@ -5,7 +5,7 @@ app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout
 
 	function checkUserInfo(){
 		if(StorageService.get('User')){
-			$state.transitionTo('stage');
+			$state.transitionTo('stage.activityFeed');
 		}else{
 			console.log("no stored user info");
 			$timeout(function(){

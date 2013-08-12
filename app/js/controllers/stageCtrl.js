@@ -38,6 +38,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         }
 
         $scope.currentGroup = group;
+        $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
     }
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
     //The event listeners should also work, because the scrolling directive broadcast on the root scope.
@@ -54,11 +55,12 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             $scope.showConentHeader = false;
         })
     })
-    $scope.goToActivityFeed = function(group){
-        if(!group) group = StorageService.get('TopGroup');
+    $scope.goToActivityFeed = function(){
+        if(!$scope.currentGroup)return;
+
         var activityFeedState = 'stage.activityFeed';
 
-        if($scope.currentGroup &&  group && group.id == $scope.currentGroup.id && $state.is(activityFeedState)){
+        if($state.is(activityFeedState)){
             $rootScope.$broadcast("notification",
                 "Already showing activityFeed"
             );
@@ -67,8 +69,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             );
         }
         else{
-            $scope.goToGroup(group);
-            $state.transitionTo(activityFeedState,{groupId:group.id});
+            $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
         }
     }
 
@@ -77,6 +78,6 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $scope.gettingGroupsPromise = GroupService.getGroups().then(function(groupsHolder){
         $scope.loading = false;
         $scope.groupsHolder = groupsHolder;
-        $scope.goToActivityFeed();
+        $scope.goToGroup();
     })
 })
