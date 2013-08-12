@@ -65,7 +65,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       },
       logOut : function(){
         console.log("Login out "+user.screenName);
-        StorageService.clear();
+        StorageService.remove('User');
 
         cordova.exec(function(rep){
           console.log(rep);

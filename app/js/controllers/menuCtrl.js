@@ -37,5 +37,6 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
 
   $scope.logout = function(){
     LoginService.logOut();
+    GroupService.clear();
   }
 })

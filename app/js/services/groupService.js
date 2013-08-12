@@ -86,6 +86,11 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
 
       updateGroups : function(){//update groups request
         return fetchGroups();
+      },
+      clear : function(){
+        StorageService.remove('groups');
+        StorageService.remove('TopGroup');
+        groupsHolder.groups = [];
       }
   }
 }]);

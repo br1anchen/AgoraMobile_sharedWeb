@@ -331,6 +331,6 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		getMoreMessages : function(group, categoryId, threadId, amount){
 			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length * 2 : messagesIncrement * 2;
 			return fetchMessages(group.id, categoryId, threadId, amount);
-		},
+		}
 	}
 }])
