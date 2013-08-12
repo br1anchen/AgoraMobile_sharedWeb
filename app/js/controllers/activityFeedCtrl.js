@@ -11,11 +11,13 @@ app.controller('ActivityFeedCtrl',
 				//When group is present we load the activities for this group
 				ActivityService.getActivities($scope.currentGroup,30).then(
 					function(activitiesHolder){
-						$scope.activitiesHolder = activitiesHolder;
-						$scope.loading = false;
-						if(activitiesHolder.activities.length == 0){
-							$rootScope.$broadcast("notification","No activities");
-						}
+						$timeout(function(){
+							$scope.activitiesHolder = activitiesHolder;
+							$scope.loading = false;
+							if(activitiesHolder.activities.length == 0){
+								$rootScope.$broadcast("notification","No activities");
+							}
+						})
 					},
 					function(error){
 						console.error("ActivityCtrl: getActivities() failed");
@@ -38,11 +40,6 @@ app.controller('ActivityFeedCtrl',
 			}
 		)
 		
-		//Getting all content for this group background
-		.then(function(){
-
-		});
-
 		$scope.$on('scrollableUpdate',function(){
 			$scope.loading = true;
 

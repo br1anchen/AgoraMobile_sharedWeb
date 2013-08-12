@@ -40,26 +40,26 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 		getWikiPromise : function(){
 			return wikiDeffer.promise;
 		},
-		loadGroupContent : function(curretGroup){
+		loadGroupContent : function(group){
 			var loadDeffer = $q.defer();
 
 			buildPromises();
 
 			//Loading all messageBoard content
 			//Loading all categories
-			MessageBoardService.getCategories(curretGroup)
+			MessageBoardService.getCategories(group)
 			.then(
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
 					var threadPromises = [];
 					angular.forEach(categoriesHolder.categories,function(c,k){
 						//Loading all threads
-						var threadsPromise = MessageBoardService.getThreads(curretGroup,c.categoryId).then(function(threadHolder){
+						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId).then(function(threadHolder){
 
 							var messagesPromises = [];
 							angular.forEach(threadHolder.threads,function(t,k){
 								//Loading all messages
-								messagesPromises.push(MessageBoardService.getMessages(curretGroup,c.categoryId,t.threadId));
+								messagesPromises.push(MessageBoardService.getMessages(group,c.categoryId,t.threadId));
 
 							})
 							$q.all(messagesPromises).then(function(){
@@ -82,7 +82,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			)
 			//Loading documents
 			.then(function(){
-				DocumentService.getDirectory(curretGroup,0).then(
+				DocumentService.getDirectory(group,0).then(
 					function(res){
 						documentsDeffer.resolve(res);
 					},
@@ -93,7 +93,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			})
 			//Loading wikiPages
 			.then(function(){
-				WikiPageService.getWikiContentTree(curretGroup).then(
+				WikiPageService.getWikiContentTree(group).then(
 					function(res){
 						documentsDeffer.resolve(res);
 					},
@@ -106,6 +106,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			.then(
 				function(res){
 					loadDeffer.resolve(res);
+					console.log("ContentService:loadContent():Group("+group.id+") content loaded");
 				},
 				function(err){
 					loadDeffer.reject(err)

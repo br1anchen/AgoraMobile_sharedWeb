@@ -55,7 +55,7 @@
                     <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
                 </div>
             </div>
-            <div data-ng-show="loadingGroups">Loading groups</div>
+            <div data-ng-show="loadingGroups" spinner loading-color="ed1c24" >Loading groups</div>
             <div class="expand center" ui-view></div>
             <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
         </div>

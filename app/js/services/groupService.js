@@ -35,7 +35,7 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
             if(g.site && g.type == 1){//type 1 as top guest group
               StorageService.store("TopGroup",group);  
             }
-            else{
+            else if(g.site){
               groups.push(group);
             }
           })

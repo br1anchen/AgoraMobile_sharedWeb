@@ -73,9 +73,9 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     }
 
     //Fetches groups when this controller is loaded, and navigates to activities when groups are present
-    $scope.loadingGroups = true;
+    $scope.loading = true;
     $scope.gettingGroupsPromise = GroupService.getGroups().then(function(groupsHolder){
-        $scope.loadingGroups = false;
+        $scope.loading = false;
         $scope.groupsHolder = groupsHolder;
         $scope.goToActivityFeed();
     })
