@@ -7,9 +7,9 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
 
 	 $scope.switchGroup = function(group){
       if(!group){
-        $scope.goToActivityFeed(group);
+        $scope.goToGroup(group);
       }else{
-        $scope.goToActivityFeed(group);        
+        $scope.goToGroup(group);        
       }
       $scope.toggleMenu();
 	 }

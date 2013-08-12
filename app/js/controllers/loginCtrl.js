@@ -20,7 +20,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state){
 						$scope.loginMsg.type = 'success';
 						$scope.loginMsg.msg = 'Login success!';
 						$("#loginMessage").css("visibility", "visible");
-						$state.transitionTo('stage');
+						$state.transitionTo('stage.activities');
 					},function(reason){
 						console.log("no user info:"+JSON.stringify(reason));
 
