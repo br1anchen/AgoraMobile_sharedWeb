@@ -88,4 +88,12 @@ app.controller('WikiCtrl',['$scope','$log','$state','$stateParams','WikiPageServ
        		i.addClass('icon-level-down');
     	}
 	}
+
+	$scope.loadExternalLink = function(url){
+		console.log(url);
+		var ref = window.open(url, '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function() { console.log('start: ' + event.url); });
+        ref.addEventListener('loadstop', function() { console.log('stop: ' + event.url); });
+        ref.addEventListener('exit', function() { console.log(event.type); });
+	}
 }])
