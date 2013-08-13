@@ -241,12 +241,24 @@ factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 			uti: 'com.microsoft.word.doc'
 		},
 		{
+			tag: 'docx',
+			uti: 'org.openxmlformats.wordprocessingml.document'
+		},
+		{
 			tag: 'xls',
 			uti: 'com.microsoft.excel.xls'
 		},
 		{
+			tag: 'xlsx',
+			uti: 'org.openxmlformats.spreadsheetml.sheet'
+		},
+		{
 			tag: 'ppt',
 			uti: 'com.microsoft.powerpoint.​ppt'
+		},
+		{
+			tag : 'pptx',
+			uti: 'org.openxmlformats.presentationml.presentation'
 		},
 		{
 			tag: 'wav',
@@ -275,6 +287,10 @@ factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 		{
 			tag: 'rm',
 			uti: 'com.real.realmedia'
+		},
+		{
+			tag: 'csv',
+			uti: 'public.comma-separated-values-text'
 		}
 	];
 
