@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.loginService',['app.httpService','app.utilityService','app.storageService','app.appService'])
+angular.module('app.loginService',['app.httpService','app.utilityService','app.storageService','app.appService','ui.state'])
 .factory('LoginService', function ($http,$log,$q,HttpService,UtilityService,StorageService,AppService,$state) {
 
 	//class entity in LoginService
