@@ -19,6 +19,16 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 			templateUrl: 'stage.html',
 			controller: 'StageCtrl'
 		})
+		.state('stage.settings',{
+			url:'/settings',
+			templateUrl: 'partials/settings.html',
+			controller: 'SettingsCtrl'
+		})
+		.state('stage.about',{
+			url:'/about',
+			templateUrl: 'partials/about.html',
+			controller: 'AboutCtrl'
+		})
 		.state('stage.messageBoard',{
 			abstract: true,
 			url:'/messageBoard',

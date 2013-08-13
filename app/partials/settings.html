@@ -1,0 +1,28 @@
+<div id="settings">
+	<div class="instance" data-ng-click="toggle('lowBandwidth')">
+		<details class="data">
+			<summary class="meta">
+				If you want less datatrafic you can modify application behaviour
+			</summary>
+			<div class="detailsContent">
+				<label name="lowBandwidth">
+					Don't preload group data
+				</lable>
+				<input type="checkbox" data-ng-model="lowBandwidth" />
+			</div>
+		</details>
+	</div>
+	<div class="instance" data-ng-click="toggle('disableNotifications')">
+		<details class="data">
+			<summary class="meta">
+				Change application background behaviour
+			</summary>
+			<div class="detailsContent">
+				<label name="notifications">
+					Disable notifications
+				</lable>
+				<input type="checkbox" data-ng-model="disableNotifications" />
+			</div>
+		</details>
+	</div>
+</div>

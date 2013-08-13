@@ -19,7 +19,6 @@ body {
     /*To pervent semitransparent overlay on touch press/hold*/
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     tap-highlight-color: rgba(0,0,0,0);
-    overflow-x:hidden;
 }
 
 .page-wrap{
