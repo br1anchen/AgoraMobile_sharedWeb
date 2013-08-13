@@ -7,9 +7,8 @@
 	border-bottom: 0.2em solid #BABABA;
 	position: relative;
 	text-align: left;
-	font-size: 1em;
 }
-#messageBoard #MBthread .title, #messageBoard #MBcategory .title, #messageBoard #MBmessage .title{
+#messageBoard .header .title{
 	line-height: 2em;
 	font-size: 1.9em;
 	color: #5b677d;
@@ -17,36 +16,34 @@
 	font-weight: bold;
 	padding-left: 0.5em;
 }
+#messageBoard .header{
+	position: relative;
+}
+#messageBoard .header .meta, #messageBoard .meta{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	line-height: 1em;
+	padding-bottom: 0.2em;
+	padding-right: 0.2em;
+	font-weight: normal;
+	font-size: 1.1em;
+	border-top: 0.09em solid #BABABA;
+	width: 15em;
+	text-align: right;
+	padding-top: 0.1em;
+}
 
-#messageBoard #MBcategory .content, #messageBoard #MBthread .content, #messageBoard #MBmessage .content{
+#messageBoard .instance .content{
+	margin: 0;
 	font-size: 1.5em;
 	line-height: 3em;
-	padding-left: 0.5em;
-}
-#messageBoard #MBthread .author{
-	position: absolute;
-	right:0;
-	bottom:0;
-	line-height:1em;
-	padding-bottom:0.2em;
-	padding-right:0.2em;
-	font-weight:normal;
-	font-size:0.7em;
+	padding: 0.2em 0.5em 1.2em 0.5em;
 }
 
 #MBthread p:first-of-type{
 	font-size: 1em;
 	font-weight: bold;
-}
-
-#MBmessage .date{
-	font-size: 1em;
-	font-weight: bold;
-}
-
-#MBmessage .messageBody{
-	text-align: left;
-	padding: 1em 1em 1em 1em;
 }
 
 #xbbcode-q{

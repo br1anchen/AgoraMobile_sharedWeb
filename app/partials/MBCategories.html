@@ -5,13 +5,20 @@
     </span>
 </div>
 <div id="categories" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div class="category" data-ng-repeat="category in categoriesHolder.categories" id="MBcategory" data-ng-click="showTreads(category)">
+	<div class="category instance" data-ng-repeat="category in categoriesHolder.categories" id="MBcategory" data-ng-click="showTreads(category)">
 		
-		<div class="title">{{category.name}}</div>
-		<div class="content"> 
-			<span>Thread: {{category.threadCount}}</span>
-			
-			<span>Message: {{category.messageCount}}</span>
+		<div class="header">
+			<div class="title">{{category.name}}</div>
+		</div>
+		<div class="content" data-ng-show="category.description"> 
+			{{category.description}}			
+		</div>
+		<div class="content" data-ng-hide="category.description"> 
+			No description		
+		</div>
+		<div class="meta">
+			<span>Threads: {{category.threadCount}},</span>
+			<span>Messages: {{category.messageCount}}</span>
 		</div>
 	</div>
 </div>

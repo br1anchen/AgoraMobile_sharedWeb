@@ -24,18 +24,18 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		      	timestamp:object.date,
 		      	pic:object.pict.substring(0,object.pict.indexOf('&')),
 		      	user:object.user,
-		      	groupId:object.groupId,
+		      	groupId:parseInt(object.groupId),
 		      	action:body.substring(0,body.indexOf(',')),
 		      	reference:body.substring(body.indexOf(',')+2)
 			}
 		    if(object.WikiPage_nodeid){
 				activity.type = "wiki";
-				activity.node = object.WikiPage_nodeid;
+				activity.node = parseInt(object.WikiPage_nodeid);
 				activity.title = object.WikiPage_title;
 		    }
 		   	else if(object.MBMessage_messageId){
 		      	activity.type = "message";
-		      	activity.msgId = object.MBMessage_messageId;
+		      	activity.messageId = parseInt(object.MBMessage_messageId);
 		    }
 		    else if(object.DLFileEntry_filelink){
 		      	activity.type = "file";

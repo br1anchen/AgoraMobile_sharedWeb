@@ -11,17 +11,21 @@
     </div>
 </div>
 
-<div id="messages" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+<div id="messages"  class="instance" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div data-ng-repeat="message in messagesHolder.messages" id="MBmessage">
-		<div class="messageHeader">
-			<div class="title" >{{message.subject}}</div>
-			<div class="content">
-				<span> 
-					Message By {{message.userName}} at {{message.modifiedDate}}
-				</span>
+		<div class="header">
+			<div class="title" >
+				{{message.subject}}
+			</div>
+			<div class="meta">
+				Author {{message.userName}}
 			</div>
 		</div>
-		<div class="messageBody" ng-bind-html-unsafe="message.body"></div>
+		<div class="content" ng-bind-html-unsafe="message.body">
+		</div>
+		<div class="meta">
+				{{message.modifiedDate}}
+		</div>
 	</div>
 	<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
 </div>
