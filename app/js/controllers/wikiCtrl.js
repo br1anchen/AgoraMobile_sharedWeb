@@ -21,25 +21,6 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 			$scope.loading = false;
 		});
 	}
-	$scope.linkify = function(content){
-		var e = $(document.createElement('div'));
-		e.append(content);
-		//Searching for anchor elements in elements DOM
-		var anchors = e.find('a');
-		angular.forEach(anchors,function(a,k){
-			a = $(a);
-			var href = a.attr('href');
-			var parts = href.split('/');
-			var wikiName = parts[parts.length-1].replace(/\+/g,' ');
-			var page = StorageService.get('Group' + $scope.currentGroup.id + '_WikiPageTitle:' + wikiName);
-
-			if(page){
-				a.removeAttr('href');
-				a.attr('data-ng-click','selectWiki('+wikiName+')');
-			}
-		})
-		return e.html();
-	}
 
 	if($state.is('stage.wiki.contentlist')){
 		renderContentList();
@@ -87,7 +68,4 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
     	}
 	}
 
-	$scope.loadExternalLink = function(url){
-		UtilityService.inAppBrowser.browser(url);
-	}
 })

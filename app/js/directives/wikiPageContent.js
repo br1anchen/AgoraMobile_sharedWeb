@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('wikiPageContent', function factory($compile,StorageService) {
+app.directive('wikiPageContent', function factory($compile,StorageService,UtilityService,$state) {
 	function linkify(content,groupId){
 		var e = $(document.createElement('div'));
 		e.append(content);
@@ -38,7 +38,7 @@ app.directive('wikiPageContent', function factory($compile,StorageService) {
 			              	a.replaceWith('<span>'+a.html()+'</span>');
 			            }else{
 			            	a.removeAttr('href');
-			            	a.attr('data-ng-click',"loadExternalLink(\'" + href + "\')");
+			            	a.attr('data-ng-click',"load(\'" + href + "\')");
 			            }
 		            break;
 				}
@@ -50,10 +50,27 @@ app.directive('wikiPageContent', function factory($compile,StorageService) {
 	return{
 		replace: false,
 		restrict: 'A',
+		scope:{
+			content: '=',
+			group: '='
+		},
+		controller: function($scope){
+			$scope.load = function(url){
+				UtilityService.inAppBrowser.browser(url);
+			}
+
+			$scope.path = function(path) {
+		        $state.transitionTo(path);
+		    }
+
+		    $scope.showWiki = function (nId,t){
+				$state.transitionTo('stage.wiki.page',{nodeId:nId,title:t});
+			}
+		},
 		link: function postLink(scope,element) {
-			scope.$watch('wikiPageHolder.page.content',function(newVal,oldVal){
+			scope.$watch('scope.content',function(newVal,oldVal){
 			
-				var replacedContent = linkify( scope.wikiPageHolder.page.content , scope.currentGroup.id);
+				var replacedContent = linkify(scope.content,scope.group.id);
 
 				var template = angular.element(replacedContent);
 
