@@ -5,6 +5,10 @@ app.directive('spinner', function($log) {
     return {
         restrict: 'A',
         replace: false,
+        scope:{
+            loading:'=',
+            loadingColor:'=',
+        },
         link: function(scope, element, attrs) {
             element = $(element);
 
@@ -28,11 +32,12 @@ app.directive('spinner', function($log) {
                 top: element.height()/2+"px", // Top position relative to parent in px
                 left: element.width()/2+"px" // Left position relative to parent in px. Subtrackting because of the scrollbar
             };
+
             var spinner = new Spinner(opts);
-            scope.$watch('loading',function(value){
-                if(value == "true"){
+            scope.$watch('loading',function(newVal, oldVal){
+                if(newVal){
                     spinner.spin(element[0]);
-                }else if(value == "false"){
+                }else if(!newVal){
                     spinner.stop();
                 }
             })

@@ -11,13 +11,16 @@
     </div>
 </div>
 <div id="threads" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
-		<div class="title">{{thread.title}}</div>
+	<div class="instance" data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
+		<div class="header">
+			<div class="title">{{thread.title}}</div>
+			<div class="meta">Started by: {{thread.statusByUserName}}</div>
+		</div>
 		<div class="content"> 
-			<span class="latest">Latest Post: {{thread.lastPostDate}}</span><br/>
-			<span class="author"> 
-				Started by: {{thread.statusByUserName}}
-			</span>
+			Messages: {{thread.messageCount}}
+		</div>
+		<div class="meta"> 
+			Latest Post: {{thread.lastPostDate}}
 		</div>
 	</div>
 	<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>

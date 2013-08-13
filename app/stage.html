@@ -1,24 +1,36 @@
 <div>
     <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
         <div id="menu" ng-controller="MenuCtrl">
-            <img id="userPortrait" ng-src="{{user.portraitImgUrl}}" />
-            <h3>{{user.fullName}}</h3>
-            <ul class="nav nav-list groups">
-                <li data-ng-click="switchGroup()">
-                    Groups
-                </li>
-                <li data-ng-repeat="group in groupsHolder.groups" data-ng-click="switchGroup(group)">
-                    {{group.name}}
-                </li>
-            </ul>
-            <ul class="nav nav-list settings">
-                <li>
-                    Settings
+            <div class="header">
+                <div id="mainHeader">
+                    <div id="userPortrait">
+                        <img id="userPortrait" ng-src="{{user.portraitImgUrl}}" />
+                    </div>
+                    <span class="name">
+                        {{user.fullName}}
+                    </span>
+                </div>
+                <div id="groupsHeader">
+                    <span data-ng-click="switchGroup()">
+                        Groups
+                    </span>
+                </div>
+            </div>
+            <div class="content" >
+                <ul class="nav nav-list groups">
+                    <li data-ng-repeat="group in groupsHolder.groups" data-ng-click="switchGroup(group)">
+                        {{group.name}}
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav nav-list footer">
+                <li data-ng-click="goTo('stage.settings')">
+                    <i class="icon-cogs"></i>Settings
                 </li>
                 <li data-ng-click="logout()">
                     <i class="icon-signout"></i>Sign out
                 </li>
-                <li >
+                <li data-ng-click="goTo('stage.about')">
                     <i class="icon-info-sign"></i>About
                 </li>
             </ul>
@@ -49,13 +61,13 @@
             </div>
         </header>
 
+        <!-- <div id="contentWrapper" spinner loading="loading" loading-color="ed1c24"> -->
         <div id="contentWrapper">
             <div id="notifications">
                 <div data-ng-controller="NotificationCtrl">
                     <alert data-ng-repeat="notification in notifications" type="notification.type" close="closeAlert($index)"  >{{notification.msg}}</alert>
                 </div>
             </div>
-            <div data-ng-show="loadingGroups" spinner loading-color="ed1c24" >Loading groups</div>
             <div class="expand center" ui-view></div>
             <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
         </div>

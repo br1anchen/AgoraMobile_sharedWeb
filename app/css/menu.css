@@ -1,45 +1,88 @@
 #menu{
 	color:white;
+	height: 100%;
 }
-#menu h2{
+#menu .name{
 	height: 2em;
 	line-height: 2em;
-}
-
-#menu img{
-	border-radius: 0.1em;
-	height: 3.5em;
-	width: 3.5em;
-	left: 1em;
-	position: absolute;
-}
-
-#menu h3{
 	font-size: 2em;
-	margin-left: 8px;
+	margin-left: 3em;
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: bold;
 }
 
-#menu p{
-	font-size: 1.7em;
-	padding:0.5em;
-	border-top-left-radius: 1em;
-	border-bottom-right-radius: 1em;
-	border:solid 1px white;
-	margin:0.7em;
-	margin-bottom: 1em
+#menu #userPortrait img{
+	border-radius: 0.1em;
+}
+#menu #userPortrait{
+	height: 4.5em;
+	width: 4.5em;
+	left: 1em;
+	top: 0em;
+	position: absolute;
+	display: inline-block;
 }
 
-#menu .groups li, #menu .settings li{
+#menu .header{
+	position: absolute;
+	top:0;
+	left: 0;
+	margin: 0;
+	margin-top: 0.5em;
+	width: 100%;
+	height: 9em;
+	overflow: hidden;
+}
+#menu #mainHeader{
+	border-bottom: 0.15em solid #BABABA;
+	height:5em;
+	overflow:hidden;
+}
+
+#menu .groups li, #menu .footer li{
 	line-height:2em;
 	font-size: 1.8em;
+	padding-left: 1em;
+	overflow: hidden;
 }
-#menu .settings{
+#menu .footer{
 	position: absolute;
 	width: 100%;
 	bottom: 0;
+	height: 11.5em;
+	padding: 0;
+	border-top: 0.15em solid #BABABA;
 }
 
-#menu .groups>:first-child, #menu .settings>:first-child{
-	border-bottom: solid 1px;
+#menu #groupsHeader{
+	height: 3.8em;
+	border-bottom: 0.15em solid #BABABA;
+	margin-right: 6em;
+	text-align: left;
+}
+#menu #groupsHeader span{
 	font-weight: bold;
+	font-size: 2em;
+	line-height: 2em;
+	padding-left: 0.5em;
+}
+
+#menu .content{
+	padding: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-top: 9.5em;
+	margin-bottom: 11.5em;
+	text-align: left;
+	width: 100%;
+}
+
+#menu .groups {
+	padding: 0;
+	overflow-y: scroll;
+	height: 100%;
+	font-size: 0.95em;
+	width: 100%;
 }
