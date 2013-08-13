@@ -88,9 +88,6 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 
 	$scope.loadExternalLink = function(url){
-		var ref = window.open(url, '_blank', 'location=yes');
-        ref.addEventListener('loadstart', function() { console.log('start: ' + event.url); });
-        ref.addEventListener('loadstop', function() { console.log('stop: ' + event.url); });
-        ref.addEventListener('exit', function() { console.log(event.type); });
+		UtilityService.inAppBrowser.browser(url);
 	}
 })

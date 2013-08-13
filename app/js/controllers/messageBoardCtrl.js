@@ -111,4 +111,5 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		console.log('back to Treads');
 		$state.transitionTo('stage.messageBoard.threads',{categoryId:$stateParams.categoryId})
 	}
+
 })

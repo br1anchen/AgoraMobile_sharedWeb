@@ -448,6 +448,15 @@ factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 				}
 				
 			}
+		},
+
+		inAppBrowser:{
+			browser: function(url){
+				var ref = window.open(url, '_blank', 'location=yes');
+		        ref.addEventListener('loadstart', function() { console.log('start: ' + event.url); });
+		        ref.addEventListener('loadstop', function() { console.log('stop: ' + event.url); });
+		        ref.addEventListener('exit', function() { console.log(event.type); });
+			}
 		}
 	}
 }])
