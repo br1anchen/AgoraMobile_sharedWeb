@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('wikiPageContent', function factory($compile,StorageService,UtilityService,$state) {
+app.directive('htmlContent', function factory($compile,StorageService,UtilityService,$state) {
 	function linkify(content,groupId){
 		var e = $(document.createElement('div'));
 		e.append(content);
@@ -72,12 +72,15 @@ app.directive('wikiPageContent', function factory($compile,StorageService,Utilit
 			
 				var replacedContent = linkify(scope.content,scope.group.id);
 
-				var template = angular.element(replacedContent);
+				var template = replacedContent;
 
-				var linkFn = $compile(template);
+				if(replacedContent != scope.content){
+					var template = angular.element(template);
 
-				linkFn(scope);
+					var linkFn = $compile(template);
 
+					linkFn(scope);
+				}
 				element.append(template);
 			})
 		}
