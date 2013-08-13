@@ -1,12 +1,12 @@
 'use strict';
 
 app.controller('SettingsCtrl',
-	function($scope){
-		$scope.$watch('lowBandwidth',function(newVal,oldVal){
-			//TODO
-		})
-	}
-	$scope.toggle(variable){
-		$scope[variable] = $scope[variable] ? false : true;
+
+	function($scope,AppService){
+		$scope.settings = AppService.getSettings();
+
+		$scope.toggle = function(variable){
+			$scope[variable] = $scope[variable] ? false : true;
+		}
 	}
 )
