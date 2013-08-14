@@ -107,6 +107,31 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	}
 
+	$scope.deleteFile = function(file){
+		$scope.loading = true;
+		DocumentService.removeFile(file).then(function(rep){
+			$scope.loading = false;
+			navigator.notification.alert(
+                'File ' + file.title + ' deleted',
+                function(){
+                	
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		},function(err){
+			$scope.loading = false;
+			navigator.notification.alert(
+                'File ' + file.title + 'failed to delete',
+                function(){
+                	
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		});
+	}
+
 	$scope.toFolder = function(folderId){
 		if(folderId != 0){
 			$state.transitionTo('stage.documents.folder',{folderId:folderId});
@@ -114,5 +139,13 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 			$state.transitionTo('stage.documents.root');
 		}
 	}
+
+	$scope.$watch('fileHolder.file.offline',function(newVal,oldVal){
+		if(newVal != oldVal && newVal == true){
+			$scope.showFile($scope.fileHolder.file);
+		}else if(newVal != oldVal && newVal == false){
+			$scope.deleteFile($scope.fileHolder.file);
+		}
+	});
 	
 }])

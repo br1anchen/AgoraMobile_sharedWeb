@@ -291,7 +291,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			fetchFileInfo(file).then(function(f){
 				
 				var storedFile = StorageService.get('Group' + f.groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);
-				
+
 				if(f.version <= storedFile.version && storedFile.offline == true){
 					console.log('use downloaded file');
 
@@ -321,6 +321,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 									file.localFileDir = entry.fullPath;
 									file.offline = true;
+									setFile(file.groupId,file.folderId,file);
 									storeFile(file.groupId,file.folderId,file.title,file);
 							    	
 							    	$timeout(function(){
@@ -360,6 +361,38 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 				deffered.reject(err);
 			});
 			
+			return deffered.promise;
+		},
+
+		removeFile : function(file){
+			var deffered = $q.defer();
+
+			rootFS.getFile(file.localFileDir, {create: false, exclusive: false}, function(fileEntry){
+
+    			fileEntry.remove(function(entry){
+
+    				file.localFileDir = '';
+					file.offline = false;
+					setFile(file.groupId,file.folderId,file);
+					storeFile(file.groupId,file.folderId,file.title,file);
+    				
+    				$timeout(function(){
+		    			deffered.resolve("delete file success");
+		    		});
+    			}, function(err){
+    				$timeout(function(){
+		    			deffered.reject("ERROR getFileEntry");
+		    		});
+    			});
+
+			},function(err){
+		        console.log(error);
+
+		        $timeout(function(){
+		    		deffered.reject("ERROR getFileEntry");
+		    	});
+			});
+
 			return deffered.promise;
 		}
 

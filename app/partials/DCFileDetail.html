@@ -13,7 +13,7 @@
 <div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div class="title">{{fileHolder.file.title}}</div>
 	<div class = "content">
-		<img ng-src="{{fileHolder.file.localFileDir}}" ng-show="fileHolder.file.localFileDir != ''" />
+		Available Offline <div btn-switch ng-model="fileHolder.file.offline"></div>
 		<p>
 			Fifle Type: {{fileHolder.file.extension}} File Version:{{fileHolder.file.version}}
 		</p>
