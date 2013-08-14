@@ -43,13 +43,13 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                 //When group is present we load the activities for this group
                 ActivityService.getActivities($scope.currentGroup,30).then(
                     function(activitiesHolder){
-                        $timeout(function(){
+                        // $timeout(function(){
                             $scope.activitiesHolder = activitiesHolder;
                             $scope.loading = false;
                             if(activitiesHolder.activities.length == 0){
                                 $rootScope.$broadcast("notification","No activities");
                             }
-                        })
+                        // })
                     },
                     function(error){
                         console.error("ActivityCtrl: getActivities() failed");
@@ -82,8 +82,11 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     //Function to change the active group in the application
     $scope.goToGroup = function(group){
-        $scope.changeGroup(group);
-        $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
+        $scope.changeGroup(group).then(
+            function(){
+                $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
+            }
+        )
     }
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
     //The event listeners should also work, because the scrolling directive broadcast on the root scope.

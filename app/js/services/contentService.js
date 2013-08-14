@@ -7,9 +7,13 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 		
 		var messageBoardMDeffer;
 
+		var messageBoardDeffer;
+
 		var documentsDeffer;
 
 		var wikiDeffer;
+
+		var groupDeffer;
 
 		//Hooking up promises other views can use
 		function buildPromises(){
@@ -18,10 +22,14 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			messageBoardTDeffer = $q.defer();
 			
 			messageBoardMDeffer = $q.defer();
+			
+			messageBoardDeffer = $q.defer();
 
 			documentsDeffer = $q.defer();
 			
 			wikiDeffer = $q.defer();
+			
+			groupDeffer = $q.defer();
 		}
 
 	return {
@@ -34,16 +42,51 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 		getMBMPromise : function(){
 			return messageBoardMDeffer.promise;
 		},
+		getMBPromise : function(){
+			return messageBoardDeffer.promise;
+		},
 		getDocumentsPromise : function(){
 			return documentsDeffer.promise;
 		},
 		getWikiPromise : function(){
 			return wikiDeffer.promise;
 		},
+		getGroupPromise : function(){
+			return groupDeffer.promise;
+		},
 		loadGroupContent : function(group){
+			buildPromises();
+
 			var loadDeffer = $q.defer();
 
-			buildPromises();
+			//Setting up the messageBoard promise
+			$q.all([
+				messageBoardCDeffer.promise,
+				messageBoardTDeffer.promise,
+				messageBoardMDeffer.promise
+			])
+			.then(
+				function(res){
+					messageBoardDeffer.resolve(res);
+				},
+				function(err){
+					messageBoardDeffer.reject(err);
+				}
+			)
+			//Setting up the group promise
+			$q.all([
+				messageBoardDeffer.promise,
+				wikiDeffer.promise,
+				documentsDeffer.promise
+			])
+			.then(
+				function(res){
+					groupDeffer.resolve(res);
+				},
+				function(err){
+					groupDeffer.reject(err);
+				}
+			)
 
 			//Loading all messageBoard content
 			//Loading all categories

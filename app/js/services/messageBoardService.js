@@ -212,6 +212,9 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		return deffered.promise;
     }
     function fetchMessages(groupId, categoryId, threadId, number){
+    	if(threadId == 593323){
+    		alert("SHIT");
+    	}
     	var amount = (number && number > messagesIncrement) ? number : messagesIncrement;
     	var deffered = $q.defer();
 

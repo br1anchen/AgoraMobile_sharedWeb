@@ -1,7 +1,7 @@
 'use strict';
 //Activity Block Directive
 
-app.directive('activityBlock', function factory($log, AppService, $state, MessageBoardService,$rootScope, $q, StorageService) {
+app.directive('activityBlock', function factory($log, AppService, $state, MessageBoardService,$rootScope, $q, StorageService, ContentService) {
   var directiveObj = {
     priority: 0,
     replace: true,
@@ -10,11 +10,19 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
     controller:function($scope){
       $scope.picURL = AppService.getBaseURL() +'/image' + $scope.activity.pic;
       $scope.open = function(){
+
+        //Custom function to open activity, set below depending on activity type
+        var open;
+
+        //User error message
+        var failed = function(){
+          $rootScope.$brodcast("notification","Open faild");
+        }
+
+        //Setting the correct function for opening the activity
         switch($scope.activity.type){
           case "message":
-          var messages = 1;
-
-            var openMessage = function(){
+            open = function(){
               MessageBoardService.getCategories({id:$scope.activity.groupId}).then(function(categoriesHolder){
                 angular.forEach(categoriesHolder.categories,function(c,k){
 
@@ -28,7 +36,6 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
                             //Navigating to message
                             $state.transitionTo('stage.messageBoard.messages',{categoryId:m.categoryId, threadId:m.threadId});
                           }
-
                         })
                       })
                     })
@@ -36,29 +43,11 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
                 })
               })
             }
-
-            //Finding message meta
-            if($scope.currentGroup.id != $scope.activity.groupId){
-              var group;
-              angular.forEach(StorageService.get('groups'),function(g,k){
-                if(g.id == $scope.activity.groupId){
-                  group = g;
-                }
-              })
-
-              $scope.changeGroup(group).then(
-                function(res){
-                  openMessage();
-                })
-            }
-            else{
-              openMessage();
-            }
-                            
-            
           break;
           case "file":
-
+            open = function(){
+              $state.transitionTo('stage.documents.file',{folderId:$scope.activity.folderId,fileTitle:$scope.activity.fileTitle});
+            }          
           break;
           case "wiki":
 
@@ -66,6 +55,42 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
           default:
             //No link
           break;
+        }
+
+        //Making sure the correct groups for this activity is loaded
+        if($scope.currentGroup.id != $scope.activity.groupId){
+          //Finding correct groups
+          var group = StorageService.get('TopGroup');
+          var groups = StorageService.get('groups')
+          var i=0;
+          while(group.id != $scope.activity.groupId){
+            group = groups[i++];
+          }
+          if(!group){
+            console.error("activityBlock: Could not find group")
+            failed();
+          }
+          
+          //Changing to correct group
+          $scope.changeGroup(group);
+          //Making sure group content is loaded
+          ContentService.getGroupPromise()
+          .then(
+            function(res){
+              open();
+            },function(err){
+              failed();
+            })
+        }
+        else{
+          ContentService.getGroupPromise().then(
+            function(){
+              open();
+            },
+            function(err){
+              failed();
+            }
+          )
         }
       }
     },
