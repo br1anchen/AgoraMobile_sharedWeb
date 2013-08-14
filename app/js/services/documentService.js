@@ -9,7 +9,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	//class entity in DocumentService
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
 	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entries/repository-id/";
-	var SingleFileApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entry/group-id/";
+	var SingleFileApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entry/file-entry-id/";
 	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav";
 
 	var folderHolder = {
@@ -77,7 +77,8 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			versionUserId: json.versionUserId,
 			versionUserName: json.versionUserName,
 			localFileDir: '',
-			remoteFileDir: ''
+			remoteFileDir: '',
+			offline: false
 		}
 	}
 
@@ -173,6 +174,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 						if(storedFile){
 							if(storedFile.version == file.version){
 								file.localFileDir = storedFile.localFileDir;
+								file.offline = storedFile.offline;
 							}
 							file.remoteFileDir = storedFile.remoteFileDir;
 						}else{
@@ -201,6 +203,21 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		$q.all(promiseObjects).then(function(){
 			setFolder(gId,fId,StorageService.get('Group' + gId + '_Folder' + fId));
 			deffered.resolve(folderHolder);
+		});
+
+		return deffered.promise;
+	}
+
+	function fetchFileInfo(file){
+
+		var deffered = $q.defer();
+
+		var promise = HttpService.request(SingleFileApiUrl + file.fileEntryId,'','GET').then(function(rep){
+			var file = JSON2File(rep.data);
+
+			deffered.resolve(file);
+		},function(err){
+			deffered.reject('documentService.fetchFileInfo: file failed to fetch');
 		});
 
 		return deffered.promise;
@@ -271,62 +288,78 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			var deffered = $q.defer();
 			var downloadURL= "";
 
-			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
-			    function(filesDir){
-			        var fileTransfer = new FileTransfer();
+			fetchFileInfo(file).then(function(f){
+				
+				var storedFile = StorageService.get('Group' + f.groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);
+				
+				if(f.version <= storedFile.version && storedFile.offline == true){
+					console.log('use downloaded file');
 
-					var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
+					deffered.resolve(storedFile.localFileDir);
+				
+				}else{
 
-					var localfileDir = file.remoteFileDir.replace(/\s+/g,'');
-					if(localfileDir.split('.').pop() == localfileDir){
-						localfileDir = localfileDir + '.' + file.extension;
-					}
+					rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
+					    function(filesDir){
+					        var fileTransfer = new FileTransfer();
 
-					fileTransfer.download(
-					    uri,
-					    filesDir.fullPath + '/' + file.groupId + localfileDir,
-					    function(entry) {
-					    	
-					        console.log("download complete: " + entry.fullPath);
+							var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
 
-					        downloadURL = entry.fullPath;
+							var localfileDir = file.remoteFileDir.replace(/\s+/g,'');
+							if(localfileDir.split('.').pop() == localfileDir){
+								localfileDir = localfileDir + '.' + file.extension;
+							}
 
-							file.localFileDir = entry.fullPath;
-							storeFile(file.groupId,file.folderId,file.title,file);
-					    	
-					    	$timeout(function(){
-					    		deffered.resolve(downloadURL);
-					    	});
+							fileTransfer.download(
+							    uri,
+							    filesDir.fullPath + '/' + file.groupId + localfileDir,
+							    function(entry) {
+							    	
+							        console.log("download complete: " + entry.fullPath);
+
+							        downloadURL = entry.fullPath;
+
+									file.localFileDir = entry.fullPath;
+									file.offline = true;
+									storeFile(file.groupId,file.folderId,file.title,file);
+							    	
+							    	$timeout(function(){
+							    		deffered.resolve(downloadURL);
+							    	});
+							    },
+							    function(error) {
+							        console.log("download error source " + error.source);
+							        console.log("download error target " + error.target);
+							        console.log("upload error code" + error.code);
+
+							        $timeout(function(){
+							    		deffered.reject("file download failed");
+							    	});
+							        
+							    },
+							    false,
+							    {
+							        headers: {
+							            "Authorization": StorageService.get('User').auth
+							        }
+							    }
+							);
 					    },
-					    function(error) {
-					        console.log("download error source " + error.source);
-					        console.log("download error target " + error.target);
-					        console.log("upload error code" + error.code);
+					    function(error){
+					        console.log("ERROR getDirectory");
+					        console.log(error);
 
 					        $timeout(function(){
-					    		deffered.reject("file download failed");
+					    		deffered.reject("Directory created failed");
 					    	});
 					        
-					    },
-					    false,
-					    {
-					        headers: {
-					            "Authorization": StorageService.get('User').auth
-					        }
 					    }
 					);
-			    },
-			    function(error){
-			        console.log("ERROR getDirectory");
-			        console.log(error);
-
-			        $timeout(function(){
-			    		deffered.reject("Directory created failed");
-			    	});
-			        
-			    }
-			);
-
+				}
+			},function(err){
+				deffered.reject(err);
+			});
+			
 			return deffered.promise;
 		}
 
