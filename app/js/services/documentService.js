@@ -374,8 +374,15 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 		removeFile : function(file){
 			var deffered = $q.defer();
+			var fileURI;
 
-			window.resolveLocalFileSystemURI(encodeURI(file.localFileDir), function(fileEntry){
+			if(file.localFileDir.indexOf('/') == 0){// set file uri path for different os
+				fileURI = 'file://' + file.localFileDir; //for ios
+			}else{
+				fileURI = file.localFileDir; //for android
+			}
+			console.log(fileURI);
+			window.resolveLocalFileSystemURI(encodeURI(fileURI), function(fileEntry){
 
     			fileEntry.remove(function(entry){
 
