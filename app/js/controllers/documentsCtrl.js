@@ -1,5 +1,5 @@
 'use strict';
-app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,AppService,$state,$stateParams){
+app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams){
 
 	function renderDirectory(){
 		$scope.showConentHeader = true;
@@ -61,33 +61,29 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	$scope.showFile = function(file){
 
-		var validUTI = UtilityService.iosUTI.getUTIByExtension(file.extension);
 		$scope.loading = true;
 
-		if(validUTI != 'noUti'){
+		if(file.ifSupport){
 			
 			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
 				$scope.loading = false;
-				cordova.exec(function(rep){
-								console.log(rep);
-							},function(err){
-								console.log(err);
-								navigator.notification.alert(
-	                                'Your device has no application to open this file',
-	                                function(){
-	                                	
-	                                },
-	                                'Agora Mobile',
-	                                'OK'
-	                            );
-							}, "ExternalFileUtil", "openWith",[encodeURI(dir), validUTI]);
+
+				navigator.notification.confirm('File Download Finish',function(buttonIndex){
+
+					switch(buttonIndex){
+						case 1:
+							$scope.openFile(dir,file.uti);
+						break;
+					}
+				},'Agora Mobile','Open File,Close');
+
 			},function(err){
 				console.log(err);
 				$scope.loading = false;
 				navigator.notification.alert(
                     'Failed to download file',
                     function(){
-                    	
+                    	$scope.fileHolder.file.offline = false;
                     },
                     'Agora Mobile',
                     'OK'
@@ -105,6 +101,23 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
             );
 		}
 
+	}
+
+	$scope.openFile = function(fileDir,fileUTI){
+
+		cordova.exec(function(rep){
+			console.log(rep);
+		},function(err){
+			console.log(err);
+			navigator.notification.alert(
+                'Your device has no application to open this file',
+                function(){
+
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		}, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
 	}
 
 	$scope.deleteFile = function(file){

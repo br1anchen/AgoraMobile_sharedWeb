@@ -13,7 +13,12 @@
 <div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div class="title">{{fileHolder.file.title}}</div>
 	<div class = "content">
-		Available Offline <div btn-switch ng-model="fileHolder.file.offline"></div>
+		<div ng-show="fileHolder.file.ifSupport">
+			Available Offline <div btn-switch ng-model="fileHolder.file.offline"></div>
+		</div>
+		<div ng-show="!fileHolder.file.ifSupport">
+			Not Support File Type to Open
+		</div>
 		<p>
 			Fifle Type: {{fileHolder.file.extension}} File Version:{{fileHolder.file.version}}
 		</p>
@@ -27,5 +32,6 @@
 			Last Modified by: {{fileHolder.file.versionUserName}}<br />
 			At {{fileHolder.file.modifiedDate}}
 		</p>
+		<button class="btn" ng-show="fileHolder.file.offline" ng-click="openFile(fileHolder.file.localFileDir,fileHolder.file.uti)">View File</button>
 	</div>
 </div>

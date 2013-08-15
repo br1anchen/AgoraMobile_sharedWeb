@@ -2,9 +2,9 @@
 
 //Document Service
 
-angular.module('app.documentService',['app.storageService','app.httpService','app.appService']).
+angular.module('app.documentService',['app.storageService','app.httpService','app.appService','app.utilityService']).
 
-factory('DocumentService',['$log','$q','StorageService','HttpService','AppService','$timeout',function ($log,$q,StorageService,HttpService,AppService,$timeout){
+factory('DocumentService',['$log','$q','StorageService','HttpService','AppService','$timeout','UtilityService',function ($log,$q,StorageService,HttpService,AppService,$timeout,UtilityService){
 
 	//class entity in DocumentService
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
@@ -57,6 +57,12 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	}
 
 	function JSON2File(json){
+		var validUTI = UtilityService.iosUTI.getUTIByExtension(json.extension);
+		var support = true;
+		if(validUTI == 'noUti'){
+			support = false;
+		}
+
 		return {
 			companyId: json.companyId,
 			createDate: moment(json.createDate).format('DD/MM/YYYY, HH:mm:ss'),
@@ -78,7 +84,9 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			versionUserName: json.versionUserName,
 			localFileDir: '',
 			remoteFileDir: '',
-			offline: false
+			offline: false,
+			ifSupport: support,
+			uti: validUTI
 		}
 	}
 
