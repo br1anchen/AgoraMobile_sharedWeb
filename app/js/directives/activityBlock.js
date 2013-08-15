@@ -16,41 +16,56 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
 
         //User error message
         var failed = function(){
-          $rootScope.$brodcast("notification","Open faild");
+          $rootScope.$broadcast("notification","Open faild");
         }
 
         //Setting the correct function for opening the activity
         switch($scope.activity.type){
           case "message":
             open = function(){
+              var messageFound = false;
+
               MessageBoardService.getCategories({id:$scope.activity.groupId}).then(function(categoriesHolder){
+                var cPromises = [];
                 angular.forEach(categoriesHolder.categories,function(c,k){
-
+                  var tDeffer = $q.defer();
                   MessageBoardService.getThreads({id:$scope.activity.groupId}, c.categoryId).then(function(threadsHolder){
+                    var mPromises = [];
                     angular.forEach(threadsHolder.threads,function(t,k){
-
-                      MessageBoardService.getMessages({id:$scope.activity.groupId}, c.categoryId, t.threadId).then(function(messageHolder){
+                      mPromises.push(MessageBoardService.getMessages({id:$scope.activity.groupId}, c.categoryId, t.threadId).then(function(messageHolder){
                         angular.forEach(messageHolder.messages,function(m,k){
-                          console.log("message:"+(messages++))
                           if(m.messageId == $scope.activity.messageId){
+                            messageFound = true;
                             //Navigating to message
                             $state.transitionTo('stage.messageBoard.messages',{categoryId:m.categoryId, threadId:m.threadId});
                           }
                         })
-                      })
+                      }))
+
                     })
+                    $q.all(mPromises).then(function(res){tDeffer.resolve(res)},function(err){tDeffer.reject(err)});
                   })
+                  cPromises.push(tDeffer.promise)
+                })
+                $q.all(cPromises).then(function(res){
+                  //All request went well, and are finished
+                  //We should have found the message now
+                  if(!messageFound){
+                    $rootScope.$broadcast("notification","No Message found");
+                  }
                 })
               })
             }
           break;
           case "file":
             open = function(){
-              $state.transitionTo('stage.documents.file',{folderId:$scope.activity.folderId,fileTitle:$scope.activity.fileTitle});
+              $state.transitionTo('stage.documents.file',{folderId:$scope.activity.folderId,fileTitle:$scope.activity.fileName});
             }          
           break;
           case "wiki":
-
+            open = function(){
+              $state.transitionTo('stage.wiki.page',{nodeId:$scope.activity.node,title:$scope.activity.title});
+            }
           break;
           default:
             //No link
@@ -72,9 +87,7 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
           }
           
           //Changing to correct group
-          $scope.changeGroup(group);
-          //Making sure group content is loaded
-          ContentService.getGroupPromise()
+          $scope.changeGroup(group)
           .then(
             function(res){
               open();
@@ -102,9 +115,11 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
         '<div class="peopleImg">'+
         '   <img ng-src="{{picURL}}"></img>' +
         '</div>'+
-        '   <span class="content">'+
-        '     <span class="action" >{{activity.action}}</span>, <span class="reference">{{activity.reference}}</span>'+
-        '   </span>'+
+        '   <div class="content">'+
+        '     <div class="activity">'+
+        '       <span class="action" >{{activity.action}}</span>, <span class="reference">{{activity.reference}}</span>'+
+        '     </div>'+
+        '   </div>'+
         '<span class="date">{{activity.timestamp | timeago | camelcase}}</span>' +
     '</div>'
   };

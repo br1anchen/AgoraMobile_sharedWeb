@@ -138,10 +138,10 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			.then(function(){
 				WikiPageService.getWikiContentTree(group).then(
 					function(res){
-						documentsDeffer.resolve(res);
+						wikiDeffer.resolve(res);
 					},
 					function(err){
-						documentsDeffer.reject(err);
+						wikiDeffer.reject(err);
 					}
 				)
 			})
