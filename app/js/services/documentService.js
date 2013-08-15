@@ -313,14 +313,14 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 							var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
 
-							var localfileDir = file.remoteFileDir.replace(/\s+/g,'');
-							if(localfileDir.split('.').pop() == localfileDir){
-								localfileDir = localfileDir + '.' + file.extension;
+							var localFileDir = file.remoteFileDir.replace(/\s+/g,'');
+							if(localFileDir.split('.').pop() == localFileDir){
+								localFileDir = localFileDir + '.' + file.extension;
 							}
 
 							fileTransfer.download(
 							    uri,
-							    filesDir.fullPath + '/' + file.groupId + localfileDir,
+							    filesDir.fullPath + '/' + file.groupId + localFileDir,
 							    function(entry) {
 							    	
 							        console.log("download complete: " + entry.fullPath);
@@ -375,7 +375,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		removeFile : function(file){
 			var deffered = $q.defer();
 
-			rootFS.getFile(file.localFileDir, {create: false, exclusive: false}, function(fileEntry){
+			window.resolveLocalFileSystemURI(encodeURI(file.localFileDir), function(fileEntry){
 
     			fileEntry.remove(function(entry){
 
@@ -393,9 +393,8 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		    		});
     			});
 
-			},function(err){
-		        console.log(error);
-
+			},function(evt){
+				console.log('resolveLocalFileSystemURI failed: code '+ evt.code);
 		        $timeout(function(){
 		    		deffered.reject("ERROR getFileEntry");
 		    	});

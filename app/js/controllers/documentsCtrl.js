@@ -135,7 +135,7 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 		},function(err){
 			$scope.loading = false;
 			navigator.notification.alert(
-                'File ' + file.title + 'failed to delete',
+                'File ' + file.title + ' failed to delete',
                 function(){
                 	
                 },
