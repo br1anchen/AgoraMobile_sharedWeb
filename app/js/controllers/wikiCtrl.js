@@ -27,7 +27,6 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 
 	if($state.is('stage.wiki.page')){
-		$scope.childrenp = 'default';
 		renderWikiPage($scope.currentGroup,$stateParams.nodeId,$stateParams.title);
 	}
 
@@ -40,9 +39,7 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 
 	$scope.selectWiki = function (t){
-		if(t != 'default'){
-			$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:t});
-		}
+		$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:t});
 	}
 
 	$scope.openChildren = function(node){
