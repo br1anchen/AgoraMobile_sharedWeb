@@ -172,7 +172,11 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			var page = JSON2Page(rep.data);
 			var storedPage = StorageService.get('Group' + page.groupId + '_WikiPageTitle:' + page.title);
 
-			page.childrenPagesTitle = storedPage.childrenPagesTitle;
+			if(storedPage && storedPage.childrenPagesTitle){
+				page.childrenPagesTitle = storedPage.childrenPagesTitle;
+			}else{
+				page.childrenPagesTitle = [];
+			}
 
 			setWikiPage(gId,nId,page);
 			storeWikiPage(gId,title,page);

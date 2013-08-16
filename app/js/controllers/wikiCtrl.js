@@ -5,17 +5,20 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 
 	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 		if(fromState.name == 'stage.activityFeed'){
-			$scope.noBack=true;
+			$scope.backToDirectory=true;
 		}else{
-			$scope.noBack=false;
+			$scope.backToDirectory=false;
 		}
 		$scope.fromState = fromState;
 		$scope.fromParams = fromParams;
 	})
 
 	$scope.back = function(){
-		if($scope.fromState && $scope.fromParams){
+		if($scope.fromState && $scope.fromParams && !$scope.backToDirectory){
 			$state.transitionTo($scope.fromState,$scope.fromParams);
+		}
+		else{
+			$state.transitionTo('stage.wiki.contentlist');	
 		}
 	}
 	
