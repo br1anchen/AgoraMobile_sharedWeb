@@ -5,8 +5,6 @@ var app = angular.module('app', ['ui.bootstrap','app.utilityService','app.storag
 
 .config(['$stateProvider','$routeProvider','$httpProvider', function($stateProvider,$routeProvider,$httpProvider) {
 	$routeProvider.otherwise('/login');
-	// $httpProvider.defaults.useXDomain = true;
-	// delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 	$stateProvider
 		.state('login', {

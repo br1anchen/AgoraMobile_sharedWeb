@@ -1,6 +1,23 @@
 'use strict';
 
 app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
+
+
+	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+		if(fromState.name == 'stage.activityFeed'){
+			$scope.noBack=true;
+		}else{
+			$scope.noBack=false;
+		}
+		$scope.fromState = fromState;
+		$scope.fromParams = fromParams;
+	})
+
+	$scope.back = function(){
+		if($scope.fromState && $scope.fromParams){
+			$state.transitionTo($scope.fromState,$scope.fromParams);
+		}
+	}
 	
 	function renderContentList(){
 		$scope.showConentHeader = true;

@@ -1,8 +1,8 @@
 <div id="wikiPage" class="expand">
 	<div id="fixedContentHeader" data-ng-show="showConentHeader">
-		<div id="backBtn" class="left" data-ng-click="backToThread()">
-			<div class="content" ng-show="wikiPageHolder.page.parentTitle != ''" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
-				<i class="icon-level-up"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
+		<div id="backBtn" class="leftHolder" data-ng-click="back()" data-ng-hide="noBack">
+			<div class="content">
+				<i class="icon-chevron-left"></i></i><span class="text"></span>
 			</div>
 		</div>
 	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
@@ -15,8 +15,11 @@
 
 	        <div class="fadeSuroundingsRight"></div>
 	    </div>
-	    <div class="right">
-	    </div>
+    	<div id="backBtn" class="rightHolder" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
+			<div class="content" ng-show="wikiPageHolder.page.parentTitle != ''" >
+				<i class="icon-level-up"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
+			</div>
+		</div>
 	</div>
 
 <div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="loading" loading-color="ed1c24">

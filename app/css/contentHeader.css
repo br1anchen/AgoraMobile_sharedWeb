@@ -24,23 +24,37 @@
 	color:#ed1c24;
 }
 
-#fixedContentHeader .left, #fixedContentHeader .right{
+#fixedContentHeader .leftHolder, #fixedContentHeader .rightHolder{
 	position: absolute;
 	font-size: 1.5em;
-	width:40%;
 	height: 100%;
 	overflow: hidden;
 	top:0em;
 }
-#fixedContentHeader .left{
-	left:0em;
-	text-align: left;
-}
-#fixedContentHeader .left .content{
-	padding-left: 0.3em;
+#fixedContentHeader .leftHolder{
+	width:30%;
 }
 
-#fixedContentHeader .right{
+#fixedContentHeader .leftHolder .content{
+	padding-left: 0.3em;
+	text-align: left;
+}
+#fixedContentHeader .leftHolder .content i{
+}
+
+
+#fixedContentHeader .rightHolder{
+	width:20%;
+}
+
+#fixedContentHeader .rightHolder .content{
+	margin-left:0.6em;
+}
+#fixedContentHeader .rightHolder .content i{
+	padding-right: 0.2em;
+}
+
+#fixedContentHeader .rightHolder{
 	right:0em;
 }
 #fixedContentHeader .currentGroupHolder{
