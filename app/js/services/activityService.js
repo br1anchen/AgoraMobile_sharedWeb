@@ -39,8 +39,15 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		    }
 		    else if(object.DLFileEntry_filelink){
 		      	activity.type = "file";
-		      	activity.URL = object.DLFileEntry_filelink;
-		      	activity.folderURL = object.DLFileEntry_folderlink;
+		      	var GETData =object.DLFileEntry_filelink.split('?').pop().split('&')
+				for(var i=0; i<GETData.length; i++){
+					if(GETData[i].indexOf('folderId')>-1){
+						activity.folderId=parseInt(GETData[i].split('=').pop());
+					}
+					if(GETData[i].indexOf('title')>-1){
+						activity.fileName = GETData[i].split('=').pop().replace(/\+/g,' ');
+					}
+				}
 		    }
 		    parsedActivities.push(activity);
 		})

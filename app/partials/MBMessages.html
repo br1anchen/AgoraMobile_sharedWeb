@@ -1,30 +1,41 @@
-<div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<div id="backBtn" data-ng-click="backToThread()">
-		<div class="content">
-			<i class="icon-chevron-left"></i></i><span class="text">Threads</span>
-		</div>
-		<div class="transition"></div>
-	</div>
-    <div class="currentGroup" data-ng-click="goToActivityFeed()">
-        <i class="icon-home home"></i>
-        <span>{{currentGroup.name}}</span>
-    </div>
-</div>
+<div id="messages" class="expand">
 
-<div id="messages"  class="instance" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div data-ng-repeat="message in messagesHolder.messages" id="MBmessage">
-		<div class="header">
-			<div class="title" >
-				{{message.subject}}
+	<div id="fixedContentHeader" data-ng-show="showConentHeader">
+		<div id="backBtn" class="left" data-ng-click="backToThread()">
+			<div class="content">
+				<i class="icon-chevron-left"></i></i><span class="text"></span>
+			</div>
+		</div>
+	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
+	    	<div class="fadeSuroundingsLeft"></div>
+	    	
+	    	<overflow-banner class="currentGroup" duration="3000">
+	    		{{currentGroup.name}}
+	        	<div class="fadeContentRight"></div>
+	    	</overflow-banner>
+
+	        <div class="fadeSuroundingsRight"></div>
+	    </div>
+	    <div class="right">
+	    </div>
+	</div>
+
+
+	<div id="messages"  class="instance" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+		<div data-ng-repeat="message in messagesHolder.messages" id="MBmessage">
+			<div class="header">
+				<div class="title" >
+					{{message.subject}}
+				</div>
+				<div class="meta">
+					Author {{message.userName}}
+				</div>
+			</div>
+			<div class="content" html-content content="message.body" group="currentGroup">
 			</div>
 			<div class="meta">
-				Author {{message.userName}}
-			</div>
-		</div>
-		<div class="content" html-content content="message.body" group="currentGroup">
-		</div>
-		<div class="meta">
 				{{message.modifiedDate}}
+			</div>
 		</div>
 	</div>
 	<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>

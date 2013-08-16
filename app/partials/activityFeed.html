@@ -1,11 +1,18 @@
-<div id="fixedContentHeader" data-ng-click="goToActivityFeed()" data-ng-show="showConentHeader">
-    <span class="currentGroup">
-        <i class="icon-home home"></i>
-        <span>{{currentGroup.name}}</span>
-    </span>
-</div>
-<div id="activityFeed" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
-	<div data-ng-repeat="activity in activitiesHolder.activities" class="activity">
-		<activity-block activity="activity"></activity-block>
+<div id="activityFeed" class="expand">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader">
+
+	    	<overflow-banner class="currentGroup" duration="3000" data-ng-click="goToActivityFeed()">
+	    		{{currentGroup.name}}
+	        	<div class="fadeContentRight"></div>
+	    	</overflow-banner>
+	    
+	</div>
+
+
+
+	<div class="content" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
+		<div data-ng-repeat="activity in activitiesHolder.activities" class="activity">
+			<activity-block activity="activity"></activity-block>
+		</div>
 	</div>
 </div>

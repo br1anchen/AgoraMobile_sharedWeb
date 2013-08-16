@@ -154,10 +154,13 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	$scope.$watch('fileHolder.file.offline',function(newVal,oldVal){
-		if(newVal != oldVal && newVal == true){
-			$scope.showFile($scope.fileHolder.file);
-		}else if(newVal != oldVal && newVal == false){
-			$scope.deleteFile($scope.fileHolder.file);
+		console.log(undefined);
+		if(oldVal != undefined){
+			if(newVal != oldVal && newVal == true){
+				$scope.showFile($scope.fileHolder.file);
+			}else if(newVal != oldVal && newVal == false){
+				$scope.deleteFile($scope.fileHolder.file);
+			}
 		}
 	});
 	

@@ -1,6 +1,12 @@
+/*To manke room for the content header*/
 #wiki .scrollableContent{
 	margin-top:4em;
 	position:relative;
+}
+
+#wiki #wikiContentList #fixedContentHeader .currentGroup {
+	width:100%;
+	border-image: none;
 }
 
 #wiki .folder:first-child>span>.text{
@@ -8,14 +14,6 @@
 }
 
 
-#wiki .right{
-	position: absolute;
-	right:0em;
-	top:0em;
-	z-index: 3;
-	padding-top: 0.5em;
-	padding-right:1em; 
-}
 #wiki .openList   { display: block; }
 #wiki .closeList { display: none;  }
 

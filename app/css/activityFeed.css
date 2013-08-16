@@ -1,12 +1,15 @@
-
+#activityFeed #fixedContentHeader .currentGroup {
+	width:100%;
+	border-image: none;
+}
 /*To make space for the content header*/
-#activityFeed .scrollableContent{
+#activityFeed .content .scrollableContent{
 	margin-top:4em;
 	/*width:96%;*/
 	width:100%;
 }
 
-#activityFeed .activityBlock{
+#activityFeed .content .activityBlock{
 	padding: 0.5em 0.5em 0.5em 0.5em ;
 	height: 8em;
 	line-height: 8em;
@@ -16,7 +19,7 @@
 	position: relative;
 }
 
-#activityFeed .peopleImg{
+#activityFeed .content  .peopleImg{
 	float: left;
 	width:20%;
 	margin-bottom: 0px;
@@ -25,14 +28,14 @@
 	height: 100%;
 }
 
-#activityFeed .activityBlock .contentWrapper{
+#activityFeed .content .activityBlock .contentWrapper{
 	/*display: inline-block;*/
 	/*font-weight:bold;*/
 	margin:1em;
 	/*float:center;*/
 }
 
-#activityFeed .activityBlock .date{
+#activityFeed .content .activityBlock .date{
 	position: absolute;
 	right: 0;
 	bottom: 0;
@@ -41,24 +44,23 @@
 	line-height: 1em;
 	padding: 0.5em;
 	height: 1em;
+	border-top: 0.09em solid #BABABA;
 }
-#activityFeed .activityBlock .content{
+#activityFeed .content .activityBlock .content{
 	display: inline-block;
 	vertical-align: middle;
 	width: 70%;
 	line-height: 1em;
 	overflow: hidden;
-	height: 5.5em;
+	height: 4.5em;
 	padding-left: 1em;
+	padding-bottom:1em;
 }
 
-#activityFeed .activityBlock .action{
+#activityFeed .content  .activityBlock .action{
 	/*line-height: 1em;*/
 }
 
-#activityFeed .activityBlock .reference{
-	/*line-height: 1em;*/
-	/*font-style: italic;
-	font-family: verdana,helvetica,arial,sans-serif*/
-	text-decoration: underline;
+#activityFeed .content .activityBlock .reference{
+	/*text-decoration: underline;*/
 }

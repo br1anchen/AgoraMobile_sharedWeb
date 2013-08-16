@@ -1,25 +1,29 @@
-<div id="fixedContentHeader" data-ng-show="showConentHeader">
-    <span class="currentGroup" data-ng-click="goToActivityFeed()">
-        <i class="icon-home home"></i>
-        <span>{{currentGroup.name}}</span>
-    </span>
-</div>
-<div id="categories" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div class="category instance" data-ng-repeat="category in categoriesHolder.categories" id="MBcategory" data-ng-click="showTreads(category)">
-		
-		<div class="header">
-			<div class="title">{{category.name}}</div>
-		</div>
-		<div class="content" data-ng-show="category.description"> 
-			{{category.description}}			
-		</div>
-		<div class="content" data-ng-hide="category.description"> 
-			No description		
-		</div>
-		<div class="meta">
-			<span>Threads: {{category.threadCount}},</span>
-			<span>Messages: {{category.messageCount}}</span>
+<div id="categories" class="expand">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader">
+
+	        <overflow-banner class="currentGroup" duration="3000" data-ng-click="goToActivityFeed()">
+	            {{currentGroup.name}}
+	            <div class="fadeContentRight"></div>
+	        </overflow-banner>
+	    
+	</div>
+	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+		<div class="category instance" data-ng-repeat="category in categoriesHolder.categories" id="MBcategory" data-ng-click="showTreads(category)">
+			
+			<div class="header">
+				<div class="title">{{category.name}}</div>
+			</div>
+			<div class="content" data-ng-show="category.description"> 
+				{{category.description}}			
+			</div>
+			<div class="content" data-ng-hide="category.description"> 
+				No description		
+			</div>
+			<div class="meta">
+				<span>Threads: {{category.threadCount}},</span>
+				<span>Messages: {{category.messageCount}}</span>
+			</div>
 		</div>
 	</div>
+	<alert id="noCategory" style="visibility:hidden">No Categories in this group</alert>
 </div>
-<alert id="noCategory" style="visibility:hidden">No Categories in this group</alert>
