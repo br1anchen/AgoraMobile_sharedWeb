@@ -68,6 +68,13 @@
 	padding-right: 1em;
 	background-color: #D1D1D1;
 	position: absolute;
+	height: 100%;
+}
+#wiki #wikiPage #childrenPicker #childrenPage .text{
+	overflow: hidden;
+	color: #5b677d;
+	padding-left: 4em;
+	font-weight: bold;
 }
 
 #wiki .toChildren{
