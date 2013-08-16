@@ -1,15 +1,23 @@
 <div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<div id="backBtn" data-ng-click="toFolder(fileHolder.file.folderId)">
+	<div id="backBtn" class="left" data-ng-click="toFolder(fileHolder.file.folderId)">
 		<div class="content">
-			<i class="icon-chevron-left"></i></i><span class="text">{{folderName}}</span>
+			<i class="icon-chevron-left"></i></i><span class="text"></span>
 		</div>
-		<div class="transition"></div>
 	</div>
-    <span class="currentGroup" data-ng-click="goToActivityFeed()">
-        <i class="icon-home home"></i>
-        <span>{{currentGroup.name}}</span>
-    </span>
+    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
+    	<div class="fadeSuroundingsLeft"></div>
+    	
+    	<overflow-banner class="currentGroup" duration="3000">
+    		{{currentGroup.name}}
+        	<div class="fadeContentRight"></div>
+    	</overflow-banner>
+
+        <div class="fadeSuroundingsRight"></div>
+    </div>
+    <div class="right">
+    </div>
 </div>
+
 <div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
 	<div class="title">{{fileHolder.file.title}}</div>
 	<div class = "content">

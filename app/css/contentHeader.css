@@ -1,11 +1,12 @@
 #contentHeader, #fixedContentHeader {
 	background-color: rgb(228, 228, 228);
-	
 	font-weight: bold;
 	height: 4em;
 	line-height: 4em;
 	overflow: hidden;
-	border-bottom: 0.15em solid #BABABA;
+	white-space: nowrap;
+	-webkit-border-image: -webkit-linear-gradient( left, rgba(186,186,186,0.1) , rgba(186,186,186,0.8) 50%, rgba(186,186,186,0.1) 100%) 0 1 100%;
+	border-width: 0.2em;
 }
 #contentHeader .home, #fixedContentHeader .home{
 	/*float:left;*/
@@ -16,10 +17,6 @@
 	width:100%;
 }
 
-#fixedContentHeader  .currentGroup{
-	font-size: 1.5em;
-	float:center;
-}
 #fixedContentHeader .spinnerHolder, #fixedContentHeader .spinnerHolder{
 	display: inline-block;
 	width:0.8em;
@@ -27,37 +24,86 @@
 	color:#ed1c24;
 }
 
-#fixedContentHeader #backBtn{
-	z-index: 3;
+#fixedContentHeader .left, #fixedContentHeader .right{
 	position: absolute;
 	font-size: 1.5em;
-	width:37%;
+	width:40%;
 	height: 100%;
 	overflow: hidden;
-	left:0em;
-}
-#fixedContentHeader #backBtn .content{
-	width:70%;
-	height: 100%;
-	text-align: left;
-	padding-left: 0.7em;
-}
-#fixedContentHeader #backBtn .text {
-	position: absolute;
-	width: 100%;
-}
-#fixedContentHeader #backBtn .transition{
-	position: absolute;
-	width:30%;
-	display: inline-block;
 	top:0em;
+}
+#fixedContentHeader .left{
+	left:0em;
+	text-align: left;
+}
+#fixedContentHeader .left .content{
+	padding-left: 0.3em;
+}
+
+#fixedContentHeader .right{
 	right:0em;
+}
+#fixedContentHeader .currentGroupHolder{
+	position: relative;
+	width: 70%;
+	height:100%;
+	display: inline-block;
+	z-index: 4;
+	text-align: center;
+}
+#fixedContentHeader  .currentGroup{
+	font-size: 1.5em;
+	position: relative;
+	width:85%;
+	height:100%;
+	background-color: #E4E4E4;
+	float: center;
+	overflow: hidden;
+	display:inline-block;
+	border-image:-webkit-linear-gradient( top, rgba(186,186,186,0) 0%, rgba(186,186,186,0.8) 50%, rgba(186,186,186,0.0) 100%) 1 100%;
+	border-width:0.1em;
+	z-index:2;
+}
+#fixedContentHeader .currentGroup>span {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+#fixedContentHeader .currentGroup .fadeContentRight{
+	position: absolute;
+	right:0em;
+	top:0em;
+	width:10%;
 	height: 100%;
 	background-image: -webkit-gradient(
-      linear, right top, left top, from(rgba(228, 228, 228, 1.0)),
-      to(rgba(228, 228, 228, 0))
+      linear, left top, right top, from(rgba(228, 228, 228, 0.0)),
+      to(rgba(228, 228, 228, 1.0))
     );
 }
+
+#fixedContentHeader .fadeSuroundingsLeft, #fixedContentHeader .fadeSuroundingsRight{
+	position: absolute;
+	height:100%;
+	width:9%;
+	display: inline-block;
+	top:0em;
+
+}
+#fixedContentHeader>div .fadeSuroundingsLeft{
+	left:0em;
+	background-image: -webkit-gradient(
+      linear, left top, right top, from(rgba(228, 228, 228, 0.0)),
+      to(rgba(228, 228, 228, 1.0))
+    );
+}
+
+#fixedContentHeader>div .fadeSuroundingsRight{
+	right:0em;
+	background-image: -webkit-gradient(
+      linear, left top, right top, from(rgba(228, 228, 228, 1.0)),
+      to(rgba(228, 228, 228, 0.0))
+    );	
+}
+
 #fixedContentHeader #backBtn i{
 	padding-right: 0.2em;
 }

@@ -149,7 +149,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			.then(
 				function(res){
 					loadDeffer.resolve(res);
-					console.log("ContentService:loadContent():Group("+group.id+") content loaded");
+					console.log("ContentService:loadContent():Group("+group.name+") content loaded");
 				},
 				function(err){
 					loadDeffer.reject(err)

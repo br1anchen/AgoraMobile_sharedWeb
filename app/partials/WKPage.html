@@ -1,32 +1,38 @@
-<div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<div id="backBtn" data-ng-click="backToThread()">
-		<div class="content" ng-show="wikiPageHolder.page.parentTitle != ''" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
-			<i class="icon-chevron-left"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
+<div id="wikiPage" class="expand">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader">
+		<div id="backBtn" class="left" data-ng-click="backToThread()">
+			<div class="content" ng-show="wikiPageHolder.page.parentTitle != ''" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
+				<i class="icon-level-up"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
+			</div>
 		</div>
-		<div class="transition"></div>
-	</div>
-    <div class="currentGroup" data-ng-click="goToActivityFeed()">
-        <i class="icon-home home"></i>
-        <span>{{currentGroup.name}}</span>
-    </div>
-    <div class="right" data-ng-click="showList()">
-    	<i class="icon-list-alt icon-2x"></i>
-    </div>
-</div>
+	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
+	    	<div class="fadeSuroundingsLeft"></div>
+	    	
+	    	<overflow-banner class="currentGroup" duration="3000">
+	    		{{currentGroup.name}}
+	        	<div class="fadeContentRight"></div>
+	    	</overflow-banner>
 
-<div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="loading" loading-color="ed1c24">
-	<div class="header" data-ng-class="{clickableHeader:wikiPageHolder.page.childrenPagesTitle.length > 0}">
-		<span class="title">
-			{{wikiPageHolder.page.title}}
-			<span ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
-			<select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
-				<option value="default">Children Pages</option>
-				<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
-			</select>
-			<i class="toChildren icon-level-down icon">
-			</i>
-		</span>
-		</span>
+	        <div class="fadeSuroundingsRight"></div>
+	    </div>
+	    <div class="right">
+	    </div>
 	</div>
-	<div id="content" wiki-page-content ></div>
+
+	<div class="expand" scrollable trigger-distance="200" loading="loading" loading-color="ed1c24">
+		<div class="header" data-ng-class="{clickableHeader:wikiPageHolder.page.childrenPagesTitle.length > 0}">
+			<span class="title">
+				{{wikiPageHolder.page.title}}
+				<span ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
+					<select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
+						<option value="default">Children Pages</option>
+						<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+					</select>
+					<i class="toChildren icon-level-down icon">
+					</i>
+				</span>
+			</span>
+		</div>
+		<div id="content" wiki-page-content ></div>
+	</div>
 </div>

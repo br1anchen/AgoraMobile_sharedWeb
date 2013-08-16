@@ -1,27 +1,37 @@
-<div id="fixedContentHeader" data-ng-show="showConentHeader">
-	<div id="backBtn" data-ng-click="backToCategory()" >
-		<div class="content">
-			<i class="icon-chevron-left"></i></i><span class="text">Categories</span>
+<div id="threads" class="expand">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader">
+		<div id="backBtn" class="left" data-ng-click="backToCategory()">
+			<div class="content">
+				<i class="icon-chevron-left"></i></i><span class="text"></span>
+			</div>
 		</div>
-		<div class="transition"></div>
+	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
+	    	<div class="fadeSuroundingsLeft"></div>
+	    	
+	    	<overflow-banner class="currentGroup" duration="3000">
+	    		{{currentGroup.name}}
+	        	<div class="fadeContentRight"></div>
+	    	</overflow-banner>
+
+	        <div class="fadeSuroundingsRight"></div>
+	    </div>
+	    <div class="right">
+	    </div>
 	</div>
-    <div class="currentGroup" data-ng-click="goToActivityFeed()">
-        <i class="icon-home home"></i>
-        <span>{{currentGroup.name}}</span>
-    </div>
-</div>
-<div id="threads" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-	<div class="instance" data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
-		<div class="header">
-			<div class="title">{{thread.title}}</div>
-			<div class="meta">Started by: {{thread.statusByUserName}}</div>
+
+	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+		<div class="instance" data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
+			<div class="header">
+				<div class="title">{{thread.title}}</div>
+				<div class="meta">Started by: {{thread.statusByUserName}}</div>
+			</div>
+			<div class="content"> 
+				Messages: {{thread.messageCount}}
+			</div>
+			<div class="meta"> 
+				Latest Post: {{thread.lastPostDate}}
+			</div>
 		</div>
-		<div class="content"> 
-			Messages: {{thread.messageCount}}
-		</div>
-		<div class="meta"> 
-			Latest Post: {{thread.lastPostDate}}
-		</div>
+		<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
 	</div>
-	<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
 </div>

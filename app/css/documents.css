@@ -1,6 +1,9 @@
+
+/*To make room for the content header*/
 #documents .scrollableContent{
 	margin-top:4em;
 }
+
 #documents ul li{
 	background-color: rgb(228, 228, 228);
 	background-color:#E4E4E4;

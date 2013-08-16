@@ -32,7 +32,8 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
           angular.forEach(rep.data, function(g, k){
             var group = JSON2Group(g);
 
-            if(g.site && g.type == 1){//type 1 as top guest group
+            if(g.site && g.groupId == 10157){//We treat the top group differently
+              group.name = "Agora";
               StorageService.store("TopGroup",group);  
             }
             else if(g.site){
