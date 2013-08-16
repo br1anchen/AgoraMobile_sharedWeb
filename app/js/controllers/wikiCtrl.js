@@ -1,24 +1,30 @@
 'use strict';
 
-app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
-
+app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService,$rootScope){
 
 	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+		
 		if(fromState.name == 'stage.activityFeed'){
-			$scope.backToDirectory=true;
-		}else{
-			$scope.backToDirectory=false;
+			fromState = 'stage.wiki.contentlist';
+			fromParams = {};
 		}
-		$scope.fromState = fromState;
-		$scope.fromParams = fromParams;
+
+		if(toState.name == 'stage.wiki.page'){
+			console.log($rootScope.isHistory);
+			if(!$rootScope.isHistory){
+				$rootScope.stateHistory.push({
+					fromState : fromState,
+					fromParams : fromParams
+				});
+			}
+		}
 	})
 
 	$scope.back = function(){
-		if($scope.fromState && $scope.fromParams && !$scope.backToDirectory){
-			$state.transitionTo($scope.fromState,$scope.fromParams);
-		}
-		else{
-			$state.transitionTo('stage.wiki.contentlist');	
+		$rootScope.isHistory = true;
+		if($rootScope.stateHistory.length != 0){
+			var state = $rootScope.stateHistory.pop();
+			$state.transitionTo(state.fromState,state.fromParams);
 		}
 	}
 	
@@ -34,7 +40,7 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	function renderWikiPage(group,nId,title){
 		console.log('render wiki page');
 
-		//$scope.showConentHeader = true;
+		$scope.showConentHeader = true;
 		$scope.loading = true;
 		WikiPageService.getWikiPage(group,nId,title).then(function(wikiPageHolder){
 			$scope.wikiPageHolder = wikiPageHolder;
@@ -43,6 +49,8 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 
 	if($state.is('stage.wiki.contentlist')){
+		$rootScope.stateHistory = [];
+		$rootScope.isHistory = false;
 		renderContentList();
 	}
 
@@ -51,6 +59,7 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 
 	$scope.showWiki = function (nId,t){
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.wiki.page',{nodeId:nId,title:t});
 	}
 
@@ -59,6 +68,7 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 
 	$scope.selectWiki = function (t){
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:t});
 	}
 

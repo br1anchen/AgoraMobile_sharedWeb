@@ -1,6 +1,8 @@
 'use strict';
 app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q){
-    
+    $rootScope.isHistory = false;
+    $rootScope.stateHistory = [];
+
     //Hide menu on swype gesture
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar){
