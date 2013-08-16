@@ -44,6 +44,12 @@
 	display: inline-block;
 	vertical-align: -webkit-baseline-middle;
 }
+#wiki #wikiPage #childrenPick{
+	font-size: 1.5em;
+	line-height: 3em;
+	width: 95%;
+}
+
 #wiki .toChildren{
 	display: inline-block;
 	position: relative;
@@ -60,7 +66,7 @@
 }
 #wiki #content{
 	text-align: left;
-	padding: 1em
+	padding: 1em;
 }
 
 #wiki #contentList .root{

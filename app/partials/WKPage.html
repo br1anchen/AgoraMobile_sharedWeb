@@ -15,18 +15,16 @@
 </div>
 
 <div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="loading" loading-color="ed1c24">
-	<div class="header" data-ng-class="{clickableHeader:wikiPageHolder.page.childrenPagesTitle.length > 0}">
+	<div class="header">
 		<span class="title">
 			{{wikiPageHolder.page.title}}
-			<span ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
-			<select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
-				<option value="default">Children Pages</option>
-				<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
-			</select>
-			<i class="toChildren icon-level-down icon">
-			</i>
 		</span>
-		</span>
+	</div>
+	<div ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
+		<select id="childrenPick"  ng-model="childrenp" ng-change="selectWiki(childrenp)">
+			<option value="default">Browse Children Page</option>
+			<option ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" value="{{cp}}">{{cp}}</option>
+		</select>
 	</div>
 	<div id="content" html-content content="wikiPageHolder.page.content" group="currentGroup"></div>
 </div>
