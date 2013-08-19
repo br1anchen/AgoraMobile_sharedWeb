@@ -83,7 +83,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 		return deffered.promise;
 	}
 	function setActivities(gid,activities){
-		activities.reverse();//For some reason the Agora API returns the activities as the oldest ones first, so we revert it
+		//activities.reverse();//For some reason the Agora API returns the activities as the oldest ones first, so we revert it
 		activitiesHolder.activities = activities;//Replacing old data
 		activitiesHolder.groupId = gid//Replacing old data
 	}
