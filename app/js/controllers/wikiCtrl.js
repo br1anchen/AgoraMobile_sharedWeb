@@ -10,7 +10,7 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 		}
 
 		if(toState.name == 'stage.wiki.page'){
-			console.log($rootScope.isHistory);
+
 			if(!$rootScope.isHistory){
 				$rootScope.stateHistory.push({
 					fromState : fromState,

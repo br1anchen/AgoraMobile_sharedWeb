@@ -70,6 +70,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			extension: json.extension,
 			fileEntryId: json.fileEntryId,
 			folderId: json.folderId,
+			folderName : StorageService.get('Group' + json.groupId + '_Folder' + json.folderId).name,
 			groupId: json.groupId,
 			mimeType: json.mimeType,
 			modifiedDate: moment(json.modifiedDate).format('DD/MM/YYYY, HH:mm:ss'),
