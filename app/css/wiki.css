@@ -104,6 +104,7 @@
 	text-align: left;
 	position: relative;
 	border-bottom: 0.09em solid #BABABA;
+	background-color: white;
 }
 #wiki #contentList .leafTitle .text{
 	overflow: hidden;

@@ -45,7 +45,7 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 						activity.folderId=parseInt(GETData[i].split('=').pop());
 					}
 					if(GETData[i].indexOf('title')>-1){
-						activity.fileName = GETData[i].split('=').pop().replace(/\+/g,' ');
+						activity.fileName = decodeURI(GETData[i].split('=').pop().replace(/\+/g,' '));
 					}
 				}
 		    }

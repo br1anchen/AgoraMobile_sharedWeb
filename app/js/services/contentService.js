@@ -57,8 +57,6 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 		loadGroupContent : function(group){
 			buildPromises();
 
-			var loadDeffer = $q.defer();
-
 			//Setting up the messageBoard promise
 			$q.all([
 				messageBoardCDeffer.promise,
@@ -145,17 +143,8 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 					}
 				)
 			})
-			//Returns a promise resolved if everything is loaded successfully
-			.then(
-				function(res){
-					loadDeffer.resolve(res);
-					console.log("ContentService:loadContent():Group("+group.name+") content loaded");
-				},
-				function(err){
-					loadDeffer.reject(err)
-				}
-			)
-			return loadDeffer.promise;
+			
+			return groupDeffer.promise;
 		}
 	}
 })

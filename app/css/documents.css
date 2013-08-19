@@ -27,6 +27,7 @@
 	height: 100%;
 	display: inline-block;
 	position: relative;
+	background-color: white;
 }
 #documents .rowIcon{
 	width: 5em;
@@ -59,6 +60,10 @@
 	padding-top: 1.5em;
 	z-index:1;
 }
+#documents ul .fileInfo, #documents ul .content {
+	background-color: white;
+}
+
 
 #documents .fileInfoTransition{
 	width: 50px;
@@ -67,9 +72,13 @@
 	right: 50px;
 	top:0;
 	z-index:1;
-    background-image: -webkit-gradient(
+    /*background-image: -webkit-gradient(
       linear, right top, left top, from(rgba(228, 228, 228, 1.0)),
       to(rgba(228, 228, 228, 0))
+    );*/
+    background-image: -webkit-gradient(
+      linear, right top, left top, from(rgba(255, 255, 255, 1.0)),
+      to(rgba(255, 255, 255, 0))
     );
 }
 #documents #files , #documents #folders {

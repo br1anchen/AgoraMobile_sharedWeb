@@ -4,7 +4,6 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 
 	function renderCategories (){
 		$scope.loading = true;
-		$scope.showConentHeader = true;
 
 		MessageBoardService.getCategories($scope.currentGroup).then(function(categoriesHolder){
 			$scope.categoriesHolder = categoriesHolder;

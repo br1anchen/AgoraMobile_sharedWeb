@@ -11,16 +11,34 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
             height:'@'
         },
         controller:function($scope){
-                
         },
         template:
-            '<div class="notifier">'+
+            '<div class="notifier" data-ng-click="delete()">'+
+                '<span class="que">'+
+                '   <i class="icon-exclamation-sign"></i>'+
+                '   <span data-ng-bind="notificationQue.length" data-ng-hide="noQue"></span>'+
+                '</span>'+ 
                 '<span class="notification" ng-bind-html-unsafe="notification"></span>'+
             '</div>'
         ,
         link: function(scope, element, attrs) {
             element = $(element);
-            element.css('display','none');
+            element.css({
+                'display':'none',
+            });
+
+            var que=element.find('.que');
+            que.css({
+                'padding-left':'0.2em'
+                ,'position':'absolute'
+                ,'display':'inline-block'
+                ,'left':'0'
+                ,'bottom':'0'
+            });
+
+            scope.$watch('notificationQue.length',function(newVal,oldVal){
+                scope.noQue = (newVal > 0) ? false : true;
+            })
 
             scope.notificationQue = [];
             var show =  false;
@@ -35,6 +53,23 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
                     scope.notificationQue.push(notification);
                 }
             })
+            //Hide animation
+            function hide(){
+                if(show){
+                    show = false;
+                    //hide animation
+                    switch(scope.animation){
+                        case 'slideVertical':
+                            element.slideUp();
+                            que.slideUp();
+                        break;
+                        case 'fade':
+
+                        break;
+                    }
+                }
+            }
+
             //Flashes a notifivation
             function flash(){
                 if(!show){
@@ -43,6 +78,7 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
                     switch(scope.animation){
                         case 'slideVertical':
                             element.slideDown();
+                            que.slideDown();
                         break;
                         case 'fade':
 
@@ -57,18 +93,19 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
 
                     }
                     else{
-                        show = false;
-                        //hide animation
-                        switch(scope.animation){
-                            case 'slideVertical':
-                                element.slideUp();
-                            break;
-                            case 'fade':
-
-                            break;
-                        }
+                        hide();
                     }
                 },3000);
+            }
+
+            scope.delete = function(){
+                if(scope.notificationQue.length > 0){
+                    scope.notification = scope.notificationQue.shift();
+                    flash();
+                }
+                else{
+                    hide();
+                }
             }
         }
     }

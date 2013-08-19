@@ -12,7 +12,7 @@
                 </div>
                 <div id="groupsHeader">
                     <span data-ng-click="switchGroup()">
-                        Groups
+                        Agora
                     </span>
                 </div>
             </div>
@@ -20,6 +20,7 @@
                 <ul class="nav nav-list groups">
                     <li data-ng-repeat="group in groupsHolder.groups" data-ng-click="switchGroup(group)">
                         {{group.name}}
+                        <div class="fadeContentRight"></div>
                     </li>
                 </ul>
             </div>
@@ -44,17 +45,17 @@
                 <table>
                     <tr>
                         <td>
-                            <i  class="menuButton icon-align-justify icon-3x" data-ng-click="toggleMenu()"></i>
+                            <i  class="menuButton icon-align-justify icon-2x" data-ng-click="toggleMenu()"></i>
                         </td>
                         <td>
                             <div id="mainFunctions">
-                                <i data-ng-click="path('stage.messageBoard.categories')" data-ng-class="{activeLinkClass : stateIs('stage.messageBoard.categories')}"  class="icon-comments icon-3x" ></i>
-                                <i data-ng-click="path('stage.documents.root')" data-ng-class="{activeLinkClass : stateIs('stage.documents.root')}" class="icon-file icon-3x" ></i>
-                                <i data-ng-click="path('stage.wiki.contentlist')" data-ng-class="{activeLinkClass : stateIs('stage.wiki.contentlist')}" class="icon-book icon-3x" ></i>
+                                <i data-ng-click="path('stage.messageBoard.categories')" data-ng-class="{activeLinkClass : stateIs('stage.messageBoard.categories')}"  class="icon-comments icon-2x" ></i>
+                                <i data-ng-click="path('stage.documents.root')" data-ng-class="{activeLinkClass : stateIs('stage.documents.root')}" class="icon-file icon-2x" ></i>
+                                <i data-ng-click="path('stage.wiki.contentlist')" data-ng-class="{activeLinkClass : stateIs('stage.wiki.contentlist')}" class="icon-book icon-2x" ></i>
                             </div>
                         </td>
                         <td>
-                            <i class="icon-search icon-3x searchButton"></i>
+                            <i class="icon-search icon-2x searchButton"></i>
                         </td>
                     </tr>
                 </table>

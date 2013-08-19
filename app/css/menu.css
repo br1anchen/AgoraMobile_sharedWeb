@@ -46,6 +46,19 @@
 	padding-left: 1em;
 	overflow: hidden;
 }
+
+#menu .groups .li .fadeContentRight{
+	position: absolute;
+	right:0em;
+	top:0em;
+	width:10%;
+	height: 100%;
+	background-image: -webkit-gradient(
+      linear, left top, right top, from(rgba(0, 0, 0, 0.0)),
+      to(rgba(0, 0, 0, 1.0))
+    );
+}
+
 #menu .footer{
 	position: absolute;
 	width: 100%;

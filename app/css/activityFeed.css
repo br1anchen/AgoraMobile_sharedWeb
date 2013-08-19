@@ -45,6 +45,7 @@
 	padding: 0.5em;
 	height: 1em;
 	border-top: 0.09em solid #BABABA;
+	white-space: nowrap;
 }
 #activityFeed .content .activityBlock .content{
 	display: inline-block;
