@@ -15,8 +15,8 @@
 
 	        <div class="fadeSuroundingsRight"></div>
 	    </div>
-    	<div id="backBtn" class="rightHolder" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
-			<div class="content" ng-show="wikiPageHolder.page.parentTitle != ''" >
+    	<div class="rightHolder" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
+			<div ng-show="wikiPageHolder.page.parentTitle != ''" >
 				<i class="icon-level-up"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
 			</div>
 		</div>
