@@ -77,15 +77,23 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
           //Finding correct groups
           var group = StorageService.get('TopGroup');
           var groups = StorageService.get('groups')
-          var i=0;
-          while(group.id != $scope.activity.groupId){
-            group = groups[i++];
+          
+          if(!group  || group.id != $scope.activity.groupId){
+            if(groups){
+              for(var i = 0 ; i < groups.length ; i++){
+                if(groups[i].id == $scope.activity.groupId){
+                  group = groups[i];
+                  break;
+                }
+              }
+            }
           }
+
           if(!group){
             console.error("activityBlock: Could not find group")
             failed();
           }
-          
+
           //Changing to correct group
           $scope.changeGroup(group)
           .then(
@@ -93,7 +101,8 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
               open();
             },function(err){
               failed();
-            })
+            }
+          )
         }
         else{
           ContentService.getGroupPromise().then(

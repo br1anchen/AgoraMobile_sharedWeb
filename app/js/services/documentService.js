@@ -238,7 +238,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(fileHolder.groupId == group.id && fileHolder.file.folderId == folderId && fileHolder.file.title == fileTitle){
+			if(fileHolder.groupId == group.id && fileHolder.file && fileHolder.file.folderId == folderId && fileHolder.file.title == fileTitle){
 				deffered.resolve(fileHolder);
 				
 				return deffered.promise;
