@@ -146,14 +146,6 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		});
 	}
 
-	$scope.back = function(){
-		$rootScope.isHistory = true;
-		if($rootScope.stateHistory.length != 0){
-			var state = $rootScope.stateHistory.pop();
-			$state.transitionTo(state.fromState,state.fromParams);
-		}
-	}
-
 	$scope.$watch('fileHolder.file.offline',function(newVal,oldVal){
 		if(oldVal != undefined){
 			if(newVal != oldVal && newVal == true){

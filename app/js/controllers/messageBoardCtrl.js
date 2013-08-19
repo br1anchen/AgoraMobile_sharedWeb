@@ -104,12 +104,4 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		$state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
 	}
 
-	$scope.back = function(){
-		$rootScope.isHistory = true;
-		if($rootScope.stateHistory.length != 0){
-			var state = $rootScope.stateHistory.pop();
-			$state.transitionTo(state.fromState,state.fromParams);
-		}
-	}
-
 })

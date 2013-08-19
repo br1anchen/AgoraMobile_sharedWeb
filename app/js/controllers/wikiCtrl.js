@@ -1,14 +1,6 @@
 'use strict';
 
 app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService,$rootScope){
-
-	$scope.back = function(){
-		$rootScope.isHistory = true;
-		if($rootScope.stateHistory.length != 0){
-			var state = $rootScope.stateHistory.pop();
-			$state.transitionTo(state.fromState,state.fromParams);
-		}
-	}
 	
 	function renderContentList(){
 		$scope.loading = true;

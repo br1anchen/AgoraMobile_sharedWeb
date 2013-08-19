@@ -14,6 +14,26 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     })
 
+    //goback history state function
+    $scope.back = function(){
+        $rootScope.isHistory = true;
+        if($rootScope.stateHistory.length != 0){
+            var state = $rootScope.stateHistory.pop();
+            if(state.fromState.name == 'stage.activityFeed'){
+                if(state.fromParams){
+                    var groups = StorageService.get('groups');
+                    var targetGroup = jQuery.grep(groups, function(g, k){
+                        return (g.id == state.fromParams.groupId);
+                    });
+                    $scope.openGroup(targetGroup[0]);
+                }else{
+                    $scope.openGroup();
+                }
+            }
+            $state.transitionTo(state.fromState,state.fromParams);
+        }
+    }
+
     //Hide menu on swype gesture
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar){
@@ -62,7 +82,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $scope.openGroup = function(group){
         var deffer = $q.defer();
 
-        $scope.changeGroup();
+        $scope.changeGroup(group);
         ContentService.getActivitiesPromise()
         .then(
             function(activitiesHolder){
