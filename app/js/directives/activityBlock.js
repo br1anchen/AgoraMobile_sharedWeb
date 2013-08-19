@@ -28,7 +28,7 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
               MessageBoardService.getCategories({id:$scope.activity.groupId}).then(function(categoriesHolder){
                 var cPromises = [];
                 angular.forEach(categoriesHolder.categories,function(c,k){
-                  var tDeffer = $q.defer();
+                  var tDeffer= $q.defer();
                   MessageBoardService.getThreads({id:$scope.activity.groupId}, c.categoryId).then(function(threadsHolder){
                     var mPromises = [];
                     angular.forEach(threadsHolder.threads,function(t,k){

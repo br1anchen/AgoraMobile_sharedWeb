@@ -92,6 +92,9 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     }
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
     //The event listeners should also work, because the scrolling directive broadcast on the root scope.
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $scope.showConentHeader = true;
+    })
     $scope.showConentHeader = true;
 
     $scope.$on("scrollingUp",function(){

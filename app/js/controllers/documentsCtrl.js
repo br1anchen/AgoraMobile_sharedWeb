@@ -2,8 +2,6 @@
 app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,AppService,$state,$stateParams){
 
 	function renderDirectory(){
-		$scope.showConentHeader = true;
-
 		$scope.loading = true;
 		DocumentService.getDirectory($scope.currentGroup,0).then(function(rep){
 			$scope.folderHolder = rep;
@@ -15,7 +13,6 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	function renderFolder(group,folderId){
 		console.log('render Folder Content');
 
-		$scope.showConentHeader = true;
 		$scope.loading = true;
 		DocumentService.getDirectory(group,folderId).then(function(rep){
 			$scope.folderHolder = rep;
@@ -29,8 +26,6 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 		
 		$scope.folderName = StorageService.get('Group' + group.id + '_Folder'+folderId).name;
 
-		$scope.showConentHeader = true;
-		
 		$scope.loading = true;
 		DocumentService.getFile(group,folderId,fileTitle).then(function(rep){
 			$scope.fileHolder = rep;

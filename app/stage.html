@@ -12,7 +12,7 @@
                 </div>
                 <div id="groupsHeader">
                     <span data-ng-click="switchGroup()">
-                        Groups
+                        Agora
                     </span>
                 </div>
             </div>
@@ -20,6 +20,7 @@
                 <ul class="nav nav-list groups">
                     <li data-ng-repeat="group in groupsHolder.groups" data-ng-click="switchGroup(group)">
                         {{group.name}}
+                        <div class="fadeContentRight"></div>
                     </li>
                 </ul>
             </div>

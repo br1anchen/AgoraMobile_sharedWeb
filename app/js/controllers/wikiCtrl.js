@@ -23,7 +23,6 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	}
 	
 	function renderContentList(){
-		$scope.showConentHeader = true;
 		$scope.loading = true;
 		WikiPageService.getWikiContentTree($scope.currentGroup).then(function(wikiTreeHolder){
 			$scope.wikiTreeHolder = wikiTreeHolder;
@@ -34,7 +33,6 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	function renderWikiPage(group,nId,title){
 		console.log('render wiki page');
 
-		//$scope.showConentHeader = true;
 		$scope.loading = true;
 		WikiPageService.getWikiPage(group,nId,title).then(function(wikiPageHolder){
 			$scope.wikiPageHolder = wikiPageHolder;

@@ -5,7 +5,7 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
 
 	//class entity in GroupService
   	// var apiUrl = "https://agora.uninett.no/api/secure/jsonws/group/get-user-places/-class-names/max/10";
-    var apiUrl = AppService.getBaseURL() + "/api/secure/jsonws/group/get-user-places/-class-names/max/10";
+    var apiUrl = AppService.getBaseURL() + "/api/secure/jsonws/group/get-user-places/-class-names/max/100";
 
     var groupsHolder = {//reference obj to be used by controller
       groups : []
