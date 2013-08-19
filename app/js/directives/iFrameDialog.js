@@ -1,5 +1,5 @@
 app.directive('iFrameDialog', function($dialog,$log) {
-// app.directive('iFrameDialog', function() {
+
     return {
         restrict: 'E',
         replace: true,
@@ -7,8 +7,6 @@ app.directive('iFrameDialog', function($dialog,$log) {
         scope:{
             url:'@',
             lable:'@'
-            // url:'https://agora.uninett.no',
-            // lable:'knapp'
         },
         controller:function($scope){
             $scope.launch = function(){
@@ -26,6 +24,11 @@ app.directive('iFrameDialog', function($dialog,$log) {
                     ,
                     controller:function DialogCtrl($scope,dialog){
                         $scope.close = function(result){
+                            cordova.exec(function(rep){
+                              console.log(rep);
+                            }, function(error) {
+                              console.log(error);
+                            }, "cookieManager","deleteCookies",[]);
                             dialog.close(result);
                         };
                         var iframe = $(dialog.modalEl).find('iframe')[0];
