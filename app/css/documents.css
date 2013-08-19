@@ -62,6 +62,7 @@
 }
 #documents ul .fileInfo, #documents ul .content {
 	background-color: white;
+	overflow: hidden;
 }
 
 
