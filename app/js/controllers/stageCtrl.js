@@ -52,52 +52,55 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         else{
             $scope.currentGroup = group;
             //If not group is present we wait for it to load:
-            $scope.gettingGroupsPromise.then(
-                function(){
-                    //When group is present we load the activities for this group
-                    ActivityService.getActivities($scope.currentGroup,30).then(
-                        function(activitiesHolder){
-                            // $timeout(function(){
-                                $scope.activitiesHolder = activitiesHolder;
-                                $scope.loading = false;
-                                if(activitiesHolder.activities.length == 0){
-                                    $rootScope.$broadcast("notification","No activities");
-                                }
-                            // })
-                        },
-                        function(error){
-                            console.error("ActivityCtrl: getActivities() failed");
-                            $rootScope.$broadcast("notification","Get activities failed");
-                            $rootScope.$broadcast("notification","Are you online?");
-                            $scope.loading = false;
-                            deffer.reject();
-                        }
-                    )
-                    //After the activities are loaded, we try to load everything else in this group before the user click something.
-                    .then(
-                        function(){
-                            ContentService.loadGroupContent($scope.currentGroup)
-                                .then(
-                                    function(res){
-                                        deffer.resolve(res);
-                                    }
-                                );
-                        }
-                    )
-                },
-                function(){
-                    console.error("ActivityCtrl:Group not available");
-                    $rootScope.$broadcast("notification","No groups");
-                    $scope.loading = false;
-                }
-            ) 
+            $scope.gettingGroupsPromise.then(function(){
+                deffer.resolve();
+            })
         }
+        return deffer.promise;
+    }
+    $scope.openGroup = function(group){
+        var deffer = $q.defer();
+
+        $scope.changeGroup().then(
+            function(){
+                //When group is present we load the activities for this group
+                ActivityService.getActivities($scope.currentGroup,30).then(
+                    function(activitiesHolder){
+                        $scope.activitiesHolder = activitiesHolder;
+                        $scope.loading = false;
+                        if(activitiesHolder.activities.length == 0){
+                            $rootScope.$broadcast("notification","No activities");
+                        }
+                        deffer.resolve();
+                    },
+                    function(error){
+                        console.error("ActivityCtrl: getActivities() failed");
+                        $rootScope.$broadcast("notification","Get activities failed");
+                        $rootScope.$broadcast("notification","Are you online?");
+                        $scope.loading = false;
+                        deffer.reject();
+                    }
+                )
+                //After the activities are loaded, we try to load everything else in this group before the user click something.
+                .then(
+                    function(){
+                        ContentService.loadGroupContent($scope.currentGroup)
+                    }
+                )
+            },
+            function(err){
+                console.error("ActivityCtrl:Group not available");
+                $rootScope.$broadcast("notification","No groups");
+                $scope.loading = false;
+                deffer.reject(err);
+            }
+        )
         return deffer.promise;
     }
 
     //Function to change the active group in the application
     $scope.goToGroup = function(group){
-        $scope.changeGroup(group).then(
+        $scope.openGroup(group).then(
             function(){
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
             }
