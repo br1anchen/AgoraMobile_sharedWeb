@@ -34,6 +34,22 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         }
     }
 
+    //Modify Andorid back button function
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
+    function onBackKeyDown() {
+
+        var stateList = ['stage.messageBoard.threads','stage.messageBoard.messages','stage.documents.folder','stage.documents.file','stage.wiki.page'];
+        var ifState = jQuery.grep(stateList,function(s,k){
+            return (s == $state.current.name);
+        });
+        if(ifState.length != 0){
+            $timeout(function(){
+                $scope.back();
+            });
+        }
+    }
+
     //Hide menu on swype gesture
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar){
