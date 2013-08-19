@@ -3,6 +3,17 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $rootScope.isHistory = false;
     $rootScope.stateHistory = [];
 
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+
+        if(!$rootScope.isHistory && fromState.name != ''){
+            $rootScope.stateHistory.push({
+                fromState : fromState,
+                fromParams : fromParams
+            });
+        }
+
+    })
+
     //Hide menu on swype gesture
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar){

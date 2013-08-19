@@ -1,7 +1,8 @@
 'use strict';
-app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams){
+app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope){
 
 	function renderDirectory(){
+		console.log('render Root Folder Content');
 		$scope.showConentHeader = true;
 
 		$scope.loading = true;
@@ -40,6 +41,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	if($state.is('stage.documents.root')){
+		$rootScope.stateHistory = [];
+		$rootScope.isHistory = false;
 		renderDirectory();
 	}
 
@@ -52,10 +55,12 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	$scope.gotoFolder = function(folder){
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.folder',{folderId:folder.folderId});
 	}
 
 	$scope.fileDetail = function(file){
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
 
@@ -145,11 +150,11 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 		});
 	}
 
-	$scope.toFolder = function(folderId){
-		if(folderId != 0){
-			$state.transitionTo('stage.documents.folder',{folderId:folderId});
-		}else{
-			$state.transitionTo('stage.documents.root');
+	$scope.back = function(){
+		$rootScope.isHistory = true;
+		if($rootScope.stateHistory.length != 0){
+			var state = $rootScope.stateHistory.pop();
+			$state.transitionTo(state.fromState,state.fromParams);
 		}
 	}
 
@@ -164,4 +169,4 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 		}
 	});
 	
-}])
+})

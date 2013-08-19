@@ -2,24 +2,6 @@
 
 app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService,$rootScope){
 
-	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-		
-		if(fromState.name == 'stage.activityFeed'){
-			fromState = 'stage.wiki.contentlist';
-			fromParams = {};
-		}
-
-		if(toState.name == 'stage.wiki.page'){
-
-			if(!$rootScope.isHistory){
-				$rootScope.stateHistory.push({
-					fromState : fromState,
-					fromParams : fromParams
-				});
-			}
-		}
-	})
-
 	$scope.back = function(){
 		$rootScope.isHistory = true;
 		if($rootScope.stateHistory.length != 0){
