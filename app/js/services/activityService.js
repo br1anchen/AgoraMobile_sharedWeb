@@ -4,7 +4,7 @@
 
 angular.module('app.activityService',['app.storageService','app.httpService','app.appService']).
 
-factory('ActivityService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
+factory('ActivityService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in ActivityService
 	var apiUser = AppService.getBaseURL() +  "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
@@ -188,4 +188,4 @@ factory('ActivityService',['$log','$q','StorageService','HttpService','AppServic
 			getAppendIncrement = increment;
 		}
 	}
-}])
+})
