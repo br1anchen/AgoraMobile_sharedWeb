@@ -1,6 +1,8 @@
-angular.module('app.contentService',['app.messageBoardService','app.documentService','app.wikiPageService']).
-factory('ContentService',function($log,$rootScope,$q,MessageBoardService,DocumentService,WikiPageService){
+angular.module('app.contentService',['app.messageBoardService','app.documentService','app.wikiPageService','app.activityService']).
+factory('ContentService',function($log,$rootScope,$q,MessageBoardService,DocumentService,WikiPageService,ActivityService){
 		
+		var activityDeffer;
+
 		var messageBoardCDeffer;
 
 		var messageBoardTDeffer;
@@ -17,6 +19,8 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 
 		//Hooking up promises other views can use
 		function buildPromises(){
+			activityDeffer = $q.defer();
+
 			messageBoardCDeffer = $q.defer();
 			
 			messageBoardTDeffer = $q.defer();
@@ -33,6 +37,9 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 		}
 
 	return {
+		getActivitiesPromise : function(){
+			return activityDeffer.promise;
+		},
 		getMBCPromise : function(){
 			return messageBoardCDeffer.promise;
 		},
@@ -73,6 +80,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			)
 			//Setting up the group promise
 			$q.all([
+				activityDeffer.promise,
 				messageBoardDeffer.promise,
 				wikiDeffer.promise,
 				documentsDeffer.promise
@@ -86,6 +94,14 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 				}
 			)
 
+			//Loading activities for this group
+			ActivityService.getActivities(group,30).then(
+				function(res){
+					activityDeffer.resolve(res);
+				},function(err){
+					activityDeffer.reject(err)
+				}
+			)
 			//Loading all messageBoard content
 			//Loading all categories
 			MessageBoardService.getCategories(group)
@@ -122,27 +138,23 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 				}
 			)
 			//Loading documents
-			.then(function(){
-				DocumentService.getDirectory(group,0).then(
-					function(res){
-						documentsDeffer.resolve(res);
-					},
-					function(err){
-						documentsDeffer.reject(err);
-					}
-				)
-			})
+			DocumentService.getDirectory(group,0).then(
+				function(res){
+					documentsDeffer.resolve(res);
+				},
+				function(err){
+					documentsDeffer.reject(err);
+				}
+			)
 			//Loading wikiPages
-			.then(function(){
-				WikiPageService.getWikiContentTree(group).then(
-					function(res){
-						wikiDeffer.resolve(res);
-					},
-					function(err){
-						wikiDeffer.reject(err);
-					}
-				)
-			})
+			WikiPageService.getWikiContentTree(group).then(
+				function(res){
+					wikiDeffer.resolve(res);
+				},
+				function(err){
+					wikiDeffer.reject(err);
+				}
+			)
 			
 			return groupDeffer.promise;
 		}

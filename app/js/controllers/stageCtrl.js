@@ -56,43 +56,28 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                 deffer.resolve();
             })
         }
+        ContentService.loadGroupContent($scope.currentGroup);
         return deffer.promise;
     }
     $scope.openGroup = function(group){
         var deffer = $q.defer();
 
-        $scope.changeGroup().then(
-            function(){
-                //When group is present we load the activities for this group
-                ActivityService.getActivities($scope.currentGroup,30).then(
-                    function(activitiesHolder){
-                        $scope.activitiesHolder = activitiesHolder;
-                        $scope.loading = false;
-                        if(activitiesHolder.activities.length == 0){
-                            $rootScope.$broadcast("notification","No activities");
-                        }
-                        deffer.resolve();
-                    },
-                    function(error){
-                        console.error("ActivityCtrl: getActivities() failed");
-                        $rootScope.$broadcast("notification","Get activities failed");
-                        $rootScope.$broadcast("notification","Are you online?");
-                        $scope.loading = false;
-                        deffer.reject();
-                    }
-                )
-                //After the activities are loaded, we try to load everything else in this group before the user click something.
-                .then(
-                    function(){
-                        ContentService.loadGroupContent($scope.currentGroup)
-                    }
-                )
+        $scope.changeGroup();
+        ContentService.getActivitiesPromise()
+        .then(
+            function(activitiesHolder){
+                $scope.activitiesHolder = activitiesHolder;
+                $scope.loading = false;
+                if(activitiesHolder.activities.length == 0){
+                    $rootScope.$broadcast("notification","No activities");
+                }
+                deffer.resolve();
             },
             function(err){
+                deffer.reject(err);
                 console.error("ActivityCtrl:Group not available");
                 $rootScope.$broadcast("notification","No groups");
                 $scope.loading = false;
-                deffer.reject(err);
             }
         )
         return deffer.promise;
