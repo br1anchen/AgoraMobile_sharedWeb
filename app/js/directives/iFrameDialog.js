@@ -1,4 +1,4 @@
-app.directive('iFrameDialog', function($dialog,$log) {
+app.directive('iFrameDialog', function($dialog,$log,UtilityService) {
 
     return {
         restrict: 'E',
@@ -10,45 +10,17 @@ app.directive('iFrameDialog', function($dialog,$log) {
         },
         controller:function($scope){
             $scope.launch = function(){
-                //Dialog options
-                $scope.opts = {
-                    backdrop: true,
-                    keyboard:true,
-                    backdropClick:true,
-                    template:
-                        '<button type="button" class="close" data-ng-click="close()" style="font-size:2.5em">x</button>'+
-                        '<div id="iFrameDialog">'+
-                            '<iframe onLoad="loaded()" src="'+$scope.url+'" seamless height="100%" width="100%" >'+
-                            '</iframe>'+
-                        '</div>'
-                    ,
-                    controller:function DialogCtrl($scope,dialog){
-                        $scope.close = function(result){
-                            cordova.exec(function(rep){
-                              console.log(rep);
-                            }, function(error) {
-                              console.log(error);
-                            }, "cookieManager","deleteCookies",[]);
-                            dialog.close(result);
-                        };
-                        var iframe = $(dialog.modalEl).find('iframe')[0];
-                        window.loaded=function (){
-                            
-                        }
-                    }
-                }
+                var ref = UtilityService.inAppBrowser.browser($scope.url);
+                ref.addEventListener('exit', function(){
+                    console.log('close feide login window');
 
-                var d = $dialog.dialog($scope.opts);
-                d.open().then(
-                    function(result){
-                        if(result){
-                            $log.log("Dialog closed with result");
-                        }else{
-                            $log.log("Dialog closed without result");
-                        }
-                        
-                    }
-                )
+                    cordova.exec(function(rep){
+                      console.log(rep);
+                    }, function(error) {
+                      console.log(error);
+                    }, "cookieManager","deleteCookies",[]);
+                
+                });
             }
         },
         template:
