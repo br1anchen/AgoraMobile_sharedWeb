@@ -30,7 +30,7 @@
 	text-align: center;
 }
 
-#feideDomainPciker{
+#feideDomainPciker{/*Add select button css style because the phonegap and android web render bug for select tag: http://stackoverflow.com/questions/14744437/html-select-box-not-showing-drop-down-arrow-on-android-version-4-0-when-set-with */
 	width: 30%;
 	display:inline-block;
 	height:20px;
