@@ -50,6 +50,15 @@
 	text-decoration: none !important;
 }
 
+#wiki #wikiPage .header .accordion-heading a:hover{
+	color: #0088cc !important;
+}
+
+#wiki #wikiPage #accordion-icon{
+	float: right;
+	line-height: 2em;
+}
+
 #wiki #wikiPage .header .accordion-inner{
 	padding: 0px;
 }

@@ -27,7 +27,8 @@
 		<accordion ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
 			<accordion-group >
 		        <accordion-heading>
-					{{wikiPageHolder.page.title}}<i class="icon-level-down"></i>
+					{{wikiPageHolder.page.title}}
+					<i id="accordion-icon" class="icon-level-down"></i>
 		        </accordion-heading>
 		        <div id="childrenPicker">
 		        	<div id="childrenPage" ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" 
