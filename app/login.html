@@ -10,6 +10,14 @@
 
             <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
         </p>
+        <div id="feideDomainDiv">Feide User Affiliation:
+            <select id="feideDomainPciker" ng-model="feideDomain">
+                <option value="nodomain">No Feide</option>
+                <option ng-repeat="a in affiliations" value="{{a.domain}}">
+                    {{a.name}}
+                </option>
+            </select>
+        </div>
         <input type="submit" value="Sign In"/>
     </form>
     

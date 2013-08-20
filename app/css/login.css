@@ -29,3 +29,11 @@
 #feideLoginDiv{
 	text-align: center;
 }
+
+#feideDomainPciker{
+	width: 30%;
+}
+
+#feideDomainDiv{
+	font-weight: bold;
+}
