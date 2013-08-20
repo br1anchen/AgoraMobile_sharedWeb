@@ -40,8 +40,16 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
    }
 
   $scope.logout = function(){
-    LoginService.logOut();
-    GroupService.clear();//Clears webstorage and runtime memory;
-    StorageService.clear();
+    LoginService.logOut().then(function(rep){
+      console.log(rep);
+      GroupService.clear();//Clears webstorage and runtime memory;
+      StorageService.clear();
+      $state.transitionTo('login');
+    },function(err){
+      console.log(err);
+      navigator.notification.alert("Log Out Error Occured", function(){
+      }, "Sorry", "I understand");
+    });
+
   }
 })

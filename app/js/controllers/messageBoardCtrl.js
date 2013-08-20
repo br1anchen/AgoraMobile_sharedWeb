@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams){
+app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams,$rootScope){
 
 	function renderCategories (){
 		$scope.loading = true;
@@ -29,6 +29,8 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 
 	//When this controller is loaded it loads data dependent on the state:
 	if($state.is('stage.messageBoard.categories')){
+		$rootScope.stateHistory = [];
+		$rootScope.isHistory = false;
 		renderCategories();
 	}
 
@@ -37,7 +39,6 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 	}
 
 	if($state.is('stage.messageBoard.messages')){
-		// console.log("transition to:" + JSON.stringify({categoryId:$stateParams.categoryId,threadId:$stateParams.threadId}));
 		renderMessages($scope.currentGroup.id,$stateParams.categoryId,$stateParams.threadId);
 	}
 
@@ -89,25 +90,18 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 	//Going back by swypeRight if we are in the messages page
 	$scope.$on('swipeRight',function(){
 		if($state.is('stage.messageBoard.messages')){
-			$scope.backToThread();
+			$scope.back();
 		}
 	})
 	//Methods used in the partials for navigating
 	$scope.showTreads = function (category) {
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.messageBoard.threads',{categoryId:category.categoryId});
 	}
 
 	$scope.showMessages = function (thread) {
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
 	}
 
-	$scope.backToCategory = function (){
-		console.log('back to message board home');
-		$state.transitionTo('stage.messageBoard.categories');
-	}
-
-	$scope.backToThread = function (){
-		console.log('back to Treads');
-		$state.transitionTo('stage.messageBoard.threads',{categoryId:$stateParams.categoryId})
-	}
 })

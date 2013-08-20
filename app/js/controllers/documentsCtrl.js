@@ -1,7 +1,9 @@
 'use strict';
-app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService','StorageService','UtilityService','AppService','$state','$stateParams',function($scope,$log,$timeout,$q,DocumentService,StorageService,UtilityService,AppService,$state,$stateParams){
+app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope){
 
 	function renderDirectory(){
+		console.log('render Root Folder Content');
+
 		$scope.loading = true;
 		DocumentService.getDirectory($scope.currentGroup,0).then(function(rep){
 			$scope.folderHolder = rep;
@@ -35,6 +37,8 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	if($state.is('stage.documents.root')){
+		$rootScope.stateHistory = [];
+		$rootScope.isHistory = false;
 		renderDirectory();
 	}
 
@@ -47,42 +51,40 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 	}
 
 	$scope.gotoFolder = function(folder){
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.folder',{folderId:folder.folderId});
 	}
 
 	$scope.fileDetail = function(file){
+		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
 
 	$scope.showFile = function(file){
 
-		var validUTI = UtilityService.iosUTI.getUTIByExtension(file.extension);
 		$scope.loading = true;
 
-		if(validUTI != 'noUti'){
+		if(file.ifSupport){
 			
 			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
 				$scope.loading = false;
-				cordova.exec(function(rep){
-								console.log(rep);
-							},function(err){
-								console.log(err);
-								navigator.notification.alert(
-	                                'Your device has no application to open this file',
-	                                function(){
-	                                	
-	                                },
-	                                'Agora Mobile',
-	                                'OK'
-	                            );
-							}, "ExternalFileUtil", "openWith",[encodeURI(dir), validUTI]);
+
+				navigator.notification.confirm('File Download Finish',function(buttonIndex){
+
+					switch(buttonIndex){
+						case 1:
+							$scope.openFile(dir,file.uti);
+						break;
+					}
+				},'Agora Mobile','Open File,Close');
+
 			},function(err){
 				console.log(err);
 				$scope.loading = false;
 				navigator.notification.alert(
                     'Failed to download file',
                     function(){
-                    	
+                    	$scope.fileHolder.file.offline = false;
                     },
                     'Agora Mobile',
                     'OK'
@@ -102,12 +104,56 @@ app.controller('DocumentsCtrl',['$scope','$log','$timeout','$q','DocumentService
 
 	}
 
-	$scope.toFolder = function(folderId){
-		if(folderId != 0){
-			$state.transitionTo('stage.documents.folder',{folderId:folderId});
-		}else{
-			$state.transitionTo('stage.documents.root');
-		}
+	$scope.openFile = function(fileDir,fileUTI){
+
+		cordova.exec(function(rep){
+			console.log(rep);
+		},function(err){
+			console.log(err);
+			navigator.notification.alert(
+                'Your device has no application to open this file',
+                function(){
+
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		}, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
 	}
+
+	$scope.deleteFile = function(file){
+		$scope.loading = true;
+		DocumentService.removeFile(file).then(function(rep){
+			$scope.loading = false;
+			navigator.notification.alert(
+                'File ' + file.title + ' deleted',
+                function(){
+                	
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		},function(err){
+			$scope.loading = false;
+			navigator.notification.alert(
+                'File ' + file.title + ' failed to delete',
+                function(){
+                	
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		});
+	}
+
+	$scope.$watch('fileHolder.file.offline',function(newVal,oldVal){
+		if(oldVal != undefined){
+			if(newVal != oldVal && newVal == true){
+				$scope.showFile($scope.fileHolder.file);
+			}else if(newVal != oldVal && newVal == false){
+				$scope.deleteFile($scope.fileHolder.file);
+			}
+		}
+	});
 	
-}])
+})

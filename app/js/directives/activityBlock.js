@@ -61,7 +61,7 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
             open = function(){
               //Fix to detect activities with multiple files. If the file name is actually multiple files, we will not find the file in local storage.
               //Then we open the folder
-              if(! StorageService.get('Group' + $scope.currentGroup + '_Folder' + $scope.activity.folderId + '_FileTitle:' + $scope.activity.fileName) ){
+              if(! StorageService.get('Group' + $scope.currentGroup.id + '_Folder' + $scope.activity.folderId + '_FileTitle:' + $scope.activity.fileName) ){
                 $state.transitionTo('stage.documents.folder',{folderId:$scope.activity.folderId});  
               }
               else{

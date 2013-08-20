@@ -17,40 +17,74 @@
 }
 
 #wiki .header{
-	border-bottom: 0.15em solid #BABABA;
-	line-height: 4em;
 	vertical-align: middle;
 	position: relative;
 }
-#wiki .clickableHeader{
-	color: #0088cc;
-}
-#wiki .clickableHeader .title{
-	text-decoration: underline;
-}
-#wiki #wikiPage .title{
+#wiki #wikiPage .header .title{
 	font-size: 2.5em;
 	font-weight: bold;
-	display: inline-block;
-	vertical-align: -webkit-baseline-middle;
+	background-color: #D1D1D1;
+	line-height: 2.5em;
 }
+
+#wiki #wikiPage .header .accordion{
+	margin-bottom: 0px !important;
+}
+
+#wiki #wikiPage .header .accordion-heading{
+	font-size: 2.5em;
+	line-height: 2em;
+	font-weight: bold;
+	background-color: #D1D1D1;
+}
+
+#wiki #wikiPage .header .accordion-heading a{
+	text-decoration: none !important;
+}
+
+#wiki #wikiPage .header .accordion-heading a:hover{
+	color: #0088cc !important;
+}
+
+#wiki #wikiPage #accordion-icon{
+	float: right;
+	line-height: 2em;
+}
+
+#wiki #wikiPage .header .accordion-inner{
+	padding: 0px;
+}
+
+#wiki #wikiPage #childrenPicker #childrenPage{
+	font-size: 1.8em;
+	border-bottom: 0.09em solid #BABABA;
+	width: 100%;
+	line-height: 2em;
+}
+
+#wiki #wikiPage #childrenPicker #childrenPage .iconHolder {
+	padding-left: 1em;
+	padding-right: 1em;
+	background-color: #D1D1D1;
+	position: absolute;
+	height: 100%;
+}
+#wiki #wikiPage #childrenPicker #childrenPage .text{
+	overflow: hidden;
+	color: #5b677d;
+	padding-left: 4em;
+	font-weight: bold;
+}
+
 #wiki .toChildren{
 	display: inline-block;
 	position: relative;
 	overflow: hidden;
 }
-#wiki .header select{
-	position: absolute;
-	opacity: 0.0;
-	width: 95%;
-	height: 95%;
-	right: 0;
-	top:0;
-	z-index:2;
-}
+
 #wiki #content{
 	text-align: left;
-	padding: 1em
+	padding: 1em;
 }
 
 #wiki #contentList .root{

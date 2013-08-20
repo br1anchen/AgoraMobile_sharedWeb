@@ -226,7 +226,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(wikiPageHolder.groupId == group.id){
+			if(wikiPageHolder.groupId == group.id && wikiPageHolder.page.title == title){
 				deffered.resolve(wikiPageHolder);
 				
 				//Updates in the background even if it has page localy

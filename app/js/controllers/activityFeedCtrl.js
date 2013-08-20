@@ -2,6 +2,8 @@
 
 app.controller('ActivityFeedCtrl',
 	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService){
+		$rootScope.stateHistory = [];
+		$rootScope.isHistory = false;
 		
 		$scope.$on('scrollableUpdate',function(){
 			$scope.loading = true;

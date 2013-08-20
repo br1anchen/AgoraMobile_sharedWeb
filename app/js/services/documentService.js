@@ -2,14 +2,14 @@
 
 //Document Service
 
-angular.module('app.documentService',['app.storageService','app.httpService','app.appService']).
+angular.module('app.documentService',['app.storageService','app.httpService','app.appService','app.utilityService']).
 
-factory('DocumentService',['$log','$q','StorageService','HttpService','AppService','$timeout',function ($log,$q,StorageService,HttpService,AppService,$timeout){
+factory('DocumentService',['$log','$q','StorageService','HttpService','AppService','$timeout','UtilityService',function ($log,$q,StorageService,HttpService,AppService,$timeout,UtilityService){
 
 	//class entity in DocumentService
 	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
 	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entries/repository-id/";
-	var SingleFileApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entry/group-id/";
+	var SingleFileApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entry/file-entry-id/";
 	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav";
 
 	var folderHolder = {
@@ -57,6 +57,12 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 	}
 
 	function JSON2File(json){
+		var validUTI = UtilityService.iosUTI.getUTIByExtension(json.extension);
+		var support = true;
+		if(validUTI == 'noUti'){
+			support = false;
+		}
+
 		return {
 			companyId: json.companyId,
 			createDate: moment(json.createDate).format('DD/MM/YYYY, HH:mm:ss'),
@@ -64,6 +70,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			extension: json.extension,
 			fileEntryId: json.fileEntryId,
 			folderId: json.folderId,
+			folderName : StorageService.get('Group' + json.groupId + '_Folder' + json.folderId).name,
 			groupId: json.groupId,
 			mimeType: json.mimeType,
 			modifiedDate: moment(json.modifiedDate).format('DD/MM/YYYY, HH:mm:ss'),
@@ -77,7 +84,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			versionUserId: json.versionUserId,
 			versionUserName: json.versionUserName,
 			localFileDir: '',
-			remoteFileDir: ''
+			remoteFileDir: '',
+			offline: false,
+			ifSupport: support,
+			uti: validUTI
 		}
 	}
 
@@ -173,6 +183,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 						if(storedFile){
 							if(storedFile.version == file.version){
 								file.localFileDir = storedFile.localFileDir;
+								file.offline = storedFile.offline;
 							}
 							file.remoteFileDir = storedFile.remoteFileDir;
 						}else{
@@ -201,6 +212,21 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		$q.all(promiseObjects).then(function(){
 			setFolder(gId,fId,StorageService.get('Group' + gId + '_Folder' + fId));
 			deffered.resolve(folderHolder);
+		});
+
+		return deffered.promise;
+	}
+
+	function fetchFileInfo(file){
+
+		var deffered = $q.defer();
+
+		var promise = HttpService.request(SingleFileApiUrl + file.fileEntryId,'','GET').then(function(rep){
+			var file = JSON2File(rep.data);
+
+			deffered.resolve(file);
+		},function(err){
+			deffered.reject('documentService.fetchFileInfo: file failed to fetch');
 		});
 
 		return deffered.promise;
@@ -271,61 +297,116 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			var deffered = $q.defer();
 			var downloadURL= "";
 
-			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
-			    function(filesDir){
-			        var fileTransfer = new FileTransfer();
+			fetchFileInfo(file).then(function(f){
+				
+				var storedFile = StorageService.get('Group' + f.groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);
 
-					var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
+				if(f.version <= storedFile.version && storedFile.offline == true){
+					console.log('use downloaded file');
 
-					var localfileDir = file.remoteFileDir.replace(/\s+/g,'');
-					if(localfileDir.split('.').pop() == localfileDir){
-						localfileDir = localfileDir + '.' + file.extension;
-					}
+					deffered.resolve(storedFile.localFileDir);
+				
+				}else{
 
-					fileTransfer.download(
-					    uri,
-					    filesDir.fullPath + '/' + file.groupId + localfileDir,
-					    function(entry) {
-					    	
-					        console.log("download complete: " + entry.fullPath);
+					rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
+					    function(filesDir){
+					        var fileTransfer = new FileTransfer();
 
-					        downloadURL = entry.fullPath;
+							var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
 
-							file.localFileDir = entry.fullPath;
-							storeFile(file.groupId,file.folderId,file.title,file);
-					    	
-					    	$timeout(function(){
-					    		deffered.resolve(downloadURL);
-					    	});
+							var localFileDir = file.remoteFileDir.replace(/\s+/g,'');
+							if(localFileDir.split('.').pop() == localFileDir){
+								localFileDir = localFileDir + '.' + file.extension;
+							}
+
+							fileTransfer.download(
+							    uri,
+							    filesDir.fullPath + '/' + file.groupId + localFileDir,
+							    function(entry) {
+							    	
+							        console.log("download complete: " + entry.fullPath);
+
+							        downloadURL = entry.fullPath;
+
+									file.localFileDir = entry.fullPath;
+									file.offline = true;
+									setFile(file.groupId,file.folderId,file);
+									storeFile(file.groupId,file.folderId,file.title,file);
+							    	
+							    	$timeout(function(){
+							    		deffered.resolve(downloadURL);
+							    	});
+							    },
+							    function(error) {
+							        console.log("download error source " + error.source);
+							        console.log("download error target " + error.target);
+							        console.log("upload error code" + error.code);
+
+							        $timeout(function(){
+							    		deffered.reject("file download failed");
+							    	});
+							        
+							    },
+							    false,
+							    {
+							        headers: {
+							            "Authorization": StorageService.get('User').auth
+							        }
+							    }
+							);
 					    },
-					    function(error) {
-					        console.log("download error source " + error.source);
-					        console.log("download error target " + error.target);
-					        console.log("upload error code" + error.code);
+					    function(error){
+					        console.log("ERROR getDirectory");
+					        console.log(error);
 
 					        $timeout(function(){
-					    		deffered.reject("file download failed");
+					    		deffered.reject("Directory created failed");
 					    	});
 					        
-					    },
-					    false,
-					    {
-					        headers: {
-					            "Authorization": StorageService.get('User').auth
-					        }
 					    }
 					);
-			    },
-			    function(error){
-			        console.log("ERROR getDirectory");
-			        console.log(error);
+				}
+			},function(err){
+				deffered.reject(err);
+			});
+			
+			return deffered.promise;
+		},
 
-			        $timeout(function(){
-			    		deffered.reject("Directory created failed");
-			    	});
-			        
-			    }
-			);
+		removeFile : function(file){
+			var deffered = $q.defer();
+			var fileURI;
+
+			if(file.localFileDir.indexOf('/') == 0){// set file uri path for different os
+				fileURI = 'file://' + file.localFileDir; //for ios
+			}else{
+				fileURI = file.localFileDir; //for android
+			}
+			console.log(fileURI);
+			window.resolveLocalFileSystemURI(encodeURI(fileURI), function(fileEntry){
+
+    			fileEntry.remove(function(entry){
+
+    				file.localFileDir = '';
+					file.offline = false;
+					setFile(file.groupId,file.folderId,file);
+					storeFile(file.groupId,file.folderId,file.title,file);
+    				
+    				$timeout(function(){
+		    			deffered.resolve("delete file success");
+		    		});
+    			}, function(err){
+    				$timeout(function(){
+		    			deffered.reject("ERROR getFileEntry");
+		    		});
+    			});
+
+			},function(evt){
+				console.log('resolveLocalFileSystemURI failed: code '+ evt.code);
+		        $timeout(function(){
+		    		deffered.reject("ERROR getFileEntry");
+		    	});
+			});
 
 			return deffered.promise;
 		}

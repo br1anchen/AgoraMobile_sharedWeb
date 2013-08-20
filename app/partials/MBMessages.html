@@ -1,7 +1,7 @@
 <div id="messages" class="expand">
 
 	<div id="fixedContentHeader" data-ng-show="showConentHeader">
-		<div id="backBtn" class="leftHolder" data-ng-click="backToThread()">
+		<div id="backBtn" class="leftHolder" data-ng-click="back()">
 			<div class="content">
 				<i class="icon-chevron-left"></i></i><span class="text"></span>
 			</div>
@@ -31,12 +31,12 @@
 					Author {{message.userName}}
 				</div>
 			</div>
-			<div class="content" ng-bind-html-unsafe="message.body">
+			<div class="content" html-content content="message.body" group="currentGroup">
 			</div>
 			<div class="meta">
-					{{message.modifiedDate}}
+				{{message.modifiedDate}}
 			</div>
 		</div>
-		<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
 	</div>
+	<alert id="noThread" style="visibility:hidden">No Message in this Thread</alert>
 </div>
