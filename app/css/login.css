@@ -32,6 +32,14 @@
 
 #feideDomainPciker{
 	width: 30%;
+	display:inline-block;
+	height:20px;
+	padding:0px 6px;
+	margin-bottom:10px;
+	font-size:14px;
+	line-height:16px;
+	color:#555555;
+	vertical-align:middle;
 }
 
 #feideDomainDiv{
