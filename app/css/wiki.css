@@ -9,21 +9,13 @@
 	border-image: none;
 }
 
-#wiki .folder:first-child>span>.text{
-	background-color: #D1D1D1
-}
-
-
 #wiki .openList   { display: block; }
 #wiki .closeList { display: none;  }
 
 #wiki .firstWikiNode{
 	display: block;
 }
-#wiki ul{
-	margin-left: 2;
-	list-style-type: none;
-}
+
 #wiki .header{
 	border-bottom: 0.15em solid #BABABA;
 	line-height: 4em;
@@ -66,12 +58,14 @@
 }
 
 #wiki .iconHolder {
-	padding-left: 1em;
-	padding-right: 1em;
 	background-color: #D1D1D1;
 	position: absolute;
+	width:2em;
 }
-#wiki #contentList .leafTitle{
+#wiki .iconHolder i{
+	padding-left: 0.7em;
+}
+#wiki #contentList .leaf{
 	height: 2em;
 	line-height: 2em;
 	font-size:2em;
@@ -81,26 +75,41 @@
 	border-bottom: 0.09em solid #BABABA;
 	background-color: white;
 }
-#wiki #contentList .leafTitle .text{
+#wiki #contentList .leaf .titleHolder{
 	overflow: hidden;
 	height: 2em;
 	color: #5b677d;
-	padding-left: 4em;
+	margin-left: 2em;
+	position: relative;
+}
+#wiki #contentList .leaf.parent .titleHolder{
+	margin-right: 2.1em;
+}
+#wiki #contentList .leaf .title{
 	font-weight: bold;
+	white-space: nowrap;
+	padding-left:0.5em;
 }
 #wiki .unfold{
-	width: 50px;
-	background-color:#D1D1D1;
-	position: absolute;
 	right: 0;
 	top:0;
 }
-#wiki .unfoldTransition{
-	width: 50px;
+#wiki .titleTransition{
+	width: 2em;
 	height:2em;
 	position: absolute;
-	right: 50px;
-	top:0;
+	right: 0em;
+	top:0em;
+    background-image: -webkit-gradient(
+    	linear,
+    	right top, left top,
+    	from(rgba(255, 255, 255, 1.0)),
+    	to(rgba(255, 255, 255, 0)) 
+	);
+
+}
+
+#wiki .parent .titleTransition{
     background-image: -webkit-gradient(
     	linear,
     	right top, left top,
@@ -128,6 +137,6 @@
 	float: left;
 }
 
-
-#wiki .folder:{
+#wiki #contentList .leaf.parent{
+	background-color: #D1D1D1
 }

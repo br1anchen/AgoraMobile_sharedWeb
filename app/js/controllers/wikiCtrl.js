@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService){
-
+app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService,$timeout){
+	$scope.wikiTreeHolder = {};
 
 	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 		if(fromState.name == 'stage.activityFeed'){
@@ -25,8 +25,10 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 	function renderContentList(){
 		$scope.loading = true;
 		WikiPageService.getWikiContentTree($scope.currentGroup).then(function(wikiTreeHolder){
-			$scope.wikiTreeHolder = wikiTreeHolder;
-			$scope.loading = false;
+			$timeout(function(){
+				$scope.wikiTreeHolder = wikiTreeHolder;
+				$scope.loading = false;
+			})
 		});
 	}
 
@@ -68,8 +70,8 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 		renderWikiPage($scope.currentGroup,$stateParams.nodeId,$stateParams.title);
 	}
 
-	$scope.showWiki = function (nId,t){
-		$state.transitionTo('stage.wiki.page',{nodeId:nId,title:t});
+	$scope.showWiki = function (t){
+		$state.transitionTo('stage.wiki.page',{nodeId:$scope.wikiTreeHolder.mainNode.nodeId,title:t});
 	}
 
 	$scope.showList = function (){
@@ -80,28 +82,5 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 		if(t != 'default'){
 			$state.transitionTo('stage.wiki.page',{nodeId:$stateParams.nodeId,title:t});
 		}
-	}
-
-	$scope.openChildren = function(node){
-		if(node.title == 'Tavle - Start') return;
-		var cUl = 'cUl_' + node.title;
-		var nIcon = 'icon_' + node.title;
-
-		var ulElement  = $(document.getElementById(cUl));
-      	var iconElement = $(document.getElementById(nIcon));
-
-    	if (ulElement.hasClass('closeList')){
-    		ulElement.removeClass('closeList').addClass('openList');
-       		iconElement.removeClass('icon-folder-close-alt').addClass('icon-folder-open-alt');
-       		var i = $(ulElement.parent().find('.leafTitle')[0]).find('.unfold>');
-       		i.removeClass('icon-level-down');
-       		i.addClass('icon-level-up');
-    	} else {
-    		ulElement.removeClass('openList').addClass('closeList');
-       		iconElement.removeClass('icon-folder-open-alt').addClass('icon-folder-close-alt');
-       		var i = $(ulElement.parent().find('.leafTitle')[0]).find('.unfold>');
-       		i.removeClass('icon-level-up');
-       		i.addClass('icon-level-down');
-    	}
 	}
 })

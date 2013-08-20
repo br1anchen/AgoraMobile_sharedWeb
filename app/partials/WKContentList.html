@@ -8,53 +8,7 @@
         
     </div>
 
-    <script type="text/ng-template"  id="nestList">
-    	<div 
-            class="leafTitle" 
-            data-ng-class="{folder:node.childrenNodes.length > 0,page:node.childrenNodes.length == 0}"
-        >
-            <span data-ng-click="showWiki(wikiTreeHolder.mainNode.nodeId,node.title)">
-                <div class="iconHolder">
-                    <i 
-                        id="icon_{{node.title}}" 
-                        data-ng-class="{'icon-folder-open-alt' : node.title=='Tavle - Start', 'icon-folder-close-alt':node.title!='Tavle - Start'}"    
-                        ng-show="node.childrenNodes.length > 0">
-                    </i>
-                    <i class="icon-file-text-alt" ng-show="node.childrenNodes.length == 0"></i>
-                </div>
-
-                <div class="text" >
-                    <span class="title" data-ng-bind="node.title"></span>
-                </div>
-            </span>
-
-            <div 
-                class="unfold" 
-                data-ng-show="node.childrenNodes.length > 0"
-                data-ng-click="openChildren(node)"
-            >
-                <i class="detailBtn" data-ng-class="{'icon-level-down' : node.title!='Tavle - Start'}"    ></i>
-            </div>
-            <div class="unfoldTransition" ng-show="node.childrenNodes.length > 0" >
-            </div>
-        </div>
-        <ul 
-            id="cUl_{{node.title}}" 
-            class="closeList leaf" 
-            ng-class="{firstWikiNode : node.title=='Tavle - Start'}"
-        >
-            <li 
-                data-ng-class="{folder:node.childrenNodes.length > 0}" 
-                ng-repeat="node in node.childrenNodes" 
-                ng-include="'nestList'" 
-                id="node_{{node.title}}">
-            </li>
-        </ul>
-    </script>
-
     <div id="contentList" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
-        <ul class="openList root">
-            <li ng-repeat="node in wikiTreeHolder.contentTree" ng-include="'nestList'" id="node_{{node.title}}"></li>
-        </ul>
+        <tree data-ng-repeat="root in wikiTreeHolder.contentTree" root="root" click="showWiki(title)" open="'true'"></tree>
     </div>
 </div>
