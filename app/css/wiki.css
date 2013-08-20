@@ -140,7 +140,6 @@
     	from(rgba(255, 255, 255, 1.0)),
     	to(rgba(255, 255, 255, 0)) 
 	);
-	border-image:-webkit-linear-gradient( top, rgba(186,186,186,0) 0%, rgba(186,186,186,0.8) 50%, rgba(186,186,186,0.0) 100%) 1 100%;
 }
 
 #wiki .parent .titleTransition{
@@ -150,6 +149,10 @@
     	from(rgba(209, 209, 209, 1.0)),
     	to(rgba(209, 209, 209, 0))
 	);
+	border-image:-webkit-linear-gradient( top, rgba(186,186,186,0) 0%, rgba(186,186,186,0.8) 50%, rgba(186,186,186,0.0) 100%) 1 100%;
+	border-left-width:0px;
+	border-right-width: 0.1em;
+
 }
 
 #wiki #listBtn{
