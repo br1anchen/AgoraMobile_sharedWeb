@@ -1,3 +1,7 @@
+#login{
+
+}
+
 #login form{
 	margin-top: 1%; 
 	text-align: center;
@@ -15,7 +19,8 @@
 
 #login #loginMessage{
 	text-align: center;
-	width: 180px;
+	width: 75%;
+	height: 4em;
 	margin: 5px auto;
 	padding: 5px auto;
 }
@@ -28,6 +33,10 @@
 
 #feideLoginDiv{
 	text-align: center;
+	height:3em;
+	padding-top: 1em;
+	border: 1px solid #e5e5e5;
+	border-width: 1px 0 0 0;
 }
 
 #feideDomainPciker{/*Add select button css style because the phonegap and android web render bug for select tag: http://stackoverflow.com/questions/14744437/html-select-box-not-showing-drop-down-arrow-on-android-version-4-0-when-set-with */
@@ -48,4 +57,56 @@
 
 #login .icon-info-sign{
 	margin-right: 5px;
+}
+
+#login #affiliationPicker{
+	text-align: center;
+	color:black;
+	font-size: 14px;
+}
+#login .accordion-toggle{
+	font-size: 14px;
+	color: #333333;
+}
+#login .accordion-toggle .header{
+	font-weight: bold;
+}
+#login #affiliationPicker #affiliationsHolder ul{
+	list-style: none;
+	width: 100%;
+}
+#login #affiliationPicker #affiliationsHolder ul #noAffiliation{
+	/*border: 1px solid #e5e5e5;
+	border-width: 1px 0 0 0;*/
+	font-style: italic;
+}
+#login #affiliationPicker #affiliationsHolder li{
+	height: 1.5em;
+	line-height: 1.5em;
+	font-size:1.5em;
+	position: relative;
+}
+#login #affiliationPicker #affiliationsHolder li span{
+	text-decoration: underline;
+}
+
+#login .accordion-group {
+	border-width: 0px 0px 1px 0px;
+}
+#login .accordion-inner, #login ul{
+	padding:0;
+	margin:0;
+}
+#login .accordion-inner {
+	border-width: 0px 0px 1px 0px;
+}
+#login #feideLogin{
+	float: left;
+	margin-left: 1em;
+}
+#login #regularLogin{
+	float: right;
+	margin-right: 1em;
+}
+#login footer {
 }

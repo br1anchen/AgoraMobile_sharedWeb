@@ -60,6 +60,15 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
 
+	$scope.open = function(){
+		if($scope.fileHolder.file.offline){
+			$scope.openFile($scope.fileHolder.file.localFileDir , $scope.fileHolder.file.uti);	
+		}
+		else{
+			$scope.showFile($scope.fileHolder.file);
+		}
+	}
+
 	$scope.showFile = function(file){
 
 		$scope.loading = true;
