@@ -63,6 +63,30 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       getFeideLoginUrl : function(){
         return HttpService.request(feideRequestUrl,'','GET');
       },
+
+      getAffiliation : function(){
+        var deffered = $q.defer();
+
+        var affiliations = [//dumy code for feide user domain
+          {
+            name: 'NTNU',
+            domain: 'ntnu.no'
+          },
+          {
+            name: 'UNINETT AS',
+            domain: 'uninett.no'
+          },
+          {
+            name: 'HiST',
+            domain: 'hist.no'
+          }
+        ];
+
+        deffered.resolve(affiliations);
+
+        return deffered.promise;
+      },
+
       logOut : function(){
         console.log("Log out "+user.screenName);
 

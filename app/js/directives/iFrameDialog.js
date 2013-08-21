@@ -26,7 +26,7 @@ app.directive('iFrameDialog', function($dialog,$log,UtilityService) {
         template:
             '<button id="feideBtn" data-ng-click="launch()">'+
                 '<i class="icon-info-sign icon-2x"></i>'+
-                ' Feide user click here to set Agora account info'+
+                '{{lable}}' +
             '</button>'
         ,
         link: function(scope, element, attrs) {
