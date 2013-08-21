@@ -19,7 +19,7 @@
 </div>
 
 <div id="DCFileDetail" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
-	<div class="title" data-ng-click="open()">{{fileHolder.file.title}}</div>
+	<div class="title" data-ng-click="showFile(fileHolder.file)">{{fileHolder.file.title}}</div>
 	<div class = "content">
 		<div ng-show="fileHolder.file.ifSupport">
 			Available Offline <div btn-switch ng-model="fileHolder.file.offline"></div>
@@ -40,6 +40,6 @@
 			Last Modified by: {{fileHolder.file.versionUserName}}<br />
 			At {{fileHolder.file.modifiedDate}}
 		</p>
-		<button class="btn" data-ng-click="open()">Open File</button>
+		<button class="btn" data-ng-click="showFile(fileHolder.file)">Open File</button>
 	</div>
 </div>

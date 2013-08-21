@@ -3,8 +3,12 @@
 	font-size:1.5em;
 	background-color: #D1D1D1;
 }
+#settings .detailsContent{
+	position: relative;
+}
 #settings .detailsContent label{
 	padding:1em;
+	text-align: center;
 }
 #settings .instance{
 	border-bottom: 0.15em solid #BABABA;
@@ -13,5 +17,13 @@
 #settings input{
 	right:1em;
 	position:absolute;
-	
+}
+#settings button{
+	width:100%;
+	padding:1em;
+}
+#settings .switch{
+	position:absolute;
+	right:1em;
+	top:1em;
 }

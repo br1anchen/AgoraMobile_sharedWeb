@@ -43,7 +43,7 @@
 				<span class="text">FILES</span>
 			</li>
 			<li class="content" data-ng-repeat="file in folderHolder.folder.files" >
-				<span class="row" data-ng-click="showFile(file)">
+				<div class="row" data-ng-click="showFile(file)">
 					<div class="rowIcon" >
 						<div class="iconHolder">
 							<i class="icon-file-alt icon-2x"></i>
@@ -53,7 +53,7 @@
 					<div class="textHolder" >
 							<span class="rowText">{{file.title}}</span>
 					</div>
-				</span>
+				</div>
 				<div class="fileInfoTransition"></div>
 				<div class="fileInfo" data-ng-click="fileDetail(file)">
 					<i class="icon-info icon-2x" class="detailBtn" ></i>

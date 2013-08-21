@@ -59,48 +59,55 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
-
-	$scope.open = function(){
-		if($scope.fileHolder.file.offline){
-			$scope.openFile($scope.fileHolder.file.localFileDir , $scope.fileHolder.file.uti);	
-		}
-		else{
-			$scope.showFile($scope.fileHolder.file);
-		}
-	}
-
-	$scope.showFile = function(file){
-
-		$scope.loading = true;
-
-		if(file.ifSupport){
-			
+	$scope.cachFile = function(file){
+		if(file.offline){
+			$scope.loading = true;
 			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
 				$scope.loading = false;
-
 				navigator.notification.confirm('File Download Finish',function(buttonIndex){
-
 					switch(buttonIndex){
 						case 1:
-							$scope.openFile(dir,file.uti);
+							openFile(dir,file.uti);
 						break;
 					}
 				},'Agora Mobile','Open File,Close');
-
 			},function(err){
 				console.log(err);
 				$scope.loading = false;
 				navigator.notification.alert(
                     'Failed to download file',
                     function(){
-                    	$scope.fileHolder.file.offline = false;
                     },
                     'Agora Mobile',
                     'OK'
                 );
 			});
+		}
+	}
+
+	$scope.showFile = function(file){
+		if(file.ifSupport){
+			if(file.offline){
+				openFile(file.localFileDir , file.uti);	
+			}
+			else{
+				$scope.loading = true;
+				DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+					$scope.loading = false;
+					openFile(dir,file.uti);
+				},function(err){
+					console.log(err);
+					$scope.loading = false;
+					navigator.notification.alert(
+	                    'Failed to download file',
+	                    function(){
+	                    },
+	                    'Agora Mobile',
+	                    'OK'
+	                );
+				});
+			}
 		}else{
-			$scope.loading = false;
 			navigator.notification.alert(
                 'This file type is not support to open',
                 function(){
@@ -112,8 +119,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		}
 
 	}
-
-	$scope.openFile = function(fileDir,fileUTI){
+	var openFile = function(fileDir,fileUTI){
 
 		cordova.exec(function(rep){
 			console.log(rep);
@@ -158,7 +164,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	$scope.$watch('fileHolder.file.offline',function(newVal,oldVal){
 		if(oldVal != undefined){
 			if(newVal != oldVal && newVal == true){
-				$scope.showFile($scope.fileHolder.file);
+				$scope.cachFile($scope.fileHolder.file);
 			}else if(newVal != oldVal && newVal == false){
 				$scope.deleteFile($scope.fileHolder.file);
 			}
