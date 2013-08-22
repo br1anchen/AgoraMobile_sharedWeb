@@ -12,6 +12,8 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             });
         }
 
+        $rootScope.root = (toState.name == 'stage.documents.root' || toState.name == 'stage.wiki.contentlist' || toState.name == 'stage.messageBoard.categories') ? true : false;
+
     })
 
     //goback history state function

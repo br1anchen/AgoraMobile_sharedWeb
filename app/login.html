@@ -7,9 +7,11 @@
             <accordion-group is-open="$parent.affiliationOpen">
                 <accordion-heading>
                     <span class="header">
-                        Affiliation
-                        <i class="icon-level-down" data-ng-hide="affiliationOpen"></i>
-                        <i class="icon-level-up" data-ng-show="affiliationOpen"></i>
+                        <span class="text" >Affiliation</span>
+                        <span class="iconHolder">
+                            <i class="icon-caret-down" data-ng-hide="affiliationOpen"></i>
+                            <i class=" icon-caret-up" data-ng-show="affiliationOpen"></i>
+                        </span>
                     </span>
                     <br/>
                     {{affiliationName}}

@@ -1,7 +1,3 @@
-#login{
-
-}
-
 #login form{
 	margin-top: 1%; 
 	text-align: center;
@@ -71,6 +67,10 @@
 #login .accordion-toggle .header{
 	font-weight: bold;
 }
+#login .accordion-toggle .header:hover{
+	font-weight: bold;
+	text-decoration: none !important;
+}
 #login #affiliationPicker #affiliationsHolder ul{
 	list-style: none;
 	width: 100%;
@@ -110,3 +110,4 @@
 }
 #login footer {
 }
+

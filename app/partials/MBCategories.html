@@ -1,14 +1,28 @@
 <div id="categories" class="expand">
-	<div id="fixedContentHeader" data-ng-show="showConentHeader">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader" data-ng-class="{'noNav':root}" >
 
-	        <overflow-banner class="currentGroup" duration="3000" data-ng-click="goToActivityFeed()">
-	            {{currentGroup.name}}
-	            <div class="fadeContentRight"></div>
-	        </overflow-banner>
+        <div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="currentCategory">
+			<div class="content">
+				<i class="icon-chevron-left"></i></i>
+				<!-- <span class="text">
+					{{folderHolder.folder.name}}
+				</span> -->
+			</div>
+		</div>
+	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
+	    	<div class="fadeSuroundingsLeft"></div>
+	    	
+	    	<div class="currentGroup">
+	    		<span>
+	    			{{currentGroup.name}} > {{currentCategory}}
+	        	</span>
+	    	</div>
+	    </div>
+	    <div class="fadeContentRight"></div>
 	    
 	</div>
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
-		<div class="category instance" data-ng-repeat="category in categoriesHolder.categories" id="MBcategory" data-ng-click="showTreads(category)">
+		<div class="category instance" data-ng-repeat="category in rootCategory" id="MBcategory" data-ng-click="openCategory(category)">
 			
 			<div class="header">
 				<div class="title">{{category.name}}</div>
@@ -21,7 +35,6 @@
 			</div>
 			<div class="meta">
 				<span>Threads: {{category.threadCount}},</span>
-				<span>Messages: {{category.messageCount}}</span>
 			</div>
 		</div>
 	</div>

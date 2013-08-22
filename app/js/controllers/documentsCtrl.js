@@ -3,7 +3,6 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	function renderDirectory(){
 		console.log('render Root Folder Content');
-
 		$scope.loading = true;
 		DocumentService.getDirectory($scope.currentGroup,0).then(function(rep){
 			$scope.folderHolder = rep;

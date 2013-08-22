@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageService,UtilityService,StorageService,$rootScope){
-	
+	$scope.childrenOpen = false;
 	function renderContentList(){
 		$scope.loading = true;
 		WikiPageService.getWikiContentTree($scope.currentGroup).then(function(wikiTreeHolder){
@@ -32,7 +32,8 @@ app.controller('WikiCtrl',function($scope,$log,$state,$stateParams,WikiPageServi
 
 	$scope.showWiki = function (t){
 		$rootScope.isHistory = false;
-		$state.transitionTo('stage.wiki.page',{nodeId:$scope.wikiTreeHolder.mainNode.nodeId,title:t});
+		var nodeId = $scope.wikiTreeHolder ? $scope.wikiTreeHolder.mainNode.nodeId : $scope.wikiPageHolder.nodeId;
+		$state.transitionTo('stage.wiki.page',{nodeId:nodeId,title:t});
 	}
 
 	$scope.showList = function (){

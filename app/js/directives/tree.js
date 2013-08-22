@@ -17,20 +17,23 @@ app.directive("tree", function($compile) {
             }
         },
         template:
-            '   <div class="leaf" data-ng-class="{\'parent\' : parent}" >'+
-            '       <div data-ng-click="click(root.title)">'+
-            '           <span class="iconHolder">'+
-            '               <i class="icon-file-text-alt"></i>'+
+            '   <div class="leaf" data-ng-class="{\'parent\' : parent,\'notParent\' : !parent}" >'+
+            '       <div>'+
+            '           <span class="iconHolder" data-ng-show="parent" data-ng-click="toggleChildren(root.title)" >'+
+            // '           <span class="iconHolder">'+
+            // '               <i class="icon-file-text-alt"></i>'+
+            '              <i class="detailBtn icon-caret-down" ></i>'+
+            '              <i class="detailBtn icon-caret-up" data-ng-show="open"></i>'+
             '           </span>'+
-            '           <div class="titleHolder" >'+
+            '           <div class="titleHolder" data-ng-click="click(root.title)">'+
             '               <span class="title" data-ng-bind="root.title"></span>'+
             '               <div class="titleTransition"></div>'+
             '           </div>'+
             '       </div>'+
-            '       <span class="unfold iconHolder" data-ng-show="parent" data-ng-click="toggleChildren(root.title)">'+
-            '           <i class="detailBtn icon-level-down" data-ng-hide="open"></i>'+
-            '           <i class="detailBtn icon-level-up" data-ng-show="open"></i>'+
-            '       </span>'+
+            // '       <span class="unfold iconHolder" data-ng-show="parent" data-ng-click="toggleChildren(root.title)">'+
+            // '           <i class="detailBtn icon-carret-down" data-ng-hide="open"></i>'+
+            // '           <i class="detailBtn icon-carret-up" data-ng-show="open"></i>'+
+            // '       </span>'+
             '   </div>'+
             '   <ul data-ng-show="open">' + 
             '       <li ng-repeat="child in root.childrenNodes">' + 

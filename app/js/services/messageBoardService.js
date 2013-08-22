@@ -43,10 +43,28 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			name : json.name,
 			parentCategoryId : json.parentCategoryId,
 			threadCount : json.threadCount,
+			lastPostDate:json.lastPostDate,
 			userId : json.userId,
 			userName : json.userName,
 			threadIds : []
 	    }
+    }
+    function addChildren(node,candidates){
+    	node.children = [];
+    	//Adding immediate children if present
+    	for(var i = 0 ; i < candidates.length ; i++){
+    		if(candidates[i].parentCategoryId == node.categoryId){
+    			node.children.push(candidates.splice(i,1));
+    		}
+    	}
+    	//Reqursive calls after children has been removed from candidates
+    	for(var i = 0 ; i < node.children.length ; i++){
+    		addChildren(node.children[i], candidates);
+    	}
+    	return node;
+    }
+    function buildCategoryTree(categories){
+    	return addChildren({categoryId:0},categories):
     }
 
     function JSON2Thread(json){//parse json to thread obj
@@ -102,13 +120,14 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			userName : json.userName
     	}
     }
+
     //Sets the webstorage
     function storeCategories(gid,categories){
     	StorageService.store('Group' + gid + '_Categories',categories);
     }
     //Sets the runtime memory and webstorage
     function setCategories(gid,categories){
-        categoriesHolder.categories = categories;
+        categoriesHolder.root = categories;
         categoriesHolder.groupId = gid;
         storeCategories(gid,categories);
     }
@@ -148,10 +167,11 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 
 				angular.forEach(rep.data,function(c,k){
 					var category = JSON2Cat(c);
+
 		    		categories.push(category);
 		        });
 
-		        setCategories(groupId,categories);
+		        setCategories(groupId , buildCategoryTree(categories) );
 	          
 	          deffered.resolve(categoriesHolder);
 

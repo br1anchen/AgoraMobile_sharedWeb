@@ -1,23 +1,24 @@
 <div id="DCFolder" class="expand">
 
-	<div id="fixedContentHeader" data-ng-show="showConentHeader">
-		<div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="folderHolder.folder.folderId != 0">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader" data-ng-class="{'noNav':root}" class="nothingRight">
+		<div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="folderHolder.folder.folderId != 0" data-ng-hide="root">
 			<div class="content">
-				<i class="icon-level-up"></i></i><span class="text">{{folderHolder.folder.name}}</span>
+				<i class="icon-chevron-left"></i></i>
+				<!-- <span class="text">
+					{{folderHolder.folder.name}}
+				</span> -->
 			</div>
 		</div>
 	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
 	    	<div class="fadeSuroundingsLeft"></div>
 	    	
-	    	<overflow-banner class="currentGroup" duration="3000">
-	    		{{currentGroup.name}}
-	        	<div class="fadeContentRight"></div>
-	    	</overflow-banner>
-
-	        <div class="fadeSuroundingsRight"></div>
+	    	<div class="currentGroup">
+	    		<span>
+	    			{{currentGroup.name}}
+	        	</span>
+	    	</div>
 	    </div>
-	    <div class="rightHolder">
-	    </div>
+	    <div class="fadeContentRight"></div>
 	</div>
 
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
