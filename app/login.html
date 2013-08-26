@@ -6,9 +6,9 @@
     
     <form data-ng-submit="login()">
         <p>
-            <label name="username">Screen Name</label><input name="username" type="text" data-ng-model="username" required /></br>
+            <label name="username" ng-bind="'_LoginNameTitle_' | localization"></label><input name="username" type="text" data-ng-model="username" required /></br>
 
-            <label name="password">Password</label><input name="password" type="password" data-ng-model="password" required/></br>
+            <label name="password" ng-bind="'_LoginPwdTitle_' | localization"></label><input name="password" type="password" data-ng-model="password" required/></br>
         </p>
         <div id="feideDomainDiv">Feide User Affiliation:
             <select id="feideDomainPciker" ng-model="feideDomain">
