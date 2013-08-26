@@ -1,7 +1,7 @@
 <div id="categories" class="expand">
 	<div id="fixedContentHeader" data-ng-show="showConentHeader" data-ng-class="{'noNav':root}" >
 
-        <div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="currentCategory">
+        <div id="backBtn" class="leftHolder" data-ng-click="goBack()" ng-hide="root">
 			<div class="content">
 				<i class="icon-chevron-left"></i></i>
 				<!-- <span class="text">
@@ -14,7 +14,12 @@
 	    	
 	    	<div class="currentGroup">
 	    		<span>
-	    			{{currentGroup.name}} > {{currentCategory}}
+	    			<span class="groupName">
+	    				{{currentGroup.name}}
+    				</span>
+    				<span class="category" data-ng-show="rootCategory.name">
+    					: {{rootCategory.name}}
+    				</span>
 	        	</span>
 	    	</div>
 	    </div>
@@ -22,7 +27,7 @@
 	    
 	</div>
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
-		<div class="category instance" data-ng-repeat="category in rootCategory" id="MBcategory" data-ng-click="openCategory(category)">
+		<div class="category instance" data-ng-repeat="category in rootCategory.children" id="MBcategory" data-ng-click="openCategory(category)">
 			
 			<div class="header">
 				<div class="title">{{category.name}}</div>
@@ -34,7 +39,7 @@
 				No description		
 			</div>
 			<div class="meta">
-				<span>Threads: {{category.threadCount}},</span>
+				<span>Threads: {{category.threadCount}}</span>
 			</div>
 		</div>
 	</div>

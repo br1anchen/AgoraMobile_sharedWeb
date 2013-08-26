@@ -1,39 +1,14 @@
 'use strict';
-app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q){
-    $rootScope.isHistory = false;
-    $rootScope.stateHistory = [];
+app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService){
+    
+    StateService.stateVariablesOn();
 
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-
-        if(!$rootScope.isHistory && fromState.name != ''){
-            $rootScope.stateHistory.push({
-                fromState : fromState,
-                fromParams : fromParams
-            });
-        }
-
-        $rootScope.root = (toState.name == 'stage.documents.root' || toState.name == 'stage.wiki.contentlist' || toState.name == 'stage.messageBoard.categories') ? true : false;
-
-    })
-
-    //goback history state function
+    //Adding stateParameters for given states
+    var rootStates = ['stage.documents.root','stage.wiki.contentlist','stage.messageBoard.categories'];
+    StateService.addStateVariables("root",true,rootStates);
+    //Go back to previous state
     $scope.back = function(){
-        $rootScope.isHistory = true;
-        if($rootScope.stateHistory.length != 0){
-            var state = $rootScope.stateHistory.pop();
-            if(state.fromState.name == 'stage.activityFeed'){
-                if(state.fromParams){
-                    var groups = StorageService.get('groups');
-                    var targetGroup = jQuery.grep(groups, function(g, k){
-                        return (g.id == state.fromParams.groupId);
-                    });
-                    $scope.openGroup(targetGroup[0]);
-                }else{
-                    $scope.openGroup();
-                }
-            }
-            $state.transitionTo(state.fromState,state.fromParams);
-        }
+        StateService.goBack();
     }
 
     //Modify Andorid back button function

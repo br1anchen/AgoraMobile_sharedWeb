@@ -1,43 +1,72 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams,$rootScope){
+app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams,$rootScope,StateService){
 
 	function renderCategories (category){
 		$scope.rootCategory = category;
-		$scope.root = $scope.rootCategory.categoryId == 0 ? true : false;
+
+		//Manipulating stored state for later back navigation
+		if(!StateService.getCurrentStateParameter("categoryStack")){
+			StateService.setCurrentStateParameter("categoryStack",[]);	
+		} 
+
+		var categoryStack = StateService.getCurrentStateParameter("categoryStack");
+		categoryStack.push(category);
+
+		if($scope.rootCategory.categoryId == 0){
+
+			//Making sure UI knows we are in top category
+			$scope.root = true;
+		}
+		else{
+			//Making sure UI knows we are not in top category
+			$scope.root = false;
+		}
 	}
 
 	function renderThreads (groupId,categoryId){
+		//Making sure UI knows we are not in top category
+		$scope.root = false;
+
+		//Making sure UI knows we are loading data
 		$scope.loading = true;
+
 		MessageBoardService.getThreads($scope.currentGroup, categoryId).then(function(threadsHolder){
 			$scope.threadsHolder = threadsHolder;
+			//Making sure UI knows we finished loading data
 			$scope.loading = false;
 		})
 	}
 
 	function renderMessages (groupId,categoryId,threadId){
+		//Making sure UI knows we are not in top category
+		$scope.root = false;
+
+		//Making sure UI knows we are loading data
 		$scope.loading = true;
 		MessageBoardService.getMessages($scope.currentGroup, categoryId, threadId).then(function(messagesHolder){
 			$scope.messagesHolder = messagesHolder;
+			//Making sure UI knows we finished loading data
 			$scope.loading = false;
 		})
 	}
 
 	//When this controller is loaded it loads data dependent on the state:
 	if($state.is('stage.messageBoard.categories')){
-		$rootScope.stateHistory = [];
-		$rootScope.isHistory = false;
-
-		$scope.loading = true;
-		if($stateParams.category){
-			renderCategories($stateParams.category);
+		
+		if($stateParams.categoryStack){
+			//Fetching latest categoryhistory for this state
+			renderCategories($stateParams.categoryStack.pop());
 		}
 		else{
-			MessageBoardService.getCategories($scope.currentGroup).then(function(categoriesHolder){
-				$scope.categoriesHolder = categoriesHolder;
-				$scope.loading = false;
-				renderCategories($scope.categoriesHolder.root);
-			})
+			//Making sure UI knows we are loading data
+			$scope.loading = true;
+				MessageBoardService.getCategories($scope.currentGroup).then(function(categoriesHolder){
+					$scope.categoriesHolder = categoriesHolder;
+					//Making sure UI knows we finished loading data
+					$scope.loading = false;
+					renderCategories($scope.categoriesHolder.root);
+				})
 		}
 	}
 
@@ -95,32 +124,31 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 			$scope.back();
 		}
 	})
-	//Methods used in the partials for navigating
-	$scope.showTreads = function (category) {
-		$rootScope.isHistory = false;
+	//Methods used to open category threads
+	var showTreads = function (category) {
 		$state.transitionTo('stage.messageBoard.threads',{categoryId:category.categoryId});
 	}
 
 	$scope.showMessages = function (thread) {
-		$rootScope.isHistory = false;
 		$state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId,threadId:thread.threadId});
 	}
-	$scope.prevCategories= [];
-	$scope.openCategory(category){
+	$scope.openCategory = function(category){
 		if(category.children && category.children.length > 0){
-			//Store current category for back navigation
-			$scope.prevCategories.unshift($scope.rootCategory);
-
-			//Render clicked category
 			renderCategories(category);
 		}
 		else{
-			$scope.showTreads(category);
+			showTreads(category);
 		}
 	}
 	$scope.goBack = function(){
-		if($scope.prevCategories.length > 0){
-			renderCategories( prevCategories.shift() );
+		// var prevState = StateService.peekPreviousState();
+		var categoryStack = StateService.getCurrentStateParameter("categoryStack");
+
+		if($state.current.name === 'stage.messageBoard.categories' && categoryStack && categoryStack.length > 1){
+			//Removing current category from stack
+			categoryStack.pop()
+			//rendering previous category
+			renderCategories(categoryStack.pop());
 		}
 		else{
 			$scope.back();

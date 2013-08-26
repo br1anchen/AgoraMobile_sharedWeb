@@ -1,11 +1,15 @@
 'use strict';
 app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope){
-
 	function renderDirectory(){
 		console.log('render Root Folder Content');
+		//Making sure the UI knows we are in top folder
+		if($stateParams.root)$scope.root == true;
+
+		//Making sure UI knows we are loading data
 		$scope.loading = true;
 		DocumentService.getDirectory($scope.currentGroup,0).then(function(rep){
 			$scope.folderHolder = rep;
+			//Making sure UI knows loading finished
 			$scope.loading = false;
 		});
 
@@ -13,8 +17,10 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	function renderFolder(group,folderId){
 		console.log('render Folder Content');
-
+		//Making sure UI knows we are loading data
 		$scope.loading = true;
+		//Making sure the UI knows we are not in top folder
+		$scope.root == false;
 		DocumentService.getDirectory(group,folderId).then(function(rep){
 			$scope.folderHolder = rep;
 			$scope.loading = false;
@@ -24,20 +30,21 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	function renderFile(group,folderId,fileTitle){
 		console.log('load file');
-		
+		//Making sure the UI knows we are not in top folder
+		$scope.root == false;
 		$scope.folderName = StorageService.get('Group' + group.id + '_Folder'+folderId).name;
 
+		//Making sure UI knows we are loading data
 		$scope.loading = true;
 		DocumentService.getFile(group,folderId,fileTitle).then(function(rep){
 			$scope.fileHolder = rep;
+			//Making sure UI knows loading finished
 			$scope.loading = false;
 		});
 
 	}
 
 	if($state.is('stage.documents.root')){
-		$rootScope.stateHistory = [];
-		$rootScope.isHistory = false;
 		renderDirectory();
 	}
 
@@ -50,18 +57,18 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	}
 
 	$scope.gotoFolder = function(folder){
-		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.folder',{folderId:folder.folderId});
 	}
 
 	$scope.fileDetail = function(file){
-		$rootScope.isHistory = false;
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
 	$scope.cachFile = function(file){
 		if(file.offline){
+			//Making sure UI knows we are loading data
 			$scope.loading = true;
 			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+				//Making sure UI knows loading finished
 				$scope.loading = false;
 				navigator.notification.confirm('File Download Finish',function(buttonIndex){
 					switch(buttonIndex){
@@ -72,6 +79,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 				},'Agora Mobile','Open File,Close');
 			},function(err){
 				console.log(err);
+				//Making sure UI knows loading finished
 				$scope.loading = false;
 				navigator.notification.alert(
                     'Failed to download file',
@@ -90,12 +98,15 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 				openFile(file.localFileDir , file.uti);	
 			}
 			else{
+				//Making sure UI knows we are loading data
 				$scope.loading = true;
 				DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+					//Making sure UI knows loading finished
 					$scope.loading = false;
 					openFile(dir,file.uti);
 				},function(err){
 					console.log(err);
+					//Making sure UI knows loading finished
 					$scope.loading = false;
 					navigator.notification.alert(
 	                    'Failed to download file',
@@ -136,8 +147,10 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	}
 
 	$scope.deleteFile = function(file){
+		//Making sure UI knows we are loading data
 		$scope.loading = true;
 		DocumentService.removeFile(file).then(function(rep){
+			//Making sure UI knows loading finished
 			$scope.loading = false;
 			navigator.notification.alert(
                 'File ' + file.title + ' deleted',
@@ -148,6 +161,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
                 'OK'
             );
 		},function(err){
+			//Making sure UI knows loading finished
 			$scope.loading = false;
 			navigator.notification.alert(
                 'File ' + file.title + ' failed to delete',

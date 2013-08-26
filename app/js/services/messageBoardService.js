@@ -16,7 +16,6 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	var messagesIncrement = 40;
 
 	var categoriesHolder = {
-		categories : [],
 		groupId:undefined
 	};
 
@@ -54,17 +53,20 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
     	//Adding immediate children if present
     	for(var i = 0 ; i < candidates.length ; i++){
     		if(candidates[i].parentCategoryId == node.categoryId){
-    			node.children.push(candidates.splice(i,1));
+    			node.children.push(candidates.splice(i--,1)[0]);
     		}
     	}
-    	//Reqursive calls after children has been removed from candidates
-    	for(var i = 0 ; i < node.children.length ; i++){
-    		addChildren(node.children[i], candidates);
-    	}
+    	//Reqursive calls after children has been removed from candidates if candidates left
+    	if(candidates.length > 0){
+	    	for(var i = 0 ; i < node.children.length ; i++){
+	    		addChildren(node.children[i], candidates);
+	    	}
+	    }
     	return node;
     }
+
     function buildCategoryTree(categories){
-    	return addChildren({categoryId:0},categories):
+    	return addChildren({categoryId:0},categories)
     }
 
     function JSON2Thread(json){//parse json to thread obj
