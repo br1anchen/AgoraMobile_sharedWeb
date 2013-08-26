@@ -3,7 +3,7 @@ angular.module('app.stateService',[]).
 factory('StateService',function($log,$rootScope,$state,$stateParams){
 
     var stateHistory = [];
-    var stateVariables = [];
+    var stateVariables = {};
     var useStaticStateVariables = false;
     
     var back = false;
@@ -55,16 +55,14 @@ factory('StateService',function($log,$rootScope,$state,$stateParams){
         //POTENTIALY ADDIN STATE VARIABLES IF NOT SET
         if(useStaticStateVariables){
 	        //Checking if state has state variables
-	        for(var i = 0 ; i < stateVariables.length ; i++){
-	        	if(stateVariables[toState.name]){
-	        		
-
-	        		var stateParams = stateVariables[toState.name];
+	        for(var key in stateVariables){
+	        	if(key === toState.name){
+	        		var stateParams = stateVariables[key];
 
 	        		//Iterating state variables
-	        		for(var name in stateParams){
+	        		for(var key in stateParams){
 	        			//Adding stateVariable if not set
-	        			if(!toParams[ name ] ) toParams[name] = stateParams[name];
+	        			if(!toParams[ key ] ) toParams[key] = stateParams[key];
 	        		}
 	        	}
 	        }
@@ -86,7 +84,7 @@ factory('StateService',function($log,$rootScope,$state,$stateParams){
 		,addStateVariables : function(name, value, states){
 			var error = function(){console.error('StateService: addStateVariables : Illegal input. function "addStateVariables(name, value,states)" takes an arbitrary type "value" and "states" as array of "strings" og "string". The "name" must be of type "string")')};
 			var add = function(name,value,state){
-				if(!stateVariables[state]) stateVariables[state] = [];
+				if(!stateVariables[state]) stateVariables[state] = {};
 				//Adding new or overwriting old value:				
 				stateVariables[state][name] = value;
 			}
