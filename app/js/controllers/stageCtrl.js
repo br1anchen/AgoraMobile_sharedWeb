@@ -60,16 +60,16 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
         if($scope.currentGroup && group.id == $scope.currentGroup.id ){
             console.log("Already in group:" + group.name);
-            deffer.resolve();
+            deffer.reject();
         }
         else{
             $scope.currentGroup = group;
-            //If not group is present we wait for it to load:
-            $scope.gettingGroupsPromise.then(function(){
+           
+            ContentService.loadGroupContent($scope.currentGroup).then(function(){
                 deffer.resolve();
-            })
+            });
         }
-        ContentService.loadGroupContent($scope.currentGroup);
+        
         return deffer.promise;
     }
     $scope.openGroup = function(group){

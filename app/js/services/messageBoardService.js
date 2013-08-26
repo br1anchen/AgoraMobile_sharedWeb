@@ -12,8 +12,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	var RootMessageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-message/message-id/";
 	var MessagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/mbmessage/get-thread-messages/group-id/";
 
-	var threadsIncrement = 20;
-	var messagesIncrement = 40;
+	var threadsIncrement = 50;
+	var messagesIncrement = 200;
 
 	var categoriesHolder = {
 		groupId:undefined

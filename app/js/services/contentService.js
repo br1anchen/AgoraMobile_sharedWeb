@@ -109,7 +109,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
 					var threadPromises = [];
-					angular.forEach(categoriesHolder.categories,function(c,k){
+					angular.forEach(categoriesHolder.root,function(c,k){
 						//Loading all threads
 						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId).then(function(threadHolder){
 
@@ -135,6 +135,9 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 					},function(){
 						messageBoardTDeffer.reject();
 					});
+				},
+				function(err){
+					messageBoardCDeffer.reject(err);
 				}
 			)
 			//Loading documents

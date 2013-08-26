@@ -9,15 +9,18 @@
 	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
 	    	<div class="fadeSuroundingsLeft"></div>
 	    	
-	    	<overflow-banner class="currentGroup" duration="3000">
-	    		{{currentGroup.name}}
-	        	<div class="fadeContentRight"></div>
-	    	</overflow-banner>
-
-	        <div class="fadeSuroundingsRight"></div>
+	    	<div class="currentGroup">
+	    		<span>
+	    			<span class="groupName">
+	    				{{currentGroup.name}}
+    				</span>
+    				<span class="category" data-ng-show="rootCategory.name">
+    					: {{rootCategory.name}}
+    				</span>
+	        	</span>
+	    	</div>
 	    </div>
-	    <div class="rightHolder">
-	    </div>
+	    <div class="fadeContentRight"></div>
 	</div>
 
 
