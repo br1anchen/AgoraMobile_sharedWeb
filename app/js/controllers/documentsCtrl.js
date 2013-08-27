@@ -64,32 +64,29 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
 	$scope.cachFile = function(file){
-		if(file.offline){
-			//Making sure UI knows we are loading data
-			$scope.loading = true;
-			DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
-				//Making sure UI knows loading finished
-				$scope.loading = false;
-				navigator.notification.confirm('File Download Finish',function(buttonIndex){
-					switch(buttonIndex){
-						case 1:
-							openFile(dir,file.uti);
-						break;
-					}
-				},'Agora Mobile','Open File,Close');
-			},function(err){
-				console.log(err);
-				//Making sure UI knows loading finished
-				$scope.loading = false;
-				navigator.notification.alert(
-                    'Failed to download file',
-                    function(){
-                    },
-                    'Agora Mobile',
-                    'OK'
-                );
-			});
-		}
+		$scope.loading = true;
+		DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+			//Making sure UI knows loading finished
+			$scope.loading = false;
+			navigator.notification.confirm('File Download Finish',function(buttonIndex){
+				switch(buttonIndex){
+					case 1:
+						openFile(dir,file.uti);
+					break;
+				}
+			},'Agora Mobile','Open File,Close');
+		},function(err){
+			console.log(err);
+			//Making sure UI knows loading finished
+			$scope.loading = false;
+			navigator.notification.alert(
+                'Failed to download file',
+                function(){
+                },
+                'Agora Mobile',
+                'OK'
+            );
+		});
 	}
 
 	$scope.showFile = function(file){
@@ -174,14 +171,12 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		});
 	}
 
-	$scope.$watch('fileHolder.file.offline',function(newVal,oldVal){
-		if(oldVal != undefined){
-			if(newVal != oldVal && newVal == true){
-				$scope.cachFile($scope.fileHolder.file);
-			}else if(newVal != oldVal && newVal == false){
-				$scope.deleteFile($scope.fileHolder.file);
-			}
+	$scope.switchOffline = function (offline){
+		if(!offline){
+			$scope.cachFile($scope.fileHolder.file);
+		}else{
+			$scope.deleteFile($scope.fileHolder.file);
 		}
-	});
+	}
 	
 })

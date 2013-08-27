@@ -2,7 +2,7 @@
 
 app.controller('SettingsCtrl',
 
-	function($scope,AppService){
+	function($scope,AppService,DocumentService){
 		$scope.settings = AppService.getSettings();
 
 		$scope.toggleGUI = function(variable){
@@ -17,7 +17,8 @@ app.controller('SettingsCtrl',
 		}
 
 		$scope.manageOfflineFiles = function(){
-			//TODO
+			$scope.savedFilesHolder = DocumentService.getSavedFiles();
+			console.log("saved files:" + JSON.stringify($scope.savedFilesHolder));
 		}
 	}
 )

@@ -24,6 +24,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		groupId : undefined
 	};
 
+	var savedFilesHolder = {
+		savedFiles: []
+	};
+
 	var rootFS;
 
 	function getFileSystem(){
@@ -99,6 +103,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		StorageService.store('Group' + gId + '_Folder' + fId + '_FileTitle:' + fTitle, file)
 	}
 
+	function storeSavedList(savedList){
+		StorageService.store('SavedFilesList',savedList);
+	}
+
 	function setFolder(gId,fId,folder){
 		folderHolder.groupId = gId;
 		folderHolder.folderId = fId;
@@ -109,6 +117,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		fileHolder.groupId = gId;
 		fileHolder.folderId = fId;
 		fileHolder.file = file;
+	}
+
+	function setSavedList(savedList){
+		savedFilesHolder.savedFiles = savedList;
 	}
 
 	function fetchFolderContent(gId,fId){
@@ -332,7 +344,16 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 									file.offline = true;
 									setFile(file.groupId,file.folderId,file);
 									storeFile(file.groupId,file.folderId,file.title,file);
-							    	
+
+									//generate saved files list
+									var savedList = StorageService.get('SavedFilesList');
+									if(!savedList){savedList = [];}
+									if(jQuery.inArray(file, savedList) == -1){
+										savedList.push(file);
+										setSavedList(savedList);
+							    		storeSavedList(savedList);
+									}
+
 							    	$timeout(function(){
 							    		deffered.resolve(downloadURL);
 							    	});
@@ -391,6 +412,16 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 					file.offline = false;
 					setFile(file.groupId,file.folderId,file);
 					storeFile(file.groupId,file.folderId,file.title,file);
+
+					//delete in saved files list
+					var savedList = StorageService.get('SavedFilesList');
+					savedList = jQuery.grep(savedList , function (f,k) {
+					    return f.remoteFileDir != file.remoteFileDir;
+					});
+					
+					setSavedList(savedList);
+					storeSavedList(savedList);
+
     				
     				$timeout(function(){
 		    			deffered.resolve("delete file success");
@@ -409,6 +440,12 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			});
 
 			return deffered.promise;
+		},
+
+		getSavedFiles : function(){
+
+			return savedFilesHolder;
+
 		}
 
 	}

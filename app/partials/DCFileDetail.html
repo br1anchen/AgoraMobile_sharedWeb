@@ -22,7 +22,7 @@
 	<div class="title" data-ng-click="showFile(fileHolder.file)">{{fileHolder.file.title}}</div>
 	<div class = "content">
 		<div ng-show="fileHolder.file.ifSupport">
-			Available Offline <div btn-switch ng-model="fileHolder.file.offline"></div>
+			Available Offline <div ng-click="switchOffline(fileHolder.file.offline)" btn-switch ng-model="fileHolder.file.offline"></div>
 		</div>
 		<div ng-show="!fileHolder.file.ifSupport">
 			Not Support File Type to Open
