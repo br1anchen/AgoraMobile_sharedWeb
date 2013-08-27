@@ -54,6 +54,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
       	return parsedActivities;
     }
     function stripHTML(str){
+    	if(!str)return str;
 		return str.replace(/<.*?>/g , "");
 	}
 

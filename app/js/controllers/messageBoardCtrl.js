@@ -65,7 +65,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 					$scope.categoriesHolder = categoriesHolder;
 					//Making sure UI knows we finished loading data
 					$scope.loading = false;
-					renderCategories($scope.categoriesHolder.root);
+					renderCategories($scope.categoriesHolder.categories);
 				})
 		}
 	}
@@ -106,15 +106,22 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		}
 	})
 	$scope.$on('scrollableAppend',function(){
-		$scope.loading = true;
 		if($state.is('stage.messageBoard.threads')){
+			$scope.loading = true;
 			MessageBoardService.getMoreThreads($scope.currentGroup, $stateParams.categoryId).then(function(){
 				$scope.loading = false;
+			},function(error){
+				$scope.loading = false;
+				console.log("MessageBoardCtrl: Could not append more threads: "+ error);
 			});
 		}
 		else if($state.is('stage.messageBoard.messages')){
+			$scope.loading = true;
 			MessageBoardService.getMoreMessages($scope.currentGroup, $stateParams.categoryId, $stateParams.threadId).then(function(){
 				$scope.loading = false;
+			},function(error){
+				$scope.loading = false;
+				console.log("MessageBoardCtrl: Could not append more messages: "+ error);
 			});
 		}
 	})

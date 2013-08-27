@@ -62,6 +62,9 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			return groupDeffer.promise;
 		},
 		loadGroupContent : function(group){
+			if(Object.prototype.toString.call(group) !== '[object Object]'){
+				console.error("No group object given");
+			}
 			buildPromises();
 
 			//Setting up the messageBoard promise
@@ -109,14 +112,14 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
 					var threadPromises = [];
-					angular.forEach(categoriesHolder.root,function(c,k){
+					angular.forEach(categoriesHolder.categories.children,function(c,k){
 						//Loading all threads
-						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId).then(function(threadHolder){
+						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId, c.threadCount).then(function(threadHolder){
 
 							var messagesPromises = [];
 							angular.forEach(threadHolder.threads,function(t,k){
 								//Loading all messages
-								messagesPromises.push(MessageBoardService.getMessages(group,c.categoryId,t.threadId));
+								messagesPromises.push(MessageBoardService.getMessages(group,c.categoryId,t.threadId, t.messageCount));
 
 							})
 							$q.all(messagesPromises).then(function(){

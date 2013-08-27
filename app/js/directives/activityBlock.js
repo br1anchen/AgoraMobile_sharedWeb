@@ -23,39 +23,21 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
         switch($scope.activity.type){
           case "message":
             open = function(){
-              var messageFound = false;
-
-              MessageBoardService.getCategories({id:$scope.activity.groupId}).then(function(categoriesHolder){
-                var cPromises = [];
-                angular.forEach(categoriesHolder.root,function(c,k){
-                  var tDeffer= $q.defer();
-                  MessageBoardService.getThreads({id:$scope.activity.groupId}, c.categoryId).then(function(threadsHolder){
-                    var mPromises = [];
-                    angular.forEach(threadsHolder.threads,function(t,k){
-                      mPromises.push(MessageBoardService.getMessages({id:$scope.activity.groupId}, c.categoryId, t.threadId).then(function(messageHolder){
-                        angular.forEach(messageHolder.messages,function(m,k){
-                          if(m.messageId == $scope.activity.messageId){
-                            messageFound = true;
-                            //Navigating to message
-                            $state.transitionTo('stage.messageBoard.messages',{categoryId:m.categoryId, threadId:m.threadId});
-                          }
-                        })
-                      }))
-
-                    })
-                    $q.all(mPromises).then(function(res){tDeffer.resolve(res)},function(err){tDeffer.reject(err)});
-                  })
-                  cPromises.push(tDeffer.promise)
-                })
-                $q.all(cPromises).then(function(res){
-                  //All request went well, and are finished
-                  //We should have found the message now
-                  if(!messageFound){
-                    $rootScope.$broadcast("notification","No Message found");
+              var message = StorageService.get('Message'+ $scope.activity.messageId);
+              if(!message){
+                ContentService.loadGroupContent({id : $scope.activity.groupId});
+                ContentService.getMBPromise().then(function(){
+                  message = StorageService.get('Message'+ $scope.activity.messageId);
+                  if(!message)failed();
+                  else{
+                    $state.transitionTo('stage.messageBoard.messages',{categoryId:message.categoryId, threadId:message.threadId});      
                   }
-                })
-              })
-            }
+                });
+              }
+              else{
+                $state.transitionTo('stage.messageBoard.messages',{categoryId:message.categoryId, threadId:message.threadId});  
+              }
+            };
           break;
           case "file":
             open = function(){
