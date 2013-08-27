@@ -15,27 +15,31 @@
 
 	        <div class="fadeSuroundingsRight"></div>
 	    </div>
-    	<div class="rightHolder" data-ng-click="showWiki(wikiPageHolder.page.nodeId,wikiPageHolder.page.parentTitle)">
+    	<div class="rightHolder" data-ng-click="showWiki(wikiPageHolder.page.parentTitle)">
 			<div ng-show="wikiPageHolder.page.parentTitle != ''" >
-				<i class="icon-level-up"></i></i><span class="text">{{wikiPageHolder.page.parentTitle}}</span>
+				<i class="icon-caret-up"></i></i>
+				<!-- <span class="text">{{wikiPageHolder.page.parentTitle}}</span> -->
 			</div>
 		</div>
 	</div>
 
-<div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="loading" loading-color="ed1c24">
+<div id="wikiPage" class="expand" scrollable trigger-distance="200" loading="loading" loading-color="ed1c24" scroll-ease="30">
 	<div class="header">
 		<accordion ng-show="wikiPageHolder.page.childrenPagesTitle.length > 0">
-			<accordion-group >
+			<accordion-group is-open="$parent.childrenOpen">
 		        <accordion-heading>
-					{{wikiPageHolder.page.title}}
-					<i id="accordion-icon" class="icon-level-down"></i>
+					<span class="text">{{wikiPageHolder.page.title}}</span>
+					<span class="iconHolder">
+						<i id="accordion-icon" class="icon-caret-down" data-ng-hide="childrenOpen"></i>
+						<i id="accordion-icon" class="icon-caret-up" data-ng-show="childrenOpen"></i>
+					</span>
 		        </accordion-heading>
 		        <div id="childrenPicker">
 		        	<div id="childrenPage" ng-repeat="cp in wikiPageHolder.page.childrenPagesTitle" 
 		        	ng-click="selectWiki(cp)">
-		        		<div class="iconHolder">
+		        		<!-- <div class="iconHolder">
 		        			<i class="icon-book"></i>
-		        		</div>
+		        		</div> -->
 		        		<div class="text" >
                 			{{cp}}
             			</div>

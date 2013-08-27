@@ -109,7 +109,7 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
 					var threadPromises = [];
-					angular.forEach(categoriesHolder.categories,function(c,k){
+					angular.forEach(categoriesHolder.root.children,function(c,k){
 						//Loading all threads
 						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId).then(function(threadHolder){
 

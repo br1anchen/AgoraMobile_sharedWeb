@@ -2,29 +2,48 @@
     
     <img id="agora_logo" src="img/agora_logo.png"></img>
     
-    <alert id="loginMessage" ng-model="loginMsg" type="loginMsg.type" style="visibility:hidden">{{loginMsg.msg}}</alert>
-    
     <form data-ng-submit="login()">
-        <p>
-            <label name="username" ng-bind="'_LoginNameTitle_' | localization"></label><input name="username" type="text" data-ng-model="username" required /></br>
+        <accordion id="affiliationPicker">
+            <accordion-group is-open="$parent.affiliationOpen">
+                <accordion-heading>
+                    <span class="header">
+                        <span class="text" >Affiliation</span>
+                        <span class="iconHolder">
+                            <i class="icon-caret-down" data-ng-hide="affiliationOpen"></i>
+                            <i class=" icon-caret-up" data-ng-show="affiliationOpen"></i>
+                        </span>
+                    </span>
+                    <br/>
+                    {{affiliationName}}
+                </accordion-heading>
+                <span id="affiliationsHolder">
+                    <ul>
+                        <li ng-repeat="a in affiliations" ng-click="setAffiliation(a)">
+                            <span class="affiliationTitle"  data-ng-bind="a.name"></span>
+                        </li>
+                        <li id="noAffiliation" ng-click="setAffiliation('NO AFFILIATION')">
+                            <span class="affiliationTitle"  >NO AFFILIATION</span>
+                        </li>
 
-            <label name="password" ng-bind="'_LoginPwdTitle_' | localization"></label><input name="password" type="password" data-ng-model="password" required/></br>
+                    </ul>
+                </span>
+            </accordion-group>
+        </accordion>
+        <p>
+            <label name="username" ng-bind="'_LoginNameTitle_' | localization"></label><input name="username" type="text" data-ng-model="username" data-ng-required /></br>
+
+            <label name="password" ng-bind="'_LoginPwdTitle_' | localization"></label><input name="password" type="password" data-ng-model="password" data-ng-required /></br>
         </p>
-        <div id="feideDomainDiv">Feide User Affiliation:
-            <select id="feideDomainPciker" ng-model="feideDomain">
-                <option value="nodomain">No Feide</option>
-                <option ng-repeat="a in affiliations" value="{{a.domain}}">
-                    {{a.name}}
-                </option>
-            </select>
+        
+        <div id="feideLoginDiv">
+            <input id="regularLogin" class="btn" type="submit" value="Sign In"/>
+            <button id="feideLogin" class="btn" in-app-browser url="feideLoginUrl" >Feide Sign In</button>
         </div>
-        <input type="submit" value="Sign In"/>
+        
     </form>
     
-    <div id="feideLoginDiv">
-        <i-frame-dialog url="{{feideLoginUrl}}" lable="Feide user click here to reset Agora account password"></i-frame-dialog>
-    </div>
-    
-    <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
+    <footer>
+        <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
+    </footer>
     <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
 </div>

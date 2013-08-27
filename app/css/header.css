@@ -21,7 +21,8 @@ header #headerCell {
 }
 
 header #mainFunctions{
-	color: rgb(71, 0, 0);
+	/*color: #ec7260;*/
+	color: #DF9084;
 }
 
 header .activeLinkClass{
@@ -36,12 +37,13 @@ header .menuButton, .searchButton{
   top: 0;
 }
 header .menuButton{
-  /*left:0;*/
   float:left;
+  margin-left: 0.3em;
 }
 header .searchButton{
   /*right: 0;*/
   float:right;
+  margin-right: 0.3em;
 }
 header .menuButton:hover{
   color:white;

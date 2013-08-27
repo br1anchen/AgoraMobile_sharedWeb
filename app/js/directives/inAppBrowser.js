@@ -1,16 +1,16 @@
-app.directive('iFrameDialog', function($dialog,$log,UtilityService) {
+app.directive('inAppBrowser', function($dialog,$log,UtilityService) {
 
     return {
-        restrict: 'E',
+        restrict: 'A',
         replace: true,
-        transclude: true,
         scope:{
-            url:'@',
-            lable:'@'
+            url:'=',
+            href:'='
         },
         controller:function($scope){
             $scope.launch = function(){
-                var ref = UtilityService.inAppBrowser.browser($scope.url);
+                var url = $scope.url ? $scope.url : $scope.href;
+                var ref = UtilityService.inAppBrowser.browser(url);
                 ref.addEventListener('exit', function(){
                     console.log('close feide login window');
 
@@ -23,14 +23,8 @@ app.directive('iFrameDialog', function($dialog,$log,UtilityService) {
                 });
             }
         },
-        template:
-            '<button id="feideBtn" data-ng-click="launch()">'+
-                '<i class="icon-info-sign icon-2x"></i>'+
-                '{{lable}}' +
-            '</button>'
-        ,
         link: function(scope, element, attrs) {
-            var element = $(element);
+            var element = $(element).bind('click',scope.launch);
         }
     }
 })

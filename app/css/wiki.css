@@ -4,6 +4,11 @@
 	position:relative;
 }
 
+/*Overwriting contentHeader markup to get border left on group name*/
+#wiki #fixedContentHeader  .currentGroup{
+	border-right-width: 0.1em;
+}
+
 #wiki #wikiContentList #fixedContentHeader .currentGroup {
 	width:100%;
 	border-image: none;
@@ -36,10 +41,18 @@
 	line-height: 2em;
 	font-weight: bold;
 	background-color: #D1D1D1;
+	position: relative;
 }
-
+#wiki #wikiPage .header .accordion-toggle, #wiki #wikiPage .header .accordion-heading{
+	padding: 0;
+	margin: 0;
+}
+#wiki .accordion-inner{
+	border:0;
+}
 #wiki #wikiPage .header .accordion-heading a{
 	text-decoration: none !important;
+	color:#5b677d
 }
 
 #wiki #wikiPage .header .accordion-heading a:hover{
@@ -69,11 +82,15 @@
 	position: absolute;
 	height: 100%;
 }
+
 #wiki #wikiPage #childrenPicker #childrenPage .text{
 	overflow: hidden;
 	color: #5b677d;
-	padding-left: 4em;
+	/*padding-left: 4em;*/
 	font-weight: bold;
+}
+#wiki #wikiPage #childrenPicker{
+	border: 0.2em solid #D1D1D1
 }
 
 #wiki .toChildren{
@@ -94,10 +111,24 @@
 #wiki .iconHolder {
 	background-color: #D1D1D1;
 	position: absolute;
-	width:2em;
+	width:1em;
+	height: 100%;
 }
+#wiki #contentList .leaf.parent .titleHolder{
+	/*margin-right: 2.1em;*/
+	z-index: 1;
+	margin-left: 0.7em;
+}
+#wiki .leaf.notParent{
+	border-top: 0.09em solid #BABABA;
+	margin-top: -0.09em;
+}
+#wiki ul{
+	/*border-left: 0.09em solid #BABABA;*/
+}
+
 #wiki .iconHolder i{
-	padding-left: 0.7em;
+	padding-left: 0.20em;
 }
 #wiki #contentList .leaf{
 	height: 2em;
@@ -105,20 +136,18 @@
 	font-size:2em;
 	position: relative;
 	text-align: left;
-	position: relative;
 	border-bottom: 0.09em solid #BABABA;
 	background-color: white;
+	border-left: 0.09em solid #BABABA;
+	overflow: hidden;
 }
 #wiki #contentList .leaf .titleHolder{
 	overflow: hidden;
 	height: 2em;
 	color: #5b677d;
-	margin-left: 2em;
 	position: relative;
 }
-#wiki #contentList .leaf.parent .titleHolder{
-	margin-right: 2.1em;
-}
+
 #wiki #contentList .leaf .title{
 	font-weight: bold;
 	white-space: nowrap;
@@ -149,9 +178,9 @@
     	from(rgba(209, 209, 209, 1.0)),
     	to(rgba(209, 209, 209, 0))
 	);
-	border-image:-webkit-linear-gradient( top, rgba(186,186,186,0) 0%, rgba(186,186,186,0.8) 50%, rgba(186,186,186,0.0) 100%) 1 100%;
+	/*border-image:-webkit-linear-gradient( top, rgba(186,186,186,0) 0%, rgba(186,186,186,0.8) 50%, rgba(186,186,186,0.0) 100%) 1 100%;
 	border-left-width:0px;
-	border-right-width: 0.1em;
+	border-right-width: 0.1em;*/
 
 }
 

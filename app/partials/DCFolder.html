@@ -1,26 +1,27 @@
 <div id="DCFolder" class="expand">
 
-	<div id="fixedContentHeader" data-ng-show="showConentHeader">
-		<div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="folderHolder.folder.folderId != 0">
+	<div id="fixedContentHeader" data-ng-show="showConentHeader" data-ng-class="{'noNav':root}" class="nothingRight">
+		<div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="folderHolder.folder.folderId != 0" data-ng-hide="root">
 			<div class="content">
-				<i class="icon-level-up"></i></i><span class="text">{{folderHolder.folder.name}}</span>
+				<i class="icon-chevron-left"></i></i>
+				<!-- <span class="text">
+					{{folderHolder.folder.name}}
+				</span> -->
 			</div>
 		</div>
 	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
 	    	<div class="fadeSuroundingsLeft"></div>
 	    	
-	    	<overflow-banner class="currentGroup" duration="3000">
-	    		{{currentGroup.name}}
-	        	<div class="fadeContentRight"></div>
-	    	</overflow-banner>
-
-	        <div class="fadeSuroundingsRight"></div>
+	    	<div class="currentGroup">
+	    		<span>
+	    			{{currentGroup.name}}
+	        	</span>
+	    	</div>
 	    </div>
-	    <div class="rightHolder">
-	    </div>
+	    <div class="fadeContentRight"></div>
 	</div>
 
-	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24">
+	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
 
 		<ul class="folderList">
 			<li id="folders" ng-show="folderHolder.folder.subFolders.length != 0">
@@ -43,7 +44,7 @@
 				<span class="text">FILES</span>
 			</li>
 			<li class="content" data-ng-repeat="file in folderHolder.folder.files" >
-				<span class="row" data-ng-click="showFile(file)">
+				<div class="row" data-ng-click="showFile(file)">
 					<div class="rowIcon" >
 						<div class="iconHolder">
 							<i class="icon-file-alt icon-2x"></i>
@@ -53,7 +54,7 @@
 					<div class="textHolder" >
 							<span class="rowText">{{file.title}}</span>
 					</div>
-				</span>
+				</div>
 				<div class="fileInfoTransition"></div>
 				<div class="fileInfo" data-ng-click="fileDetail(file)">
 					<i class="icon-info icon-2x" class="detailBtn" ></i>

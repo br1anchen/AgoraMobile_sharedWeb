@@ -61,10 +61,18 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       },
 
       getFeideLoginUrl : function(){
-        return HttpService.request(feideRequestUrl,'','GET');
+        var deffered = $q.defer();
+        HttpService.request(feideRequestUrl,'','GET').then(
+          function(res){
+            deffered.resolve(res.data  + "&RelayState=%2Fgroup%2Fagora%2Fdokumenter%3Fp_p_id%3Dagoramypassword_WAR_agoramypasswordportlet%26p_p_state%3Dpop_up%26p_p_mode%3Dedit%26p_p_lifecycle0%26controlPanelCategory%253portlet_agoramypassword_WAR_agoramypasswordportlet");
+          },function(err){
+            deffered.reject(err);
+          }
+        );
+        return deffered.promise;
       },
 
-      getAffiliation : function(){
+      getAffiliations : function(){
         var deffered = $q.defer();
 
         var affiliations = [//dumy code for feide user domain

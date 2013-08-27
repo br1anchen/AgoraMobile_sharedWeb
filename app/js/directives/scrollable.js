@@ -44,9 +44,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
 
         controller:function($scope){
             //Default configurations
-            // $scope.scrollEase = $scope.scrollEase ? $scope.scrollEase : 0;
-            $scope.scrollEase = 0;
-
+            
             //Setting default criteria for the update function if given. Distance from the bottom
             $scope.triggerDistanceDefault = 150;// Distance from bottom at update event trigger
 
@@ -119,7 +117,14 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             '</div>'
         ,
         link: function(scope, element, attrs) {
+
+            //Setting default values if attributes not set
+            attrs.$observe( 'scrollEase', function( val ) {
+                scope.scrollEase = angular.isDefined( val ) ? val : 0;
+            });
+
             //Setting up scrollable element by doing DOM stuff
+
             var wrapper = $(element);
             var innerWrapper = element.children();
             var content = innerWrapper.children();

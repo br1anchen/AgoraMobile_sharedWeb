@@ -1,14 +1,14 @@
-<div id="settings">
+<div id="settings" class="expand" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
 	<div class="instance" data-ng-click="toggle('settings.lowBandwidth')">
 		<details class="data">
 			<summary class="meta">
 				If you want less datatrafic you can modify application behaviour
 			</summary>
 			<div class="detailsContent">
-				<label name="lowBandwidth">
+				<label for="lowBandwidth" data-ng-click="toggleSetting('lowBandwidth')">
 					Don't preload group data
-				</lable>
-				<input type="checkbox" data-ng-model="settings.lowBandwidth" />
+				</label>
+				<div class="switch" btn-switch ng-model="settings.lowBandwidth"></div>
 			</div>
 		</details>
 	</div>
@@ -18,10 +18,30 @@
 				Change application background behaviour
 			</summary>
 			<div class="detailsContent">
-				<label name="notifications">
+				<label for="notifications" data-ng-click="toggleSetting('disableNotifications')">
 					Disable notifications
-				</lable>
-				<input type="checkbox" data-ng-model="settings.disableNotifications" />
+				</label>
+				<div class="switch" btn-switch ng-model="settings.disableNotifications"></div>
+			</div>
+		</details>
+	</div>
+	<div class="instance" data-ng-click="toggle('settings.storage')">
+		<details class="data">
+			<summary class="meta">
+				Manage application storage settings, and free phone memory
+			</summary>
+			<div class="detailsContent">
+				<label for="availableOffline" data-ng-click="toggleSetting('availableOffline')">
+					Disable file caching
+				</label>
+				<div class="switch" btn-switch ng-model="settings.availableOffline"></div>
+				
+				<button id="clearAllFiles" class="btn" type="button" data-ng-click="clearAllFiles()">
+					Clear all cached files
+				</button>
+				<button id="manageOfflineFiles" class="btn" type="button" data-ng-click="manageOfflineFiles()">
+					Delete spesific files
+				</button>
 			</div>
 		</details>
 	</div>
