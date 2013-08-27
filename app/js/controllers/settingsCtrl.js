@@ -13,7 +13,27 @@ app.controller('SettingsCtrl',
 		}
 
 		$scope.clearAllFiles = function(){
-			//TODO
+			DocumentService.deleteAllSavedFiles().then(function(rep){
+				console.log(rep);
+				navigator.notification.alert(
+	                rep,
+	                function(){
+	                	
+	                },
+	                'Agora Mobile',
+	                'OK'
+	            );
+			},function(err){
+				console.log(err);
+				navigator.notification.alert(
+	                'Clear All Files Failed',
+	                function(){
+	                	
+	                },
+	                'Agora Mobile',
+	                'OK'
+	            );
+			});
 		}
 
 		$scope.manageOfflineFiles = function(){

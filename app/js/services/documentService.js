@@ -443,9 +443,38 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		},
 
 		getSavedFiles : function(){
-
+			var savedList = StorageService.get('SavedFilesList');
+			if(!savedList){savedList = [];}
+			setSavedList(savedList);
 			return savedFilesHolder;
 
+		},
+
+		deleteAllSavedFiles : function(){
+			var deffered = $q.defer();
+
+			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},function(filesDir){
+				filesDir.removeRecursively(function(){
+					
+					var savedList = [];
+					setSavedList(savedList);
+					storeSavedList(savedList);
+					
+					$timeout(function(){
+		    			deffered.resolve("delete all saved files success");
+		    		});
+				}, function(err){
+					$timeout(function(){
+			    		deffered.reject("deleteAllSavedFiles() removeRecursively failed: code" + err.code);
+			    	});
+				});
+			},function(err){
+				$timeout(function(){
+		    		deffered.reject("deleteAllSavedFiles() getDirectory failed: code" + err.code);
+		    	});
+			});
+
+			return deffered.promise;
 		}
 
 	}
