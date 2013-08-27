@@ -455,11 +455,21 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},function(filesDir){
 				filesDir.removeRecursively(function(){
+					var savedList = StorageService.get('SavedFilesList');
+					if(savedList){
+						angular.forEach(savedList,function(f,k){
+							var storedFile = StorageService.get('Group' + f.groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);
+							storedFile.localFileDir = '';
+							storedFile.offline = false;
+							setFile(storedFile.groupId,storedFile.folderId,storedFile);
+							storeFile(storedFile.groupId,storedFile.folderId,storedFile.title,storedFile);
+						});
+					}
 					
-					var savedList = [];
+					savedList = [];
 					setSavedList(savedList);
 					storeSavedList(savedList);
-					
+
 					$timeout(function(){
 		    			deffered.resolve("delete all saved files success");
 		    		});
