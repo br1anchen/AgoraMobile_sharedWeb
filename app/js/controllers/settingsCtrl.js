@@ -4,6 +4,8 @@ app.controller('SettingsCtrl',
 
 	function($scope,AppService,DocumentService){
 		$scope.settings = AppService.getSettings();
+		$scope.savedFilesHolder = DocumentService.getSavedFiles();
+		$scope.deleteFiles = [];
 
 		$scope.toggleGUI = function(variable){
 			$scope[variable] = $scope[variable] ? false : true;
@@ -36,9 +38,38 @@ app.controller('SettingsCtrl',
 			});
 		}
 
-		$scope.manageOfflineFiles = function(){
-			$scope.savedFilesHolder = DocumentService.getSavedFiles();
-			console.log("saved files:" + JSON.stringify($scope.savedFilesHolder));
+		$scope.checkDelete = function($event,file){
+			var checkbox = $event.target;
+  			if(checkbox.checked){
+  				$scope.deleteFiles.push(file);
+  			}else{
+  				$scope.deleteFiles = jQuery.grep($scope.deleteFiles, function (f) {
+				    return f.remoteFileDir != file.remoteFileDir;
+				});
+  			}
+		}
+
+		$scope.deleteChosenFiles = function(){
+			console.log(JSON.stringify($scope.deleteFiles));
+
+			angular.forEach($scope.deleteFiles,function(f,k){
+				
+				DocumentService.removeFile(f).then(function(rep){
+					$scope.deleteFiles = jQuery.grep($scope.deleteFiles, function (file) {
+				    	return file.remoteFileDir != f.remoteFileDir;
+					});
+				},function(err){
+
+					navigator.notification.alert(
+		                'File '+ f.title +' failed to delete',
+		                function(){
+		                	
+		                },
+		                'Agora Mobile',
+		                'OK'
+		            );
+				});
+			});
 		}
 	}
 )

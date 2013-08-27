@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,$rootScope,$cookies,$state,LoginService){
+app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,DocumentService,$rootScope,$cookies,$state,LoginService){
 
   //'User' should be there because login was successfull
    $scope.user = StorageService.get('User');
@@ -44,6 +44,13 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
       console.log(rep);
       GroupService.clear();//Clears webstorage and runtime memory;
       StorageService.clear();
+      //Delete all saved files
+      DocumentService.deleteAllSavedFiles().then(function(rep){
+        console.log(rep);
+      },function(err){
+        console.log(err);
+      });
+
       $state.transitionTo('login');
     },function(err){
       console.log(err);
