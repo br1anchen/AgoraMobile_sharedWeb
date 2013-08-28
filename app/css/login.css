@@ -111,3 +111,7 @@
 #login footer {
 }
 
+#login #affiliationPicker .accordion-heading a{
+	text-decoration: none !important;
+}
+
