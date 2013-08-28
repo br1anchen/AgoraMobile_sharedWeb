@@ -91,7 +91,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	$scope.showFile = function(file){
 		if(file.ifSupport){
-			if(file.offline){
+			if(file.offline && !file.localFileDir){
 				openFile(file.localFileDir , file.uti);	
 			}
 			else{
@@ -152,7 +152,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 			navigator.notification.alert(
                 'File ' + file.title + ' deleted',
                 function(){
-                	
+
                 },
                 'Agora Mobile',
                 'OK'
@@ -172,7 +172,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	}
 
 	$scope.switchOffline = function (offline){
-		if(!offline){
+		if(offline){
 			$scope.cachFile($scope.fileHolder.file);
 		}else{
 			$scope.deleteFile($scope.fileHolder.file);

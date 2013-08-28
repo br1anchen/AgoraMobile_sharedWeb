@@ -450,7 +450,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 		},
 
-		deleteAllSavedFiles : function(){
+		deleteAllSavedFiles : function(){//Does not work right in android becuase it will destory the download path to not download in same directory anymore
 			var deffered = $q.defer();
 
 			rootFS.getDirectory("Files", {create: true, exclusive: false},function(filesDir){
