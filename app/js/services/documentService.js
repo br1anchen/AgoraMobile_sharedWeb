@@ -320,7 +320,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 				
 				}else{
 
-					rootFS.getDirectory("FilesDir", {create: true, exclusive: false},
+					rootFS.getDirectory("Files", {create: true, exclusive: false},
 					    function(filesDir){
 					        var fileTransfer = new FileTransfer();
 
@@ -453,7 +453,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		deleteAllSavedFiles : function(){
 			var deffered = $q.defer();
 
-			rootFS.getDirectory("FilesDir", {create: true, exclusive: false},function(filesDir){
+			rootFS.getDirectory("Files", {create: true, exclusive: false},function(filesDir){
 				filesDir.removeRecursively(function(){
 					var savedList = StorageService.get('SavedFilesList');
 					if(savedList){

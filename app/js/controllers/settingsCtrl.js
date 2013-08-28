@@ -2,7 +2,7 @@
 
 app.controller('SettingsCtrl',
 
-	function($scope,AppService,DocumentService){
+	function($scope,AppService,DocumentService,$q){
 		$scope.settings = AppService.getSettings();
 		$scope.savedFilesHolder = DocumentService.getSavedFiles();
 		$scope.deleteFiles = [];
@@ -15,26 +15,41 @@ app.controller('SettingsCtrl',
 		}
 
 		$scope.clearAllFiles = function(){
-			DocumentService.deleteAllSavedFiles().then(function(rep){
-				console.log(rep);
+			var promiseObjs = [];
+
+			angular.forEach($scope.savedFilesHolder.savedFiles,function(f,k){
+
+				var rmovePromise = DocumentService.removeFile(f).then(function(rep){
+
+					console.log(rep);
+
+				},function(err){
+					
+					navigator.notification.alert(
+		                'File '+ f.title +' failed to delete',
+		                function(){
+		                	
+		                },
+		                'Agora Mobile',
+		                'OK'
+		            );
+
+				});
+
+				promiseObjs.push(rmovePromise);
+			});
+
+			$q.all(promiseObjs).then(function(){
+
 				navigator.notification.alert(
-	                rep,
+	                'Files All deleted',
 	                function(){
 	                	
 	                },
 	                'Agora Mobile',
 	                'OK'
 	            );
-			},function(err){
-				console.log(err);
-				navigator.notification.alert(
-	                'Clear All Files Failed',
-	                function(){
-	                	
-	                },
-	                'Agora Mobile',
-	                'OK'
-	            );
+
 			});
 		}
 
@@ -51,10 +66,11 @@ app.controller('SettingsCtrl',
 
 		$scope.deleteChosenFiles = function(){
 			console.log(JSON.stringify($scope.deleteFiles));
+			var promiseObjs = [];
 
 			angular.forEach($scope.deleteFiles,function(f,k){
 				
-				DocumentService.removeFile(f).then(function(rep){
+				var rmovePromise = DocumentService.removeFile(f).then(function(rep){
 					$scope.deleteFiles = jQuery.grep($scope.deleteFiles, function (file) {
 				    	return file.remoteFileDir != f.remoteFileDir;
 					});
@@ -69,6 +85,21 @@ app.controller('SettingsCtrl',
 		                'OK'
 		            );
 				});
+
+				promiseObjs.push(rmovePromise);
+			});
+
+			$q.all(promiseObjs).then(function(){
+
+				navigator.notification.alert(
+	                'All selected Files deleted',
+	                function(){
+	                	
+	                },
+	                'Agora Mobile',
+	                'OK'
+	            );
+
 			});
 		}
 	}
