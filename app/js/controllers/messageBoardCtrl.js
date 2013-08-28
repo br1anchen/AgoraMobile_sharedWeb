@@ -51,6 +51,8 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		})
 	}
 
+	
+
 	//When this controller is loaded it loads data dependent on the state:
 	if($state.is('stage.messageBoard.categories')){
 		
@@ -62,6 +64,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 			//Making sure UI knows we are loading data
 			$scope.loading = true;
 				MessageBoardService.getCategories($scope.currentGroup).then(function(categoriesHolder){
+
 					$scope.categoriesHolder = categoriesHolder;
 					//Making sure UI knows we finished loading data
 					$scope.loading = false;

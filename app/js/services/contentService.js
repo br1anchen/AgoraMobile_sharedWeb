@@ -1,40 +1,51 @@
 angular.module('app.contentService',['app.messageBoardService','app.documentService','app.wikiPageService','app.activityService']).
 factory('ContentService',function($log,$rootScope,$q,MessageBoardService,DocumentService,WikiPageService,ActivityService){
 		
-		var activityDeffer;
+	var activityDeffer;
 
-		var messageBoardCDeffer;
+	var messageBoardCDeffer;
 
-		var messageBoardTDeffer;
+	var messageBoardTDeffer;
+	
+	var messageBoardMDeffer;
+
+	var messageBoardDeffer;
+
+	var documentsDeffer;
+
+	var wikiDeffer;
+
+	var groupDeffer;
+
+	//Hooking up promises other views can use
+	function buildPromises(){
+		activityDeffer = $q.defer();
+
+		messageBoardCDeffer = $q.defer();
 		
-		var messageBoardMDeffer;
+		messageBoardTDeffer = $q.defer();
+		
+		messageBoardMDeffer = $q.defer();
+		
+		messageBoardDeffer = $q.defer();
 
-		var messageBoardDeffer;
+		documentsDeffer = $q.defer();
+		
+		wikiDeffer = $q.defer();
+		
+		groupDeffer = $q.defer();
+	}
 
-		var documentsDeffer;
-
-		var wikiDeffer;
-
-		var groupDeffer;
-
-		//Hooking up promises other views can use
-		function buildPromises(){
-			activityDeffer = $q.defer();
-
-			messageBoardCDeffer = $q.defer();
-			
-			messageBoardTDeffer = $q.defer();
-			
-			messageBoardMDeffer = $q.defer();
-			
-			messageBoardDeffer = $q.defer();
-
-			documentsDeffer = $q.defer();
-			
-			wikiDeffer = $q.defer();
-			
-			groupDeffer = $q.defer();
+	function listCategories(list,categories){
+		for(var i = 0 ; i < categories.length ; i++){
+			//Reqursive call to add childrens children
+			if(categories[i].children && categories[i].children.length > 0){
+				listCategories(list, categories[i].children);
+			};
+			//Adding child to list
+			list.push(categories[i]);
 		}
+	}
 
 	return {
 		getActivitiesPromise : function(){
@@ -112,7 +123,9 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
 					var threadPromises = [];
-					angular.forEach(categoriesHolder.categories.children,function(c,k){
+					var categories=[];
+					listCategories(categories, categoriesHolder.categories.children);
+					angular.forEach(categories,function(c,k){
 						//Loading all threads
 						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId, c.threadCount).then(function(threadHolder){
 
