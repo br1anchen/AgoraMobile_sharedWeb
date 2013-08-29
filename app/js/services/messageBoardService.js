@@ -20,13 +20,13 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	};
 
 	var threadsHolder = {
-		threads : [],
+		threads : {},
 		groupId:undefined,
 		categoryId:undefined
 	};
 
 	var messagesHolder = {
-		messages : [],
+		messages : {},
 		groupId:undefined,
 		categoryId:undefined,
 		threadId:undefined
@@ -245,23 +245,41 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 
     //Sets the runtime memory and webstorage
     function setCategories(gid,categories){
-        categoriesHolder.categories = buildCategoryTree(categories);
+    	//If group changes drop all previous threads
+    	if(gid != categoriesHolder.groupId) categoriesHolder = {};
+
+        categoriesHolder.root = buildCategoryTree(categories);
         categoriesHolder.groupId = gid;
     }
     
 	//Sets the runtime memory and webstorage
     function setThreads(gid,categoryId,threads){
-        threadsHolder.threads = threads;
-        threadsHolder.groupId = gid;
-        threadsHolder.categoryId = categoryId
+    	//If group changes drop all previous threads
+    	if(gid != threadsHolder.groupId) threadsHolder = {threads:{}};
+
+    	//Seting ID's
+    	threadsHolder.groupId = gid;
+    	threadsHolder.categoryId = categoryId
+
+    	//Setting threads
+    	if(!threadsHolder.threads[categoryId]) threadsHolder.threads[categoryId] = {};
+        threadsHolder.threads[categoryId].threads = threads;
     }
 
 	//Sets the runtime memory and webstorage
     function setMessages(gid,categoryId,threadId,messages){
-        messagesHolder.messages = messages;
-        messagesHolder.groupId = gid;
-        messagesHolder.categoryId = categoryId;
-        messagesHolder.threadId = threadId;
+    	//If group changes drop all previous threads
+    	if(gid != messagesHolder.groupId) messagesHolder = {messages:{}};
+
+    	//Seting ID's
+    	messagesHolder.groupId = gid;
+    	messagesHolder.categoryId = categoryId;
+    	messagesHolder.threadId = threadId;
+
+    	//Setting messages
+        if(!messagesHolder.messages[categoryId]) messagesHolder.messages[categoryId] = {};
+    	if(!messagesHolder.messages[categoryId][threadId]) messagesHolder.messages[categoryId][threadId] = {};
+        messagesHolder.messages[categoryId][threadId].messages = messages;
     }
 
     function fetchCategories(groupId){
@@ -321,9 +339,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 				promise.then(
 					function(rep){
 						//Sets the title for this thread
+						//Runtimememory is updated by object reference, but we need to update webstrage with thread title
 		    			thread.title = rep.data.subject;
-		    			//Runtimememory is updated by object reference, but we need to update webstrage with thread title
-		    			storeThreads(groupId,categoryId,threads);
 	    			},
 	    			function(error){
 	    				console.log('MessageBoardService.fetchThreads() could not fetch title in background for thread ' + thread);
@@ -335,7 +352,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			$q.all(promiseObjects).then(function(){
 				setThreads(groupId,categoryId, threads);
 				storeThreads(groupId,categoryId, threads)
-				deffered.resolve(threadsHolder);
+				deffered.resolve(threadsHolder.threads[categoryId]);
 			})
 
 		},function(err){
@@ -360,7 +377,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 	    	});
 	    	setMessages(groupId, categoryId, threadId, messages);
 	    	storeMessages(groupId, categoryId, threadId, messages);
-			deffered.resolve(messagesHolder);
+			deffered.resolve(messagesHolder.messages[categoryId][threadId]);
 		},function(err){
 			deffered.reject("MessageBoardService.fetchMessages():Colud not fetch messages for thread " + threadId);
 			console.error("Colud not fetch messages for thread " + threadId);
@@ -407,8 +424,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(threadsHolder.groupId == group.id && threadsHolder.categoryId == categoryId){
-				deffered.resolve(threadsHolder);
+			if(threadsHolder.groupId == group.id && threadsHolder.threads[categoryId]){
+				deffered.resolve(threadsHolder.threads[categoryId]);
 				
 				//Updates in the background even if it has categories localy
 				fetchThreads(group.id,categoryId, number);
@@ -418,7 +435,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			var threads = getThreads(group.id,categoryId);
 			if(threads){
 				setThreads(group.id,categoryId,threads);
-				deffered.resolve(threadsHolder);
+				deffered.resolve(threadsHolder.threads[categoryId]);
 				
 				//Updates in the background even if it has categories localy
 				fetchThreads(group.id,categoryId, number);
@@ -444,8 +461,8 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(messagesHolder.groupId == group.id && messagesHolder.categoryId == categoryId && messagesHolder.threadId == threadId){
-				deffered.resolve(messagesHolder);
+			if(messagesHolder.groupId == group.id && messagesHolder.messages[categoryId][threadId]){
+				deffered.resolve(messagesHolder.messages[categoryId][threadId]);
 				
 				//Updates in the background even if it has categories localy
 				fetchMessages(group.id,categoryId,threadId, number);

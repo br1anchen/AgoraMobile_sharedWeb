@@ -68,7 +68,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 					$scope.categoriesHolder = categoriesHolder;
 					//Making sure UI knows we finished loading data
 					$scope.loading = false;
-					renderCategories($scope.categoriesHolder.categories);
+					renderCategories($scope.categoriesHolder.root);
 				})
 		}
 	}

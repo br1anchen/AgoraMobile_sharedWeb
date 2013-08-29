@@ -122,38 +122,46 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			.then(
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
-					var threadPromises = [];
 					var categories=[];
-					listCategories(categories, categoriesHolder.categories.children);
-					angular.forEach(categories,function(c,k){
-						//Loading all threads
-						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId, c.threadCount).then(function(threadHolder){
+					listCategories(categories, categoriesHolder.root.children);
 
-							var messagesPromises = [];
-							angular.forEach(threadHolder.threads,function(t,k){
-								//Loading all messages
-								messagesPromises.push(MessageBoardService.getMessages(group,c.categoryId,t.threadId, t.messageCount));
+					var threadsPromises = [];
 
-							})
-							$q.all(messagesPromises).then(function(){
-								messageBoardMDeffer.resolve();
-							},function(){
-								messageBoardMDeffer.reject();
-							})
-
-						})
-						threadPromises.push(threadsPromise);
-
-					})
-					
-					$q.all(threadPromises).then(function(){
-						messageBoardTDeffer.resolve();
-					},function(){
-						messageBoardTDeffer.reject();
+					angular.forEach(categories,function(category,k){
+						threadsPromises.push(
+							MessageBoardService.getThreads(group, category.categoryId, category.threadCount).then(
+								function(threadsHolder){
+									var messagesPromises = [];
+									angular.forEach(threadsHolder.threads,function(t,k){
+										//Loading all messages
+										messagesPromises.push(MessageBoardService.getMessages(group,t.categoryId,t.threadId, t.messageCount));
+									})
+									$q.all(messagesPromises).then(
+										function(){
+											messageBoardMDeffer.resolve();
+										},
+										function(err){
+											messageBoardMDeffer.reject(err);
+											console.error("ContentService: Could not resolve all messages");
+										}
+									)
+								},
+								function(err){
+									messageBoardTDeffer.reject(err);
+								}
+							)
+						);
 					});
+					$q.all(threadsPromises).then(function(){
+						messageBoardTDeffer.resolve();
+					},function(err){
+						messageBoardTDeffer.reject(err)
+						console.error("ContentService: Could not resolve all threads");
+					})
 				},
 				function(err){
 					messageBoardCDeffer.reject(err);
+					console.error("ContentService: Could not resolve categories");
 				}
 			)
 			//Loading documents
