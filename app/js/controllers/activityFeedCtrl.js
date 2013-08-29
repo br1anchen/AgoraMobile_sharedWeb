@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('ActivityFeedCtrl',
-	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService){
+	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state){
 		
 		$scope.$on('scrollableUpdate',function(){
 			$scope.loading = true;
@@ -34,5 +34,13 @@ app.controller('ActivityFeedCtrl',
 				}
 			)
 		});
+
+		if($state.is('stage.activityFeed')){
+			var groupId = $state.params.groupId;
+			if($scope.currentGroup && groupId != $scope.currentGroup.id){
+				var group = $scope.getGroup(groupId);
+				if(group) $scope.openGroup(group);
+			}
+		}
 	}
 )
