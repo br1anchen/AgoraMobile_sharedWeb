@@ -65,7 +65,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         else{
             $scope.currentGroup = group;
            
-            ContentService.loadGroupContent($scope.currentGroup).then(function(){
+            ContentService.loadGroupContent(group).then(function(){
                 deffer.resolve();
             });
         }

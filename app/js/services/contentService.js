@@ -126,25 +126,16 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 					listCategories(categories, categoriesHolder.root.children);
 
 					var threadsPromises = [];
+					var messagesPromises = [];
 
 					angular.forEach(categories,function(category,k){
 						threadsPromises.push(
 							MessageBoardService.getThreads(group, category.categoryId, category.threadCount).then(
 								function(threadsHolder){
-									var messagesPromises = [];
 									angular.forEach(threadsHolder.threads,function(t,k){
 										//Loading all messages
 										messagesPromises.push(MessageBoardService.getMessages(group,t.categoryId,t.threadId, t.messageCount));
 									})
-									$q.all(messagesPromises).then(
-										function(){
-											messageBoardMDeffer.resolve();
-										},
-										function(err){
-											messageBoardMDeffer.reject(err);
-											console.error("ContentService: Could not resolve all messages");
-										}
-									)
 								},
 								function(err){
 									messageBoardTDeffer.reject(err);
@@ -152,8 +143,18 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 							)
 						);
 					});
+
 					$q.all(threadsPromises).then(function(){
 						messageBoardTDeffer.resolve();
+						$q.all(messagesPromises).then(
+						function(){
+							messageBoardMDeffer.resolve();
+						},
+						function(err){
+							messageBoardMDeffer.reject(err);
+							console.error("ContentService: Could not resolve all messages");
+						}
+					)
 					},function(err){
 						messageBoardTDeffer.reject(err)
 						console.error("ContentService: Could not resolve all threads");

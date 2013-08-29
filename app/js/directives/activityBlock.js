@@ -10,33 +10,30 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
     controller:function($scope){
       $scope.picURL = AppService.getBaseURL() +'/image' + $scope.activity.pic;
       $scope.open = function(){
-
+        var initialGroup = $scope.currentGroup;
         //Custom function to open activity, set below depending on activity type
         var open;
 
         //User error message
         var failed = function(){
           $rootScope.$broadcast("notification","Open faild");
+          $scope.openGroup(initialGroup);
         }
 
         //Setting the correct function for opening the activity
         switch($scope.activity.type){
           case "message":
             open = function(){
-              var message = StorageService.get('Message'+ $scope.activity.messageId);
-              if(!message){
-                ContentService.loadGroupContent({id : $scope.activity.groupId});
-                ContentService.getMBPromise().then(function(){
-                  message = StorageService.get('Message'+ $scope.activity.messageId);
-                  if(!message)failed();
-                  else{
-                    $state.transitionTo('stage.messageBoard.messages',{categoryId:message.categoryId, threadId:message.threadId});      
-                  }
-                });
-              }
-              else{
-                $state.transitionTo('stage.messageBoard.messages',{categoryId:message.categoryId, threadId:message.threadId});  
-              }
+              //Making sure messageBoard is loaded
+              ContentService.getMBPromise().then(function(){
+                var message = MessageBoardService.getMessage($scope.activity.messageId);
+                if(message){
+                   $state.transitionTo('stage.messageBoard.messages',{categoryId:message.categoryId, threadId:message.threadId}); 
+                }
+                else{
+                  failed();         
+                }
+              })
             };
           break;
           case "file":
@@ -67,7 +64,7 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
           //Finding correct groups
           var group = StorageService.get('TopGroup');
           var groups = StorageService.get('groups')
-          
+
           if(!group  || group.id != $scope.activity.groupId){
             if(groups){
               for(var i = 0 ; i < groups.length ; i++){
@@ -80,30 +77,16 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
           }
 
           if(!group){
-            console.error("activityBlock: Could not find group")
+            console.error("activityBlock: Could not find group related to activity")
             failed();
           }
 
           //Changing to correct group
           $scope.changeGroup(group);
-          ContentService.getGroupPromise()
-          .then(
-            function(res){
-              open();
-            },function(err){
-              failed();
-            }
-          );
+          open();
         }
         else{
-          ContentService.getGroupPromise().then(
-            function(){
-              open();
-            },
-            function(err){
-              failed();
-            }
-          )
+          open();
         }
       }
     },

@@ -161,7 +161,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		var idArray = [];
     	for(var i = 0 ; i < threads.length ; i++){
     		var thread = threads[i];
-    		var id = thread.categoryId;
+    		var id = thread.threadId;
     		idArray.push(id);
     		//Storing each thread
     		StorageService.store('Group' + gid + '_Thread' + id , thread);	
@@ -223,7 +223,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 		var idArray = [];
     	for(var i = 0 ; i < messages.length ; i++){
     		var message = messages[i];
-    		var id = message.threadId;
+    		var id = message.messageId;
     		idArray.push(id);
     		//Storing each thread
     		StorageService.store('Message' + id , message);
@@ -461,7 +461,7 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
-			if(messagesHolder.groupId == group.id && messagesHolder.messages[categoryId][threadId]){
+			if(messagesHolder.groupId == group.id && messagesHolder.messages[categoryId] && messagesHolder.messages[categoryId][threadId]){
 				deffered.resolve(messagesHolder.messages[categoryId][threadId]);
 				
 				//Updates in the background even if it has categories localy
@@ -491,6 +491,9 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			validateGroup(group);
 			var amount = (messagesHolder.messages.length > messagesIncrement) ? messagesHolder.messages.length * 2 : messagesIncrement * 2;
 			return fetchMessages(group.id, categoryId, threadId, amount);
+		}
+		,getMessage : function(messageId){
+			return StorageService.get("Message" + messageId);
 		}
 	}
 }])
