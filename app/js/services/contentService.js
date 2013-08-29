@@ -110,8 +110,8 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 
 			//Loading activities for this group
 			ActivityService.getActivities(group,30).then(
-				function(res){
-					activityDeffer.resolve(res);
+				function(activities){
+					activityDeffer.resolve(activities);
 				},function(err){
 					activityDeffer.reject(err)
 				}

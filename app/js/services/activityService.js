@@ -105,6 +105,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 			}
 			else{
 				setActivities(topGroup.id,JSON2Activities(res.data));//Replacing old data
+				// setActivities(topGroup.id,JSON2Activities(res.data));//Replacing old data
 				StorageService.store("TopGroup_Activities",activitiesHolder.activities);
 
 			}
@@ -144,9 +145,11 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 			var deffered = $q.defer();
 			//Checking runtime memory for activities for this group
 			if( group.id == activitiesHolder.groupId && activitiesHolder.activities.length > 0){
+				//Because we don't know if the stored activities are up to date, we start a background update against the server as well.
+				//The update can be snatched from the array object as 'activities.promise'
+				activitiesHolder.promise = this.updateActivities(group);
 				deffered.resolve(activitiesHolder);
-				//Because we don't know if the stored activities are up to date, we start a background update against the server as well
-				this.updateActivities(group);
+				
 				return deffered.promise;
 			}
 			//Fetching activities from webstorage if present in webstorage
@@ -160,10 +163,10 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 				}
 				//Returning the stored activities if present
 				if(activities && activities.length > 0){
-					deffered.resolve({activities:activities});
-
 					//Because we don't know if the stored activities are up to date, we start a background update against the server as well
-					this.updateActivities(group);
+					activitiesHolder.promise = this.updateActivities(group);
+					deffered.resolve(activitiesHolder);
+					
 					return deffered.promise;
 					
 				}

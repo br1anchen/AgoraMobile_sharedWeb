@@ -8,8 +8,9 @@ app.controller('ActivityFeedCtrl',
 
 			//Updating content
 			ActivityService.updateActivities($scope.currentGroup).then(
-				function(res){
+				function(activitiesHolder){
 					$scope.loading = false;
+					$scope.activities = activitiesHolder.activities;
 				},
 				function(error){
 					console.error("ActivityCtrl: Update failed");
@@ -24,8 +25,9 @@ app.controller('ActivityFeedCtrl',
 
 			//Appending content
 			ActivityService.getMoreActivities($scope.currentGroup).then(
-				function(res){
+				function(activitiesHolder){
 					$scope.loading = false;
+					$scope.activities = activitiesHolder.activities;
 				},
 				function(error){
 					console.error("Append failed");
