@@ -75,31 +75,32 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $scope.openGroup = function(group){
         var deffer = $q.defer();
 
-        $scope.changeGroup(group);
-        ContentService.getActivitiesPromise()
-        .then(
-            function(activitiesHolder){
-                $scope.activities = activitiesHolder.activities;
-                $scope.loading = false;
-                if(activitiesHolder.activities.length == 0){
-                    $rootScope.$broadcast("notification","No activities");
-                }
-                deffer.resolve();
+        $scope.changeGroup(group).then(function(rep){
+            ContentService.getActivitiesPromise()
+            .then(
+                function(activitiesHolder){
+                    $scope.activities = activitiesHolder.activities;
+                    $scope.loading = false;
+                    if(activitiesHolder.activities.length == 0){
+                        $rootScope.$broadcast("notification","No activities");
+                    }
+                    deffer.resolve();
 
-                //Making sure activities are updated if array has a promise object(Custom array behaviour defined in ActivityService)
-                if(activitiesHolder.promise){
-                    activitiesHolder.promise.then(function(updatedActivitiesHolder){
-                        $scope.activities = updatedActivitiesHolder.activities;
-                    })
+                    //Making sure activities are updated if array has a promise object(Custom array behaviour defined in ActivityService)
+                    if(activitiesHolder.promise){
+                        activitiesHolder.promise.then(function(updatedActivitiesHolder){
+                            $scope.activities = updatedActivitiesHolder.activities;
+                        })
+                    }
+                },
+                function(err){
+                    deffer.reject(err);
+                    console.error("StageCtrl: Could not get activities");
+                    $rootScope.$broadcast("notification","No activities");
+                    $scope.loading = false;
                 }
-            },
-            function(err){
-                deffer.reject(err);
-                console.error("StageCtrl: Could not get activities");
-                $rootScope.$broadcast("notification","No activities");
-                $scope.loading = false;
-            }
-        )
+            );
+        });
         return deffer.promise;
     }
 
