@@ -46,7 +46,7 @@ app.directive('htmlContent', function factory($compile,StorageService,UtilitySer
 				}
 			}
 		})
-		return e.html();
+		return e;
 	}
 
 	return{
@@ -76,8 +76,7 @@ app.directive('htmlContent', function factory($compile,StorageService,UtilitySer
 
 				var template = replacedContent;
 
-				if(replacedContent != scope.content){
-					var template = angular.element(template);
+				if(replacedContent.html() != scope.content){
 
 					var linkFn = $compile(template);
 
