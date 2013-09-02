@@ -13,6 +13,11 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		var categoryStack = StateService.getCurrentStateParameter("categoryStack");
 		categoryStack.push(category);
 
+		//Hooking up threads to categories. Used if we have mixed subcategories and threads
+		MessageBoardService.getThreads($scope.currentGroup, category.categoryId).then(function(threadsHolder){
+			$scope.rootCategory.threads = threadsHolder.threads;
+		})
+
 		if($scope.rootCategory.categoryId == 0){
 
 			//Making sure UI knows we are in top category
@@ -51,6 +56,8 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		})
 	}
 
+	
+
 	//When this controller is loaded it loads data dependent on the state:
 	if($state.is('stage.messageBoard.categories')){
 		
@@ -62,6 +69,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 			//Making sure UI knows we are loading data
 			$scope.loading = true;
 				MessageBoardService.getCategories($scope.currentGroup).then(function(categoriesHolder){
+
 					$scope.categoriesHolder = categoriesHolder;
 					//Making sure UI knows we finished loading data
 					$scope.loading = false;
@@ -81,7 +89,8 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 	$scope.$on('scrollableUpdate',function(){
 		$scope.loading = true;
 		if($state.is('stage.messageBoard.categories')){
-			MessageBoardService.updateCategories($scope.currentGroup).then(function(){
+			MessageBoardService.updateCategories($scope.currentGroup).then(function(categoriesHolder){
+				$scope.categoriesHolder = categoriesHolder;
 				$scope.loading = false;
 			},function(error){
 				$rootScope.$broadcast("notification","Update failed");
@@ -89,15 +98,17 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 			});
 		}
 		else if($state.is('stage.messageBoard.threads')){
-			MessageBoardService.updateThreads($scope.currentGroup, $stateParams.categoryId).then(function(){
+			MessageBoardService.updateThreads($scope.currentGroup, $stateParams.categoryId).then(function(threadsHolder){
 				$scope.loading = false;
+				$scope.threadsHolder = threadsHolder;
 			},function(error){
 				$rootScope.$broadcast("notification","Update failed");
 				console.log("MessageBoardCtrl: Could not update threads becaues: "+ error);
 			});
 		}
 		else if($state.is('stage.messageBoard.messages')){
-			MessageBoardService.updateMessages($scope.currentGroup, $stateParams.categoryId, $stateParams.threadId).then(function(){
+			MessageBoardService.updateMessages($scope.currentGroup, $stateParams.categoryId, $stateParams.threadId).then(function(messagesHolder){
+				$scope.messagesHolder = messagesHolder;
 				$scope.loading = false;
 			},function(error){
 				$rootScope.$broadcast("notification","Update failed");
@@ -106,15 +117,24 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 		}
 	})
 	$scope.$on('scrollableAppend',function(){
-		$scope.loading = true;
 		if($state.is('stage.messageBoard.threads')){
-			MessageBoardService.getMoreThreads($scope.currentGroup, $stateParams.categoryId).then(function(){
+			$scope.loading = true;
+			MessageBoardService.getMoreThreads($scope.currentGroup, $stateParams.categoryId).then(function(threadsHolder){
+				$scope.threadsHolder = threadsHolder;
 				$scope.loading = false;
+			},function(error){
+				$scope.loading = false;
+				console.log("MessageBoardCtrl: Could not append more threads: "+ error);
 			});
 		}
 		else if($state.is('stage.messageBoard.messages')){
-			MessageBoardService.getMoreMessages($scope.currentGroup, $stateParams.categoryId, $stateParams.threadId).then(function(){
+			$scope.loading = true;
+			MessageBoardService.getMoreMessages($scope.currentGroup, $stateParams.categoryId, $stateParams.threadId).then(function(messagesHolder){
+				$scope.messagesHolder = messagesHolder;
 				$scope.loading = false;
+			},function(error){
+				$scope.loading = false;
+				console.log("MessageBoardCtrl: Could not append more messages: "+ error);
 			});
 		}
 	})

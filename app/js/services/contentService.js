@@ -1,40 +1,51 @@
 angular.module('app.contentService',['app.messageBoardService','app.documentService','app.wikiPageService','app.activityService']).
 factory('ContentService',function($log,$rootScope,$q,MessageBoardService,DocumentService,WikiPageService,ActivityService){
 		
-		var activityDeffer;
+	var activityDeffer;
 
-		var messageBoardCDeffer;
+	var messageBoardCDeffer;
 
-		var messageBoardTDeffer;
+	var messageBoardTDeffer;
+	
+	var messageBoardMDeffer;
+
+	var messageBoardDeffer;
+
+	var documentsDeffer;
+
+	var wikiDeffer;
+
+	var groupDeffer;
+
+	//Hooking up promises other views can use
+	function buildPromises(){
+		activityDeffer = $q.defer();
+
+		messageBoardCDeffer = $q.defer();
 		
-		var messageBoardMDeffer;
+		messageBoardTDeffer = $q.defer();
+		
+		messageBoardMDeffer = $q.defer();
+		
+		messageBoardDeffer = $q.defer();
 
-		var messageBoardDeffer;
+		documentsDeffer = $q.defer();
+		
+		wikiDeffer = $q.defer();
+		
+		groupDeffer = $q.defer();
+	}
 
-		var documentsDeffer;
-
-		var wikiDeffer;
-
-		var groupDeffer;
-
-		//Hooking up promises other views can use
-		function buildPromises(){
-			activityDeffer = $q.defer();
-
-			messageBoardCDeffer = $q.defer();
-			
-			messageBoardTDeffer = $q.defer();
-			
-			messageBoardMDeffer = $q.defer();
-			
-			messageBoardDeffer = $q.defer();
-
-			documentsDeffer = $q.defer();
-			
-			wikiDeffer = $q.defer();
-			
-			groupDeffer = $q.defer();
+	function listCategories(list,categories){
+		for(var i = 0 ; i < categories.length ; i++){
+			//Reqursive call to add childrens children
+			if(categories[i].children && categories[i].children.length > 0){
+				listCategories(list, categories[i].children);
+			};
+			//Adding child to list
+			list.push(categories[i]);
 		}
+	}
 
 	return {
 		getActivitiesPromise : function(){
@@ -62,6 +73,9 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			return groupDeffer.promise;
 		},
 		loadGroupContent : function(group){
+			if(Object.prototype.toString.call(group) !== '[object Object]'){
+				console.error("No group object given");
+			}
 			buildPromises();
 
 			//Setting up the messageBoard promise
@@ -96,8 +110,8 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 
 			//Loading activities for this group
 			ActivityService.getActivities(group,30).then(
-				function(res){
-					activityDeffer.resolve(res);
+				function(activities){
+					activityDeffer.resolve(activities);
 				},function(err){
 					activityDeffer.reject(err)
 				}
@@ -108,33 +122,47 @@ factory('ContentService',function($log,$rootScope,$q,MessageBoardService,Documen
 			.then(
 				function(categoriesHolder){
 					messageBoardCDeffer.resolve();
-					var threadPromises = [];
-					angular.forEach(categoriesHolder.root.children,function(c,k){
-						//Loading all threads
-						var threadsPromise = MessageBoardService.getThreads(group,c.categoryId).then(function(threadHolder){
+					var categories=[];
+					listCategories(categories, categoriesHolder.root.children);
 
-							var messagesPromises = [];
-							angular.forEach(threadHolder.threads,function(t,k){
-								//Loading all messages
-								messagesPromises.push(MessageBoardService.getMessages(group,c.categoryId,t.threadId));
+					var threadsPromises = [];
+					var messagesPromises = [];
 
-							})
-							$q.all(messagesPromises).then(function(){
-								messageBoardMDeffer.resolve();
-							},function(){
-								messageBoardMDeffer.reject();
-							})
-
-						})
-						threadPromises.push(threadsPromise);
-
-					})
-					
-					$q.all(threadPromises).then(function(){
-						messageBoardTDeffer.resolve();
-					},function(){
-						messageBoardTDeffer.reject();
+					angular.forEach(categories,function(category,k){
+						threadsPromises.push(
+							MessageBoardService.getThreads(group, category.categoryId, category.threadCount).then(
+								function(threadsHolder){
+									angular.forEach(threadsHolder.threads,function(t,k){
+										//Loading all messages
+										messagesPromises.push(MessageBoardService.getMessages(group,t.categoryId,t.threadId, t.messageCount));
+									})
+								},
+								function(err){
+									messageBoardTDeffer.reject(err);
+								}
+							)
+						);
 					});
+
+					$q.all(threadsPromises).then(function(){
+						messageBoardTDeffer.resolve();
+						$q.all(messagesPromises).then(
+						function(){
+							messageBoardMDeffer.resolve();
+						},
+						function(err){
+							messageBoardMDeffer.reject(err);
+							console.error("ContentService: Could not resolve all messages");
+						}
+					)
+					},function(err){
+						messageBoardTDeffer.reject(err)
+						console.error("ContentService: Could not resolve all threads");
+					})
+				},
+				function(err){
+					messageBoardCDeffer.reject(err);
+					console.error("ContentService: Could not resolve categories");
 				}
 			)
 			//Loading documents

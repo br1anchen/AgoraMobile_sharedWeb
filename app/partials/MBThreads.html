@@ -8,18 +8,24 @@
 	    <div class="currentGroupHolder" data-ng-click="goToActivityFeed()">
 	    	<div class="fadeSuroundingsLeft"></div>
 	    	
-	    	<overflow-banner class="currentGroup" duration="3000">
-	    		{{currentGroup.name}}
-	        	<div class="fadeContentRight"></div>
-	    	</overflow-banner>
-
-	        <div class="fadeSuroundingsRight"></div>
+	    	<div class="currentGroup">
+	    		<span>
+	    			<span class="groupName">
+	    				{{currentGroup.name}}
+    				</span>
+    				<span class="category" data-ng-show="rootCategory.name">
+    					: {{rootCategory.name}}
+    				</span>
+	        	</span>
+	    	</div>
 	    </div>
-	    <div class="rightHolder">
-	    </div>
+	    <div class="fadeContentRight"></div>
 	</div>
 
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
+		<div id="threadsHeader">
+				<span class="text">Threads</span>
+		</div>
 		<div class="instance" data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
 			<div class="header">
 				<div class="title">{{thread.title}}</div>

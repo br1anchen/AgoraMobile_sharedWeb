@@ -60,16 +60,16 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
         if($scope.currentGroup && group.id == $scope.currentGroup.id ){
             console.log("Already in group:" + group.name);
-            deffer.resolve();
+            deffer.reject();
         }
         else{
             $scope.currentGroup = group;
-            //If not group is present we wait for it to load:
-            $scope.gettingGroupsPromise.then(function(){
+           
+            ContentService.loadGroupContent(group).then(function(){
                 deffer.resolve();
-            })
+            });
         }
-        ContentService.loadGroupContent($scope.currentGroup);
+        
         return deffer.promise;
     }
     $scope.openGroup = function(group){
@@ -79,17 +79,24 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         ContentService.getActivitiesPromise()
         .then(
             function(activitiesHolder){
-                $scope.activitiesHolder = activitiesHolder;
+                $scope.activities = activitiesHolder.activities;
                 $scope.loading = false;
                 if(activitiesHolder.activities.length == 0){
                     $rootScope.$broadcast("notification","No activities");
                 }
                 deffer.resolve();
+
+                //Making sure activities are updated if array has a promise object(Custom array behaviour defined in ActivityService)
+                if(activitiesHolder.promise){
+                    activitiesHolder.promise.then(function(updatedActivitiesHolder){
+                        $scope.activities = updatedActivitiesHolder.activities;
+                    })
+                }
             },
             function(err){
                 deffer.reject(err);
-                console.error("ActivityCtrl:Group not available");
-                $rootScope.$broadcast("notification","No groups");
+                console.error("StageCtrl: Could not get activities");
+                $rootScope.$broadcast("notification","No activities");
                 $scope.loading = false;
             }
         )
@@ -147,4 +154,13 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         $scope.groupsHolder = groupsHolder;
         $scope.goToGroup();
     })
+    $scope.getGroup = function(groupId){
+        var topGroup = StorageService.get('TopGroup');
+        if(topGroup.id == groupId) return topGroup;
+
+        angular.forEach($scope.groupsHolder.groups,function(group,k){
+            if(groupId == group.id) return group;
+        })
+        return undefined;
+    }
 })

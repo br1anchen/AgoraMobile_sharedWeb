@@ -9,38 +9,40 @@ app.directive('htmlContent', function factory($compile,StorageService,UtilitySer
 		angular.forEach(anchors,function(a,k){
 			a = $(a);
 			var href = a.attr('href');
-			var parts = href.split('/');
-			var lastString = parts[parts.length-1];
-			var wikiName = lastString.replace(/\+/g,' ');
-			var page = StorageService.get('Group' + groupId + '_WikiPageTitle:' + wikiName);
+			if(href){
+				var parts = href.split('/');
+				var lastString = parts[parts.length-1];
+				var wikiName = lastString.replace(/\+/g,' ');
+				var page = StorageService.get('Group' + groupId + '_WikiPageTitle:' + wikiName);
 
-			if(page){
-				a.removeAttr('href');
-				a.attr('data-ng-click','showWiki('+page.nodeId+',\''+page.title+'\')');
-			}
-			else{
-				switch(lastString){
-					case "forum":
-						a.removeAttr('href');
-						a.attr('data-ng-click',"path('stage.messageBoard.categories')");
-					break;
-					case "dokumenter":
-						a.removeAttr('href');
-						a.attr('data-ng-click',"path('stage.documents.root')");
-					break;
-					case "tavle":
-						a.removeAttr('href');
-						a.attr('data-ng-click',"path('stage.wiki.contentlist')");
-					break;
-					default:
-			            //If the link is not understood, and related to Agora, we remove the achor
-			           	if(href.indexOf('agora') > 0){
-			              	a.replaceWith('<span>'+a.html()+'</span>');
-			            }else{
-			            	a.removeAttr('href');
-			            	a.attr('data-ng-click',"load(\'" + href + "\')");
-			            }
-		            break;
+				if(page){
+					a.removeAttr('href');
+					a.attr('data-ng-click','showWiki('+page.nodeId+',\''+page.title+'\')');
+				}
+				else{
+					switch(lastString){
+						case "forum":
+							a.removeAttr('href');
+							a.attr('data-ng-click',"path('stage.messageBoard.categories')");
+						break;
+						case "dokumenter":
+							a.removeAttr('href');
+							a.attr('data-ng-click',"path('stage.documents.root')");
+						break;
+						case "tavle":
+							a.removeAttr('href');
+							a.attr('data-ng-click',"path('stage.wiki.contentlist')");
+						break;
+						default:
+				            //If the link is not understood, and related to Agora, we remove the achor
+				           	if(href.indexOf('agora') > 0){
+				              	a.replaceWith('<span>'+a.html()+'</span>');
+				            }else{
+				            	a.removeAttr('href');
+				            	a.attr('data-ng-click',"load(\'" + href + "\')");
+				            }
+			            break;
+					}
 				}
 			}
 		})

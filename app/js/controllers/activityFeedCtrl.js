@@ -1,15 +1,16 @@
 'use strict';
 
 app.controller('ActivityFeedCtrl',
-	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService){
+	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state){
 		
 		$scope.$on('scrollableUpdate',function(){
 			$scope.loading = true;
 
 			//Updating content
 			ActivityService.updateActivities($scope.currentGroup).then(
-				function(res){
+				function(activitiesHolder){
 					$scope.loading = false;
+					$scope.activities = activitiesHolder.activities;
 				},
 				function(error){
 					console.error("ActivityCtrl: Update failed");
@@ -24,8 +25,9 @@ app.controller('ActivityFeedCtrl',
 
 			//Appending content
 			ActivityService.getMoreActivities($scope.currentGroup).then(
-				function(res){
+				function(activitiesHolder){
 					$scope.loading = false;
+					$scope.activities = activitiesHolder.activities;
 				},
 				function(error){
 					console.error("Append failed");
@@ -34,5 +36,13 @@ app.controller('ActivityFeedCtrl',
 				}
 			)
 		});
+
+		if($state.is('stage.activityFeed')){
+			var groupId = $state.params.groupId;
+			if($scope.currentGroup && groupId != $scope.currentGroup.id){
+				var group = $scope.getGroup(groupId);
+				if(group) $scope.openGroup(group);
+			}
+		}
 	}
 )

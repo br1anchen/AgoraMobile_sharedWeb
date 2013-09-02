@@ -3,7 +3,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	function renderDirectory(){
 		console.log('render Root Folder Content');
 		//Making sure the UI knows we are in top folder
-		if($stateParams.root)$scope.root == true;
+		if($stateParams.root)$scope.root = true;
 
 		//Making sure UI knows we are loading data
 		$scope.loading = true;

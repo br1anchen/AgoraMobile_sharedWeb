@@ -129,6 +129,12 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             var innerWrapper = element.children();
             var content = innerWrapper.children();
 
+            function updateScrollEase(){
+                var contentOverflow = content.height() - innerWrapper.height();
+                scope.sEase = (contentOverflow <= scope.scrollEase) ? 0 : scope.scrollEase;
+            }
+            updateScrollEase();
+
             wrapper.css('position','relative');
             wrapper.css('height','100%');
 
@@ -144,7 +150,8 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             var prevScrollTop = innerWrapper.scrollTop(); // Used to determin scroll direction
             //Triggering update when scrolling is near the bottom
             innerWrapper.on('scroll',function(event){
-                if( Math.abs( innerWrapper.scrollTop() - prevScrollTop) > scope.scrollEase){
+                updateScrollEase();
+                if( Math.abs( innerWrapper.scrollTop() - prevScrollTop) > scope.sEase){
                     onScrollTrigger.fire();
                     if( prevScrollTop < innerWrapper.scrollTop() ){//Scrolling down
                         onScrollDownTrigger.fire();
