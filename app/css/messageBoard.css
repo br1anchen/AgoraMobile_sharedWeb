@@ -8,6 +8,25 @@
 	border-image: none;
 }
 
+#messageBoard #threadsHeader, #messageBoard #categoriesHeader, #messageBoard #messagesHeader {
+	border-bottom: 0.2em solid #BABABA;
+	font-weight: bold;
+	
+	font-size: 1.9em;
+	line-height: 2em;
+}
+#messageBoard #categoriesHeader {
+	background-color: #666666;
+}
+#messageBoard #threadsHeader, #messageBoard #messagesHeader {
+	background-color: #9E9E9E;
+}
+#messageBoard #threadsHeader .text, #messageBoard #categoriesHeader .text, #messageBoard #messagesHeader .text{	
+	padding-top: 0.75em;
+	padding-left: 0.3em;
+	color: black;
+}
+
 #messageBoard #MBcategory, #messageBoard #MBthread, #messageBoard #MBmessage{
 	border-bottom: 0.2em solid #BABABA;
 	position: relative;

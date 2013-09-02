@@ -27,6 +27,24 @@
 	    
 	</div>
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
+		<div id="threadsHeader" ng-show="rootCategory.threads.length != 0">
+				<span class="text">Threads</span>
+		</div>
+		<div class="instance" data-ng-repeat="thread in rootCategory.threads" id="MBthread" data-ng-click="showMessages(thread)">
+			<div class="header">
+				<div class="title">{{thread.title}}</div>
+				<div class="meta">Started by: {{thread.statusByUserName}}</div>
+			</div>
+			<div class="content"> 
+				Messages: {{thread.messageCount}}
+			</div>
+			<div class="meta"> 
+				Latest Post: {{thread.lastPostDate}}
+			</div>
+		</div>
+		<div id="categoriesHeader">
+				<span class="text">Categories</span>
+		</div>
 		<div class="category instance" data-ng-repeat="category in rootCategory.children" id="MBcategory" data-ng-click="openCategory(category)">
 			
 			<div class="header">

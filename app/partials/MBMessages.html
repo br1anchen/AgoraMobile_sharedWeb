@@ -23,8 +23,11 @@
 	    <div class="fadeContentRight"></div>
 	</div>
 
-
 	<div id="messages"  class="instance" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
+
+		<div id="messagesHeader">
+			<span class="text">Messages</span>
+		</div>
 		<div data-ng-repeat="message in messagesHolder.messages" id="MBmessage">
 			<div class="header">
 				<div class="title" >

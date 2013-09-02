@@ -6,6 +6,7 @@ app.directive('htmlContent', function factory($compile,StorageService,UtilitySer
 		e.append(content);
 		//Searching for anchor elements in elements DOM
 		var anchors = e.find('a');
+		console.log(JSON.stringify(anchors));
 		angular.forEach(anchors,function(a,k){
 			a = $(a);
 			var href = a.attr('href');

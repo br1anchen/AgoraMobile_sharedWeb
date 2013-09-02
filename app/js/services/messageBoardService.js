@@ -129,6 +129,17 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
     	return node;
     }
 
+    function linkToCategories(threads){
+    	for(var i = 0 ; i < threads.length ; i++){
+    		var thread = threads[i];
+    		var category = StorageService.get('Group' + thread.groupId + '_Category' + thread.categoryId);
+    		category.threadIds = category.threadIds || []; //Making sure threadIds array is initialized
+    		category.threadIds.push(thread.threadId);
+
+    		StorageService.store('Group' + thread.groupId + '_Category' + thread.categoryId, category);
+    	}
+    }
+
     function buildCategoryTree(categories){
     	return addChildren({categoryId:0},categories);
     }
@@ -247,9 +258,11 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
     function setCategories(gid,categories){
     	//If group changes drop all previous threads
     	if(gid != categoriesHolder.groupId) categoriesHolder = {};
+    	categoriesHolder.groupId = gid;
 
+    	//Building data structure for GUI
         categoriesHolder.root = buildCategoryTree(categories);
-        categoriesHolder.groupId = gid;
+        
     }
     
 	//Sets the runtime memory and webstorage
@@ -360,7 +373,10 @@ factory('MessageBoardService',['$log','$q','StorageService','HttpService','AppSe
 			console.error('MessageBoardService.fetchThreads(): Could not fetch threads for category ' + categoryId);
 		});
 
-		return deffered.promise;
+		return deffered.promise.then(function(threadsHolder){
+			linkToCategories(threadsHolder.threads);
+			return threadsHolder;
+		});
     }
     function fetchMessages(groupId, categoryId, threadId, number){
     	var amount = (number && number > messagesIncrement) ? number : messagesIncrement;
