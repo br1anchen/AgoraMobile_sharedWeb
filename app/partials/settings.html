@@ -35,15 +35,14 @@
 					Disable file caching
 				</label>
 				<div class="switch" btn-switch ng-model="settings.availableOffline"></div>
-				
-				<button id="clearAllFiles" class="btn" type="button" data-ng-click="clearAllFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
-					Clear All Cached Files
-				</button>
-				<label data-ng-repeat="file in savedFilesHolder.savedFiles" class="checkbox"><input type="checkbox" data-ng-click="checkDelete($event,file)">{{file.title}}</label>
-				<button id="manageOfflineFiles" class="btn" type="button" data-ng-click="deleteChosenFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
-					Delete Chosen Files
-				</button>
 			</div>
 		</details>
 	</div>
+	<button id="clearAllFiles" class="btn" type="button" data-ng-click="clearAllFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
+		Clear All Cached Files
+	</button>
+	<label data-ng-repeat="file in savedFilesHolder.savedFiles" class="checkbox"><input type="checkbox" data-ng-click="checkDelete($event,file)">{{file.title}}</label>
+	<button id="manageOfflineFiles" class="btn" type="button" data-ng-click="deleteChosenFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
+		Delete Chosen Files
+	</button>
 </div>
