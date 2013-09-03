@@ -145,6 +145,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
             innerWrapper.css('width','100%');
             innerWrapper.css('overflow-y','scroll');
             innerWrapper.css('overflow-x','hidden');
+            innerWrapper.css('-webkit-overflow-scrolling','touch');
 
 
             var prevScrollTop = innerWrapper.scrollTop(); // Used to determin scroll direction
