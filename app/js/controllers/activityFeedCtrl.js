@@ -2,7 +2,8 @@
 
 app.controller('ActivityFeedCtrl',
 	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state){
-		
+		$scope.loading = true;
+
 		$scope.$on('scrollableUpdate',function(){
 			$scope.loading = true;
 
@@ -41,7 +42,11 @@ app.controller('ActivityFeedCtrl',
 			var groupId = $state.params.groupId;
 			if($scope.currentGroup && groupId != $scope.currentGroup.id){
 				var group = $scope.getGroup(groupId);
-				if(group) $scope.openGroup(group);
+				if(group) $scope.openGroup(group).then(function(rep){
+					$scope.loading = false;
+				});
+			}else{
+				$scope.loading = false;
 			}
 		}
 	}

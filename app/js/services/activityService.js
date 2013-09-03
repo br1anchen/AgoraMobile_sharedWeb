@@ -126,7 +126,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 			var amount = activitiesHolder.activities.length <= appendIncrement ? appendIncrement : activitiesHolder.activities.length;
 
 			//If the given group is the top group
-			if(group.type == 1){
+			if(group.id == 10157){
 				return fetchTopActivities(amount + appendIncrement);
 			}
 			return fetchActivities(group.id,amount + appendIncrement);
@@ -134,7 +134,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 		updateActivities : function(group){
 			var amount = activitiesHolder.activities.length <= appendIncrement ? appendIncrement : activitiesHolder.activities.length;
 			//If the given group is the top group
-			if(group.type == 1){
+			if(group.id == 10157){
 				return fetchTopActivities( amount );
 			}
 			return fetchActivities(group.id , amount );
@@ -155,7 +155,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 			//Fetching activities from webstorage if present in webstorage
 			else{
 				var activities;
-				if(group.type == 1){
+				if(group.id == 10157){
 					activities = StorageService.get("TopGroup_Activities");
 				}
 				else{
@@ -178,7 +178,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 		    	}
 
 				//Fetching activities for this group from server
-				if(group.type == 1){
+				if(group.id == 10157){
 					return fetchTopActivities( amount );
 				}
 				return fetchActivities(group.id , amount);
