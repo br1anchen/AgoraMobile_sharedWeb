@@ -10,6 +10,8 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
     controller:function($scope){
       $scope.picURL = AppService.getBaseURL() +'/image' + $scope.activity.pic;
       $scope.open = function(){
+        $rootScope.$broadcast("notification","Loading...");
+        
         var initialGroup = $scope.currentGroup;
         //Custom function to open activity, set below depending on activity type
         var open;

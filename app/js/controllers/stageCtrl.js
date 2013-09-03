@@ -3,6 +3,9 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     
     StateService.stateVariablesOn();
 
+    //state List for customized backbutton function and remove notification
+    var stateList = ['stage.messageBoard.threads','stage.messageBoard.messages','stage.documents.folder','stage.documents.file','stage.wiki.page'];
+
     //Adding stateParameters for given states
     var rootStates = ['stage.documents.root','stage.wiki.contentlist','stage.messageBoard.categories'];
     StateService.addStateVariables("root",true,rootStates);
@@ -11,15 +14,26 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         StateService.goBack();
     }
 
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        
+        var ifState = jQuery.grep(stateList,function(s,k){
+            return (s == toState.name);
+        });
+
+        if(ifState.length != 0){
+            $rootScope.$broadcast("removeNotification","Loading...");
+        }
+    })
+
     //Modify Andorid back button function
     document.addEventListener("backbutton", onBackKeyDown, false);
 
     function onBackKeyDown() {
 
-        var stateList = ['stage.messageBoard.threads','stage.messageBoard.messages','stage.documents.folder','stage.documents.file','stage.wiki.page'];
         var ifState = jQuery.grep(stateList,function(s,k){
             return (s == $state.current.name);
         });
+
         if(ifState.length != 0){
             $timeout(function(){
                 $scope.back();

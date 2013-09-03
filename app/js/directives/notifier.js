@@ -44,7 +44,7 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
             var show =  false;
             //Listener for notification broadcasts
             $rootScope.$on("notification",function(e,notification){
-                console.log("notification added:"+notification)
+                console.log("notification added: "+notification);
                 if(!show){
                     scope.notification = notification;
                     flash();
@@ -53,6 +53,21 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
                     scope.notificationQue.push(notification);
                 }
             })
+
+            $rootScope.$on("removeNotification",function(e,notification){
+                console.log("notification remove: " + notification);
+                
+                if(scope.notificationQue.length > 0){
+                    scope.notificationQue = jQuery.grep(scope.notificationQue, function (note) {
+                        return note != notification;
+                    });
+                    flash();
+                }else{
+                    hide();
+                }
+                
+            })
+
             //Hide animation
             function hide(){
                 if(show){
