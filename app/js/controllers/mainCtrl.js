@@ -1,6 +1,8 @@
 'use strict';
-app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout,$state,$rootScope){
-
+app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout,$state,$rootScope,localize){
+	
+	localize.initLocalizedResources();
+	
 	checkUserInfo();
 
 	document.addEventListener("offline", function(){
@@ -16,9 +18,7 @@ app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout
 			$state.transitionTo('stage.activityFeed');
 		}else{
 			console.log("no stored user info");
-			$timeout(function(){
-				$location.path("/login");
-			})
+			$state.transitionTo('login');
 		}
 	}
 

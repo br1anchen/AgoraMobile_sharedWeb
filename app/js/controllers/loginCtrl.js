@@ -1,15 +1,13 @@
 'use strict';
 
-app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$rootScope,$dialog){
+app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$rootScope,$dialog,localize){
 
-	var loginFailedMsg = 'Username and password required. Remember to select your affiliation';
-	var loginStuckMsg = "If you forgot you Agora password, you can reset it by logging in trough Feide below. If you don't have an Agora user, you can create one by signing in trough Feide";
+	var loginFailedMsg = localize.getLocalizedString('_loginFailedMsg_');
+	var loginStuckMsg = localize.getLocalizedString('_loginStuckMsg_');
 
 	$scope.affiliationOpen = false;
 	$scope.loading = true;
 	$scope.loginURL = LoginService.getFeideLoginUrl().data;
-
-	$scope.loginMsg = { type: 'success', msg: 'Login ...' };
 
 	//get url to change password for feide user in agora
 	LoginService.getFeideLoginUrl().then(function(url){
@@ -28,41 +26,38 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 
 	$scope.login = function(){
 
-			$scope.loginMsg = { type: 'success', msg: 'Login ...' };
-			$("#loginMessage").css("visibility", "visible");
+		var username = (!$scope.affiliation || typeof $scope.affiliation == 'string' ) ? $scope.username : $scope.username + '__' + $scope.affiliation.domain;
 
-
-			var username = (!$scope.affiliation || typeof $scope.affiliation == 'string' ) ? $scope.username : $scope.username + '__' + $scope.affiliation.domain;
-
-			LoginService.login(username,$scope.password).then(
-				function(rep){
-					LoginService.getUserInfo(username,rep.data.companyId).then(function(rep){
-						console.log('Login success!')
-						$state.transitionTo('stage.activityFeed');
-					},function(reason){
-						console.error("Login failed:"+JSON.stringify(reason));
-						$state.transitionTo('login');
-						if(++loginTries >3){
-							loginStuck();
-						}else{
-							loginError();
-						}
-					});
-
+		LoginService.login(username,$scope.password).then(
+			function(rep){
+				LoginService.getUserInfo(username,rep.data.companyId).then(function(rep){
+					console.log('Login success!')
+					$state.transitionTo('stage.activityFeed');
 				},function(reason){
-					console.log("Login failed:"+JSON.stringify(reason));
+					console.error("Login failed:"+JSON.stringify(reason));
+					$state.transitionTo('login');
 					if(++loginTries >3){
 						loginStuck();
 					}else{
 						loginError();
 					}
-					$state.transitionTo('login');
+				});
+
+			},function(reason){
+				console.log("Login failed:"+JSON.stringify(reason));
+				if(++loginTries >3){
+					loginStuck();
+				}else{
+					loginError();
 				}
-			);
+				$state.transitionTo('login');
+			}
+		);
 	}
+
 	var loginTries = 0;
 	var loginStuck = function(){
-	    var title = 'Login problems?';
+	    var title = localize.getLocalizedString('_loginStuckTitle_');
 	    var msg = loginStuckMsg;
 	    var btns = [{result:'ok', label: 'OK', cssClass: 'btn'}];
 
@@ -73,7 +68,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 	    });
   	}
   	var loginError = function(){
-	    var title = 'Login failed';
+	    var title = localize.getLocalizedString('_loginFailedTitle_');
 	    var msg = loginFailedMsg;
 		var btns = [{result:'ok', label: 'OK', cssClass: 'btn'}];
 

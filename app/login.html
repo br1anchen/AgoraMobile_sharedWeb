@@ -2,7 +2,7 @@
     
     <img id="agora_logo" src="img/agora_logo.png"></img>
     
-    <form data-ng-submit="login()">
+    <form>
         <accordion id="affiliationPicker">
             <accordion-group is-open="$parent.affiliationOpen">
                 <accordion-heading>
@@ -30,14 +30,14 @@
             </accordion-group>
         </accordion>
         <p>
-            <label name="username" ng-bind="'_LoginNameTitle_' | localization"></label><input name="username" type="text" data-ng-model="username" data-ng-required /></br>
+            <label name="username" data-i18n="_LoginNameTitle_"></label><input name="username" type="text" data-ng-model="username" data-ng-required /></br>
 
-            <label name="password" ng-bind="'_LoginPwdTitle_' | localization"></label><input name="password" type="password" data-ng-model="password" data-ng-required /></br>
+            <label name="password" data-i18n="_LoginPwdTitle_"></label><input name="password" type="password" data-ng-model="password" data-ng-required /></br>
         </p>
         
         <div id="feideLoginDiv">
-            <input id="regularLogin" class="btn" type="submit" value="Sign In"/>
-            <button id="feideLogin" class="btn" in-app-browser url="feideLoginUrl" >Feide Sign In</button>
+            <button id="regularLogin" class="btn" ng-click="login()" data-i18n="_regularLoginBtn_"></button>
+            <button id="feideLogin" class="btn" in-app-browser url="feideLoginUrl" data-i18n="_feideLoginBtn_"></button>
         </div>
         
     </form>
