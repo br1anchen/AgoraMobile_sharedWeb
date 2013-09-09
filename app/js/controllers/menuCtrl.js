@@ -3,7 +3,11 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
 
   //'User' should be there because login was successfull
    $scope.user = StorageService.get('User');
-   cacheImage($scope.user.portraitImgUrl);
+   if($scope.user.portraitImgUrl.indexOf('http') != -1)
+   {
+      console.log('cache image');
+      cacheImage($scope.user.portraitImgUrl);
+   }
 
 	 $scope.switchGroup = function(group){
       if(!group){
@@ -28,9 +32,8 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
 
           var dataURL = canvas.toDataURL("image/png");
 
-          StorageService.store('UserPortraitImage',dataURL);
-
           $scope.user.portraitImgUrl = dataURL;
+          StorageService.store('User',$scope.user);
 
         }
    }
