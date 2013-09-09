@@ -1,5 +1,15 @@
 [
     {
+        "key":"_LoginAffiliationSelectName_",
+        "value":"Affiliation",
+        "description":"Login page affiliation select tag text"
+    },
+    {
+        "key":"_LoginNoAffiliationName_",
+        "value":"No Affiliation",
+        "description":"Login page no affiliation option tag text"
+    },
+    {
         "key":"_LoginNameTitle_",
         "value":"Screen Name",
         "description":"Login page username text"

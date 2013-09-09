@@ -1,5 +1,15 @@
 [
     {
+        "key":"_LoginAffiliationSelectName_",
+        "value":"Institusjon",
+        "description":"Login page affiliation select tag text"
+    },
+    {
+        "key":"_LoginNoAffiliationName_",
+        "value":"Ingen Institusjon",
+        "description":"Login page no affiliation option tag text"
+    },
+    {
         "key":"_LoginNameTitle_",
         "value":"Brukernavn",
         "description":"Login page username text"

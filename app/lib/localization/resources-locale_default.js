@@ -1,5 +1,15 @@
 [
     {
+        "key":"_LoginAffiliationSelectName_",
+        "value":"Affiliation",
+        "description":"Login page affiliation select tag text"
+    },
+    {
+        "key":"_LoginNoAffiliationName_",
+        "value":"No Affiliation",
+        "description":"Login page no affiliation option tag text"
+    },
+    {
         "key":"_LoginNameTitle_",
         "value":"Screen Name",
         "description":"Login page username text"
@@ -25,8 +35,18 @@
         "description":"Login page login failed message"
     },
     {
+        "key":"_loginFailedTitle_",
+        "value":"Login failed",
+        "description":"Login page login failed message title"
+    },
+    {
         "key":"_loginStuckMsg_",
         "value":"If you forgot your Agora password, you can reset it by logging in through Feide below. If you don't have an Agora user, you can create one by signing in through Feide.",
         "description":"Login page login stuck message"
+    },
+    {
+        "key":"_loginStuckTitle_",
+        "value":"Login problems?",
+        "description":"Login page login failed message title"
     }
 ]

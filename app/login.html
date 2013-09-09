@@ -7,7 +7,7 @@
             <accordion-group is-open="$parent.affiliationOpen">
                 <accordion-heading>
                     <span class="header">
-                        <span class="text" >Affiliation</span>
+                        <span class="text" data-i18n="_LoginAffiliationSelectName_"></span>
                         <span class="iconHolder">
                             <i class="icon-caret-down" data-ng-hide="affiliationOpen"></i>
                             <i class=" icon-caret-up" data-ng-show="affiliationOpen"></i>
@@ -22,7 +22,7 @@
                             <span class="affiliationTitle"  data-ng-bind="a.name"></span>
                         </li>
                         <li id="noAffiliation" ng-click="setAffiliation('NO AFFILIATION')">
-                            <span class="affiliationTitle"  >NO AFFILIATION</span>
+                            <span class="affiliationTitle"  data-i18n="_LoginNoAffiliationName_" ></span>
                         </li>
 
                     </ul>
