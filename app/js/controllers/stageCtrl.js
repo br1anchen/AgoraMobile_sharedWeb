@@ -102,7 +102,12 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             function(){
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
             }
-        )
+        ,function(err){
+            $rootScope.$broadcast("removeNotification","Loading...");
+            if(err == 'same group'){
+                $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
+            }
+        })
     }
 
     //function to call load group function after promise resolved then get activities
@@ -135,6 +140,8 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                     $scope.loading = false;
                 }
             );
+        },function(err){
+            deffer.reject(err);
         });
         return deffer.promise;
     }
@@ -149,7 +156,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
         if($scope.currentGroup && group.id == $scope.currentGroup.id ){
             console.log("Already in group:" + group.name);
-            deffer.reject();
+            deffer.reject('same group');
         }
         else{
             $scope.currentGroup = group;

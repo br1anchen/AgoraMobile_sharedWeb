@@ -111,3 +111,7 @@
 #documents #DCFileDetail .content{
 	padding-top: 1em;
 }
+
+#documents #DCFileDetail .btnSwitch{
+	margin-left: 10px;
+}

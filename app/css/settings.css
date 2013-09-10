@@ -8,7 +8,8 @@
 }
 #settings .detailsContent label{
 	padding:1em;
-	text-align: center;
+	text-align: left;
+	padding-left: 10%;
 }
 #settings .instance{
 	border-bottom: 0.15em solid #BABABA;
@@ -25,5 +26,6 @@
 #settings .switch{
 	position:absolute;
 	right:1em;
-	top:1em;
+	top:0.8em;
+	margin-left: 10px;
 }
