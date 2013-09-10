@@ -97,6 +97,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     //Function to change the active group in the application
     $scope.goToGroup = function(group){
+        $rootScope.$broadcast("notification","Loading...");
         $scope.showGroup(group).then(
             function(){
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
@@ -117,6 +118,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                     if(activitiesHolder.activities.length == 0){
                         $rootScope.$broadcast("notification","No activities");
                     }
+                    $rootScope.$broadcast("removeNotification","Loading...");
                     deffer.resolve();
 
                     //Making sure activities are updated if array has a promise object(Custom array behaviour defined in ActivityService)
