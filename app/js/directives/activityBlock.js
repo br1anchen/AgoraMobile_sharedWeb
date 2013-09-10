@@ -96,7 +96,7 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
           }
 
           //Changing to correct group
-          $scope.changeGroup(group);
+          $scope.loadGroup(group);
           open();
         }
         else{

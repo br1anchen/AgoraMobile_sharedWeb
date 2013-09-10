@@ -42,7 +42,7 @@ app.controller('ActivityFeedCtrl',
 			var groupId = $state.params.groupId;
 			if($scope.currentGroup && groupId != $scope.currentGroup.id){
 				var group = $scope.getGroup(groupId);
-				if(group) $scope.openGroup(group).then(function(rep){
+				if(group) $scope.showGroup(group).then(function(rep){
 					$scope.loading = false;
 				});
 			}else{
