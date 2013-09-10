@@ -25,13 +25,13 @@
                 </ul>
             </div>
             <ul class="nav nav-list footer">
-                <li data-ng-click="goTo('stage.settings')">
+                <li data-ng-click="goToPage('stage.settings')">
                     <i class="icon-cogs"></i>Settings
                 </li>
                 <li data-ng-click="logout()">
                     <i class="icon-signout"></i>Sign out
                 </li>
-                <li data-ng-click="goTo('stage.about')">
+                <li data-ng-click="goToPage('stage.about')">
                     <i class="icon-info-sign"></i>About
                 </li>
             </ul>
@@ -49,9 +49,9 @@
                         </td>
                         <td>
                             <div id="mainFunctions">
-                                <i data-ng-click="path('stage.messageBoard.categories')" data-ng-class="{activeLinkClass : stateIs('stage.messageBoard.categories')}"  class="icon-comments icon-2x" ></i>
-                                <i data-ng-click="path('stage.documents.root')" data-ng-class="{activeLinkClass : stateIs('stage.documents.root')}" class="icon-archive icon-2x" ></i>
-                                <i data-ng-click="path('stage.wiki.contentlist')" data-ng-class="{activeLinkClass : stateIs('stage.wiki.contentlist')}" class="icon-paste icon-2x" ></i>
+                                <i data-ng-click="changePage('stage.messageBoard.categories')" data-ng-class="{activeLinkClass : stateIs('stage.messageBoard.categories')}"  class="icon-comments icon-2x" ></i>
+                                <i data-ng-click="changePage('stage.documents.root')" data-ng-class="{activeLinkClass : stateIs('stage.documents.root')}" class="icon-archive icon-2x" ></i>
+                                <i data-ng-click="changePage('stage.wiki.contentlist')" data-ng-class="{activeLinkClass : stateIs('stage.wiki.contentlist')}" class="icon-paste icon-2x" ></i>
                             </div>
                         </td>
                         <td>

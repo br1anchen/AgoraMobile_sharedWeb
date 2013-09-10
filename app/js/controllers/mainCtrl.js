@@ -1,7 +1,7 @@
 'use strict';
 app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout,$state,$rootScope,localize){
 	
-	localize.initLocalizedResources();
+	localize.initLocalizedResources();//init localization file
 	
 	checkUserInfo();
 

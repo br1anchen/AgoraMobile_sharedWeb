@@ -15,7 +15,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-        
+        //notification for waiting for loading group content at before state
         var ifState = jQuery.grep(stateList,function(s,k){
             return (s == toState.name);
         });
@@ -56,15 +56,16 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             $scope.menuVar = undefined;
         }
 	}
-    //Function to change app path
-	$scope.path = function(path) {
-        console.log(path);
-        $state.transitionTo(path); // path not hash
+    //Function to change page view
+	$scope.changePage = function(page) {
+        console.log(page);
+        $state.transitionTo(page);
     }
     //Function to check if state equals give state
     $scope.stateIs = function(state){
         return $state.is(state);
     }
+
     $scope.changeGroup = function(group){
         var deffer = $q.defer();
 

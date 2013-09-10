@@ -2,45 +2,41 @@
 app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,DocumentService,$rootScope,$cookies,$state,LoginService){
 
   //'User' should be there because login was successfull
-   $scope.user = StorageService.get('User');
-   if($scope.user.portraitImgUrl.indexOf('http') != -1)
-   {
-      console.log('cache image');
-      cacheImage($scope.user.portraitImgUrl);
-   }
+  $scope.user = StorageService.get('User');
+  if($scope.user.portraitImgUrl.indexOf('http') != -1)
+  {//check user protraitimage cached or not
+    console.log('cache image');
+    cacheImage($scope.user.portraitImgUrl);
+  }
 
-	 $scope.switchGroup = function(group){
-      if(!group){
-        $scope.goToGroup(group);
-      }else{
-        $scope.goToGroup(group);        
+  function cacheImage(url){//cache image at localstorage
+      var img = new Image();
+      img.src = $scope.user.portraitImgUrl;
+
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width =this.width;
+        canvas.height =this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        $scope.user.portraitImgUrl = dataURL;
+        StorageService.store('User',$scope.user);
+
       }
-      $scope.toggleMenu();
-	 }
-
-   function cacheImage(url){
-        var img = new Image();
-        img.src = $scope.user.portraitImgUrl;
-
-        img.onload = function () {
-          var canvas = document.createElement("canvas");
-          canvas.width =this.width;
-          canvas.height =this.height;
-
-          var ctx = canvas.getContext("2d");
-          ctx.drawImage(this, 0, 0);
-
-          var dataURL = canvas.toDataURL("image/png");
-
-          $scope.user.portraitImgUrl = dataURL;
-          StorageService.store('User',$scope.user);
-
-        }
-   }
-   $scope.goTo = function(state){
-    $scope.path(state);
+  }
+    
+  $scope.switchGroup = function(group){
+    $scope.goToGroup(group);
     $scope.toggleMenu();
-   }
+  }
+  $scope.goToPage = function(state){
+    $scope.changePage(state);
+    $scope.toggleMenu();
+  }
 
   $scope.logout = function(){
     LoginService.logOut().then(function(rep){

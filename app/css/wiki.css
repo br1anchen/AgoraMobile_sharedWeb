@@ -32,6 +32,10 @@
 	line-height: 2.5em;
 }
 
+#wiki .accordion-group{
+	border:0px;
+}
+
 #wiki #wikiPage .header .accordion{
 	margin-bottom: 0px !important;
 }
@@ -90,7 +94,7 @@
 	font-weight: bold;
 }
 #wiki #wikiPage #childrenPicker{
-	border: 0.2em solid #D1D1D1
+
 }
 
 #wiki .toChildren{

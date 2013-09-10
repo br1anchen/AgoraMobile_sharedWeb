@@ -23,15 +23,15 @@ app.directive('htmlContent', function factory($compile,StorageService,UtilitySer
 					switch(lastString){
 						case "forum":
 							a.removeAttr('href');
-							a.attr('data-ng-click',"path('stage.messageBoard.categories')");
+							a.attr('data-ng-click',"changePage('stage.messageBoard.categories')");
 						break;
 						case "dokumenter":
 							a.removeAttr('href');
-							a.attr('data-ng-click',"path('stage.documents.root')");
+							a.attr('data-ng-click',"changePage('stage.documents.root')");
 						break;
 						case "tavle":
 							a.removeAttr('href');
-							a.attr('data-ng-click',"path('stage.wiki.contentlist')");
+							a.attr('data-ng-click',"changePage('stage.wiki.contentlist')");
 						break;
 						default:
 				            //If the link is not understood, and related to Agora, we remove the achor
