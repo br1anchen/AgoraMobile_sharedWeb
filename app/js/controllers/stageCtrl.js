@@ -97,15 +97,20 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     //Function to change the active group in the application
     $scope.goToGroup = function(group){
-        $rootScope.$broadcast("notification","Loading...");
+        $timeout(function(){
+            $rootScope.$broadcast("notification","Loading...");
+        },100);
         $scope.showGroup(group).then(
             function(){
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
             }
         ,function(err){
-            $rootScope.$broadcast("removeNotification","Loading...");
             if(err == 'same group'){
+                $rootScope.$broadcast("removeNotification","Loading...");
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
+            }else{
+                $rootScope.$broadcast("removeNotification","Loading...");
+                $rootScope.$broadcast("notification","Loading Error");
             }
         })
     }
@@ -141,6 +146,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                 }
             );
         },function(err){
+            $rootScope.$broadcast("removeNotification","Loading...");
             deffer.reject(err);
         });
         return deffer.promise;
