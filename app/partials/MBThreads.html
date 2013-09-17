@@ -24,20 +24,20 @@
 
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
 		<div id="threadsHeader">
-				<span class="text">Threads</span>
+				<span class="text">{{ '_mbThreadTag_' | i18n }}</span>
 		</div>
 		<div class="instance" data-ng-repeat="thread in threadsHolder.threads" id="MBthread" data-ng-click="showMessages(thread)">
 			<div class="header">
 				<div class="title">{{thread.title}}</div>
-				<div class="meta">Started by: {{thread.statusByUserName}}</div>
+				<div class="meta">{{ '_mbStartedText_' | i18n }}: {{thread.statusByUserName}}</div>
 			</div>
 			<div class="content"> 
-				Messages: {{thread.messageCount}}
+				{{ '_mbMessagesText_' | i18n }}: {{thread.messageCount}}
 			</div>
 			<div class="meta"> 
-				Latest Post: {{thread.lastPostDate}}
+				{{ '_mbLatestText_' | i18n }}: {{thread.lastPostDate}}
 			</div>
 		</div>
-		<alert id="noThread" style="visibility:hidden">No Thread in this Category</alert>
+		<alert id="noThread" data-ng-show="threadsHolder.threads.length == 0">{{ '_mbNoThreadText_' | i18n }}</alert>
 	</div>
 </div>

@@ -103,5 +103,55 @@
         "key":"_settingsDeleteFileBtn_",
         "value":"Delete Chosen Files",
         "description":"Settings page delete chosen files button tag"
+    },
+    {
+        "key":"_mbCategoryTag_",
+        "value":"Categories",
+        "description":"messageboard page categories header tag"
+    },
+    {
+        "key":"_mbThreadTag_",
+        "value":"Threads",
+        "description":"messageboard page threads header tag"
+    },
+    {
+        "key":"_mbStartedText_",
+        "value":"Started by",
+        "description":"messageboard page instance started by text"
+    },
+    {
+        "key":"_mbMessagesText_",
+        "value":"Messages",
+        "description":"messageboard page instance messages text"
+    },
+    {
+        "key":"_mbLatestText_",
+        "value":"Latest Post",
+        "description":"messageboard page instance lasted post text"
+    },
+    {
+        "key":"_mbCategoryDesText_",
+        "value":"No description",
+        "description":"messageboard page category instance no description text"
+    },
+    {
+        "key":"_mbNoContentTag_",
+        "value":"No content for messageboard in this group",
+        "description":"messageboard page  no categories text"
+    },
+    {
+        "key":"_mbMsgAuthorText_",
+        "value":"Author",
+        "description":"messageboard message page author text"
+    },
+    {
+        "key":"_mbNoMsgsText_",
+        "value":"No Message in this Thread",
+        "description":"messageboard message page no messages text"
+    },
+    {
+        "key":"_mbNoThreadText_",
+        "value":"No Threads in this Category",
+        "description":"messageboard thread page no threads text"
     }
 ]

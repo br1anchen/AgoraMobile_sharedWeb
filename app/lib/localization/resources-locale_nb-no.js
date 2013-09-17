@@ -138,5 +138,20 @@
         "key":"_mbNoContentTag_",
         "value":"Ingen innhold for forum i denne gruppen",
         "description":"messageboard page  no categories text"
+    },
+    {
+        "key":"_mbMsgAuthorText_",
+        "value":"Skrevet",
+        "description":"messageboard message page author text"
+    },
+    {
+        "key":"_mbNoMsgsText_",
+        "value":"Ingen Innlegg i denne tråden",
+        "description":"messageboard message page no messages text"
+    },
+    {
+        "key":"_mbNoThreadText_",
+        "value":"Ingen tråder i denne kategorien",
+        "description":"messageboard thread page no threads text"
     }
 ]

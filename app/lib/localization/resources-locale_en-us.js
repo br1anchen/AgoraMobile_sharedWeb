@@ -138,5 +138,20 @@
         "key":"_mbNoContentTag_",
         "value":"No content for messageboard in this group",
         "description":"messageboard page  no categories text"
+    },
+    {
+        "key":"_mbMsgAuthorText_",
+        "value":"Author",
+        "description":"messageboard message page author text"
+    },
+    {
+        "key":"_mbNoMsgsText_",
+        "value":"No Message in this Thread",
+        "description":"messageboard message page no messages text"
+    },
+    {
+        "key":"_mbNoThreadText_",
+        "value":"No Threads in this Category",
+        "description":"messageboard thread page no threads text"
     }
 ]
