@@ -166,7 +166,8 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 	function fetchWikiPage(gId,nId,title){
 		var deffered = $q.defer();
 
-		var promise = HttpService.request(PageApiUrl + nId + '/title/' + title,'','GET');
+		var encodeTitle = encodeURIComponent(title);
+		var promise = HttpService.request(PageApiUrl + nId + '/title/' + encodeTitle,'','GET');
 
 		promise.then(function(rep){
 			var page = JSON2Page(rep.data);
