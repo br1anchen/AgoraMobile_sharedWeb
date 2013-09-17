@@ -2,11 +2,11 @@
 	<div class="instance" data-ng-click="toggle('settings.lowBandwidth')">
 		<details class="data">
 			<summary class="meta">
-				If you want less datatrafic you can modify application behaviour
+				{{ '_settingsLowBandTag_' | i18n }}
 			</summary>
 			<div class="detailsContent">
 				<label for="lowBandwidth" data-ng-click="toggleSetting('lowBandwidth')">
-					Don't preload group data
+					{{ '_settingsLowBandBtn_' | i18n }}
 				</label>
 				<div class="switch" btn-switch ng-model="settings.lowBandwidth"></div>
 			</div>
@@ -15,11 +15,11 @@
 	<div class="instance" data-ng-click="toggle('settings.disableNotifications')">
 		<details class="data">
 			<summary class="meta">
-				Change application background behaviour
+				{{ '_settingsDisNotificationTag_' | i18n }}
 			</summary>
 			<div class="detailsContent">
 				<label for="notifications" data-ng-click="toggleSetting('disableNotifications')">
-					Disable notifications
+					{{ '_settingsDisNotificationBtn_' | i18n }}
 				</label>
 				<div class="switch" btn-switch ng-model="settings.disableNotifications"></div>
 			</div>
@@ -28,21 +28,21 @@
 	<div class="instance" data-ng-click="toggle('settings.storage')">
 		<details class="data">
 			<summary class="meta">
-				Manage application storage settings, and free phone memory
+				{{ '_settingsStorageTag_' | i18n }}
 			</summary>
 			<div class="detailsContent">
 				<label for="availableOffline" data-ng-click="toggleSetting('availableOffline')">
-					Disable file caching
+					{{ '_settingsDisStorageBtn_' | i18n }}
 				</label>
 				<div class="switch" btn-switch ng-model="settings.availableOffline"></div>
 			</div>
 		</details>
 	</div>
 	<button id="clearAllFiles" class="btn" type="button" data-ng-click="clearAllFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
-		Clear All Cached Files
+		{{ '_settingsClearFilesBtn_' | i18n }}
 	</button>
 	<label data-ng-repeat="file in savedFilesHolder.savedFiles" class="checkbox"><input type="checkbox" data-ng-click="checkDelete($event,file)">{{file.title}}</label>
 	<button id="manageOfflineFiles" class="btn" type="button" data-ng-click="deleteChosenFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
-		Delete Chosen Files
+		{{ '_settingsDeleteFileBtn_' | i18n }}
 	</button>
 </div>

@@ -48,5 +48,60 @@
         "key":"_loginStuckTitle_",
         "value":"Logg inn problemer?",
         "description":"Login page login failed message title"
+    },
+    {
+        "key":"_menuSettingsTag_",
+        "value":"Innstillinger",
+        "description":"menu bar settings button tag"
+    },
+    {
+        "key":"_menuLogoutTag_",
+        "value":"Logge Av",
+        "description":"menu bar log out button tag"
+    },
+    {
+        "key":"_menuAboutTag_",
+        "value":"Om",
+        "description":"menu bar about button tag"
+    },
+    {
+        "key":"_settingsLowBandTag_",
+        "value":"Hvis du vil ha mindre datatrafikk,du kan endre programmet atferd",
+        "description":"Settings page lowBandwidth tag"
+    },
+    {
+        "key":"_settingsLowBandBtn_",
+        "value":"Ikke preload gruppere data",
+        "description":"Settings page lowBandwidth button tag"
+    },
+    {
+        "key":"_settingsDisNotificationTag_",
+        "value":"Bytt søknaden bakgrunn atferd",
+        "description":"Settings page disable notification tag"
+    },
+    {
+        "key":"_settingsDisNotificationBtn_",
+        "value":"Deaktiver varslinger",
+        "description":"Settings page disable notification button tag"
+    },
+    {
+        "key":"_settingsStorageTag_",
+        "value":"Administrere programmet lagring innstillinger, og frigjøre minne på telefonen",
+        "description":"Settings page manage storage tag"
+    },
+    {
+        "key":"_settingsDisStorageBtn_",
+        "value":"Deaktiver fil hurtigbufring",
+        "description":"Settings page disable storage button tag"
+    },
+    {
+        "key":"_settingsClearFilesBtn_",
+        "value":"Fjern alle Bufrede filer",
+        "description":"Settings page clear all saved files button tag"
+    },
+    {
+        "key":"_settingsDeleteFileBtn_",
+        "value":"Slett Valgte filer",
+        "description":"Settings page delete chosen files button tag"
     }
 ]
