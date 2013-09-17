@@ -28,22 +28,22 @@
 	</div>
 	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
 		<div id="threadsHeader" ng-show="rootCategory.threads.length != 0">
-				<span class="text">Threads</span>
+				<span class="text">{{ '_mbThreadTag_' | i18n }}</span>
 		</div>
 		<div class="instance" data-ng-repeat="thread in rootCategory.threads" id="MBthread" data-ng-click="showMessages(thread)">
 			<div class="header">
 				<div class="title">{{thread.title}}</div>
-				<div class="meta">Started by: {{thread.statusByUserName}}</div>
+				<div class="meta">{{ '_mbStartedText_' | i18n }}: {{thread.statusByUserName}}</div>
 			</div>
 			<div class="content"> 
-				Messages: {{thread.messageCount}}
+				{{ '_mbMessagesText_' | i18n }}: {{thread.messageCount}}
 			</div>
 			<div class="meta"> 
-				Latest Post: {{thread.lastPostDate}}
+				{{ '_mbLatestText_' | i18n }}: {{thread.lastPostDate}}
 			</div>
 		</div>
 		<div id="categoriesHeader">
-				<span class="text">Categories</span>
+				<span class="text">{{ '_mbCategoryTag_' | i18n }}</span>
 		</div>
 		<div class="category instance" data-ng-repeat="category in rootCategory.children" id="MBcategory" data-ng-click="openCategory(category)">
 			
@@ -54,12 +54,12 @@
 				{{category.description}}			
 			</div>
 			<div class="content" data-ng-hide="category.description"> 
-				No description		
+				{{ '_mbCategoryDesText_' | i18n }}		
 			</div>
 			<div class="meta">
-				<span>Threads: {{category.threadCount}}</span>
+				<span>{{ '_mbThreadTag_' | i18n }}: {{category.threadCount}}</span>
 			</div>
 		</div>
 	</div>
-	<alert id="noCategory" style="visibility:hidden">No Categories in this group</alert>
+	<alert id="noCategory" data-ng-show="rootCategory.children.length == 0 && rootCategory.threads.length == 0">{{ '_mbNoContentTag_' | i18n }}</alert>
 </div>

@@ -103,5 +103,40 @@
         "key":"_settingsDeleteFileBtn_",
         "value":"Slett Valgte filer",
         "description":"Settings page delete chosen files button tag"
+    },
+    {
+        "key":"_mbCategoryTag_",
+        "value":"Kategorier",
+        "description":"messageboard page categories tag"
+    },
+    {
+        "key":"_mbThreadTag_",
+        "value":"Tråder",
+        "description":"messageboard page threads header tag"
+    },
+    {
+        "key":"_mbStartedText_",
+        "value":"Startet av",
+        "description":"messageboard page instance started by text"
+    },
+    {
+        "key":"_mbMessagesText_",
+        "value":"Innlegg",
+        "description":"messageboard page instance messages text"
+    },
+    {
+        "key":"_mbLatestText_",
+        "value":"Siste melding",
+        "description":"messageboard page instance lasted post text"
+    },
+    {
+        "key":"_mbCategoryDesText_",
+        "value":"Ingen beskrivelse",
+        "description":"messageboard page category instance no description text"
+    },
+    {
+        "key":"_mbNoContentTag_",
+        "value":"Ingen innhold for forum i denne gruppen",
+        "description":"messageboard page  no categories text"
     }
 ]
