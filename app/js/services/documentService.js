@@ -40,7 +40,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		});
 	}
 
-	//getFileSystem();
+	getFileSystem();
 
 	function JSON2Folder(json){
 		return {
