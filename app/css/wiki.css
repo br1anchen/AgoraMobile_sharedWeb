@@ -26,7 +26,7 @@
 	position: relative;
 }
 #wiki #wikiPage .header .title{
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: bold;
 	background-color: #D1D1D1;
 	line-height: 2.5em;
@@ -41,7 +41,7 @@
 }
 
 #wiki #wikiPage .header .accordion-heading{
-	font-size: 2.5em;
+	font-size: 2em;
 	line-height: 2em;
 	font-weight: bold;
 	background-color: #D1D1D1;
@@ -73,7 +73,7 @@
 }
 
 #wiki #wikiPage #childrenPicker #childrenPage{
-	font-size: 1.8em;
+	font-size: 1.6em;
 	border-bottom: 0.09em solid #BABABA;
 	width: 100%;
 	line-height: 2em;
@@ -137,7 +137,7 @@
 #wiki #contentList .leaf{
 	height: 2em;
 	line-height: 2em;
-	font-size:2em;
+	font-size:1.4em;
 	position: relative;
 	text-align: left;
 	border-bottom: 0.09em solid #BABABA;

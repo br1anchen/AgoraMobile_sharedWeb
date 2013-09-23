@@ -81,7 +81,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     $scope.$on("scrollingDown",function(){
         $timeout(function(){
-            $scope.showConentHeader = false;
+            //$scope.showConentHeader = false;
         })
     })
 

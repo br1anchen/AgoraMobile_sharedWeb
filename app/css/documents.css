@@ -25,26 +25,25 @@
 	margin: 0;
 	width:100%;
 	height: 100%;
-	display: inline-block;
 	position: relative;
 	background-color: white;
 }
 #documents .rowIcon{
 	width: 5em;
-	height: 5em;
+	height: 3.5em;
 	text-align: center;
 	background-color: #D1D1D1;
 	position: absolute;
 }
 #documents .iconHolder {
-	padding-top: 1.5em;
+	padding-top: 0.5em;
 }
 
 #documents .row .textHolder{
 	display: inline-block;
 	padding-left: 6em;
 	height: 100%;
-	line-height: 5em;
+	line-height: 3.5em;
 }
 #documents .rowText{
 	font-size: 1.5em;
@@ -57,7 +56,7 @@
 	position: absolute;
 	right: 0;
 	top:0;
-	padding-top: 1.5em;
+	padding-top: 0.5em;
 	z-index:1;
 }
 #documents ul .fileInfo, #documents ul .content {
@@ -68,7 +67,7 @@
 
 #documents .fileInfoTransition{
 	width: 50px;
-	height:5em;
+	height:3.5em;
 	position: absolute;
 	right: 50px;
 	top:0;
@@ -85,8 +84,8 @@
 #documents #files , #documents #folders {
 	font-weight: bold;
 	background-color: #D1D1D1;
-	font-size: 1.9em;
-	line-height: 2em;
+	font-size: 1.2em;
+	line-height: 1.8em;
 	border-bottom: none;
 }
 #documents #files .text, #documents #folders .text{
@@ -96,12 +95,12 @@
 }
 
 #documents .content{
-	height: 5em;
+	height: 3.5em;
 	position:relative;
 }
 
 #documents #DCFileDetail .title {
-	font-size: 1.9em;
+	font-size: 1.5em;
 	line-height: 2em;
 	background-color: #D1D1D1;
 }

@@ -11,8 +11,8 @@
 
 #activityFeed .content .activityBlock{
 	padding: 0.5em 0.5em 0.5em 0.5em ;
-	height: 8em;
-	line-height: 8em;
+	height: 6em;
+	line-height: 6em;
 	background-color: #ffffff;
 	border-bottom: 1px solid #efefef;
 	text-align: left;
@@ -21,11 +21,16 @@
 
 #activityFeed .content  .peopleImg{
 	float: left;
-	width:20%;
+	width:13%;
 	margin-bottom: 0px;
 	display: inline-block;
 	vertical-align: middle;
-	height: 100%;
+	height: 6em;
+}
+
+#activityFeed .content  .peopleImg img
+{
+	width: 6em;	
 }
 
 #activityFeed .content .activityBlock .contentWrapper{

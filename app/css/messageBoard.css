@@ -12,7 +12,7 @@
 	border-bottom: 0.2em solid #BABABA;
 	font-weight: bold;
 	
-	font-size: 1.9em;
+	font-size: 1.5em;
 	line-height: 2em;
 }
 #messageBoard #categoriesHeader {
@@ -35,7 +35,7 @@
 }
 #messageBoard .header .title{
 	line-height: 2em;
-	font-size: 1.9em;
+	font-size: 1.2em;
 	color: #5b677d;
 	background-color: #D1D1D1;
 	font-weight: bold;
@@ -61,7 +61,7 @@
 
 #messageBoard .instance .content{
 	margin: 0;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	line-height: 1em;
 	padding: 0.4em 0.5em 1.2em 0.5em;
 }
