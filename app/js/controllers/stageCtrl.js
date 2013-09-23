@@ -97,9 +97,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     //Function to change the active group in the application
     $scope.goToGroup = function(group){
-        $timeout(function(){
-            $rootScope.$broadcast("notification","Loading...");
-        },100);
+        
         $scope.showGroup(group).then(
             function(){
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});

@@ -28,12 +28,12 @@ body {
 }
 
 .main-nav {
-  transition: margin-left 0.2s ease;
-  -webkit-transition: margin-left 0.2s ease;
+  transition: margin-left 0.1s ease;
+  -webkit-transition: margin-left 0.1s ease;
 }
 .page-wrap{
-  transition: left 0.2s ease;
-  -webkit-transition: left 0.2s ease;
+  transition: left 0.1s ease;
+  -webkit-transition: left 0.1s ease;
 }
 
 .page-wrap.menu{

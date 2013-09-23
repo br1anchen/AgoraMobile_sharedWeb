@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,DocumentService,$rootScope,$cookies,$state,LoginService){
+app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,DocumentService,$rootScope,$cookies,$state,LoginService,$timeout){
 
   //'User' should be there because login was successfull
   $scope.user = StorageService.get('User');
@@ -30,8 +30,13 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   }
     
   $scope.switchGroup = function(group){
-    $scope.goToGroup(group);
     $scope.toggleMenu();
+    
+    $timeout(function(){
+      $rootScope.$broadcast("notification","Loading...");
+      $scope.goToGroup(group);
+    },120);
+
   }
   $scope.goToPage = function(state){
     $scope.changePage(state);
