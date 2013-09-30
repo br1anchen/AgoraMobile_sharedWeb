@@ -23,6 +23,7 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
     }
 
     function fetchGroups(){//fetch data function
+      StorageService.deleteDBTable("Groups",null);
       var deffered = $q.defer();
       var promise = HttpService.request(apiUrl,'','GET');
 
@@ -37,7 +38,7 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
               group.name = "Agora";
               group.isTopGroup = 1;
               StorageService.store("TopGroup",group);
-              StorageService.storeDB("Groups",group);  
+              StorageService.storeDB("Groups",group);
             }
             else if(g.site){
               groups.push(group);

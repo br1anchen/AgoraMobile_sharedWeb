@@ -47,6 +47,7 @@ factory('StorageService',['$log','$window',function($log,$window){
 
 		        tx.executeSql('CREATE TABLE IF NOT EXISTS Groups (kid integer primary key,'
 		                                                            + 'id integer,'
+		                                                            + 'name text,'
 		                                                            + 'type integer,'
 		                                                            + 'site integer,'
 		                                                            + 'friendlyURL text,'
@@ -225,7 +226,7 @@ factory('StorageService',['$log','$window',function($log,$window){
 
 	    		switch(table){
 		    		case 'Groups':
-		    			tx.executeSql("INSERT INTO Groups (id,type,site,friendlyURL,isTopGroup) VALUES (?,?,?,?,?)", [object.id, object.type,object.site,object.friendlyURL,object.isTopGroup], function(tx, res) {
+		    			tx.executeSql("INSERT INTO Groups (id,name,type,site,friendlyURL,isTopGroup) VALUES (?,?,?,?,?,?)", [object.id,object.name,object.type,object.site,object.friendlyURL,object.isTopGroup], function(tx, res) {
           					console.log("insertId: " + res.insertId);
           					console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
           				}, function(e) {
@@ -252,6 +253,57 @@ factory('StorageService',['$log','$window',function($log,$window){
 	    	});
 	    	
 	    },
+	    getDB:function(table,selectKey){
+	    	storageDB.transaction(function(tx){
+
+	    		switch(table){
+		    		case 'Groups':
+		    			if(selectKey == "groups")
+		    			{
+		    				tx.executeSql("SELECT * FROM Groups", [], function(tx, res) {
+		    					for(var i = 0; i < res.rows.length; i++)
+		    					{
+		    						console.log(res.rows.item(i));
+		    					}
+          					}, function(e) {
+				          		console.log("ERROR: failed to select all groups from Groups table, " + JSON.stringify(e));
+				        	});
+		    			}else if(selectKey == "topGroup"){
+		    				tx.executeSql("SELECT * FROM Groups WHERE isTopGroup = 1", [], function(tx, res) {
+		    					console.log(JSON.stringify(res.rows.item(0)));
+          					}, function(e) {
+				          		console.log("ERROR: failed to select top group from Groups table, " + JSON.stringify(e));
+				        	});
+		    			}else{
+		    				tx.executeSql("SELECT * FROM Groups WHERE id = ?", [selectKey], function(tx, res) {
+		    					console.log(res.rows.item(0));
+          					}, function(e) {
+				          		console.log("ERROR: failed to select top group from Groups table, " + JSON.stringify(e));
+				        	});
+		    			}
+		    			break;
+		    		case 'DCFolders':
+		    			break;
+		    		case 'DCFiles':
+		    			break;
+		    		case 'Activities':
+		    			break;
+		    		case 'Wikipages':
+		    			break;
+		    		case 'Wikinodes':
+		    			break;
+		    		case 'MBCategories':
+		    			break;
+		    		case 'MBThreads':
+		    			break;
+		    		case 'MBMessages':
+		    			break;
+		    	}
+
+	    	},function(e){
+	    		console.log("ERROR: " + JSON.stringify(e));
+	    	});
+	    },
 	    clearDB: function(){
 	    	//var storageDB = window.sqlitePlugin.openDatabase({name: "AgoraMobileDB"});
 
@@ -265,6 +317,32 @@ factory('StorageService',['$log','$window',function($log,$window){
 	    		tx.executeSql('DROP TABLE IF EXISTS MBCategories');
 	    		tx.executeSql('DROP TABLE IF EXISTS MBThreads');
 	    		tx.executeSql('DROP TABLE IF EXISTS MBMessages');
+	    	});
+	    },
+	    deleteDBTable: function(table,keyword){
+	    	storageDB.transaction(function(tx) {
+
+	    		switch(table){
+		    		case 'Groups':
+		    			tx.executeSql('DELETE FROM Groups');
+		    			break;
+		    		case 'DCFolders':
+		    			break;
+		    		case 'DCFiles':
+		    			break;
+		    		case 'Activities':
+		    			break;
+		    		case 'Wikipages':
+		    			break;
+		    		case 'Wikinodes':
+		    			break;
+		    		case 'MBCategories':
+		    			break;
+		    		case 'MBThreads':
+		    			break;
+		    		case 'MBMessages':
+		    			break;
+		    	}
 	    	});
 	    }
 	}
