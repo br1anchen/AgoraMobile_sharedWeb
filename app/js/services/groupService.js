@@ -17,7 +17,8 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
         name : json.name,
         type : json.type,
         site : json.site,
-        friendlyURL : json.friendlyURL
+        friendlyURL : json.friendlyURL,
+        isTopGroup : 0
       }
     }
 
@@ -34,10 +35,13 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
 
             if(g.site && g.groupId == 10157){//We treat the top group differently
               group.name = "Agora";
-              StorageService.store("TopGroup",group);  
+              group.isTopGroup = 1;
+              StorageService.store("TopGroup",group);
+              StorageService.storeDB("Groups",group);  
             }
             else if(g.site){
               groups.push(group);
+              StorageService.storeDB("Groups",group);
             }
           })
           setGroups(groups);

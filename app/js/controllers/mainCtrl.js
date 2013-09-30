@@ -3,6 +3,8 @@ app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout
 	
 	localize.initLocalizedResources();//init localization file
 	
+	StorageService.initDB("AgoraMobileDB"); //init SQLite Database
+
 	checkUserInfo();
 
 	document.addEventListener("offline", function(){
