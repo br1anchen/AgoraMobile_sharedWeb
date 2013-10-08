@@ -1,5 +1,5 @@
 angular.module('app.storageService',[]).
-factory('StorageService',['$log','$window',function($log,$window){
+factory('StorageService',['$log','$window','$q',function($log,$window,$q){
 	var invalidKey = function(key){
     	$log('StorageService:store():Invalid key(should be a string):'+JSON.stringify(key));
     }
@@ -220,8 +220,8 @@ factory('StorageService',['$log','$window',function($log,$window){
 		    });
 	    },
 	    storeDB: function(table,object) {
-	    	//var storageDB = window.sqlitePlugin.openDatabase({name: "AgoraMobileDB"});
-	    	
+	    	var deffered = $q.defer();
+
 	    	storageDB.transaction(function(tx) {
 
 	    		switch(table){
@@ -229,8 +229,10 @@ factory('StorageService',['$log','$window',function($log,$window){
 		    			tx.executeSql("INSERT INTO Groups (id,name,type,site,friendlyURL,isTopGroup) VALUES (?,?,?,?,?,?)", [object.id,object.name,object.type,object.site,object.friendlyURL,object.isTopGroup], function(tx, res) {
           					console.log("insertId: " + res.insertId);
           					console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
+          					deffered.resolve("rowsAffected: " + res.rowsAffected);
           				}, function(e) {
 				          console.log("ERROR: failed to insert group to Groups table, " + JSON.stringify(e));
+				          deffered.reject("ERROR: failed to insert group to Groups table, " + JSON.stringify(e));
 				        });
 		    			break;
 		    		case 'DCFolders':
@@ -251,34 +253,58 @@ factory('StorageService',['$log','$window',function($log,$window){
 		    			break;
 		    	}
 	    	});
+
+	    	return deffered.promise;
 	    	
 	    },
-	    getDB:function(table,selectKey){
+	    getDB:function(table,selectKey,successfn,errfn){
+
 	    	storageDB.transaction(function(tx){
 
 	    		switch(table){
 		    		case 'Groups':
 		    			if(selectKey == "groups")
 		    			{
-		    				tx.executeSql("SELECT * FROM Groups", [], function(tx, res) {
+		    				tx.executeSql("SELECT * FROM Groups WHERE isTopGroup <> 1", [], function(tx, res) {
+		    					var groups = [];
 		    					for(var i = 0; i < res.rows.length; i++)
 		    					{
-		    						console.log(res.rows.item(i));
+		    						groups.push(res.rows.item(i));
 		    					}
+		    					
+		    					if(successfn){
+		    						successfn(groups);
+		    					}else{
+		    						return groups;
+		    					}
+		    					
           					}, function(e) {
 				          		console.log("ERROR: failed to select all groups from Groups table, " + JSON.stringify(e));
+				          		errfn(undefined);
 				        	});
 		    			}else if(selectKey == "topGroup"){
 		    				tx.executeSql("SELECT * FROM Groups WHERE isTopGroup = 1", [], function(tx, res) {
-		    					console.log(JSON.stringify(res.rows.item(0)));
+
+		    					if(successfn){
+		    						successfn(res.rows.item(0));
+		    					}else{
+		    						return res.rows.item(0);
+		    					}
+		    					
           					}, function(e) {
 				          		console.log("ERROR: failed to select top group from Groups table, " + JSON.stringify(e));
+				          		errfn(undefined);
 				        	});
 		    			}else{
 		    				tx.executeSql("SELECT * FROM Groups WHERE id = ?", [selectKey], function(tx, res) {
-		    					console.log(res.rows.item(0));
+		    					if(successfn){
+		    						successfn(res.rows.item(0));
+		    					}else{
+		    						return res.rows.item(0);
+		    					}
           					}, function(e) {
 				          		console.log("ERROR: failed to select top group from Groups table, " + JSON.stringify(e));
+				          		errfn(undefined);
 				        	});
 		    			}
 		    			break;
@@ -305,7 +331,6 @@ factory('StorageService',['$log','$window',function($log,$window){
 	    	});
 	    },
 	    clearDB: function(){
-	    	//var storageDB = window.sqlitePlugin.openDatabase({name: "AgoraMobileDB"});
 
 	    	storageDB.transaction(function(tx) {
 	    		tx.executeSql('DROP TABLE IF EXISTS Groups');
@@ -319,12 +344,15 @@ factory('StorageService',['$log','$window',function($log,$window){
 	    		tx.executeSql('DROP TABLE IF EXISTS MBMessages');
 	    	});
 	    },
-	    deleteDBTable: function(table,keyword){
+	    deleteDB: function(table,keyword){
 	    	storageDB.transaction(function(tx) {
 
 	    		switch(table){
 		    		case 'Groups':
-		    			tx.executeSql('DELETE FROM Groups');
+		    			if(!keyword){
+		    				console.log("Delete all datas from Groups table");
+		    				tx.executeSql('DELETE FROM Groups');
+		    			}
 		    			break;
 		    		case 'DCFolders':
 		    			break;

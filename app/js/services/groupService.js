@@ -23,13 +23,15 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
     }
 
     function fetchGroups(){//fetch data function
-      StorageService.deleteDBTable("Groups",null);
+      
+      StorageService.deleteDB("Groups",null);
+
       var deffered = $q.defer();
       var promise = HttpService.request(apiUrl,'','GET');
+      var storePromiseObjs = [];
 
       promise.then(
         function(rep){
-          var groups = [];
 
           angular.forEach(rep.data, function(g, k){
             var group = JSON2Group(g);
@@ -37,16 +39,23 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
             if(g.site && g.groupId == 10157){//We treat the top group differently
               group.name = "Agora";
               group.isTopGroup = 1;
-              StorageService.store("TopGroup",group);
-              StorageService.storeDB("Groups",group);
+              StorageService.store('TopGroup',group);
+              var storePromise = StorageService.storeDB("Groups",group);
+              storePromiseObjs.push(storePromise);
             }
             else if(g.site){
-              groups.push(group);
-              StorageService.storeDB("Groups",group);
+              var storePromise = StorageService.storeDB("Groups",group);
+              storePromiseObjs.push(storePromise);
             }
-          })
-          setGroups(groups);
-          deffered.resolve(groupsHolder);
+          });
+
+          $q.all(storePromiseObjs).then(function(){
+            StorageService.getDB("Groups","groups",function(groups){
+              groupsHolder.groups = groups;
+              deffered.resolve(groupsHolder);
+            });
+          });
+          
         },
         function(err){
           deffered.reject("GroupsService:fetchGroups()Could not fetch groups");
@@ -55,11 +64,6 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
       );
       
       return deffered.promise;
-    }
-
-    function setGroups(groups){
-      StorageService.store('groups',groups);
-      groupsHolder.groups = groups;
     }
 
   	//return value from GroupService
@@ -74,18 +78,19 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
           this.updateGroups();
         }
         else{
-          var localGroups = StorageService.get("groups");
-          //Returns groups from localStorage if present, and updats groups in bacground
-          if(localGroups){
-            groupsHolder.groups = localGroups;
-            deffered.resolve(groupsHolder);
-            //Updating groups in bacground
-            this.updateGroups();
-          }
-          else{
-            //Tries to fetch groups
-            return fetchGroups();
-          }
+          StorageService.getDB("Groups","groups",function(localGroups){
+            //Returns groups from localStorage if present, and updats groups in bacground
+            if(localGroups){
+              groupsHolder.groups = localGroups;
+              deffered.resolve(groupsHolder);
+              //Updating groups in bacground
+              fetchGroups();
+            }
+            else{
+              //Tries to fetch groups
+              return fetchGroups();
+            }
+          });
         }
         return deffered.promise;
       },
@@ -94,8 +99,7 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
         return fetchGroups();
       },
       clear : function(){
-        StorageService.remove('groups');
-        StorageService.remove('TopGroup');
+        StorageService.deleteDB("Groups",null);
         groupsHolder.groups = [];
       }
   }

@@ -76,28 +76,15 @@ app.directive('activityBlock', function factory($log, AppService, $state, Messag
         //Making sure the correct groups for this activity is loaded
         if($scope.currentGroup.id != $scope.activity.groupId){
           //Finding correct groups
-          var group = StorageService.get('TopGroup');
-          var groups = StorageService.get('groups')
-
-          if(!group  || group.id != $scope.activity.groupId){
-            if(groups){
-              for(var i = 0 ; i < groups.length ; i++){
-                if(groups[i].id == $scope.activity.groupId){
-                  group = groups[i];
-                  break;
-                }
-              }
+          StorageService.getDB("Groups",$scope.activity.groupId,function(group){
+            if(!group){
+              console.error("activityBlock: Could not find group related to activity")
+              failed();
             }
-          }
-
-          if(!group){
-            console.error("activityBlock: Could not find group related to activity")
-            failed();
-          }
-
-          //Changing to correct group
-          $scope.loadGroup(group);
-          open();
+            //Changing to correct group
+            $scope.loadGroup(group);
+            open();
+          });
         }
         else{
           open();
