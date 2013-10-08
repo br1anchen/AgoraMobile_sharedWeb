@@ -26,7 +26,7 @@
     },
     {
         "key":"_feideLoginBtn_",
-        "value":"Feide Login",
+        "value":"Feide User Click Here To Reset Your Agora User Password through Feide Account.",
         "description":"Login page regular login button"
     },
     {

@@ -1,12 +1,12 @@
 #menu{
-	color:white;
+	color:#454545;
 	height: 100%;
 }
 #menu .name{
 	height: 2em;
 	line-height: 2em;
 	font-size: 2em;
-	margin-left: 3em;
+	margin-left: 0.8em;
 	display: inline-block;
 	vertical-align: middle;
 	font-weight: bold;
@@ -16,9 +16,9 @@
 	border-radius: 0.1em;
 }
 #menu #userPortrait{
-	height: 4.5em;
-	width: 4.5em;
-	left: 1em;
+	height: 3em;
+	width: 3em;
+	left: 0.3em;
 	top: 0em;
 	position: absolute;
 	display: inline-block;
@@ -31,12 +31,12 @@
 	margin: 0;
 	margin-top: 0.5em;
 	width: 100%;
-	height: 9em;
+	height: 3.5em;
 	overflow: hidden;
 }
 #menu #mainHeader{
 	border-bottom: 0.15em solid #BABABA;
-	height:5em;
+	height:3.5em;
 	overflow:hidden;
 }
 
@@ -45,6 +45,18 @@
 	font-size: 1.6em;
 	padding-left: 0.6em;
 	overflow: hidden;
+	border-top: 1px solid #eff1f1;
+  	border-bottom: 1px solid #bcbfbf;
+}
+
+#menu .groups li:first-child, #menu .footer li:first-child
+{
+	border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+#menu .groups li:last-child, #menu .footer li:last-child
+{
+	border-bottom: none;
 }
 
 #menu .groups .li .fadeContentRight{
@@ -69,16 +81,20 @@
 }
 
 #menu #groupsHeader{
-	height: 3.8em;
+	height: 4em;
 	border-bottom: 0.15em solid #BABABA;
-	margin-right: 6em;
 	text-align: left;
+	border-top: 1px solid rgba(255,255,255,0.5);
+  	border-bottom: 1px solid rgba(255,255,255,0.23);
 }
 #menu #groupsHeader span{
 	font-weight: bold;
 	font-size: 2em;
 	line-height: 2em;
 	padding-left: 0.5em;
+	background-color: #cccfcf;
+  	color: #656565;
+  	text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 
 #menu .content{
@@ -86,7 +102,7 @@
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	margin-top: 9.5em;
+	margin-top: 4em;
 	margin-bottom: 11.5em;
 	text-align: left;
 	width: 100%;
@@ -98,4 +114,5 @@
 	height: 100%;
 	font-size: 0.95em;
 	width: 100%;
+	border-top: 1px solid #bcbfbf;
 }

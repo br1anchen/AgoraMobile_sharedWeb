@@ -26,7 +26,7 @@
     },
     {
         "key":"_feideLoginBtn_",
-        "value":"Feide Logg Inn",
+        "value":"Feide Bruker Klikk her for å tilbakestille Agora brukerpassord gjennom Feide konto.",
         "description":"Login page regular login button"
     },
     {

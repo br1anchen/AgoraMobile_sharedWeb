@@ -101,12 +101,11 @@
 	border-width: 0px 0px 1px 0px;
 }
 #login #feideLogin{
-	float: left;
-	margin-left: 1em;
+	margin: 0 auto;
+	margin-top: 1em;
 }
 #login #regularLogin{
-	float: right;
-	margin-right: 1em;
+	margin: 0 auto;
 }
 #login footer {
 }
