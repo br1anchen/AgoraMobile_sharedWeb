@@ -6,10 +6,10 @@ app.directive('btnSwitch', function(){
     restrict : 'A',
     require :  'ngModel',
     template : 
-        '<span class="btn btnSwitch">'+
-          '<span class="btnSwitchOn btn-primary">ON</span>'+
-          '<span class="btnSwitchOff btn-default">OFF</span>'+ 
-        '</span>',
+          '<label class="topcoat-switch">' +
+            '<input type="checkbox" class="topcoat-switch__input">' +
+            '<div class="topcoat-switch__toggle"></div>' +
+          '</label>',
     replace : true,
     link : function(scope, element, attrs, ngModel){
                    
@@ -21,17 +21,12 @@ app.directive('btnSwitch', function(){
         var render=function(){
           var val = ngModel.$viewValue; 
           
-          var open=angular.element(element.children()[0]);
-          open.removeClass(val ? 'btnSwitchHide' : 'btnSwitchShow');
-          open.addClass(val ? 'btnSwitchShow' : 'btnSwitchHide');
-            
-          var closed=angular.element(element.children()[1]);
-          closed.removeClass(val ? 'btnSwitchShow' : 'btnSwitchHide');
-          closed.addClass(val ? 'btnSwitchHide' : 'btnSwitchShow');
+          var checkbox = $(element.children()[0]);
+          checkbox.attr("checked",val);
         };
         
         // Listen for the button click event to enable binding
-        element.bind('click', function() {
+        $(element.children()[0]).change( function() {
           scope.$apply(toggle);             
         });
                    

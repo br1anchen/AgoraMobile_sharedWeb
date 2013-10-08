@@ -5,7 +5,7 @@
 				{{ '_settingsLowBandTag_' | i18n }}
 			</summary>
 			<div class="detailsContent">
-				<label for="lowBandwidth" data-ng-click="toggleSetting('lowBandwidth')">
+				<label class="settingslabel" for="lowBandwidth" data-ng-click="toggleSetting('lowBandwidth')">
 					{{ '_settingsLowBandBtn_' | i18n }}
 				</label>
 				<div class="switch" btn-switch ng-model="settings.lowBandwidth"></div>
@@ -18,7 +18,7 @@
 				{{ '_settingsDisNotificationTag_' | i18n }}
 			</summary>
 			<div class="detailsContent">
-				<label for="notifications" data-ng-click="toggleSetting('disableNotifications')">
+				<label class="settingslabel" for="notifications" data-ng-click="toggleSetting('disableNotifications')">
 					{{ '_settingsDisNotificationBtn_' | i18n }}
 				</label>
 				<div class="switch" btn-switch ng-model="settings.disableNotifications"></div>
@@ -31,7 +31,7 @@
 				{{ '_settingsStorageTag_' | i18n }}
 			</summary>
 			<div class="detailsContent">
-				<label for="availableOffline" data-ng-click="toggleSetting('availableOffline')">
+				<label class="settingslabel" for="availableOffline" data-ng-click="toggleSetting('availableOffline')">
 					{{ '_settingsDisStorageBtn_' | i18n }}
 				</label>
 				<div class="switch" btn-switch ng-model="settings.availableOffline"></div>
@@ -41,7 +41,7 @@
 	<button id="clearAllFiles" class="btn" type="button" data-ng-click="clearAllFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
 		{{ '_settingsClearFilesBtn_' | i18n }}
 	</button>
-	<label data-ng-repeat="file in savedFilesHolder.savedFiles" class="checkbox"><input type="checkbox" data-ng-click="checkDelete($event,file)">{{file.title}}</label>
+	<label class="settingslabel" data-ng-repeat="file in savedFilesHolder.savedFiles" class="checkbox"><input type="checkbox" data-ng-click="checkDelete($event,file)">{{file.title}}</label>
 	<button id="manageOfflineFiles" class="btn" type="button" data-ng-click="deleteChosenFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
 		{{ '_settingsDeleteFileBtn_' | i18n }}
 	</button>
