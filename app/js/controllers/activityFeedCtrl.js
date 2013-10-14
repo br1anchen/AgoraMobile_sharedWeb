@@ -46,7 +46,21 @@ app.controller('ActivityFeedCtrl',
 					$scope.loading = false;
 				});
 			}else{
-				$scope.loading = false;
+				$scope.loading = true;
+
+				//Updating content
+				ActivityService.updateActivities($scope.currentGroup).then(
+					function(activitiesHolder){
+						$scope.loading = false;
+						$scope.activities = activitiesHolder.activities;
+					},
+					function(error){
+						console.error("ActivityCtrl: Update failed");
+						$rootScope.$broadcast("notification","Update failed");
+						$scope.loading = false;
+					}
+				);
+			
 			}
 		}
 	}
