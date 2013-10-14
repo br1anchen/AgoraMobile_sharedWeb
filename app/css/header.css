@@ -40,20 +40,25 @@ header .menuButton{
   float:left;
   margin-left: 0.3em;
 }
-header .menuButton:active,
-header .menuButton.is-active{
+
+header .sideButton:active,
+header .sideButton.is-active{
 	text-shadow: 0 1px #fff;
-  	background-color: #ED4040;
-  	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
-  	box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  background-color: #ED4040;
+  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  box-shadow: inset 0 1px rgba(0,0,0,0.12);
 }
+
+header .centerButton:active,
+header .centerButton.is-active{
+  text-shadow: 0 2px #000000;
+  color: red;
+}
+
 header .searchButton{
   /*right: 0;*/
   float:right;
   margin-right: 0.3em;
-}
-header .menuButton:hover{
-  color:white;
 }
 
 header #mainFunctions :nth-child(2){
