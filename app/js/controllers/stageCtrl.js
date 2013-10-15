@@ -61,11 +61,18 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 	$scope.toggleMenu = function(){
         if(!$scope.menuVar){
             $scope.menuVar = 'menu';
-            $scope.flashVar = undefined;
         }else{
             $scope.menuVar = undefined;
         }
 	}
+
+    $scope.toggleSearch = function(){
+        if(!$scope.menuVar){
+            $scope.menuVar = 'search';
+        }else{
+            $scope.menuVar = undefined;
+        }
+    }
 
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
     //The event listeners should also work, because the scrolling directive broadcast on the root scope.

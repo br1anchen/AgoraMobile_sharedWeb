@@ -56,7 +56,7 @@
                             </div>
                         </td>
                         <td>
-                            <i class="icon-search icon-2x searchButton sideButton"></i>
+                            <i class="icon-search icon-2x searchButton sideButton" data-ng-click="toggleSearch()"></i>
                         </td>
                     </tr>
                 </table>
@@ -74,4 +74,16 @@
             <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
         </div>
     </div>
+
+    <nav id="search-nav" class="search-nav" data-ng-class="menuVar">
+        <div id="search" ng-controller="SearchCtrl">
+            <div id="searchForm">
+                <input ng-model="keyword" type="text">
+                <button ng-click="search()">Search</button>
+            </div>
+            <div data-ng-repeat="r in results" >
+                {{r.type}}  {{r.groupName}} {{r.snippet}} {{r.modifiedDate}}
+            </div>
+        </div>
+    </nav>
 </div>

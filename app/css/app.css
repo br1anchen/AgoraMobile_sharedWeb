@@ -31,13 +31,23 @@ body {
   transition: margin-left 0.1s ease;
   -webkit-transition: margin-left 0.1s ease;
 }
+.search-nav {
+  transition: left 0.1s ease;
+  -webkit-transition: left 0.1s ease;
+}
 .page-wrap{
   transition: left 0.1s ease;
   -webkit-transition: left 0.1s ease;
+  transition: right 0.1s ease;
+  -webkit-transition: right 0.1s ease;
 }
 
 .page-wrap.menu{
   left: 80%;
+}
+
+.page-wrap.search{
+  left: -80%;
 }
 
 #main-nav {
@@ -46,13 +56,24 @@ body {
   width: 80%;
   margin-left:-80%;
   height: 100%;
-  background: #cccfcf !important;
-  background: black;
+  background: #cccfcf;
   overflow: hidden;
   text-align: center;
 }
+#search-nav {
+  position: fixed;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  background: #cccfcf;
+  overflow: hidden;
+  margin-left:100%;
+}
 #main-nav.menu{
   margin-left:0%;
+}
+#search-nav.search{
+  margin-left:20%;
 }
 #contentWrapper {
   height: 91%;

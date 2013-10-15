@@ -49,7 +49,7 @@ app.controller('ActivityFeedCtrl',
 				$scope.loading = true;
 
 				//Updating content
-				ActivityService.updateActivities($scope.currentGroup).then(
+				ActivityService.updateActivities({id:groupId}).then(
 					function(activitiesHolder){
 						$scope.loading = false;
 						$scope.activities = activitiesHolder.activities;

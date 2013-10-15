@@ -19,38 +19,41 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
     function JSON2Activities(activities){//parse json to group obj
     	var parsedActivities = [];
     	angular.forEach(activities, function(object, key){
-    		var body = stripHTML(object.body);
-		  	var activity = {
-		      	timestamp:object.date,
-		      	pic:object.pict.substring(0,object.pict.indexOf('&')),
-		      	user:object.user,
-		      	groupId:parseInt(object.groupId),
-		      	action:body.substring(0,body.indexOf(',')),
-		      	reference:body.substring(body.indexOf(',')+2)
-			}
-		    if(object.WikiPage_nodeid){
-				activity.type = "wiki";
-				activity.node = parseInt(object.WikiPage_nodeid);
-				activity.title = object.WikiPage_title;
-		    }
-		   	else if(object.MBMessage_messageId){
-		      	activity.type = "message";
-		      	activity.messageId = parseInt(object.MBMessage_messageId);
-		    }
-		    else if(object.DLFileEntry_filelink){
-		      	activity.type = "file";
-		      	var GETData =object.DLFileEntry_filelink.split('?').pop().split('&')
-				for(var i=0; i<GETData.length; i++){
-					if(GETData[i].indexOf('folderId')>-1){
-						activity.folderId=parseInt(GETData[i].split('=').pop());
-					}
-					if(GETData[i].indexOf('title')>-1){
-						activity.fileName = decodeURI(GETData[i].split('=').pop().replace(/\+/g,' '));
-					}
+    		if(object.body){
+    			var body = stripHTML(object.body);
+			  	var activity = {
+			      	timestamp:object.date,
+			      	pic:object.pict != undefined ? object.pict.substring(0,object.pict.indexOf('&')) : AppService.getBaseURL() + "/image/user_male_portrait?img_id=0",
+			      	user:object.user,
+			      	groupId:parseInt(object.groupId),
+			      	action:body.substring(0,body.indexOf(',')),
+			      	reference:body.substring(body.indexOf(',')+2)
 				}
-		    }
-		    parsedActivities.push(activity);
-		})
+			    if(object.WikiPage_nodeid){
+					activity.type = "wiki";
+					activity.node = parseInt(object.WikiPage_nodeid);
+					activity.title = object.WikiPage_title;
+			    }
+			   	else if(object.MBMessage_messageId){
+			      	activity.type = "message";
+			      	activity.messageId = parseInt(object.MBMessage_messageId);
+			    }
+			    else if(object.DLFileEntry_filelink){
+			      	activity.type = "file";
+			      	var GETData =object.DLFileEntry_filelink.split('?').pop().split('&')
+					for(var i=0; i<GETData.length; i++){
+						if(GETData[i].indexOf('folderId')>-1){
+							activity.folderId=parseInt(GETData[i].split('=').pop());
+						}
+						if(GETData[i].indexOf('title')>-1){
+							activity.fileName = decodeURI(GETData[i].split('=').pop().replace(/\+/g,' '));
+						}
+					}
+			    }
+			    parsedActivities.push(activity);
+	    		}
+		});
+
       	return parsedActivities;
     }
     function stripHTML(str){
