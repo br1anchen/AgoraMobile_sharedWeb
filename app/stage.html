@@ -77,10 +77,16 @@
 
     <nav id="search-nav" class="search-nav" data-ng-class="menuVar">
         <div id="search" ng-controller="SearchCtrl">
-            <div id="searchForm">
-                <input ng-model="keyword" type="text">
-                <button ng-click="search()">Search</button>
-            </div>
+            <header>
+                <div id="searchHeader">
+
+                    <i id="backToMainBtn" class="icon-angle-left icon-2x sideButton" data-ng-click="toggleSearch()"></i>
+                    <div id="searchForm">
+                        <input type="text" class="search-query" id="searchInput" ng-model="keyword" placeholder="keyword for search">
+                        <button type="submit" class="btn" ng-click="search()"><i class="icon-search"></i></button>
+                    </div>
+                </div>
+            </header>
             <div data-ng-repeat="r in results" >
                 {{r.type}}  {{r.groupName}} {{r.snippet}} {{r.modifiedDate}}
             </div>
