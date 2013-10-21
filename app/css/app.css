@@ -28,26 +28,26 @@ body {
 }
 
 .main-nav {
-  transition: margin-left 0.1s ease;
-  -webkit-transition: margin-left 0.1s ease;
+  transition: margin-left 0.2s ease;
+  -webkit-transition: margin-left 0.2s ease;
 }
 .search-nav {
-  transition: left 0.1s ease;
-  -webkit-transition: left 0.1s ease;
+  transition: left 0.2s ease;
+  -webkit-transition: left 0.2s ease;
 }
 .page-wrap{
-  transition: left 0.1s ease;
-  -webkit-transition: left 0.1s ease;
-  transition: right 0.1s ease;
-  -webkit-transition: right 0.1s ease;
+  transition: left 0.2s ease;
+  -webkit-transition: left 0.2s ease;
+  transition: right 0.2s ease;
+  -webkit-transition: right 0.2s ease;
 }
-
+  
 .page-wrap.menu{
   left: 80%;
 }
 
 .page-wrap.search{
-  left: -80%;
+  left: -100%;
 }
 
 #main-nav {
@@ -63,7 +63,7 @@ body {
 #search-nav {
   position: fixed;
   top: 0;
-  width: 80%;
+  width: 100%;
   height: 100%;
   background: #cccfcf;
   overflow: hidden;
@@ -73,7 +73,7 @@ body {
   margin-left:0%;
 }
 #search-nav.search{
-  margin-left:20%;
+  margin-left:0%;
 }
 #contentWrapper {
   height: 91%;
