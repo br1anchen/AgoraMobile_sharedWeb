@@ -35,31 +35,34 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
 
     			result.groupId = object.groupId;
     			result.gName = ifAccess[0].name;
-    			result.snippet = object.snippet;
+    			result.snippet = object.snippet == undefined ? "..." : object.snippet + "...";
     			result.relateUser = object.userName;
     			result.modifiedDate = object.modified.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,"$1/$2/$3 $4:$5:$6");
 
     			switch(entryType){
     				case "WikiPage":
 
-    					result.type = "wiki";
+    					result.type = "Wiki";
     					result.nodeId = object.nodeId;
 		    			result.title = object.title;
+                        result.shownText = object.title;
     				
     					break;
     				case "DLFileEntry":
 
-    					result.type = "file";
+    					result.type = "File";
     					result.folderId = object.folderId;
     					result.fileName = object.title;
+                        result.shownText = object.title;
     					result.description = object.description;
 
     					break;
     				case "MBMessage":
 
-    					result.type = "message";
+    					result.type = "Message";
     					result.threadId = object.threadId;
     					result.categoryId = object.categoryId;
+                        result.shownText = object.title.replace(/\[(.*?)\]/,"");
 
     					break;
     			}

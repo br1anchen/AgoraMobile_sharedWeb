@@ -76,7 +76,7 @@
     </div>
 
     <nav id="search-nav" class="search-nav" data-ng-class="menuVar">
-        <div id="search" ng-controller="SearchCtrl">
+        <div id="search" ng-controller="SearchCtrl" class="expand">
             <header>
                 <div id="searchHeader">
 
@@ -87,8 +87,10 @@
                     </div>
                 </div>
             </header>
-            <div data-ng-repeat="r in results" >
-                {{r.type}}  {{r.groupName}} {{r.snippet}} {{r.modifiedDate}}
+            <div id="searchResultDiv" class="expand" scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
+                <div data-ng-repeat="result in results | orderBy:'modifiedDate':true">
+                    <search-result result="result"></activity-block>
+                </div>
             </div>
         </div>
     </nav>

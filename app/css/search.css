@@ -1,0 +1,76 @@
+/* search view css stylesheet */
+#search #searchHeader{
+  vertical-align: middle;
+  display: table-cell;
+  position: relative;
+}
+
+#backToMainBtn{
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 5%;
+  vertical-align: middle;
+  float: left;
+}
+
+#searchForm{
+  width: 85%;
+  float: left;
+}
+
+#searchInput{
+  width: 70%;
+}
+
+#searchResultDiv{
+
+}
+
+#search .searchResult{
+  padding: 0.5em 0.5em 0.5em 0.5em ;
+  height: 4.5em;
+  line-height: 1.5em;
+  background-color: #ffffff;
+  border-bottom: 1px solid #efefef;
+  position: relative;
+  width: 96%;
+}
+
+#search .searchResult .result{
+  float: left;
+  right: 0;
+  bottom: 0;
+  text-align: left;
+  padding: 0.5em;
+  height: 4.5em;
+  width: 75%;
+  white-space: nowrap;
+}
+
+#search .searchResult .result .resultType{
+  margin-left: 5px;
+  margin-right: 3px;
+}
+
+#search .searchResult .result .resultTitle{
+  margin-right: 2px;
+}
+
+#search .searchResult .result .reference{
+  font-style:italic;
+}
+
+#search .searchResult .result .snippet{
+  font-style:italic;
+  margin-left: 5px;
+}
+
+#search .searchResult .date{
+  float: right;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20%;
+  line-height: 1.5em;
+  overflow: hidden;
+  height:3em;
+}

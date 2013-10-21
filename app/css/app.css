@@ -76,29 +76,6 @@ body {
   margin-left:0%;
 }
 
-#search #searchHeader{
-  vertical-align: middle;
-  display: table-cell;
-  position: relative;
-}
-
-#backToMainBtn{
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 5%;
-  vertical-align: middle;
-  float: left;
-}
-
-#searchForm{
-  width: 85%;
-  float: left;
-}
-
-#searchInput{
-  width: 70%;
-}
-
 #contentWrapper {
   height: 91%;
   position: relative;

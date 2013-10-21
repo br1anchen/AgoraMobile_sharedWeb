@@ -2,7 +2,7 @@
 
 app.controller('SearchCtrl',
 	function($scope,$log,$timeout,SearchService,$rootScope, ContentService,$state){
-		$scope.loading = true;
+		$scope.loading = false;
 		$scope.keyword = undefined;
 		$scope.searchType = "get-any";
 
