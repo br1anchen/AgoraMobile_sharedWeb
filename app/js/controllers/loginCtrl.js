@@ -5,7 +5,9 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 	var loginFailedMsg = localize.getLocalizedString('_loginFailedMsg_');
 	var loginStuckMsg = localize.getLocalizedString('_loginStuckMsg_');
 
-	$scope.affiliationOpen = false;
+	$scope.affiliationText = localize.getLocalizedString('_LoginAffiliationSelectName_');
+	$scope.affiliationShowing = "listClose";
+	$scope.labelShowing = "labelHide";
 	$scope.loading = true;
 	$scope.loginURL = LoginService.getFeideLoginUrl().data;
 
@@ -18,10 +20,20 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 		$scope.affiliations = affiliations
 	});
 
+	$scope.showAffiliations = function(){
+		if($scope.affiliationShowing == "listClose"){
+			$scope.affiliationShowing = "listOpen";
+		}else{
+			$scope.affiliationShowing = "listClose";
+		}
+		
+	}
+
 	$scope.setAffiliation = function(affiliation){
 		$scope.affiliation = affiliation;
-		$scope.affiliationName = (typeof $scope.affiliation == 'string') ? undefined : $scope.affiliation.name;
-		$scope.affiliationOpen = false;
+		$scope.affiliationText = (typeof $scope.affiliation == 'string') ? localize.getLocalizedString('_LoginNoAffiliationName_') : $scope.affiliation.name;
+		$scope.affiliationShowing = "listClose";
+		$scope.labelShowing = "labelShow";
 	}
 
 	$scope.login = function(){

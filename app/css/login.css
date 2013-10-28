@@ -1,5 +1,5 @@
 #login form{
-	margin-top: 1%; 
+	margin-top: 4%; 
 	text-align: center;
 }
 
@@ -31,7 +31,6 @@
 	text-align: center;
 	height:3em;
 	padding-top: 1em;
-	border: 1px solid #e5e5e5;
 	border-width: 1px 0 0 0;
 }
 
@@ -112,5 +111,46 @@
 
 #login #affiliationPicker .accordion-heading a{
 	text-decoration: none !important;
+}
+
+#login #affiliationBar{
+	margin-bottom: 5px;
+}
+
+#login .listOpen{
+	display: block;
+	z-index: 1000;
+	min-width: 160px;
+	width: 200px;
+	margin: 0 auto;
+	list-style: none;
+	background-color: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+#login .listClose{
+	display: none;
+}
+
+#login .listOpen li{
+	margin-top: 5px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#login .labelShow{
+	display: block;
+}
+
+#login .labelHide{
+	display: none;
 }
 

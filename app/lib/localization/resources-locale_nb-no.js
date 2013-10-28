@@ -1,7 +1,12 @@
 [
     {
+        "key":"_LoginAffiliationLabel_",
+        "value":"Institusjon: ",
+        "description":"Login page affiliation label text"
+    },
+    {
         "key":"_LoginAffiliationSelectName_",
-        "value":"Institusjon",
+        "value":"Feide Bruker Institusjon",
         "description":"Login page affiliation select tag text"
     },
     {

@@ -3,38 +3,26 @@
     <img id="agora_logo" src="img/agora_logo.png"></img>
     
     <form>
-        <accordion id="affiliationPicker">
-            <accordion-group is-open="$parent.affiliationOpen">
-                <accordion-heading>
-                    <span class="header">
-                        <span class="text" data-i18n="_LoginAffiliationSelectName_"></span>
-                        <span class="iconHolder">
-                            <i class="icon-caret-down" data-ng-hide="affiliationOpen"></i>
-                            <i class=" icon-caret-up" data-ng-show="affiliationOpen"></i>
-                        </span>
-                    </span>
-                    <br/>
-                    {{affiliationName}}
-                </accordion-heading>
-                <span id="affiliationsHolder">
-                    <ul>
-                        <li ng-repeat="a in affiliations" ng-click="setAffiliation(a)">
-                            <span class="affiliationTitle"  data-ng-bind="a.name"></span>
-                        </li>
-                        <li id="noAffiliation" ng-click="setAffiliation('NO AFFILIATION')">
-                            <span class="affiliationTitle"  data-i18n="_LoginNoAffiliationName_" ></span>
-                        </li>
 
-                    </ul>
-                </span>
-            </accordion-group>
-        </accordion>
+        <div id="affiliationBar">
+        <label id="affiliationLabel" ng-class="labelShowing" data-i18n="_LoginAffiliationLabel_"></label>
+        <button id="choiceBtn" class="btn dropdown-toggle" data-ng-bind="affiliationText" ng-click="showAffiliations()"></button>
+        <ul ng-class="affiliationShowing">
+            <li ng-repeat="a in affiliations">
+                <span class="affiliationTitle" ng-click="setAffiliation(a)" data-ng-bind="a.name"></span>
+            </li>
+            <li id="noAffiliation">
+                <span class="affiliationTitle" ng-click="setAffiliation('no')" data-i18n="_LoginNoAffiliationName_" ></span>
+            </li>
+        </ul>
+        </div>
+
         <p>
             <label name="username" data-i18n="_LoginNameTitle_"></label><input name="username" type="text" data-ng-model="username" data-ng-required /></br>
 
             <label name="password" data-i18n="_LoginPwdTitle_"></label><input name="password" type="password" data-ng-model="password" data-ng-required /></br>
         </p>
-        
+
         <div id="feideLoginDiv">
             <button id="regularLogin" class="btn" ng-click="login()" data-i18n="_regularLoginBtn_"></button>
         </div>

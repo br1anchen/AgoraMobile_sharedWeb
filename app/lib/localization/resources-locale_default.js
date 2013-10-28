@@ -1,7 +1,12 @@
 [
     {
+        "key":"_LoginAffiliationLabel_",
+        "value":"Affiliation: ",
+        "description":"Login page affiliation label text"
+    },
+    {
         "key":"_LoginAffiliationSelectName_",
-        "value":"Affiliation",
+        "value":"Feide User Affiliation",
         "description":"Login page affiliation select tag text"
     },
     {
