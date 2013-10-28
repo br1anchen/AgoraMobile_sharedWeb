@@ -1,6 +1,6 @@
 "use strict"
 
-//Activity Service
+//Search Service
 
 angular.module('app.searchService',['app.storageService','app.httpService','app.appService']).
 
@@ -110,7 +110,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
     //return value in Search Service
 	return {
 		getMoreResults : function(){
-			var amount = resultsHolder.activities.length <= appendIncrement ? appendIncrement : resultsHolder.activities.length;
+			var amount = resultsHolder.results.length <= appendIncrement ? appendIncrement : resultsHolder.results.length;
 
 			return searchResults(amount + appendIncrement,resultsHolder.keyword,resultsHolder.searchType);
 		},

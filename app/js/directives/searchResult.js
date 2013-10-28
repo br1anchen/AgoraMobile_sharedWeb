@@ -107,9 +107,8 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
     template: 
     '<div class="searchResult" data-ng-click="open()">'+
         '<div class="result">'+
-        '   <span class="resultType">{{result.type}}</span>'+
-        '   <span class="resultTitle"><{{result.shownText}}><br />in </span>'+
-        '   <span class="reference">{{result.gName}}<br /></span>'+
+        '   <div class="resultTitle">{{result.shownText}}<br /></div>'+
+        '   {{result.type}}<span class="reference"> in {{result.gName}}<br /></span>'+
         '   <span class="snippet" >"{{result.snippet}}"</span>'+
         '</div>'+
         '<div class="date">{{result.modifiedDate}}</div>' +

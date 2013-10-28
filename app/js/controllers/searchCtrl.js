@@ -1,18 +1,22 @@
 'use strict';
 
 app.controller('SearchCtrl',
-	function($scope,$log,$timeout,SearchService,$rootScope, ContentService,$state){
+	function($scope,$log,$timeout,SearchService,$rootScope, ContentService,$state,localize){
+
 		$scope.loading = false;
 		$scope.keyword = undefined;
-		$scope.searchType = "get-any";
+		$scope.searchType = {
+			name: localize.getLocalizedString('_searchAnyText_'),
+			value: 'get-any'
+		};
 
 		$scope.$on('scrollableUpdate',function(){
 
-			if($scope.keyword && $scope.searchType){
+			if($scope.keyword && $scope.searchType.value){
 				$scope.loading = true;
 
 				//Updating content
-				SearchService.getResults(20,$scope.keyword,$scope.searchType).then(
+				SearchService.getResults(20,$scope.keyword,$scope.searchType.value).then(
 					function(resultsHolder){
 						$scope.loading = false;
 						$scope.results = resultsHolder.results;
@@ -29,7 +33,7 @@ app.controller('SearchCtrl',
 
 		$scope.$on('scrollableAppend',function(){
 
-			if($scope.keyword && $scope.searchType){
+			if($scope.keyword && $scope.searchType.value){
 				$scope.loading = true;
 
 				//Appending content
@@ -48,12 +52,17 @@ app.controller('SearchCtrl',
 			
 		});
 
+		$scope.setSearchType = function(name,value){
+			$scope.searchType.name = localize.getLocalizedString(name);
+			$scope.searchType.value = value;
+		}
+
 		$scope.search = function(){
-			if($scope.keyword && $scope.searchType){
+			if($scope.keyword && $scope.searchType.value){
 				$scope.loading = true;
 
 				//Updating content
-				SearchService.getResults(20,$scope.keyword,$scope.searchType).then(
+				SearchService.getResults(20,$scope.keyword,$scope.searchType.value).then(
 					function(resultsHolder){
 						$scope.loading = false;
 						$scope.results = resultsHolder.results;
@@ -66,7 +75,7 @@ app.controller('SearchCtrl',
 				);
 			}else{
 				navigator.notification.alert(
-	                'Please type key word to search',
+	                localize.getLocalizedString('_searchErrorMsg_'),
 	                function(){
 
 	                },

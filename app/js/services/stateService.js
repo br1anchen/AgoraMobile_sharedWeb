@@ -15,16 +15,20 @@ factory('StateService',function($log,$rootScope,$state,$stateParams){
     var storeHistory = function (toState,toParams){
     	//STORING HISTORY
         if(toState.name != ''){
-            stateHistory.push({
+    		stateHistory.push({
                 state : toState,
                 params : toParams
-            });
+            });   
         }
     }
 
     //CALLED WHENEVER STATE CHANGES
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         
+        if(stateHistory.length == 0 && fromState.name == "stage.activityFeed" && !fromParams.groupId){//init when the first time
+        	fromParams.groupId = 10157;
+        	storeHistory(fromState, fromParams);
+        }
         //When navigation was back navigation, skip caching history 
         if(back){
         	//Trash previous state

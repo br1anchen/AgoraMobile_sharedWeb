@@ -158,5 +158,35 @@
         "key":"_mbNoThreadText_",
         "value":"Ingen tråder i denne kategorien",
         "description":"messageboard thread page no threads text"
+    },
+    {
+        "key":"_searchAnyText_",
+        "value":"Alle",
+        "description":"search for any option text"
+    },
+    {
+        "key":"_searchFileText_",
+        "value":"Filer",
+        "description":"search for files option text"
+    },
+    {
+        "key":"_searchWikiText_",
+        "value":"Wiki",
+        "description":"search for wiki option text"
+    },
+    {
+        "key":"_searchMsgText_",
+        "value":"Meldinger",
+        "description":"search for messages option text"
+    },
+    {
+        "key":"_searchKeywordHint_",
+        "value":"nøkkelord",
+        "description":"search keyword placeholder text"
+    },
+    {
+        "key":"_searchErrorMsg_",
+        "value":"Fyll inn nøkkelord for å søke",
+        "description":"search error message text"
     }
 ]

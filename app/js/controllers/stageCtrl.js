@@ -33,6 +33,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         if(ifState.length != 0){
             $rootScope.$broadcast("removeNotification","Loading...");
         }
+
     })
 
     //Modify Andorid back button function

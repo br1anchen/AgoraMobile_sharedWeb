@@ -158,5 +158,35 @@
         "key":"_mbNoThreadText_",
         "value":"No Threads in this Category",
         "description":"messageboard thread page no threads text"
+    },
+    {
+        "key":"_searchAnyText_",
+        "value":"Any",
+        "description":"search for any option text"
+    },
+    {
+        "key":"_searchFileText_",
+        "value":"Files",
+        "description":"search for files option text"
+    },
+    {
+        "key":"_searchWikiText_",
+        "value":"Wiki",
+        "description":"search for wiki option text"
+    },
+    {
+        "key":"_searchMsgText_",
+        "value":"Messages",
+        "description":"search for messages option text"
+    },
+    {
+        "key":"_searchKeywordHint_",
+        "value":"keyword for search",
+        "description":"search keyword placeholder text"
+    },
+    {
+        "key":"_searchErrorMsg_",
+        "value":"Please type key word to search",
+        "description":"search error message text"
     }
 ]

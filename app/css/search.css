@@ -14,7 +14,7 @@
 }
 
 #searchForm{
-  width: 85%;
+  width: 70%;
   float: left;
 }
 
@@ -28,12 +28,12 @@
 
 #search .searchResult{
   padding: 0.5em 0.5em 0.5em 0.5em ;
-  height: 4.5em;
+  height: 5em;
   line-height: 1.5em;
   background-color: #ffffff;
   border-bottom: 1px solid #efefef;
   position: relative;
-  width: 96%;
+  width: 98%;
 }
 
 #search .searchResult .result{
@@ -41,8 +41,8 @@
   right: 0;
   bottom: 0;
   text-align: left;
-  padding: 0.5em;
-  height: 4.5em;
+  padding: 0em;
+  height: 5em;
   width: 75%;
   white-space: nowrap;
 }
@@ -54,6 +54,7 @@
 
 #search .searchResult .result .resultTitle{
   margin-right: 2px;
+  overflow: auto;
 }
 
 #search .searchResult .result .reference{
@@ -63,6 +64,7 @@
 #search .searchResult .result .snippet{
   font-style:italic;
   margin-left: 5px;
+  overflow: auto;
 }
 
 #search .searchResult .date{
@@ -72,5 +74,25 @@
   width: 20%;
   line-height: 1.5em;
   overflow: hidden;
-  height:3em;
+  height:4em;
+}
+
+#search .dropdown{
+  width: 6em;
+  left: 0;
+  top: 0;
+  float: left;
+  vertical-align: middle;
+}
+
+#search .open>.dropdown-menu {
+  top: 3em;
+  color: black;
+  text-shadow:none;
+}
+
+#search #searchChoiceBtn{
+  width: 100%;
+  padding-left: 0px;
+  padding-right: 0px; 
 }

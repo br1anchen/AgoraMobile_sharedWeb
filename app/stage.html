@@ -81,8 +81,17 @@
                 <div id="searchHeader">
 
                     <i id="backToMainBtn" class="icon-angle-left icon-2x sideButton" data-ng-click="toggleSearch()"></i>
+                    <div class="dropdown">
+                        <button id="searchChoiceBtn" class="dropdown-toggle" data-ng-bind="searchType.name"></button>
+                        <ul class="dropdown-menu">
+                          <li><span ng-click="setSearchType('_searchMsgText_','get-message-board')" data-i18n="_searchMsgText_"></span></li>
+                          <li><span ng-click="setSearchType('_searchFileText_','get-dl-file-entry')" data-i18n="_searchFileText_"></span></li>
+                          <li><span ng-click="setSearchType('_searchWikiText_','get-wiki')" data-i18n="_searchWikiText_"></span></li>
+                          <li><span ng-click="setSearchType('_searchAnyText_','get-any')" data-i18n="_searchAnyText_"></span></li>
+                        </ul>
+                    </div>
                     <div id="searchForm">
-                        <input type="text" class="search-query" id="searchInput" ng-model="keyword" placeholder="keyword for search">
+                        <input type="text" class="search-query" id="searchInput" ng-model="keyword" data-i18n-attr="_searchKeywordHint_|placeholder">
                         <button type="submit" class="btn" ng-click="search()"><i class="icon-search"></i></button>
                     </div>
                 </div>
