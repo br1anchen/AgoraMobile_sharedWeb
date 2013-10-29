@@ -9,6 +9,7 @@ app.controller('SearchCtrl',
 			name: localize.getLocalizedString('_searchAnyText_'),
 			value: 'get-any'
 		};
+		$scope.searchOptionsShowing = false;
 
 		$scope.$on('scrollableUpdate',function(){
 
@@ -55,6 +56,10 @@ app.controller('SearchCtrl',
 		$scope.setSearchType = function(name,value){
 			$scope.searchType.name = localize.getLocalizedString(name);
 			$scope.searchType.value = value;
+			$scope.searchOptionsShowing = false;
+			if($scope.keyword){
+				$scope.search();
+			}
 		}
 
 		$scope.search = function(){

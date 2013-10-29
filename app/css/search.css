@@ -14,8 +14,10 @@
 }
 
 #searchForm{
-  width: 70%;
+  width: 85%;
   float: left;
+  margin-right: 0px;
+  padding-right: 0px;
 }
 
 #searchInput{
@@ -77,22 +79,50 @@
   height:4em;
 }
 
-#search .dropdown{
-  width: 6em;
-  left: 0;
-  top: 0;
-  float: left;
-  vertical-align: middle;
+#search #searchChoices{
+  text-align: center;
 }
 
-#search .open>.dropdown-menu {
-  top: 3em;
-  color: black;
-  text-shadow:none;
+#search #searchChoices .accordion{
+  margin: 0px;
 }
 
-#search #searchChoiceBtn{
-  width: 100%;
-  padding-left: 0px;
-  padding-right: 0px; 
+#search #searchChoices .accordion-group {
+  border-width: 0px 0px 1px 0px;
+  margin:0px;
+}
+
+#search #searchChoices .accordion-group .accordion-heading{
+  font-size: 1.5em;
+  line-height: 1.5em;
+  background-color: #D1D1D1;
+  position: relative;
+}
+
+#search #searchChoices .accordion-group .accordion-heading a{
+  text-decoration: none !important;
+  color:#5b677d
+}
+
+#search #searchChoices .accordion-group .accordion-heading a:hover{
+  color: #0088cc !important;
+}
+
+#search #searchChoices .accordion-group .accordion-inner{
+  padding: 0px;
+}
+
+#search #searchChoices #choiceList {
+  list-style: none;
+  font-size: 1.5em;
+  color:#5b677d;
+  margin: 0px;
+}
+
+#search #searchChoices #choiceList li{
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-top:1px solid #bcbfbf;
 }
