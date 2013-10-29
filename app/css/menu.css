@@ -79,18 +79,24 @@
 	padding: 0;
 	border-top: 0.15em solid #BABABA;
 }
+#menu .footer li{
+	margin-left: 0px;
+	padding-left: 0px;
+	text-align: center;
+}
 
 #menu #groupsHeader{
-	height: 4em;
+	height: 3em;
 	border-bottom: 0.15em solid #BABABA;
 	text-align: left;
 	border-top: 1px solid rgba(255,255,255,0.5);
   	border-bottom: 1px solid rgba(255,255,255,0.23);
+  	padding-top: 1em;
 }
-#menu #groupsHeader span{
+#menu #groupsHeader div{
 	font-weight: bold;
-	font-size: 2em;
-	line-height: 2em;
+	font-size: 1.5em;
+	line-height: 1.5em;
 	padding-left: 0.5em;
 	background-color: #cccfcf;
   	color: #656565;
@@ -111,7 +117,7 @@
 #menu .groups {
 	padding: 0;
 	overflow-y: scroll;
-	height: 100%;
+	height: 86%;
 	font-size: 0.95em;
 	width: 100%;
 	border-top: 1px solid #bcbfbf;
