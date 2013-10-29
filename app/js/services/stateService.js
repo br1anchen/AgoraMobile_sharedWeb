@@ -13,12 +13,23 @@ factory('StateService',function($log,$rootScope,$state,$stateParams){
     	return stateHistory[stateHistory.length-1];
     }
     var storeHistory = function (toState,toParams){
+    	
+    	var tempState = {
+    		state : toState,
+    		params : toParams
+    	};
+
     	//STORING HISTORY
         if(toState.name != ''){
-    		stateHistory.push({
-                state : toState,
-                params : toParams
-            });   
+        	if(stateHistory.length != 0 && JSON.stringify(stateHistory[stateHistory.length -1]) == JSON.stringify(tempState))
+        	{
+        		return;
+        	}else{
+        		stateHistory.push({
+	                state : toState,
+	                params : toParams
+	            });
+        	} 
         }
     }
 

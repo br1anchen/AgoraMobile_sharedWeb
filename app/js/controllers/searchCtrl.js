@@ -13,7 +13,7 @@ app.controller('SearchCtrl',
 
 		$scope.$on('scrollableUpdate',function(){
 
-			if($scope.keyword && $scope.searchType.value){
+			if($scope.keyword && $scope.searchType.value && $scope.menuVar == 'search'){
 				$scope.loading = true;
 
 				//Updating content
@@ -34,7 +34,7 @@ app.controller('SearchCtrl',
 
 		$scope.$on('scrollableAppend',function(){
 
-			if($scope.keyword && $scope.searchType.value){
+			if($scope.keyword && $scope.searchType.value && $scope.menuVar == 'search'){
 				$scope.loading = true;
 
 				//Appending content
