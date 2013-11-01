@@ -109,7 +109,7 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
         '<div class="result">'+
         '   <div class="resultTitle">{{result.shownText}}<br /></div>'+
         '   {{result.type}}<span class="reference"> in {{result.gName}}<br /></span>'+
-        '   <span class="snippet" >"{{result.snippet}}"</span>'+
+        '   <div class="snippet" >"{{result.snippet}}"</div>'+
         '</div>'+
         '<div class="date">{{result.modifiedDate}}</div>' +
     '</div>'

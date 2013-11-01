@@ -2,8 +2,8 @@
 	/*background-color: rgb(228, 228, 228);*/
 	background-color:rgba(189, 62, 62, 1);
 	font-weight: bold;
-	height: 4em;
-	line-height: 4em;
+	height: 3em;
+	line-height: 3em;
 	overflow: hidden;
 	white-space: nowrap;
 	-webkit-border-image: -webkit-linear-gradient( left, rgba(190,21,39,0.1) , rgba(190,21,39,0.8) 50%, rgba(190,21,39,0.1) 100%) 0 1 100%;
@@ -69,7 +69,7 @@
 	text-align: center;
 }
 #fixedContentHeader  .currentGroup{
-	font-size: 1.5em;
+	font-size: 1.2em;
 	position: relative;
 	width:85%;
 	height:100%;

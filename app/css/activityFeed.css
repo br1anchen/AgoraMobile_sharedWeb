@@ -4,7 +4,7 @@
 }
 /*To make space for the content header*/
 #activityFeed .content .scrollableContent{
-	margin-top:4em;
+	margin-top:3em;
 	/*width:96%;*/
 	width:100%;
 }

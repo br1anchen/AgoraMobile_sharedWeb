@@ -1,6 +1,6 @@
 /*To manke room for the content header*/
 #wiki .scrollableContent{
-	margin-top:4em;
+	margin-top:3em;
 	position:relative;
 }
 
@@ -26,10 +26,10 @@
 	position: relative;
 }
 #wiki #wikiPage .header .title{
-	font-size: 2em;
+	font-size: 1.5em;
 	font-weight: bold;
 	background-color: #D1D1D1;
-	line-height: 2.5em;
+	line-height: 2em;
 }
 
 #wiki .accordion-group{
@@ -41,7 +41,7 @@
 }
 
 #wiki #wikiPage .header .accordion-heading{
-	font-size: 2em;
+	font-size: 1.5em;
 	line-height: 2em;
 	font-weight: bold;
 	background-color: #D1D1D1;
@@ -73,7 +73,7 @@
 }
 
 #wiki #wikiPage #childrenPicker #childrenPage{
-	font-size: 1.6em;
+	font-size: 1.2em;
 	border-bottom: 0.09em solid #BABABA;
 	width: 100%;
 	line-height: 2em;
@@ -137,7 +137,7 @@
 #wiki #contentList .leaf{
 	height: 2em;
 	line-height: 2em;
-	font-size:1.4em;
+	font-size:1.2em;
 	position: relative;
 	text-align: left;
 	border-bottom: 0.09em solid #BABABA;

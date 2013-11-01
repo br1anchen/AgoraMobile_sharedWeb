@@ -41,8 +41,9 @@
 }
 
 #menu .groups li, #menu .footer li{
-	line-height:2em;
-	font-size: 1.6em;
+	line-height: 3em;
+	height: 3em;
+	font-size: 1.2em;
 	padding-left: 0.6em;
 	overflow: hidden;
 	border-top: 1px solid #eff1f1;
@@ -86,12 +87,11 @@
 }
 
 #menu #groupsHeader{
-	height: 3em;
+	height: 2em;
 	border-bottom: 0.15em solid #BABABA;
 	text-align: left;
 	border-top: 1px solid rgba(255,255,255,0.5);
   	border-bottom: 1px solid rgba(255,255,255,0.23);
-  	padding-top: 1em;
 }
 #menu #groupsHeader div{
 	font-weight: bold;
