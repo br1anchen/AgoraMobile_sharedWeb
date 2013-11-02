@@ -188,5 +188,25 @@
         "key":"_searchErrorMsg_",
         "value":"Please type key word to search",
         "description":"search error message text"
+    },
+    {
+        "key":"_aboutVersionText_",
+        "value":"Version 1.0.0",
+        "description":"about page app version text"
+    },
+    {
+        "key":"_aboutPublishText_",
+        "value":"Published 2013",
+        "description":"about page publish date text"
+    },
+    {
+        "key":"_aboutContactText_",
+        "value":"Contact:Bernt Skjemstad <bernt.skjemstad@uninett.no>",
+        "description":"about page contact info text"
+    },
+    {
+        "key":"_aboutReferenceText_",
+        "value":"An UNINETT application",
+        "description":"about page reference text"
     }
 ]

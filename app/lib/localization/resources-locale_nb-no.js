@@ -71,7 +71,7 @@
     },
     {
         "key":"_settingsLowBandTag_",
-        "value":"Hvis du vil ha mindre datatrafikk,du kan endre programmet atferd",
+        "value":"Forhåndslasting av data",
         "description":"Settings page lowBandwidth tag"
     },
     {
@@ -81,7 +81,7 @@
     },
     {
         "key":"_settingsDisNotificationTag_",
-        "value":"Bytt søknaden bakgrunn atferd",
+        "value":"Meldingsvarsler",
         "description":"Settings page disable notification tag"
     },
     {
@@ -91,7 +91,7 @@
     },
     {
         "key":"_settingsStorageTag_",
-        "value":"Administrere programmet lagring innstillinger, og frigjøre minne på telefonen",
+        "value":" Mellomlagre data",
         "description":"Settings page manage storage tag"
     },
     {
@@ -188,5 +188,25 @@
         "key":"_searchErrorMsg_",
         "value":"Fyll inn nøkkelord for å søke",
         "description":"search error message text"
+    },
+    {
+        "key":"_aboutVersionText_",
+        "value":"Versjon 1.0.0",
+        "description":"about page app version text"
+    },
+    {
+        "key":"_aboutPublishText_",
+        "value":"Utgitt 2013",
+        "description":"about page publish date text"
+    },
+    {
+        "key":"_aboutContactText_",
+        "value":"Kontakt med:Bernt Skjemstad <bernt.skjemstad@uninett.no>",
+        "description":"about page contact info text"
+    },
+    {
+        "key":"_aboutReferenceText_",
+        "value":"En UNINETT applikasjon",
+        "description":"about page reference text"
     }
 ]
