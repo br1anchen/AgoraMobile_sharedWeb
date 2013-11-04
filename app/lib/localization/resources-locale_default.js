@@ -76,7 +76,7 @@
     },
     {
         "key":"_settingsLowBandBtn_",
-        "value":"Don't preload group data",
+        "value":"Preload group data",
         "description":"Settings page lowBandwidth button tag"
     },
     {
@@ -86,7 +86,7 @@
     },
     {
         "key":"_settingsDisNotificationBtn_",
-        "value":"Disable notifications",
+        "value":"Enable notifications",
         "description":"Settings page disable notification button tag"
     },
     {
@@ -96,7 +96,7 @@
     },
     {
         "key":"_settingsDisStorageBtn_",
-        "value":"Disable file caching",
+        "value":"Enable file caching",
         "description":"Settings page disable storage button tag"
     },
     {
@@ -208,5 +208,20 @@
         "key":"_aboutReferenceText_",
         "value":"An UNINETT application",
         "description":"about page reference text"
+    },
+    {
+        "key":"_menuGroupTab_",
+        "value":"Choose groups",
+        "description":"menu bar group tab text"
+    },
+    {
+        "key":"_menuConfigureTab_",
+        "value":"Configures",
+        "description":"menu bar configures tab text"
+    },
+    {
+        "key":"_groupAgoraHomeTag_",
+        "value":"Agora - Home",
+        "description":"menu bar group agora home text"
     }
 ]

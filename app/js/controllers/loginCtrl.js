@@ -1,9 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$rootScope,$dialog,localize){
-
-	var loginFailedMsg = localize.getLocalizedString('_loginFailedMsg_');
-	var loginStuckMsg = localize.getLocalizedString('_loginStuckMsg_');
+app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$rootScope,$modal,localize){
 
 	$scope.affiliationText = localize.getLocalizedString('_LoginAffiliationSelectName_');
 	$scope.affiliationShowing = "listClose";
@@ -69,26 +66,57 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 
 	var loginTries = 0;
 	var loginStuck = function(){
-	    var title = localize.getLocalizedString('_loginStuckTitle_');
-	    var msg = loginStuckMsg;
-	    var btns = [{result:'ok', label: 'OK', cssClass: 'btn'}];
 
-	    $dialog.messageBox(title, msg, btns)
-	      .open()
-	      .then(function(result){
-	        loginTries = 0;
+	    var dialogInstance = $modal.open({
+	      templateUrl: 'loginDialog.html',
+	      controller: DialogInstanceCtrl,
+	      resolve: {
+	        dialog: function(){
+	        	return{
+	        		title : localize.getLocalizedString('_loginStuckTitle_'),
+	        		msg : localize.getLocalizedString('_loginStuckMsg_')
+	        	}
+	        } 
+	      }
+	    });
+
+	    dialogInstance.result.then(function () {
+	    	loginTries = 0;
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
 	    });
   	}
   	var loginError = function(){
-	    var title = localize.getLocalizedString('_loginFailedTitle_');
-	    var msg = loginFailedMsg;
-		var btns = [{result:'ok', label: 'OK', cssClass: 'btn'}];
 
-	    $dialog.messageBox(title, msg, btns)
-	      .open()
-	      .then(function(result){
+	    var dialogInstance = $modal.open({
+	      templateUrl: 'loginDialog.html',
+	      controller: DialogInstanceCtrl,
+	      resolve: {
+	        dialog: function(){
+	        	return{
+	        		title : localize.getLocalizedString('_loginFailedTitle_'),
+	        		msg : localize.getLocalizedString('_loginFailedMsg_')
+	        	}
+	        } 
+	      }
+	    });
+
+	    dialogInstance.result.then(function () {
+	    	
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
 	    });
 
   	}
+
+  	var DialogInstanceCtrl = function ($scope, $modalInstance, dialog) {
+
+	  $scope.dialog = dialog;
+
+	  $scope.ok = function () {
+	    $modalInstance.close();
+	  };
+
+	};
 
 })

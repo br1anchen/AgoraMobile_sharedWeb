@@ -1,4 +1,4 @@
-app.directive('inAppBrowser', function($dialog,$log,UtilityService) {
+app.directive('inAppBrowser', function(UtilityService) {
 
     return {
         restrict: 'A',

@@ -1,10 +1,20 @@
 <div id="login">
     
+    <script type="text/ng-template" id="loginDialog.html">
+        <div class="modal-header">
+            <h3>{{dialog.title}}</h3>
+        </div>
+        <div class="modal-body">
+            <p>{{dialog.msg}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
     <img id="agora_logo" src="img/agora_logo.png"></img>
     
-    <form>
-
-        <div id="affiliationBar">
+    <div id="affiliationBar">
         <label id="affiliationLabel" ng-class="labelShowing" data-i18n="_LoginAffiliationLabel_"></label>
         <button id="choiceBtn" class="btn dropdown-toggle" data-ng-bind="affiliationText" ng-click="showAffiliations()"></button>
         <ul ng-class="affiliationShowing">
@@ -15,8 +25,9 @@
                 <span class="affiliationTitle" ng-click="setAffiliation('no')" data-i18n="_LoginNoAffiliationName_" ></span>
             </li>
         </ul>
-        </div>
+    </div>
 
+    <form>
         <p>
             <label name="username" data-i18n="_LoginNameTitle_"></label><input name="username" type="text" data-ng-model="username" data-ng-required /></br>
 

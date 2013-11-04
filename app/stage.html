@@ -2,39 +2,39 @@
     <nav id="main-nav" class="main-nav" data-ng-class="menuVar">
         <div id="menu" ng-controller="MenuCtrl">
             <div class="header">
-                <div id="mainHeader">
-                    <div id="userPortrait">
-                        <img id="userPortrait" ng-src="{{user.portraitImgUrl}}" />
-                    </div>
-                    <span class="name">
-                        {{user.fullName}}
-                    </span>
+                <div id="userPortrait">
+                    <img id="userPortrait" ng-src="{{user.portraitImgUrl}}" />
                 </div>
+                <span class="name">
+                    {{user.fullName}}
+                </span>
             </div>
-            <div class="content" >
-                <div id="groupsHeader">
-                    <div data-ng-click="switchGroup()">
-                        Agora
-                    </div>
-                </div>
-                <ul class="nav nav-list groups">
-                    <li data-ng-repeat="group in groupsHolder.groups" data-ng-click="switchGroup(group)">
-                        {{group.name}}
-                        <div class="fadeContentRight"></div>
-                    </li>
-                </ul>
-            </div>
-            <ul class="nav nav-list footer">
-                <li data-ng-click="goToPage('stage.settings')">
-                    <i class="icon-cogs"></i>{{ '_menuSettingsTag_' | i18n }}
-                </li>
-                <li data-ng-click="logout()">
-                    <i class="icon-signout"></i>{{ '_menuLogoutTag_' | i18n }}
-                </li>
-                <li data-ng-click="goToPage('stage.about')">
-                    <i class="icon-info-sign"></i>{{ '_menuAboutTag_' | i18n }}
-                </li>
-            </ul>
+            <tabset class="content">
+                <tab heading="{{'_menuGroupTab_' | i18n}}">
+                    <ul class="nav nav-list groups">
+                        <li data-ng-click="switchGroup()">
+                            {{ '_groupAgoraHomeTag_' | i18n }}
+                        </li>
+                        <li data-ng-repeat="group in groupsHolder.groups" data-ng-click="switchGroup(group)">
+                            {{group.name}}
+                            <div class="fadeContentRight"></div>
+                        </li>
+                    </ul>
+                </tab>
+                <tab heading="{{'_menuConfigureTab_' | i18n}}">
+                    <ul class="nav nav-list footer">
+                        <li data-ng-click="goToPage('stage.settings')">
+                            <i class="icon-cogs"></i>{{ '_menuSettingsTag_' | i18n }}
+                        </li>
+                        <li data-ng-click="logout()">
+                            <i class="icon-signout"></i>{{ '_menuLogoutTag_' | i18n }}
+                        </li>
+                        <li data-ng-click="goToPage('stage.about')">
+                            <i class="icon-info-sign"></i>{{ '_menuAboutTag_' | i18n }}
+                        </li>
+                    </ul>
+                </tab>
+            </tabset>
         </div>
     </nav>
 

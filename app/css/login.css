@@ -1,5 +1,5 @@
 #login form{
-	margin-top: 4%; 
+	margin-top: 10px; 
 	text-align: center;
 }
 
@@ -114,7 +114,9 @@
 }
 
 #login #affiliationBar{
+	margin-top: 20px;
 	margin-bottom: 5px;
+	text-align: center;
 }
 
 #login .listOpen{

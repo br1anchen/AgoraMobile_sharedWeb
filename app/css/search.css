@@ -86,7 +86,7 @@
 
 #search #searchChoices .accordion{
   margin: 0px;
-  background-color: #666666;
+  background-color: #bababa;
 }
 
 #search #searchChoices .accordion-group {
@@ -97,15 +97,18 @@
 #search #searchChoices .accordion-group .accordion-heading{
   font-size: 1.2em;
   position: relative;
+  height: 34px;
 }
 
 #search #searchChoices .accordion-group .accordion-heading a{
   text-decoration: none !important;
   color:black;
+  font-weight: bold;
 }
 
 #search #searchChoices .accordion-group .accordion-heading a:hover{
-  color: #D1D1D1 !important;
+  color: black !important;
+  font-weight:bold;
 }
 
 #search #searchChoices .accordion-group .accordion-inner{
@@ -125,5 +128,11 @@
   margin: 0px;
   padding-bottom: 5px;
   padding-top: 5px;
-  border-top:1px solid #bcbfbf;
+  border-top:1px solid #ffffff;
+  font-weight:bold;
+}
+
+#search #searchChoices #choiceList li:active,
+#search #searchChoices #choiceList li.is-active{
+  background-color: #666666;
 }

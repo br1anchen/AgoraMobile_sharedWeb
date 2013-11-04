@@ -3,9 +3,9 @@
 	height: 100%;
 }
 #menu .name{
-	height: 2em;
-	line-height: 2em;
-	font-size: 2em;
+	height: 30px;
+	line-height: 30px;
+	font-size: 1.2em;
 	margin-left: 0.8em;
 	display: inline-block;
 	vertical-align: middle;
@@ -16,38 +16,35 @@
 	border-radius: 0.1em;
 }
 #menu #userPortrait{
-	height: 3em;
-	width: 3em;
-	left: 0.3em;
-	top: 0em;
-	position: absolute;
+	height: 45px;
+	width: 45px;
 	display: inline-block;
+	margin-top: 5px;
+	margin-left: 5px;
 }
 
 #menu .header{
-	position: absolute;
-	top:0;
-	left: 0;
-	margin: 0;
-	margin-top: 0.5em;
 	width: 100%;
-	height: 3.5em;
+	height: 68px;
 	overflow: hidden;
-}
-#menu #mainHeader{
-	border-bottom: 0.15em solid #BABABA;
-	height:3.5em;
-	overflow:hidden;
 }
 
 #menu .groups li, #menu .footer li{
-	line-height: 3em;
-	height: 3em;
-	font-size: 1.2em;
+	line-height: 2.5em;
+	height: 2.5em;
+	font-size: 16px;
 	padding-left: 0.6em;
-	overflow: hidden;
 	border-top: 1px solid #eff1f1;
   	border-bottom: 1px solid #bcbfbf;
+  	font-weight: bold;
+}
+
+#menu .groups li:active,
+#menu .groups li.is-active,
+#menu .footer li:active,
+#menu .footer li.is-active{
+  background-color: #666666;
+  color: white;
 }
 
 #menu .groups li:first-child, #menu .footer li:first-child
@@ -73,17 +70,15 @@
 }
 
 #menu .footer{
-	position: absolute;
 	width: 100%;
-	bottom: 0;
-	height: 11.5em;
 	padding: 0;
 	border-top: 0.15em solid #BABABA;
+	overflow: hidden;
 }
 #menu .footer li{
 	margin-left: 0px;
-	padding-left: 0px;
-	text-align: center;
+	padding-left: 10px;
+	text-align: left;
 }
 
 #menu #groupsHeader{
@@ -104,21 +99,42 @@
 }
 
 #menu .content{
-	padding: 0;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin-top: 4em;
-	margin-bottom: 11.5em;
-	text-align: left;
-	width: 100%;
+
 }
 
 #menu .groups {
-	padding: 0;
-	overflow-y: scroll;
-	height: 86%;
-	font-size: 0.95em;
+	font-size: 1.2em;
 	width: 100%;
+	padding: 0px;
 	border-top: 1px solid #bcbfbf;
+	position : absolute;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	width: 100%;
+	height: 85%;
+	-webkit-overflow-scrolling:touch;  
+}
+
+#menu .nav-tabs {
+	margin-bottom: 0px;
+}
+
+#menu .nav-tabs>li {
+	height: 34px;
+}
+
+#menu .nav-tabs li a{
+	background-color: #BABABA;
+	color: black;
+	font-weight: bold;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+#menu .nav-tabs li a :hover{
+	border: 0px;
+}
+
+#menu .nav-tabs .active a{
+	background-color: #8a8a8a;
 }

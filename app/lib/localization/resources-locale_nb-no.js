@@ -76,7 +76,7 @@
     },
     {
         "key":"_settingsLowBandBtn_",
-        "value":"Ikke preload gruppere data",
+        "value":"Preload gruppere data",
         "description":"Settings page lowBandwidth button tag"
     },
     {
@@ -86,7 +86,7 @@
     },
     {
         "key":"_settingsDisNotificationBtn_",
-        "value":"Deaktiver varslinger",
+        "value":"Aktiver varslinger",
         "description":"Settings page disable notification button tag"
     },
     {
@@ -96,7 +96,7 @@
     },
     {
         "key":"_settingsDisStorageBtn_",
-        "value":"Deaktiver fil hurtigbufring",
+        "value":"Aktiver fil hurtigbufring",
         "description":"Settings page disable storage button tag"
     },
     {
@@ -208,5 +208,20 @@
         "key":"_aboutReferenceText_",
         "value":"En UNINETT applikasjon",
         "description":"about page reference text"
+    },
+    {
+        "key":"_menuGroupTab_",
+        "value":"Velg grupper",
+        "description":"menu bar group tab text"
+    },
+    {
+        "key":"_menuConfigureTab_",
+        "value":"Konfigurerer",
+        "description":"menu bar configures tab text"
+    },
+    {
+        "key":"_groupAgoraHomeTag_",
+        "value":"Agora - Hjem",
+        "description":"menu bar group agora home text"
     }
 ]

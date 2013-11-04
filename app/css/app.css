@@ -58,7 +58,7 @@ body {
   height: 100%;
   background: #cccfcf;
   overflow: hidden;
-  text-align: center;
+  text-align: left;
 }
 #search-nav {
   position: fixed;

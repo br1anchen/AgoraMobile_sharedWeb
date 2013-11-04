@@ -1,6 +1,6 @@
 /*To make space for the content header*/
 #messageBoard .scrollableContent{
-	margin-top:3em;
+	margin-top:34px;
 }
 
 #messageBoard #categories #fixedContentHeader .currentGroup{
