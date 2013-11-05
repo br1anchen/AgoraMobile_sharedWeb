@@ -75,22 +75,12 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       getAffiliations : function(){
         var deffered = $q.defer();
 
-        var affiliations = [//dumy code for feide user domain
-          {
-            name: 'NTNU',
-            domain: 'ntnu.no'
-          },
-          {
-            name: 'UNINETT AS',
-            domain: 'uninett.no'
-          },
-          {
-            name: 'HiST',
-            domain: 'hist.no'
-          }
-        ];
+        $http.get('../../lib/institutions.json').then(function(response) {
+          var affiliations = response.data;
 
-        deffered.resolve(affiliations);
+          deffered.resolve(affiliations);
+
+        });
 
         return deffered.promise;
       },
