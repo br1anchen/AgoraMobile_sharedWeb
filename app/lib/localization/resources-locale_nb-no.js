@@ -233,5 +233,100 @@
         "key":"_searchBtnText_",
         "value":"Søk",
         "description":"search bar search button text"
+    },
+    {
+        "key":"_UpdateFailNotificationText_",
+        "value":"Oppdater feilet",
+        "description":"Update failed notification text"
+    },
+    {
+        "key":"_AppendFailNotificationText_",
+        "value":"Tilføy feilet",
+        "description":"Append failed notification text"
+    },
+    {
+        "key":"_FileDownloadFinsh_",
+        "value":"Filnedlasting Finish",
+        "description":"File Download Finish dialog title"
+    },
+    {
+        "key":"_FileDownloadFinshBtns_",
+        "value":"Åpne filen,Lukk",
+        "description":"File Download Finish dialog buttons text"
+    },
+    {
+        "key":"_FileDownloadFailTitle_",
+        "value":"Laste ikke ned filen",
+        "description":"Failed to download file dialog title"
+    },
+    {
+        "key":"_FileNotSupportTitle_",
+        "value":"Denne filtypen er støtte for ikke å åpne",
+        "description":"File not support dialog title"
+    },
+    {
+        "key":"_NoAppOpenTitle_",
+        "value":"Enheten har ikke noe program for å åpne denne filen",
+        "description":"No app to open file dialog title"
+    },
+    {
+        "key":"_FileSingleWord_",
+        "value":"Filen ",
+        "description":"Delete file dialog single word file"
+    },
+    {
+        "key":"_DeletedSingleWord_",
+        "value":" bli slettet",
+        "description":"Delete file dialog single word deleted"
+    },
+    {
+        "key":"_FailToDeleWords_",
+        "value":" bli ikke slettet",
+        "description":"Delete file dialog faile to delete words"
+    },
+    {
+        "key":"_AppNoInternetInfo_",
+        "value":"Ikke Internettilgang",
+        "description":"App no internet connection notification text"
+    },
+    {
+        "key":"_LoadingText_",
+        "value":"Legge...",
+        "description":"App no internet connection notification text"
+    },
+    {
+        "key":"_LogOutErrorTitle_",
+        "value":"Logg av Feil",
+        "description":"Log Out Error dialog title"
+    },
+    {
+        "key":"_FileAllDeleTitle_",
+        "value":"Filer Alle slettede",
+        "description":"files all deleted dialog title"
+    },
+    {
+        "key":"_FileSelectedDeleTitle_",
+        "value":"Alle valgte filer slettet",
+        "description":"Selected files all deleted dialog title"
+    },
+    {
+        "key":"_LoadingErrorText_",
+        "value":"Legge Feil",
+        "description":"Loading error notification text"
+    },
+    {
+        "key":"_NoActsText_",
+        "value":"Ingen aktiviteter",
+        "description":"No activities notification text"
+    },
+    {
+        "key":"_AlreadyShowingText_",
+        "value":"Allerede viser aktivitet feed",
+        "description":"Already showing activityFeed notification text"
+    },
+    {
+        "key":"_ChangeGroupInfoText_",
+        "value":"Klikk på <i class='icon-align-justify'></i> for å endre gruppen",
+        "description":"Change group info notification text"
     }
 ]

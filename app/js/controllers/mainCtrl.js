@@ -8,7 +8,7 @@ app.controller('MainCtrl',function($scope,$log,$location,StorageService,$timeout
 	document.addEventListener("offline", function(){
 
 		$timeout(function(){
-			$rootScope.$broadcast("notification",'No Internet connection');
+			$rootScope.$broadcast("notification",localize.getLocalizedString('_AppNoInternetInfo_'));
 		});
 
 	}, false);

@@ -233,5 +233,100 @@
         "key":"_searchBtnText_",
         "value":"Search",
         "description":"search bar search button text"
+    },
+    {
+        "key":"_UpdateFailNotificationText_",
+        "value":"Update failed",
+        "description":"Update failed notification text"
+    },
+    {
+        "key":"_AppendFailNotificationText_",
+        "value":"Append failed",
+        "description":"Append failed notification text"
+    },
+    {
+        "key":"_FileDownloadFinsh_",
+        "value":"File Download Finish",
+        "description":"File Download Finish dialog title"
+    },
+    {
+        "key":"_FileDownloadFinshBtns_",
+        "value":"Open File,Close",
+        "description":"File Download Finish dialog buttons text"
+    },
+    {
+        "key":"_FileDownloadFailTitle_",
+        "value":"Failed to download file",
+        "description":"Failed to download file dialog title"
+    },
+    {
+        "key":"_FileNotSupportTitle_",
+        "value":"This file type is not support to open",
+        "description":"File not support dialog title"
+    },
+    {
+        "key":"_NoAppOpenTitle_",
+        "value":"Your device has no application to open this file",
+        "description":"No app to open file dialog title"
+    },
+    {
+        "key":"_FileSingleWord_",
+        "value":"File ",
+        "description":"Delete file dialog single word file"
+    },
+    {
+        "key":"_DeletedSingleWord_",
+        "value":" deleted",
+        "description":"Delete file dialog single word deleted"
+    },
+    {
+        "key":"_FailToDeleWords_",
+        "value":" failed to delete",
+        "description":"Delete file dialog faile to delete words"
+    },
+    {
+        "key":"_AppNoInternetInfo_",
+        "value":"No Internet connection",
+        "description":"App no internet connection notification text"
+    },
+    {
+        "key":"_LoadingText_",
+        "value":"Loading...",
+        "description":"Loading notification text"
+    },
+    {
+        "key":"_LogOutErrorTitle_",
+        "value":"Log Out Error",
+        "description":"Log Out Error dialog title"
+    },
+    {
+        "key":"_FileAllDeleTitle_",
+        "value":"Files All deleted",
+        "description":"files all deleted dialog title"
+    },
+    {
+        "key":"_FileSelectedDeleTitle_",
+        "value":"All selected Files deleted",
+        "description":"Selected files all deleted dialog title"
+    },
+    {
+        "key":"_LoadingErrorText_",
+        "value":"Loading Error",
+        "description":"Loading error notification text"
+    },
+    {
+        "key":"_NoActsText_",
+        "value":"No activities",
+        "description":"No activities notification text"
+    },
+    {
+        "key":"_AlreadyShowingText_",
+        "value":"Already showing activityFeed",
+        "description":"Already showing activityFeed notification text"
+    },
+    {
+        "key":"_ChangeGroupInfoText_",
+        "value":"Click on <i class='icon-align-justify'></i> to change group",
+        "description":"Change group info notification text"
     }
 ]

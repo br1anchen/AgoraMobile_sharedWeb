@@ -1,5 +1,5 @@
 'use strict';
-app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope){
+app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope,localize){
 	function renderDirectory(){
 		console.log('render Root Folder Content');
 		//Making sure the UI knows we are in top folder
@@ -68,19 +68,19 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
 			//Making sure UI knows loading finished
 			$scope.loading = false;
-			navigator.notification.confirm('File Download Finish',function(buttonIndex){
+			navigator.notification.confirm(localize.getLocalizedString('_FileDownloadFinsh_'),function(buttonIndex){
 				switch(buttonIndex){
 					case 1:
 						openFile(dir,file.uti);
 					break;
 				}
-			},'Agora Mobile','Open File,Close');
+			},'Agora Mobile',localize.getLocalizedString('_FileDownloadFinshBtns_'));
 		},function(err){
 			console.log(err);
 			//Making sure UI knows loading finished
 			$scope.loading = false;
 			navigator.notification.alert(
-                'Failed to download file',
+                localize.getLocalizedString('_FileDownloadFailTitle_'),
                 function(){
                 },
                 'Agora Mobile',
@@ -106,7 +106,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 					//Making sure UI knows loading finished
 					$scope.loading = false;
 					navigator.notification.alert(
-	                    'Failed to download file',
+	                    localize.getLocalizedString('_FileDownloadFailTitle_'),
 	                    function(){
 	                    },
 	                    'Agora Mobile',
@@ -116,12 +116,12 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 			}
 		}else{
 			navigator.notification.alert(
-                'This file type is not support to open',
+                localize.getLocalizedString('_FileNotSupportTitle_'),
                 function(){
 
                 },
                 'Agora Mobile',
-                'I understand'
+                'OK'
             );
 		}
 
@@ -133,7 +133,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		},function(err){
 			console.log(err);
 			navigator.notification.alert(
-                'Your device has no application to open this file',
+                localize.getLocalizedString('_NoAppOpenTitle_'),
                 function(){
 
                 },
@@ -150,7 +150,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 			//Making sure UI knows loading finished
 			$scope.loading = false;
 			navigator.notification.alert(
-                'File ' + file.title + ' deleted',
+                localize.getLocalizedString('_FileSingleWord_') + file.title + localize.getLocalizedString('_DeletedSingleWord_'),
                 function(){
 
                 },
@@ -161,7 +161,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 			//Making sure UI knows loading finished
 			$scope.loading = false;
 			navigator.notification.alert(
-                'File ' + file.title + ' failed to delete',
+                localize.getLocalizedString('_FileSingleWord_') + file.title + localize.getLocalizedString('_FailToDeleWords_'),
                 function(){
                 	
                 },

@@ -24,7 +24,7 @@ app.controller('SearchCtrl',
 					},
 					function(error){
 						console.error("SearchCtrl: Result Update failed");
-						$rootScope.$broadcast("notification","Update failed");
+						$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 						$scope.loading = false;
 					}
 				);
@@ -45,7 +45,7 @@ app.controller('SearchCtrl',
 					},
 					function(error){
 						console.error("SearchCtrl: Append failed");
-						$rootScope.$broadcast("notification","Append failed");
+						$rootScope.$broadcast("notification",localize.getLocalizedString('_AppendFailNotificationText_'));
 						$scope.loading = false;
 					}
 				)
@@ -74,7 +74,7 @@ app.controller('SearchCtrl',
 					},
 					function(error){
 						console.error("SearchCtrl: Result Update failed");
-						$rootScope.$broadcast("notification","Update failed");
+						$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 						$scope.loading = false;
 					}
 				);

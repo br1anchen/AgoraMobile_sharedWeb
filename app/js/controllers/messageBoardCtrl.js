@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams,$rootScope,StateService){
+app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardService,StorageService,UtilityService,$state,$stateParams,$rootScope,StateService,localize){
 
 	function renderCategories (category){
 		$scope.rootCategory = category;
@@ -93,7 +93,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 				$scope.categoriesHolder = categoriesHolder;
 				$scope.loading = false;
 			},function(error){
-				$rootScope.$broadcast("notification","Update failed");
+				$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 				console.log("MessageBoardCtrl: Could not update categories becaues: "+ error);
 			});
 		}
@@ -102,7 +102,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 				$scope.loading = false;
 				$scope.threadsHolder = threadsHolder;
 			},function(error){
-				$rootScope.$broadcast("notification","Update failed");
+				$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 				console.log("MessageBoardCtrl: Could not update threads becaues: "+ error);
 			});
 		}
@@ -111,7 +111,7 @@ app.controller('MessageBoardCtrl',function($scope,$log,$timeout,$q,MessageBoardS
 				$scope.messagesHolder = messagesHolder;
 				$scope.loading = false;
 			},function(error){
-				$rootScope.$broadcast("notification","Update failed");
+				$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 				console.log("MessageBoardCtrl: Could not update messages becaues: "+ error);
 			});
 		}

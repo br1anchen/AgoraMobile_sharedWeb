@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,DocumentService,$rootScope,$cookies,$state,LoginService,$timeout){
+app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupService,DocumentService,$rootScope,$cookies,$state,LoginService,$timeout,localize){
 
   //'User' should be there because login was successfull
   $scope.user = StorageService.get('User');
@@ -33,7 +33,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
     $scope.toggleMenu();
     
     $timeout(function(){
-      $rootScope.$broadcast("notification","Loading...");
+      $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingText_'));
       $scope.goToGroup(group);
     },120);
 
@@ -58,8 +58,8 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
       $state.transitionTo('login');
     },function(err){
       console.log(err);
-      navigator.notification.alert("Log Out Error Occured", function(){
-      }, "Sorry", "I understand");
+      navigator.notification.alert(localize.getLocalizedString('_LogOutErrorTitle_'), function(){
+      }, "Agora Mobile", "OK");
     });
 
   }

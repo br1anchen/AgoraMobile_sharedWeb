@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('ActivityFeedCtrl',
-	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state){
+	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state,localize){
 		$scope.loading = true;
 
 		$scope.$on('scrollableUpdate',function(){
@@ -15,7 +15,7 @@ app.controller('ActivityFeedCtrl',
 				},
 				function(error){
 					console.error("ActivityCtrl: Update failed");
-					$rootScope.$broadcast("notification","Update failed");
+					$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 					$scope.loading = false;
 				}
 			);
@@ -32,7 +32,7 @@ app.controller('ActivityFeedCtrl',
 				},
 				function(error){
 					console.error("Append failed");
-					$rootScope.$broadcast("notification","Append failed");
+					$rootScope.$broadcast("notification",localize.getLocalizedString('_AppendFailNotificationText_'));
 					$scope.loading = false;
 				}
 			)
@@ -56,7 +56,7 @@ app.controller('ActivityFeedCtrl',
 					},
 					function(error){
 						console.error("ActivityCtrl: Update failed");
-						$rootScope.$broadcast("notification","Update failed");
+						$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 						$scope.loading = false;
 					}
 				);

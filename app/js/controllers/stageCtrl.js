@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService){
+app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService,localize){
     
     StateService.stateVariablesOn();
 
@@ -31,7 +31,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         });
 
         if(ifState.length != 0){
-            $rootScope.$broadcast("removeNotification","Loading...");
+            $rootScope.$broadcast("removeNotification",localize.getLocalizedString('_LoadingText_'));
         }
 
     })
@@ -122,11 +122,11 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             }
         ,function(err){
             if(err == 'same group'){
-                $rootScope.$broadcast("removeNotification","Loading...");
+                $rootScope.$broadcast("removeNotification",localize.getLocalizedString('_LoadingText_'));
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
             }else{
-                $rootScope.$broadcast("removeNotification","Loading...");
-                $rootScope.$broadcast("notification","Loading Error");
+                $rootScope.$broadcast("removeNotification",localize.getLocalizedString('_LoadingText_'));
+                $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingErrorText_'));
             }
         })
     }
@@ -144,7 +144,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                     if(activitiesHolder.activities.length == 0){
                         $rootScope.$broadcast("notification","No activities");
                     }
-                    $rootScope.$broadcast("removeNotification","Loading...");
+                    $rootScope.$broadcast("removeNotification",localize.getLocalizedString('_LoadingText_'));
                     deffer.resolve();
 
                     //Making sure activities are updated if array has a promise object(Custom array behaviour defined in ActivityService)
@@ -157,12 +157,12 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                 function(err){
                     deffer.reject(err);
                     console.error("StageCtrl: Could not get activities");
-                    $rootScope.$broadcast("notification","No activities");
+                    $rootScope.$broadcast("notification",localize.getLocalizedString('_NoActsText_'));
                     $scope.loading = false;
                 }
             );
         },function(err){
-            $rootScope.$broadcast("removeNotification","Loading...");
+            $rootScope.$broadcast("removeNotification",localize.getLocalizedString('_LoadingText_'));
             deffer.reject(err);
         });
         return deffer.promise;
@@ -198,10 +198,10 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
         if($state.is(activityFeedState)){
             $rootScope.$broadcast("notification",
-                "Already showing activityFeed"
+                localize.getLocalizedString('_AlreadyShowingText_')
             );
             $rootScope.$broadcast("notification",
-                "Click on <i class='icon-align-justify'></i> to change group"
+                localize.getLocalizedString('_ChangeGroupInfoText_')
             );
         }
         else{

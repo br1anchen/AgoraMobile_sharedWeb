@@ -2,7 +2,7 @@
 
 app.controller('SettingsCtrl',
 
-	function($scope,AppService,DocumentService,$q){
+	function($scope,AppService,DocumentService,$q,localize){
 		$scope.settings = AppService.getSettings();
 		$scope.savedFilesHolder = DocumentService.getSavedFiles();
 		$scope.deleteFiles = [];
@@ -26,7 +26,7 @@ app.controller('SettingsCtrl',
 				},function(err){
 					
 					navigator.notification.alert(
-		                'File '+ f.title +' failed to delete',
+		                localize.getLocalizedString('_FileSingleWord_') + f.title + localize.getLocalizedString('_FailToDeleWords_'),
 		                function(){
 		                	
 		                },
@@ -42,7 +42,7 @@ app.controller('SettingsCtrl',
 			$q.all(promiseObjs).then(function(){
 
 				navigator.notification.alert(
-	                'Files All deleted',
+	                localize.getLocalizedString('_FileAllDeleTitle_'),
 	                function(){
 	                	
 	                },
@@ -77,7 +77,7 @@ app.controller('SettingsCtrl',
 				},function(err){
 
 					navigator.notification.alert(
-		                'File '+ f.title +' failed to delete',
+		                localize.getLocalizedString('_FileSingleWord_') + f.title + localize.getLocalizedString('_FailToDeleWords_'),
 		                function(){
 		                	
 		                },
@@ -92,7 +92,7 @@ app.controller('SettingsCtrl',
 			$q.all(promiseObjs).then(function(){
 
 				navigator.notification.alert(
-	                'All selected Files deleted',
+	                localize.getLocalizedString('_FileSelectedDeleTitle_'),
 	                function(){
 	                	
 	                },
