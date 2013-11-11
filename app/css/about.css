@@ -1,3 +1,17 @@
 #about{
 	text-align: center;
+	font-size: 1.5em;
+}
+
+#about h3{
+	margin-top: 10%;
+}
+
+#about img{
+	margin-top: 20%;
+	width: 60%;
+}
+
+#about .aboutElement{
+	margin-top: 20px;
 }

@@ -1,9 +1,10 @@
 <div id="about" ng-controller="AboutCtrl">
 	<h3>Agora Mobile</h3>
-	<span data-i18n="_aboutReferenceText_"></span><br />
-	<span data-i18n="_aboutVersionText_"></span><br />
-	<span data-i18n="_aboutPublishText_"></span><br />
-	<a data-ng-click="load('http://www.uninett.no')">www.uninett.no</a><br />
-	<a data-ng-click="load('http://agora.uninett.no')">agora.uninett.no</a><br />
-	<span data-i18n="_aboutContactText_"></span><a data-ng-click="compserEmail()">adam@uninett.no</a><br />
+	<div class="aboutElement"><span data-i18n="_aboutReferenceText_"></span></div>
+	<div class="aboutElement"><span data-i18n="_aboutVersionText_"></span>{{version}}</div>
+	<div class="aboutElement"><span data-i18n="_aboutPublishText_"></span></div>
+	<div class="aboutElement"><a data-ng-click="load('http://www.uninett.no')">www.uninett.no</a></div>
+	<div class="aboutElement"><a data-ng-click="load('http://agora.uninett.no')">agora.uninett.no</a></div>
+	<div class="aboutElement"><span data-i18n="_aboutContactText_"></span><a data-ng-click="compserEmail()">adam@uninett.no</a></div>
+	<img id="uninett_logo" src="img/UNINETT_logo.png"></img>
 </div>

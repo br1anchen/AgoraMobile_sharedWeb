@@ -191,7 +191,7 @@
     },
     {
         "key":"_aboutVersionText_",
-        "value":"Version 0.85",
+        "value":"Version ",
         "description":"about page app version text"
     },
     {
@@ -206,7 +206,7 @@
     },
     {
         "key":"_aboutReferenceText_",
-        "value":"A UNINETT application",
+        "value":"An UNINETT application",
         "description":"about page reference text"
     },
     {

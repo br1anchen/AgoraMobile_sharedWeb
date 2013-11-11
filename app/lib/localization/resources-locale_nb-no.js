@@ -191,7 +191,7 @@
     },
     {
         "key":"_aboutVersionText_",
-        "value":"Versjon 0.85",
+        "value":"Versjon ",
         "description":"about page app version text"
     },
     {

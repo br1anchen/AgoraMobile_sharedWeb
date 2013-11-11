@@ -2,6 +2,16 @@
 
 app.controller('AboutCtrl',
 	function($scope,UtilityService){
+
+		var getVersionFromApp = function(){
+			cordova.exec(function(version){
+				console.log(version);
+				$scope.version = version;
+			},null, 'ApplicationInfo', 'getVersionNumber',[]);
+		}
+
+		getVersionFromApp();
+
 		$scope.load = function(url){
 			UtilityService.inAppBrowser.browser(url);
 		}
