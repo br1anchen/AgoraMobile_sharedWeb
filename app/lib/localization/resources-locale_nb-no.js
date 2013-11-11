@@ -1,4 +1,4 @@
-[
+﻿[
     {
         "key":"_LoginAffiliationLabel_",
         "value":"Institusjon: ",
@@ -6,7 +6,7 @@
     },
     {
         "key":"_LoginAffiliationSelectName_",
-        "value":"Feide Bruker Institusjon",
+        "value":"FEIDE Bruker Institusjon",
         "description":"Login page affiliation select tag text"
     },
     {
@@ -26,32 +26,32 @@
     },
     {
         "key":"_regularLoginBtn_",
-        "value":"Logg Inn",
+        "value":"Logg inn",
         "description":"Login page regular login button"
     },
     {
-        "key":"_feideLoginBtn_",
-        "value":"Feide Bruker Klikk her for å tilbakestille Agora brukerpassord gjennom Feide konto.",
+        "key":"_FEIDELoginBtn_",
+        "value":"FEIDE Bruker: Klikk her for å tilbakestille Agora brukerpassord gjennom din FEIDE konto.",
         "description":"Login page regular login button"
     },
     {
         "key":"_loginFailedMsg_",
-        "value":"Brukernavn og passord er påkrevd. Husk å velge din tilknytning hvis du er Feide bruker.",
+        "value":"Brukernavn og passord er påkrevd. Husk å velge din tilknytning hvis du er FEIDE bruker.",
         "description":"Login page login failed message"
     },
     {
         "key":"_loginFailedTitle_",
-        "value":"Logg Feilet",
+        "value":"Login feilet",
         "description":"Login page login failed message title"
     },
     {
         "key":"_loginStuckMsg_",
-        "value":"Hvis du har glemt ditt Agora passordet, kan du tilbakestille det ved å logge inn via Feide nedenfor. Hvis du ikke har en Agora bruker, kan du opprette en ved å logge på via Feide.",
+        "value":"Hvis du har glemt ditt Agora passord kan du tilbakestille det ved å logge inn via FEIDE nedenfor. Hvis du ikke har en Agora bruker, kan du opprette en ved å logge på via FEIDE.",
         "description":"Login page login stuck message"
     },
     {
         "key":"_loginStuckTitle_",
-        "value":"Logg inn problemer?",
+        "value":"Login problemer?",
         "description":"Login page login failed message title"
     },
     {
@@ -66,7 +66,7 @@
     },
     {
         "key":"_menuAboutTag_",
-        "value":"Om",
+        "value":"Om Agora",
         "description":"menu bar about button tag"
     },
     {
@@ -76,7 +76,7 @@
     },
     {
         "key":"_settingsLowBandBtn_",
-        "value":"Preload gruppere data",
+        "value":"Forhåndslaste gruppedata",
         "description":"Settings page lowBandwidth button tag"
     },
     {
@@ -86,27 +86,27 @@
     },
     {
         "key":"_settingsDisNotificationBtn_",
-        "value":"Aktiver varslinger",
+        "value":"Aktiver meldingsvarsler",
         "description":"Settings page disable notification button tag"
     },
     {
         "key":"_settingsStorageTag_",
-        "value":" Mellomlagre data",
+        "value":" Mellomlagre data (minnebruk)",
         "description":"Settings page manage storage tag"
     },
     {
         "key":"_settingsDisStorageBtn_",
-        "value":"Aktiver fil hurtigbufring",
+        "value":"Aktiver hurtigbufring",
         "description":"Settings page disable storage button tag"
     },
     {
         "key":"_settingsClearFilesBtn_",
-        "value":"Fjern alle Bufrede filer",
+        "value":"Fjern alle bufrede filer",
         "description":"Settings page clear all saved files button tag"
     },
     {
         "key":"_settingsDeleteFileBtn_",
-        "value":"Slett Valgte filer",
+        "value":"Slett valgte filer fra enheten",
         "description":"Settings page delete chosen files button tag"
     },
     {
@@ -141,7 +141,7 @@
     },
     {
         "key":"_mbNoContentTag_",
-        "value":"Ingen innhold for forum i denne gruppen",
+        "value":"Intet innhold for forum i denne gruppen",
         "description":"messageboard page  no categories text"
     },
     {
@@ -151,7 +151,7 @@
     },
     {
         "key":"_mbNoMsgsText_",
-        "value":"Ingen Innlegg i denne tråden",
+        "value":"Ingen innlegg i denne tråden",
         "description":"messageboard message page no messages text"
     },
     {
@@ -181,7 +181,7 @@
     },
     {
         "key":"_searchKeywordHint_",
-        "value":"nøkkelord",
+        "value":"Nøkkelord",
         "description":"search keyword placeholder text"
     },
     {
@@ -191,7 +191,7 @@
     },
     {
         "key":"_aboutVersionText_",
-        "value":"Versjon 1.0.0",
+        "value":"Versjon 0.85",
         "description":"about page app version text"
     },
     {
@@ -201,7 +201,7 @@
     },
     {
         "key":"_aboutContactText_",
-        "value":"Kontakt med:Bernt Skjemstad <bernt.skjemstad@uninett.no>",
+        "value":"For support kontakt: adam@uninett.no",
         "description":"about page contact info text"
     },
     {
@@ -211,17 +211,22 @@
     },
     {
         "key":"_menuGroupTab_",
-        "value":"Velg grupper",
+        "value":"Velg gruppe",
         "description":"menu bar group tab text"
     },
     {
         "key":"_menuConfigureTab_",
-        "value":"Konfigurerer",
+        "value":"Konfiguere",
         "description":"menu bar configures tab text"
     },
     {
         "key":"_groupAgoraHomeTag_",
         "value":"Agora - Hjem",
         "description":"menu bar group agora home text"
+    },
+    {
+        "key":"_loginSelectTitle_",
+        "value":"Velg din Institusjon",
+        "description":"login page select affliliation dialog title text"
     }
 ]

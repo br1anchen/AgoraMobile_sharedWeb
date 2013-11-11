@@ -6,7 +6,7 @@
     },
     {
         "key":"_LoginAffiliationSelectName_",
-        "value":"Feide User Affiliation",
+        "value":"FEIDE User Affiliation",
         "description":"Login page affiliation select tag text"
     },
     {
@@ -30,13 +30,13 @@
         "description":"Login page regular login button"
     },
     {
-        "key":"_feideLoginBtn_",
-        "value":"Feide User Click Here To Reset Your Agora User Password through Feide Account.",
+        "key":"_FEIDELoginBtn_",
+        "value":"FEIDE User: Click Here To Reset Your Agora User Password through Your FEIDE Account.",
         "description":"Login page regular login button"
     },
     {
         "key":"_loginFailedMsg_",
-        "value":"Username and password required. Remember to select your affiliation if you are Feide user",
+        "value":"Username and password required. Remember to select your affiliation if you are a FEIDE user",
         "description":"Login page login failed message"
     },
     {
@@ -46,7 +46,7 @@
     },
     {
         "key":"_loginStuckMsg_",
-        "value":"If you forgot your Agora password, you can reset it by logging in through Feide below. If you don't have an Agora user, you can create one by signing in through Feide.",
+        "value":"If you forgot your Agora password, you can reset it by logging in through FEIDE below. If you don't have an Agora user, you can create one by signing in through FEIDE.",
         "description":"Login page login stuck message"
     },
     {
@@ -66,12 +66,12 @@
     },
     {
         "key":"_menuAboutTag_",
-        "value":"About",
+        "value":"About Agora",
         "description":"menu bar about button tag"
     },
     {
         "key":"_settingsLowBandTag_",
-        "value":"If you want less datatrafic you can modify application behaviour",
+        "value":"Data traffic vs application responsiveness",
         "description":"Settings page lowBandwidth tag"
     },
     {
@@ -81,17 +81,17 @@
     },
     {
         "key":"_settingsDisNotificationTag_",
-        "value":"Change application background behaviour",
+        "value":"Message distribution",
         "description":"Settings page disable notification tag"
     },
     {
         "key":"_settingsDisNotificationBtn_",
-        "value":"Enable notifications",
+        "value":"Enable message notifications",
         "description":"Settings page disable notification button tag"
     },
     {
         "key":"_settingsStorageTag_",
-        "value":"Manage application storage settings, and free phone memory",
+        "value":"Application storage settings (memory usage)",
         "description":"Settings page manage storage tag"
     },
     {
@@ -101,12 +101,12 @@
     },
     {
         "key":"_settingsClearFilesBtn_",
-        "value":"Clear All Cached Files",
+        "value":"Clear All cached files",
         "description":"Settings page clear all saved files button tag"
     },
     {
         "key":"_settingsDeleteFileBtn_",
-        "value":"Delete Chosen Files",
+        "value":"Delete selected files from phone memory",
         "description":"Settings page delete chosen files button tag"
     },
     {
@@ -181,17 +181,17 @@
     },
     {
         "key":"_searchKeywordHint_",
-        "value":"keyword for search",
+        "value":"Keyword for search",
         "description":"search keyword placeholder text"
     },
     {
         "key":"_searchErrorMsg_",
-        "value":"Please type key word to search",
+        "value":"Please enter keyword",
         "description":"search error message text"
     },
     {
         "key":"_aboutVersionText_",
-        "value":"Version 1.0.0",
+        "value":"Version 0.85",
         "description":"about page app version text"
     },
     {
@@ -201,17 +201,17 @@
     },
     {
         "key":"_aboutContactText_",
-        "value":"Contact:Bernt Skjemstad <bernt.skjemstad@uninett.no>",
+        "value":"For support contact: adam@uninett.no",
         "description":"about page contact info text"
     },
     {
         "key":"_aboutReferenceText_",
-        "value":"An UNINETT application",
+        "value":"A UNINETT application",
         "description":"about page reference text"
     },
     {
         "key":"_menuGroupTab_",
-        "value":"Choose groups",
+        "value":"Choose group",
         "description":"menu bar group tab text"
     },
     {
@@ -223,5 +223,10 @@
         "key":"_groupAgoraHomeTag_",
         "value":"Agora - Home",
         "description":"menu bar group agora home text"
+    },
+    {
+        "key":"_loginSelectTitle_",
+        "value":"Choose Your Affiliation",
+        "description":"login page select affliliation dialog title text"
     }
 ]

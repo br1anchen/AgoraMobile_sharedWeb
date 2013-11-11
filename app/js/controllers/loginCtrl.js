@@ -3,8 +3,6 @@
 app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$rootScope,$modal,localize){
 
 	$scope.affiliationText = localize.getLocalizedString('_LoginAffiliationSelectName_');
-	$scope.affiliationShowing = "listClose";
-	$scope.labelShowing = "labelHide";
 	$scope.loading = true;
 	$scope.loginURL = LoginService.getFeideLoginUrl().data;
 
@@ -18,19 +16,23 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 	});
 
 	$scope.showAffiliations = function(){
-		if($scope.affiliationShowing == "listClose"){
-			$scope.affiliationShowing = "listOpen";
-		}else{
-			$scope.affiliationShowing = "listClose";
-		}
-		
-	}
 
-	$scope.setAffiliation = function(affiliation){
-		$scope.affiliation = affiliation;
-		$scope.affiliationText = (typeof $scope.affiliation == 'string') ? localize.getLocalizedString('_LoginNoAffiliationName_') : $scope.affiliation.name;
-		$scope.affiliationShowing = "listClose";
-		$scope.labelShowing = "labelShow";
+		var selectInstance = $modal.open({
+	      templateUrl: 'selectDialog.html',
+	      controller: SelectInstanceCtrl,
+	      resolve: {
+	        options: function(){
+	        	return $scope.affiliations;
+	        } 
+	      }
+	    });
+
+	    selectInstance.result.then(function (selectedItem) {
+	    	$scope.affiliation = selectedItem;
+	    	$scope.affiliationText = (typeof $scope.affiliation == 'string') ? localize.getLocalizedString('_LoginNoAffiliationName_') : $scope.affiliation.name;
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
+	    });
 	}
 
 	$scope.login = function(){
@@ -111,12 +113,21 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 
   	var DialogInstanceCtrl = function ($scope, $modalInstance, dialog) {
 
-	  $scope.dialog = dialog;
+	  	$scope.dialog = dialog;
 
-	  $scope.ok = function () {
-	    $modalInstance.close();
-	  };
+	  	$scope.ok = function () {
+	    	$modalInstance.close();
+	  	};
 
 	};
+
+	var SelectInstanceCtrl = function ($scope, $modalInstance, options) {
+
+		$scope.options = options;
+
+		$scope.select = function (option) {
+			$modalInstance.close(option);
+		}
+	}
 
 })

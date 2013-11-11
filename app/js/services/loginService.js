@@ -75,7 +75,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       getAffiliations : function(){
         var deffered = $q.defer();
 
-        $http.get('../../lib/institutions.json').then(function(response) {
+        $http.get('https://agora.uninett.no/files/institutions.json').then(function(response) {
           var affiliations = response.data;
 
           deffered.resolve(affiliations);

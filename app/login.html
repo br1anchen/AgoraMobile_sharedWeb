@@ -12,32 +12,39 @@
         </div>
     </script>
 
+    <script type="text/ng-template" id="selectDialog.html">
+        <div class="modal-header">
+            <span id="affiliationSelectTitle" data-i18n="_loginSelectTitle_"></span>
+        </div>
+        <div id="selectBody" class="modal-body">
+            <ul id="affiliationSelect">
+                <li ng-repeat="option in options" ng-click="select(option)" data-ng-bind="option.name"></li>
+                <li id="noAffiliation" ng-click="select('no')" data-i18n="_LoginNoAffiliationName_" ></li>
+            </ul>
+        </div>
+    </script>
+
     <img id="agora_logo" src="img/agora_logo.png"></img>
     
     <div id="affiliationBar">
-        <label id="affiliationLabel" ng-class="labelShowing" data-i18n="_LoginAffiliationLabel_"></label>
-        <button id="choiceBtn" class="btn dropdown-toggle" data-ng-bind="affiliationText" ng-click="showAffiliations()"></button>
-        <ul ng-class="affiliationShowing">
-            <li ng-repeat="a in affiliations">
-                <span class="affiliationTitle" ng-click="setAffiliation(a)" data-ng-bind="a.name"></span>
-            </li>
-            <li id="noAffiliation">
-                <span class="affiliationTitle" ng-click="setAffiliation('no')" data-i18n="_LoginNoAffiliationName_" ></span>
-            </li>
-        </ul>
+        <button id="choiceBtn" class="btn" data-ng-bind="affiliationText" ng-click="showAffiliations()"></button>
     </div>
 
-    <form>
-        <p>
-            <label name="username" data-i18n="_LoginNameTitle_"></label><input name="username" type="text" data-ng-model="username" data-ng-required /></br>
+    <form id="loginForm">
+        <div class="loginFormElement">
+            <label id="loginNameLabel" name="username" data-i18n="_LoginNameTitle_"></label>
+            <input id="loginNameInput" name="username" type="text" data-ng-model="username" data-ng-required />
+        </div>
 
-            <label name="password" data-i18n="_LoginPwdTitle_"></label><input name="password" type="password" data-ng-model="password" data-ng-required /></br>
-        </p>
+        <div class="loginFormElement">
+            <label id="loginPwdLabel" name="password" data-i18n="_LoginPwdTitle_"></label>
+            <input id="loginPwdInput" name="password" type="password" data-ng-model="password" data-ng-required />
+        </div>
 
         <div id="feideLoginDiv">
             <button id="regularLogin" class="btn" ng-click="login()" data-i18n="_regularLoginBtn_"></button>
         </div>
-        <i class="icon-info-sign"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_feideLoginBtn_"></span>
+        <i class="icon-info-sign"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_FEIDELoginBtn_"></span>
         
     </form>
     
