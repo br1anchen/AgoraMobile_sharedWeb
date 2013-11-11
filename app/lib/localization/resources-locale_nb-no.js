@@ -228,5 +228,10 @@
         "key":"_loginSelectTitle_",
         "value":"Velg din Institusjon",
         "description":"login page select affliliation dialog title text"
+    },
+    {
+        "key":"_searchBtnText_",
+        "value":"Søk",
+        "description":"search bar search button text"
     }
 ]

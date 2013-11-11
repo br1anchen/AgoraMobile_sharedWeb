@@ -18,10 +18,11 @@
   float: left;
   margin-right: 0px;
   padding-right: 0px;
+  margin-bottom: 0px;
 }
 
 #searchInput{
-  width: 70%;
+  width: 60%;
 }
 
 #searchResultDiv{

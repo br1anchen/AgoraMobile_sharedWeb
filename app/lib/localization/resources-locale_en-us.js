@@ -228,5 +228,10 @@
         "key":"_loginSelectTitle_",
         "value":"Choose Your Affiliation",
         "description":"login page select affliliation dialog title text"
+    },
+    {
+        "key":"_searchBtnText_",
+        "value":"Search",
+        "description":"search bar search button text"
     }
 ]

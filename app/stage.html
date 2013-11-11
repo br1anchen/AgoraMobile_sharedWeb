@@ -81,10 +81,10 @@
                 <div id="searchHeader">
 
                     <i id="backToMainBtn" class="icon-angle-left icon-2x sideButton" data-ng-click="toggleSearch()"></i>
-                    <div id="searchForm">
+                    <form id="searchForm">
                         <input type="text" class="search-query" id="searchInput" ng-model="keyword" data-i18n-attr="_searchKeywordHint_|placeholder">
-                        <button type="submit" class="btn" ng-click="search()"><i class="icon-search"></i></button>
-                    </div>
+                        <button type="submit" class="btn" ng-click="search()" data-i18n="_searchBtnText_"></button>
+                    </form>
 
                 </div>
             </header>
