@@ -16,7 +16,7 @@
 	line-height: 2em;
 }
 #messageBoard #categoriesHeader {
-	background-color: #666666;
+	background-color: #9E9E9E;
 }
 #messageBoard #threadsHeader, #messageBoard #messagesHeader {
 	background-color: #9E9E9E;
@@ -32,6 +32,14 @@
 	position: relative;
 	text-align: left;
 	background-color: white;
+}
+
+#messageBoard #MBcategory:active, #messageBoard #MBthread:active,
+#messageBoard #MBcategory .header .title:active, #messageBoard #MBthread .header .title:active,
+#messageBoard #MBcategory.is-active, #messageBoard #MBthread.is-active,
+#messageBoard #MBcategory .header .title.is-active, #messageBoard #MBthread .header .title.is-active{
+	background-color: #666666;
+	color: #ffffff;
 }
 #messageBoard .header .title{
 	line-height: 2em;

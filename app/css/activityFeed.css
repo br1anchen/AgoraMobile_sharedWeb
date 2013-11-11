@@ -19,6 +19,11 @@
 	position: relative;
 }
 
+#activityFeed .content .activityBlock:active,
+#activityFeed .content .activityBlock.is-active{
+	background-color: #bcbfbf;
+}
+
 #activityFeed .content  .peopleImg{
 	float: left;
 	width:13%;
@@ -51,6 +56,7 @@
 	height: 1em;
 	border-top: 0.09em solid #BABABA;
 	white-space: nowrap;
+	font-size: 0.8em;
 }
 #activityFeed .content .activityBlock .content{
 	display: inline-block;
