@@ -93,6 +93,12 @@
 	/*padding-left: 4em;*/
 	font-weight: bold;
 }
+
+#wiki #wikiPage #childrenPicker #childrenPage .text:active,
+#wiki #wikiPage #childrenPicker #childrenPage .text.is-active{
+	background-color: #bcbfbf;
+}
+
 #wiki #wikiPage #childrenPicker{
 
 }
@@ -150,6 +156,12 @@
 	height: 2em;
 	color: #5b677d;
 	position: relative;
+}
+
+#wiki #contentList .leaf .titleHolder:active,
+#wiki #contentList .leaf .titleHolder.is-active{
+	background-color: #9E9E9E;
+	color: #ffffff;
 }
 
 #wiki #contentList .leaf .title{

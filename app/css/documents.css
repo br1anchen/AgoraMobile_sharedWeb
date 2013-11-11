@@ -44,6 +44,7 @@
 	padding-left: 6em;
 	height: 100%;
 	line-height: 3.5em;
+	width: 80%;
 }
 #documents .rowText{
 	font-size: 1.2em;
@@ -64,6 +65,10 @@
 	overflow: hidden;
 }
 
+#documents ul .fileInfo:active, #documents ul .content:active,#documents .row .textHolder:active,
+#documents ul .fileInfo.is-active, #documents ul .content.is-active,#documents .row .textHolder.is-active{
+	background-color: #bcbfbf;
+}
 
 #documents .fileInfoTransition{
 	width: 50px;

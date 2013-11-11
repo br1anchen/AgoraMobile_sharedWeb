@@ -120,6 +120,7 @@
   font-size: 1.5em;
   color:black;
   margin: 0px;
+  background-color: #ffffff;
 }
 
 #search #searchChoices #choiceList li{
@@ -128,11 +129,11 @@
   margin: 0px;
   padding-bottom: 5px;
   padding-top: 5px;
-  border-top:1px solid #ffffff;
+  border-top:1px solid #bcbcbc;
   font-weight:bold;
 }
 
 #search #searchChoices #choiceList li:active,
 #search #searchChoices #choiceList li.is-active{
-  background-color: #666666;
+  background-color: #bfbfbf;
 }
