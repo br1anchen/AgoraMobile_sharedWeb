@@ -201,7 +201,7 @@
     },
     {
         "key":"_aboutContactText_",
-        "value":"For support kontakt: adam@uninett.no",
+        "value":"For support kontakt: ",
         "description":"about page contact info text"
     },
     {
