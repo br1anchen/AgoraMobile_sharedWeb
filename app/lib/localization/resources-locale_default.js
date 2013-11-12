@@ -31,12 +31,12 @@
     },
     {
         "key":"_FEIDELoginBtn_",
-        "value":"FEIDE User: Click Here To Reset Your Agora User Password through Your FEIDE Account.",
+        "value":"FEIDE User: Click To Reset Your Agora Password using Your FEIDE Account.",
         "description":"Login page regular login button"
     },
     {
         "key":"_loginFailedMsg_",
-        "value":"Username and password required. Remember to select your affiliation if you are a FEIDE user",
+        "value":"Username and password required, remember to select affiliation if you are a FEIDE user.",
         "description":"Login page login failed message"
     },
     {
@@ -106,7 +106,7 @@
     },
     {
         "key":"_settingsDeleteFileBtn_",
-        "value":"Delete selected files from phone memory",
+        "value":"Remove preloaded files from phone memory",
         "description":"Settings page delete chosen files button tag"
     },
     {
@@ -201,12 +201,12 @@
     },
     {
         "key":"_aboutContactText_",
-        "value":"For support contact: ",
+        "value":"Support: ",
         "description":"about page contact info text"
     },
     {
         "key":"_aboutReferenceText_",
-        "value":"An UNINETT application",
+        "value":"A UNINETT application",
         "description":"about page reference text"
     },
     {
@@ -216,12 +216,12 @@
     },
     {
         "key":"_menuConfigureTab_",
-        "value":"Configures",
+        "value":"Configure",
         "description":"menu bar configures tab text"
     },
     {
         "key":"_groupAgoraHomeTag_",
-        "value":"Agora - Home",
+        "value":"Agora-Home",
         "description":"menu bar group agora home text"
     },
     {
@@ -261,12 +261,12 @@
     },
     {
         "key":"_FileNotSupportTitle_",
-        "value":"This file type is not support to open",
+        "value":"File type not supported",
         "description":"File not support dialog title"
     },
     {
         "key":"_NoAppOpenTitle_",
-        "value":"Your device has no application to open this file",
+        "value":"Your device has no app to open this file",
         "description":"No app to open file dialog title"
     },
     {
@@ -301,7 +301,7 @@
     },
     {
         "key":"_FileAllDeleTitle_",
-        "value":"Files All deleted",
+        "value":"Files deleted",
         "description":"files all deleted dialog title"
     },
     {
@@ -311,7 +311,7 @@
     },
     {
         "key":"_LoadingErrorText_",
-        "value":"Loading Error",
+        "value":"Error loading data",
         "description":"Loading error notification text"
     },
     {
@@ -321,7 +321,7 @@
     },
     {
         "key":"_AlreadyShowingText_",
-        "value":"Already showing activityFeed",
+        "value":"Already showing activity-feed",
         "description":"Already showing activityFeed notification text"
     },
     {

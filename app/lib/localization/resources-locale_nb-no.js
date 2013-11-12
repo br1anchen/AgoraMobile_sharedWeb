@@ -31,7 +31,7 @@
     },
     {
         "key":"_FEIDELoginBtn_",
-        "value":"FEIDE Bruker: Klikk her for å tilbakestille Agora brukerpassord gjennom din FEIDE konto.",
+        "value":"FEIDE Bruker; Klikk her for å tilbakestille Agora brukerpassord gjennom din FEIDE konto.",
         "description":"Login page regular login button"
     },
     {
@@ -101,7 +101,7 @@
     },
     {
         "key":"_settingsClearFilesBtn_",
-        "value":"Fjern alle bufrede filer",
+        "value":"Fjern alle bufrede filer fra enheten",
         "description":"Settings page clear all saved files button tag"
     },
     {
@@ -221,7 +221,7 @@
     },
     {
         "key":"_groupAgoraHomeTag_",
-        "value":"Agora - Hjem",
+        "value":"Agora-Hjem",
         "description":"menu bar group agora home text"
     },
     {
@@ -236,17 +236,17 @@
     },
     {
         "key":"_UpdateFailNotificationText_",
-        "value":"Oppdater feilet",
+        "value":"Oppdatering feilet",
         "description":"Update failed notification text"
     },
     {
         "key":"_AppendFailNotificationText_",
-        "value":"Tilføy feilet",
+        "value":"Oppdatering feilet",
         "description":"Append failed notification text"
     },
     {
         "key":"_FileDownloadFinsh_",
-        "value":"Filnedlasting Finish",
+        "value":"Filnedlasting ferdig",
         "description":"File Download Finish dialog title"
     },
     {
@@ -256,17 +256,17 @@
     },
     {
         "key":"_FileDownloadFailTitle_",
-        "value":"Laste ikke ned filen",
+        "value":"Nedlasting feilet",
         "description":"Failed to download file dialog title"
     },
     {
         "key":"_FileNotSupportTitle_",
-        "value":"Denne filtypen er støtte for ikke å åpne",
+        "value":"Denne filtypen er ikke støttet",
         "description":"File not support dialog title"
     },
     {
         "key":"_NoAppOpenTitle_",
-        "value":"Enheten har ikke noe program for å åpne denne filen",
+        "value":"Enheten har ikke noe program installert for å åpne denne filen",
         "description":"No app to open file dialog title"
     },
     {
@@ -276,32 +276,32 @@
     },
     {
         "key":"_DeletedSingleWord_",
-        "value":" bli slettet",
+        "value":" ble slettet",
         "description":"Delete file dialog single word deleted"
     },
     {
         "key":"_FailToDeleWords_",
-        "value":" bli ikke slettet",
+        "value":" ble ikke slettet",
         "description":"Delete file dialog faile to delete words"
     },
     {
         "key":"_AppNoInternetInfo_",
-        "value":"Ikke Internettilgang",
+        "value":"Ingen Internettilgang",
         "description":"App no internet connection notification text"
     },
     {
         "key":"_LoadingText_",
-        "value":"Legge...",
-        "description":"App no internet connection notification text"
+        "value":"Laster...",
+	"description":"Loading notification text"
     },
     {
         "key":"_LogOutErrorTitle_",
-        "value":"Logg av Feil",
+        "value":"Utlogging feilet",
         "description":"Log Out Error dialog title"
     },
     {
         "key":"_FileAllDeleTitle_",
-        "value":"Filer Alle slettede",
+        "value":"Filer slettet",
         "description":"files all deleted dialog title"
     },
     {
@@ -311,7 +311,7 @@
     },
     {
         "key":"_LoadingErrorText_",
-        "value":"Legge Feil",
+        "value":"Nedlasting feilet",
         "description":"Loading error notification text"
     },
     {
@@ -321,12 +321,12 @@
     },
     {
         "key":"_AlreadyShowingText_",
-        "value":"Allerede viser aktivitet feed",
+        "value":"Viser allerede aktivitets-feed",
         "description":"Already showing activityFeed notification text"
     },
     {
         "key":"_ChangeGroupInfoText_",
-        "value":"Klikk på <i class='icon-align-justify'></i> for å endre gruppen",
+        "value":"Klikk på <i class='icon-align-justify'></i> for å endre gruppe",
         "description":"Change group info notification text"
     }
 ]
