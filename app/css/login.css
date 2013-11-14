@@ -120,6 +120,7 @@
 	display: block;
 	margin: 0 auto;
 	list-style: none;
+	height: 220px;
 }
 
 #affiliationSelect li{
@@ -190,12 +191,16 @@
 }
 
 .modal{
-	height: 80%;
+	margin-top: 10%;
+}
+
+.modal-backdrop{
+	background-color:transparent;
 }
 
 #selectBody{
 	overflow-x:hidden;
 	overflow-y:scroll;
 	-webkit-overflow-scrolling:touch;
-	height: 80%;
+	height: 220px;
 }

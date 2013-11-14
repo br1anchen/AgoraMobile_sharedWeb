@@ -216,7 +216,7 @@
     },
     {
         "key":"_menuConfigureTab_",
-        "value":"Konfiguere",
+        "value":"System",
         "description":"menu bar configures tab text"
     },
     {
@@ -327,6 +327,16 @@
     {
         "key":"_ChangeGroupInfoText_",
         "value":"Klikk på <i class='icon-align-justify'></i> for å endre gruppe",
+        "description":"Change group info notification text"
+    },
+    {
+        "key":"_SwitchBtnOffText_",
+        "value":"Av",
+        "description":"Change group info notification text"
+    },
+    {
+        "key":"_SwitchBtnOnText_",
+        "value":"På",
         "description":"Change group info notification text"
     }
 ]

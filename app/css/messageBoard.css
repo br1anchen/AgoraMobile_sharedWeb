@@ -48,7 +48,10 @@
 	background-color: #D1D1D1;
 	font-weight: bold;
 	padding-left: 0.5em;
-	padding-bottom: 0.6em;
+	padding-bottom: 0.8em;
+	overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 #messageBoard .header{
 	position: relative;

@@ -37,6 +37,9 @@
 	border-top: 1px solid #eff1f1;
   	border-bottom: 1px solid #bcbfbf;
   	font-weight: bold;
+  	overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
 #menu .groups li:active,

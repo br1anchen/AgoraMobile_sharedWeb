@@ -8,7 +8,7 @@ app.directive('btnSwitch', function(){
     template : 
           '<label class="topcoat-switch">' +
             '<input type="checkbox" class="topcoat-switch__input">' +
-            '<div class="topcoat-switch__toggle"></div>' +
+            '<div class="topcoat-switch__toggle" data-btnOnText="{{ \'_SwitchBtnOnText_\' | i18n}}" data-btnOffText="{{ \'_SwitchBtnOffText_\' | i18n}}"></div>' +
           '</label>',
     replace : true,
     link : function(scope, element, attrs, ngModel){

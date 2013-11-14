@@ -232,7 +232,7 @@ body {
 }
 
 .topcoat-switch__toggle:before {
-  content: 'ON';
+  content: attr(data-btnOnText);
   color: #0083e8;
   background-color: #e0f0fa;
   border-radius: 0;
@@ -242,7 +242,7 @@ body {
 }
 
 .topcoat-switch__toggle:after {
-  content: 'OFF';
+  content: attr(data-btnOffText);
   background-color: #d3d7d7;
   top: -1px;
   left: 1rem;

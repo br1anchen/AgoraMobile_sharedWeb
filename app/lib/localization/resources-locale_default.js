@@ -216,7 +216,7 @@
     },
     {
         "key":"_menuConfigureTab_",
-        "value":"Configure",
+        "value":"System",
         "description":"menu bar configures tab text"
     },
     {
@@ -327,6 +327,16 @@
     {
         "key":"_ChangeGroupInfoText_",
         "value":"Click on <i class='icon-align-justify'></i> to change group",
+        "description":"Change group info notification text"
+    },
+    {
+        "key":"_SwitchBtnOffText_",
+        "value":"Off",
+        "description":"Change group info notification text"
+    },
+    {
+        "key":"_SwitchBtnOnText_",
+        "value":"On",
         "description":"Change group info notification text"
     }
 ]
