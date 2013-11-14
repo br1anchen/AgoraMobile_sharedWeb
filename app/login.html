@@ -23,7 +23,9 @@
             </ul>
         </div>
     </script>
-
+    
+    <progress id="loginprogressbar" percent="loginProgress" class="progress-danger progress-striped active"></progress>
+    
     <img id="agora_logo" src="img/agora_logo.png"></img>
     
     <div id="affiliationBar">
@@ -41,15 +43,14 @@
             <input id="loginPwdInput" name="password" type="password" data-ng-model="password" data-ng-required />
         </div>
 
-        <div id="feideLoginDiv">
+        <div id="LoginBtnDiv">
             <button id="regularLogin" class="btn" ng-click="login()" data-i18n="_regularLoginBtn_"></button>
         </div>
-        <i class="icon-info-sign"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_FEIDELoginBtn_"></span>
-        
     </form>
     
-    <footer>
-        <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
-    </footer>
+    <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
+    <div id="feideLoginBtnDiv">
+        <i class="icon-info-sign"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_FEIDELoginBtn_"></span>
+    <div>
     <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
 </div>

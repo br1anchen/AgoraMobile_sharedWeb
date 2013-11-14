@@ -5,6 +5,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 	$scope.affiliationText = localize.getLocalizedString('_LoginAffiliationSelectName_');
 	$scope.loading = true;
 	$scope.loginURL = LoginService.getFeideLoginUrl().data;
+	$scope.loginProgress = 0;
 
 	//get url to change password for feide user in agora
 	LoginService.getFeideLoginUrl().then(function(url){
@@ -38,10 +39,12 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 	$scope.login = function(){
 
 		var username = (!$scope.affiliation || typeof $scope.affiliation == 'string' ) ? $scope.username : $scope.username + '__' + $scope.affiliation.domain;
-
+		$scope.loginProgress = 30;
 		LoginService.login(username,$scope.password).then(
 			function(rep){
+				$scope.loginProgress = 70;
 				LoginService.getUserInfo(username,rep.data.companyId).then(function(rep){
+					$scope.loginProgress = 100;
 					console.log('Login success!')
 					$state.transitionTo('stage.activityFeed');
 				},function(reason){
@@ -52,6 +55,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 					}else{
 						loginError();
 					}
+					$scope.loginProgress = 0;
 				});
 
 			},function(reason){
@@ -62,6 +66,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 					loginError();
 				}
 				$state.transitionTo('login');
+				$scope.loginProgress = 0;
 			}
 		);
 	}

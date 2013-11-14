@@ -4,12 +4,14 @@ app.controller('SearchCtrl',
 	function($scope,$log,$timeout,SearchService,$rootScope, ContentService,$state,localize){
 
 		$scope.loading = false;
+		$scope.showprogress = false;
 		$scope.keyword = undefined;
 		$scope.searchType = {
 			name: localize.getLocalizedString('_searchAnyText_'),
 			value: 'get-any'
 		};
 		$scope.searchOptionsShowing = false;
+		$scope.searchProgress = 0;
 
 		$scope.$on('scrollableUpdate',function(){
 
@@ -63,19 +65,29 @@ app.controller('SearchCtrl',
 		}
 
 		$scope.search = function(){
+			$scope.showprogress = true;
+			$scope.searchProgress = 30;
 			if($scope.keyword && $scope.searchType.value){
 				$scope.loading = true;
 
+				$scope.searchProgress = 70;
 				//Updating content
 				SearchService.getResults(20,$scope.keyword,$scope.searchType.value).then(
 					function(resultsHolder){
+						$scope.searchProgress = 100;
 						$scope.loading = false;
 						$scope.results = resultsHolder.results;
+						$timeout(function(){
+							$scope.showprogress = false;
+							$scope.searchProgress = 0;
+						},1000);
 					},
 					function(error){
 						console.error("SearchCtrl: Result Update failed");
 						$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
 						$scope.loading = false;
+						$scope.showprogress = false;
+						$scope.searchProgress = 0;
 					}
 				);
 			}else{
@@ -87,6 +99,8 @@ app.controller('SearchCtrl',
 	                'Agora Mobile',
 	                'OK'
 	            );
+	            $scope.showprogress = false;
+	            $scope.searchProgress = 0;
 			}
 		}
 	}

@@ -88,6 +88,9 @@
 
                 </div>
             </header>
+            <div ng-show="showprogress">
+                <progress id="searchprogressbar" percent="searchProgress" class="progress-danger progress-striped active"></progress>
+            </div>
             <accordion id="searchChoices">
                 <accordion-group heading="{{searchType.name}}" is-open="$parent.searchOptionsShowing">
                   <ul id="choiceList">

@@ -2,11 +2,15 @@
 	font-weight: bold;
 }
 
+#login footer{
+	text-align: center;
+}
+
 #login #agora_logo{
 	display: block;
     margin: auto;
-    margin-top: 4%;
-    width: 60%;
+    margin-top: 6%;
+    width: 55%;
 }
 
 #login #loginMessage{
@@ -20,13 +24,20 @@
 #login #uninett_logo{
 	display: block;
     margin: auto;
-    margin-top: 10%;
-    width: 60%;
+    margin-top: 6%;
+    margin-bottom: 10px;
+    width: 45%;
 }
 
-#feideLoginDiv{
+#LoginBtnDiv{
 	text-align: center;
-	height:3em;
+	border-width: 1px 0 0 0;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+#feideLoginBtnDiv{
+	text-align: center;
 	border-width: 1px 0 0 0;
 	margin: 0 auto;
 }
@@ -190,8 +201,13 @@
 	display: none;
 }
 
+#login #loginprogressbar{
+	height: 5px;
+	margin: 0 auto;
+}
+
 .modal{
-	margin-top: 10%;
+	margin-top: 18%;
 }
 
 .modal-backdrop{
