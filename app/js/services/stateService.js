@@ -37,7 +37,7 @@ factory('StateService',function($log,$rootScope,$state,$stateParams){
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         
         if(stateHistory.length == 0 && fromState.name == "stage.activityFeed" && !fromParams.groupId){//init when the first time
-        	fromParams.groupId = 10157;
+        	fromParams.groupId = "10157";
         	storeHistory(fromState, fromParams);
         }
         //When navigation was back navigation, skip caching history 
