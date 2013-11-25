@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$rootScope,$modal,localize){
+app.controller('LoginCtrl',function($scope,$log,LoginService,AppService,$state,$timeout,$rootScope,$modal,localize){
 
-	$scope.affiliationText = localize.getLocalizedString('_LoginAffiliationSelectName_');
+	$scope.affiliationText = (!AppService.lastAffiliation) ? localize.getLocalizedString('_LoginAffiliationSelectName_') : AppService.lastAffiliation.name;
 	$scope.loading = true;
 	$scope.loginURL = LoginService.getFeideLoginUrl().data;
 	$scope.loginProgress = 0;
@@ -31,6 +31,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,$state,$timeout,$ro
 	    selectInstance.result.then(function (selectedItem) {
 	    	$scope.affiliation = selectedItem;
 	    	$scope.affiliationText = (typeof $scope.affiliation == 'string') ? localize.getLocalizedString('_LoginNoAffiliationName_') : $scope.affiliation.name;
+	    	AppService.lastAffiliation = selectedItem;
 	    }, function () {
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });
