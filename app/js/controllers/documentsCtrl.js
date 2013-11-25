@@ -1,5 +1,8 @@
 'use strict';
 app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope,localize){
+	$scope.showprogress = false;
+	$scope.downloadProgress = 0;
+
 	function renderDirectory(){
 		console.log('render Root Folder Content');
 		//Making sure the UI knows we are in top folder
@@ -64,10 +67,22 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 		$state.transitionTo('stage.documents.file',{folderId:file.folderId,fileTitle:file.title});
 	}
 	$scope.cachFile = function(file){
-		$scope.loading = true;
+		$scope.showprogress = true;
+		$scope.downloadProgress = 30;
+		//$scope.loading = true;
+		$timeout(function(){
+			$scope.downloadProgress = 50;
+		},200);
 		DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+			$scope.downloadProgress = 100;
 			//Making sure UI knows loading finished
-			$scope.loading = false;
+			$timeout(function(){
+				$scope.showprogress = false;
+				$scope.downloadProgress = 0;
+			},1000);
+
+			//$scope.loading = false;
+			/*
 			navigator.notification.confirm(localize.getLocalizedString('_FileDownloadFinsh_'),function(buttonIndex){
 				switch(buttonIndex){
 					case 1:
@@ -75,10 +90,15 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 					break;
 				}
 			},'Agora Mobile',localize.getLocalizedString('_FileDownloadFinshBtns_'));
+			*/
 		},function(err){
 			console.log(err);
 			//Making sure UI knows loading finished
-			$scope.loading = false;
+			//$scope.loading = false;
+			$timeout(function(){
+				$scope.showprogress = false;
+				$scope.downloadProgress = 0;
+			},1000);
 			navigator.notification.alert(
                 localize.getLocalizedString('_FileDownloadFailTitle_'),
                 function(){
@@ -91,20 +111,34 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	$scope.showFile = function(file){
 		if(file.ifSupport){
-			if(file.offline && !file.localFileDir){
+			if(file.offline && file.localFileDir){
 				openFile(file.localFileDir , file.uti);	
 			}
 			else{
 				//Making sure UI knows we are loading data
-				$scope.loading = true;
+				$scope.showprogress = true;
+				$scope.downloadProgress = 30;
+				//$scope.loading = true;
+				$timeout(function(){
+					$scope.downloadProgress = 50;
+				},200);
 				DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+					$scope.downloadProgress = 100;
 					//Making sure UI knows loading finished
-					$scope.loading = false;
+					$timeout(function(){
+						$scope.showprogress = false;
+						$scope.downloadProgress = 0;
+					},1000);
+					//$scope.loading = false;
 					openFile(dir,file.uti);
 				},function(err){
 					console.log(err);
 					//Making sure UI knows loading finished
-					$scope.loading = false;
+					//$scope.loading = false;
+					$timeout(function(){
+						$scope.showprogress = false;
+						$scope.downloadProgress = 0;
+					},1000);
 					navigator.notification.alert(
 	                    localize.getLocalizedString('_FileDownloadFailTitle_'),
 	                    function(){

@@ -119,3 +119,8 @@
 #documents #DCFileDetail .btnSwitch{
 	margin-left: 10px;
 }
+
+#documents #DCFileDetail #downloadFileProgressbar{
+	height: 5px;
+  	margin: 0 auto;
+}
