@@ -36,8 +36,21 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
       $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingText_'));
       $scope.goToGroup(group);
     },120);
-
   }
+
+  $scope.showAllGroups = function(){
+    $scope.displayGroups = $scope.groupsHolder.groups;
+    $scope.showAllBtn = false;
+    $scope.show10Btn = true;
+  }
+
+  $scope.show10Groups = function(){
+    $scope.displayGroups = $scope.groupsHolder.groups.slice(0,9);
+    $scope.showAllBtn = $scope.groupsHolder.groups.length > 9 ? true : false;
+    $scope.showAllBtn = true;
+    $scope.show10Btn = false;
+  }
+
   $scope.goToPage = function(state){
     $scope.changePage(state);
     $scope.toggleMenu();

@@ -140,3 +140,10 @@
 #menu .nav-tabs .active a{
 	background-color: #8a8a8a;
 }
+
+#menu .ListOptionBtn{
+	text-align: center;
+	font-weight: bold;
+	background-color: rgba(186, 186, 186, 1);
+	padding-left:0 px;
+}

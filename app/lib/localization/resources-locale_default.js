@@ -378,5 +378,10 @@
         "key":"_DCOpenFileBtn_",
         "value":"Open File",
         "description":"File detail info open file button text"
+    },
+    {
+        "key":"_groupShowAllButtonText_",
+        "value":"Show All",
+        "description":"Menu page show all group button text"
     }
 ]

@@ -10,6 +10,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $scope.gettingGroupsPromise = GroupService.getGroups().then(function(groupsHolder){
         $scope.loading = false;
         $scope.groupsHolder = groupsHolder;
+        toggleShowAllGroups(groupsHolder);
         $scope.goToGroup();
     })
 
@@ -50,6 +51,12 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                 $scope.back();
             });
         }
+    }
+
+    function toggleShowAllGroups(groupsHolder) {
+        $scope.displayGroups = groupsHolder.groups.slice(0,9);
+        $scope.showAllBtn = groupsHolder.groups.length > 9 ? true : false;
+        $scope.show10Btn = false;
     }
 
     //Hide menu on swype gesture
