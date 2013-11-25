@@ -41,8 +41,10 @@
 	<button id="clearAllFiles" class="btn" type="button" data-ng-click="clearAllFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
 		{{ '_settingsClearFilesBtn_' | i18n }}
 	</button>
+	<!--
 	<label class="settingslabel" data-ng-repeat="file in savedFilesHolder.savedFiles" class="checkbox"><input type="checkbox" data-ng-click="checkDelete($event,file)">{{file.title}}</label>
 	<button id="manageOfflineFiles" class="btn" type="button" data-ng-click="deleteChosenFiles()" ng-show="savedFilesHolder.savedFiles.length >0">
 		{{ '_settingsDeleteFileBtn_' | i18n }}
 	</button>
+	-->
 </div>
