@@ -21,22 +21,26 @@
 	padding: 5px auto;
 }
 
-#login #uninett_logo{
+#login #loginFooter{
+	position: absolute;
+	bottom: 100px;
+}
+
+#login #loginFooter #uninett_logo{
 	display: block;
     margin: auto;
-    margin-top: 6%;
     margin-bottom: 10px;
     width: 45%;
 }
 
-#LoginBtnDiv{
+#login #LoginBtnDiv{
 	text-align: center;
 	border-width: 1px 0 0 0;
 	margin: 0 auto;
 	margin-top: 10px;
 }
 
-#feideLoginBtnDiv{
+#login #loginFooter  #feideLoginBtnDiv{
 	text-align: center;
 	border-width: 1px 0 0 0;
 	margin: 0 auto;
@@ -160,37 +164,18 @@
 	margin: 0 auto;
 	text-align: center;
 	width: 100%;
-	min-height: 4em;
-}
-
-#login #loginNameLabel{
-	float: left;
-	width: 30%;
-	margin-left: 20%;
-	margin-right: 5px;
-	text-align: center;
-	line-height: 3em;
-}
-
-#login #loginPwdLabel{
-	float: left;
-	width: 30%;
-	margin-left: 20%;
-	margin-right: 5px;
-	text-align: center;
-	line-height: 3em;
+	min-height: 3em;
 }
 
 #login #loginNameInput{
-	width: 30%;
-	float: left;
-	margin: 5px 0px;
+	width: 45%;
+	margin: 0px auto;
+	margin-top: 5px;
 }
 
 #login #loginPwdInput{
-	width: 30%;
-	float: left;
-	margin: 5px 0px;
+	width: 45%;
+	margin: 0px auto;
 }
 
 #login .labelShow{

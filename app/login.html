@@ -34,13 +34,11 @@
 
     <form id="loginForm">
         <div class="loginFormElement">
-            <label id="loginNameLabel" name="username" data-i18n="_LoginNameTitle_"></label>
-            <input id="loginNameInput" name="username" type="text" data-ng-model="username" data-ng-required />
+            <input id="loginNameInput" name="username" type="text" data-ng-model="username" data-i18n-attr="_LoginNameTitle_|placeholder" data-ng-required />
         </div>
 
         <div class="loginFormElement">
-            <label id="loginPwdLabel" name="password" data-i18n="_LoginPwdTitle_"></label>
-            <input id="loginPwdInput" name="password" type="password" data-ng-model="password" data-ng-required />
+            <input id="loginPwdInput" name="password" type="password" data-ng-model="password" data-i18n-attr="_LoginPwdTitle_|placeholder" data-ng-required />
         </div>
 
         <div id="LoginBtnDiv">
@@ -48,9 +46,11 @@
         </div>
     </form>
     
-    <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
-    <div id="feideLoginBtnDiv">
-        <i class="icon-info-sign"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_FEIDELoginBtn_"></span>
-    <div>
+    <div id="loginFooter">
+        <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
+        <div id="feideLoginBtnDiv">
+            <i class="icon-info-sign"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_FEIDELoginBtn_"></span>
+        <div>
+    </div>
     <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
 </div>
