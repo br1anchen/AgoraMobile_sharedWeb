@@ -62,9 +62,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     });
 
     $scope.$on("swiperight",function(e,data){
-        if(data.id == "application" && $scope.menuVar == 'search'){
-            $scope.toggleSearch();
-        }else if(data.id == "application" && !$scope.menuVar){
+        if(data.id == "application" && !$scope.menuVar){
             $scope.toggleMenu();
         }
     });

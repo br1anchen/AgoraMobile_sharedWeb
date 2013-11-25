@@ -35,10 +35,10 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
 
     			result.groupId = object.groupId;
     			result.gName = ifAccess[0].name;
-    			result.snippet = object.snippet == undefined ? "..." : object.snippet + "...";
+    			result.snippet = object.snippet == undefined ? "..." : stripHTML(object.snippet) + "...";
     			result.relateUser = object.userName;
     			result.modifiedDate = object.modified.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,"$1/$2/$3 $4:$5:$6");
-
+                
     			switch(entryType){
     				case "WikiPage":
 
@@ -62,7 +62,14 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
     					result.type = "Message";
     					result.threadId = object.threadId;
     					result.categoryId = object.categoryId;
-                        result.shownText = object.title.replace(/\[(.*?)\]/,"");
+                        //result.shownText = object.title.replace(/\[(.*?)+\]/,"");
+                        if(object.title.indexOf("[$CATEGORY_NAME$]") !== -1){
+                            result.shownText = object.title.slice(object.title.indexOf("[$CATEGORY_NAME$]") + 18,object.title.length);
+                        }else{
+                            result.shownText = object.title;
+                        }
+                        
+                        console.log(result.shownText);
 
     					break;
     			}

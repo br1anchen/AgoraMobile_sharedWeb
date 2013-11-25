@@ -44,6 +44,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   }
 
   $scope.logout = function(){
+    var tempAffiliation = StorageService.get('lastAffiliation');//not clear last login affiliation for user
     LoginService.logOut().then(function(rep){
       console.log(rep);
       GroupService.clear();//Clears webstorage and runtime memory;
@@ -55,6 +56,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
         console.log(err);
       });
 
+      StorageService.store('lastAffiliation',tempAffiliation);
       $state.transitionTo('login');
     },function(err){
       console.log(err);

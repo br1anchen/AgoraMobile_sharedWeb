@@ -6,8 +6,6 @@ factory('AppService',function($log,$rootScope){
 			lowBandwidth : false,
 			disableNotifications : false
 		}
-
-		var lastAffiliation = undefined;
 		
 	return {
 		getBaseURL : function(){
