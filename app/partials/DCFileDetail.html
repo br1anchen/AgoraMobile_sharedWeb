@@ -22,24 +22,24 @@
 	<div class="title" data-ng-click="showFile(fileHolder.file)">{{fileHolder.file.title}}</div>
 	<div class = "content">
 		<div ng-show="fileHolder.file.ifSupport">
-			Available Offline <div ng-change="switchOffline(fileHolder.file.offline)" btn-switch ng-model="fileHolder.file.offline"></div>
+			{{ '_DCOfflineBtn_' | i18n }} <div ng-change="switchOffline(fileHolder.file.offline)" btn-switch ng-model="fileHolder.file.offline"></div>
 		</div>
 		<div ng-show="!fileHolder.file.ifSupport">
-			Not Support File Type to Open
+			{{ '_DCNotSupportText_' | i18n }}
 		</div>
 		<p>
-			Fifle Type: {{fileHolder.file.extension}} File Version:{{fileHolder.file.version}}
+			{{ '_DCFileTypeText_' | i18n }}: {{fileHolder.file.extension}} {{ '_DCFileVersionText_' | i18n }}:{{fileHolder.file.version}}
 		</p>
 		<br />
 		<p>
-			Created by: {{fileHolder.file.userName}}<br />
-			At {{fileHolder.file.createDate}}
+			{{ '_DCCreatedByText_' | i18n }}: {{fileHolder.file.userName}}<br />
+			{{ '_DCATText_' | i18n }} {{fileHolder.file.createDate}}
 		</p>
 		<br />
 		<p>
-			Last Modified by: {{fileHolder.file.versionUserName}}<br />
-			At {{fileHolder.file.modifiedDate}}
+			{{ '_DCLastModByText_' | i18n }}: {{fileHolder.file.versionUserName}}<br />
+			{{ '_DCATText_' | i18n }} {{fileHolder.file.modifiedDate}}
 		</p>
-		<button class="btn" data-ng-click="showFile(fileHolder.file)">Open File</button>
+		<button class="btn" data-ng-click="showFile(fileHolder.file)">{{ '_DCOpenFileBtn_' | i18n }}</button>
 	</div>
 </div>

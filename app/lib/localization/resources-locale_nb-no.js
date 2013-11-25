@@ -338,5 +338,45 @@
         "key":"_SwitchBtnOnText_",
         "value":"På",
         "description":"Change group info notification text"
+    },
+    {
+        "key":"_DCOfflineBtn_",
+        "value":"Tilgjengelig i Frakoblet",
+        "description":"File detail info offline available button text"
+    },
+    {
+        "key":"_DCNotSupportText_",
+        "value":"Ikke Støtter Filtypen til å Åpen",
+        "description":"File detail info not support file text"
+    },
+    {
+        "key":"_DCFileTypeText_",
+        "value":"File Type",
+        "description":"File detail info file type text"
+    },
+    {
+        "key":"_DCFileVersionText_",
+        "value":"Filversjon",
+        "description":"File detail info file version text"
+    },
+    {
+        "key":"_DCCreatedByText_",
+        "value":"Laget av",
+        "description":"File detail info created by text"
+    },
+    {
+        "key":"_DCATText_",
+        "value":"På",
+        "description":"File detail info created at time text"
+    },
+    {
+        "key":"_DCLastModByText_",
+        "value":"Sist Endret av",
+        "description":"File detail info last modified by text"
+    },
+    {
+        "key":"_DCOpenFileBtn_",
+        "value":"Åpen File",
+        "description":"File detail info open file button text"
     }
 ]

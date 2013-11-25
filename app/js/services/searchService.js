@@ -68,8 +68,6 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
                         }else{
                             result.shownText = object.title;
                         }
-                        
-                        console.log(result.shownText);
 
     					break;
     			}
