@@ -63,9 +63,12 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     $scope.$on("swipeleft",function(e,data){
         if(data.id == "application" && $scope.menuVar == 'menu'){
             $scope.toggleMenu();
-        }else if(data.id == "application" && !$scope.menuVar){
+        }
+        /*
+        else if(data.id == "application" && !$scope.menuVar){
             $scope.toggleSearch();
         }
+        */
     });
 
     $scope.$on("swiperight",function(e,data){

@@ -6,12 +6,12 @@
     },
     {
         "key":"_LoginAffiliationSelectName_",
-        "value":"FEIDE Bruker Institusjon",
+        "value":"FEIDE Bruker-institusjon",
         "description":"Login page affiliation select tag text"
     },
     {
         "key":"_LoginNoAffiliationName_",
-        "value":"Ingen Institusjon",
+        "value":"Ingen Institusjon valgt",
         "description":"Login page no affiliation option tag text"
     },
     {
@@ -141,7 +141,7 @@
     },
     {
         "key":"_mbNoContentTag_",
-        "value":"Intet innhold for forum i denne gruppen",
+        "value":"Ikke noe innhold for forum i denne gruppen",
         "description":"messageboard page  no categories text"
     },
     {
@@ -201,7 +201,7 @@
     },
     {
         "key":"_aboutContactText_",
-        "value":"For support kontakt: ",
+        "value":"Support: ",
         "description":"about page contact info text"
     },
     {
@@ -226,7 +226,7 @@
     },
     {
         "key":"_loginSelectTitle_",
-        "value":"Velg din Institusjon",
+        "value":"Velg Institusjon",
         "description":"login page select affliliation dialog title text"
     },
     {
@@ -251,7 +251,7 @@
     },
     {
         "key":"_FileDownloadFinshBtns_",
-        "value":"Åpne filen,Lukk",
+        "value":"Åpne filen, Lukk",
         "description":"File Download Finish dialog buttons text"
     },
     {
@@ -266,7 +266,7 @@
     },
     {
         "key":"_NoAppOpenTitle_",
-        "value":"Enheten har ikke noe program installert for å åpne denne filen",
+        "value":"Ingen applikasjon er tilknyttet denne filtypen",
         "description":"No app to open file dialog title"
     },
     {
@@ -341,17 +341,17 @@
     },
     {
         "key":"_DCOfflineBtn_",
-        "value":"Tilgjengelig i Frakoblet",
+        "value":"Tilgjengelig Offline",
         "description":"File detail info offline available button text"
     },
     {
         "key":"_DCNotSupportText_",
-        "value":"Ikke Støtter Filtypen til å Åpen",
+        "value":"Ingen applikasjon er tilknyttet denne filtypen",
         "description":"File detail info not support file text"
     },
     {
         "key":"_DCFileTypeText_",
-        "value":"File Type",
+        "value":"Filtype",
         "description":"File detail info file type text"
     },
     {
@@ -376,7 +376,7 @@
     },
     {
         "key":"_DCOpenFileBtn_",
-        "value":"Åpen File",
+        "value":"Åpne fil",
         "description":"File detail info open file button text"
     },
     {

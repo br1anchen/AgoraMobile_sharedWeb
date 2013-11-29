@@ -31,12 +31,12 @@
     },
     {
         "key":"_FEIDELoginBtn_",
-        "value":"FEIDE User: Click To Reset Your Agora Password using Your FEIDE Account.",
+        "value":"FEIDE User: Click To Reset Agora Password using Your FEIDE Account.",
         "description":"Login page regular login button"
     },
     {
         "key":"_loginFailedMsg_",
-        "value":"Username and password required, remember to select affiliation if you are a FEIDE user.",
+        "value":"Username and password required, remember affiliation if you are a FEIDE user.",
         "description":"Login page login failed message"
     },
     {
@@ -46,7 +46,7 @@
     },
     {
         "key":"_loginStuckMsg_",
-        "value":"If you forgot your Agora password, you can reset it by logging in through FEIDE below. If you don't have an Agora user, you can create one by signing in through FEIDE.",
+        "value":"You can reset Your Agora password by logging in through FEIDE. If you don't have an Agora user, you can create one by signing in through FEIDE.",
         "description":"Login page login stuck message"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
         "key":"_menuLogoutTag_",
-        "value":"Log Out",
+        "value":"Logout",
         "description":"menu bar log out button tag"
     },
     {
@@ -81,7 +81,7 @@
     },
     {
         "key":"_settingsDisNotificationTag_",
-        "value":"Message distribution",
+        "value":"Notifications",
         "description":"Settings page disable notification tag"
     },
     {
@@ -226,7 +226,7 @@
     },
     {
         "key":"_loginSelectTitle_",
-        "value":"Choose Your Affiliation",
+        "value":"Select Affiliation",
         "description":"login page select affliliation dialog title text"
     },
     {
@@ -246,7 +246,7 @@
     },
     {
         "key":"_FileDownloadFinsh_",
-        "value":"File Download Finish",
+        "value":"File Downloaded",
         "description":"File Download Finish dialog title"
     },
     {
@@ -261,12 +261,12 @@
     },
     {
         "key":"_FileNotSupportTitle_",
-        "value":"File type not supported",
+        "value":"Filetype not supported",
         "description":"File not support dialog title"
     },
     {
         "key":"_NoAppOpenTitle_",
-        "value":"Your device has no app to open this file",
+        "value":"Filetype has no associated Application",
         "description":"No app to open file dialog title"
     },
     {
@@ -306,7 +306,7 @@
     },
     {
         "key":"_FileSelectedDeleTitle_",
-        "value":"All selected Files deleted",
+        "value":"All selected files deleted",
         "description":"Selected files all deleted dialog title"
     },
     {
@@ -346,12 +346,12 @@
     },
     {
         "key":"_DCNotSupportText_",
-        "value":"Not Support File Type to Open",
+        "value":"Filetype has no associated Application",
         "description":"File detail info not support file text"
     },
     {
         "key":"_DCFileTypeText_",
-        "value":"File Type",
+        "value":"Filetype",
         "description":"File detail info file type text"
     },
     {
