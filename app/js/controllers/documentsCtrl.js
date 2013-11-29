@@ -1,5 +1,5 @@
 'use strict';
-app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope,localize){
+app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,StorageService,AppService,$state,$stateParams,$rootScope,localize,UtilityService){
 	$scope.showprogress = false;
 	$scope.downloadProgress = 0;
 
@@ -162,6 +162,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	}
 	var openFile = function(fileDir,fileUTI){
 
+		/* open file with third-party application
 		cordova.exec(function(rep){
 			console.log(rep);
 		},function(err){
@@ -175,6 +176,8 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
                 'OK'
             );
 		}, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
+		*/
+		UtilityService.inAppBrowser.browser(fileDir);
 	}
 
 	$scope.deleteFile = function(file){
