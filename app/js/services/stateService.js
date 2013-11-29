@@ -162,6 +162,10 @@ factory('StateService',function($log,$rootScope,$state,$stateParams){
 
 				//Make sure transition is not recorded as history
 				back = true;
+				if(!prevState){
+					prevState.state.name = "stage.activityFeed";
+					prevState.params = {groupId:"10157"};
+				}
 				$state.transitionTo( prevState.state.name, prevState.params);
 				return;
 			}
