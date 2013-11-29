@@ -44,6 +44,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,$sta
 
 	$scope.login = function(){
 
+		$scope.affiliation = StorageService.get('lastAffiliation');
 		var username = (!$scope.affiliation || typeof $scope.affiliation == 'string' ) ? $scope.username : $scope.username + '__' + $scope.affiliation.domain;
 		$scope.loginProgress = 30;
 		LoginService.login(username,$scope.password).then(

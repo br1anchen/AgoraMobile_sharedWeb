@@ -47,7 +47,7 @@ body {
 }
 
 .page-wrap.search{
-  left: -100%;
+  left: -80%;
 }
 
 #main-nav {
@@ -63,7 +63,7 @@ body {
 #search-nav {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 80%;
   height: 100%;
   background: #ffffff;
   overflow: hidden;
@@ -73,7 +73,7 @@ body {
   margin-left:0%;
 }
 #search-nav.search{
-  margin-left:0%;
+  margin-left:20%;
 }
 
 #contentWrapper {

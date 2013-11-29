@@ -62,12 +62,12 @@ header .searchButton{
 }
 
 header #mainFunctions :nth-child(2){
-  padding-left:0.8em;
-  padding-right:0.8em;
+  margin-left:0.8em;
+  margin-right:0.8em;
 }
 
 header #mainFunctions :nth-child(3){
-  padding-right:0.8em;
+  margin-right:0.8em;
 }
 
 header .searchButton, .menuButton{
