@@ -57,7 +57,24 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   }
 
   $scope.logout = function(){
+
+    navigator.notification.confirm(
+      localize.getLocalizedString('_logoutMessageText_'),
+      onConfirm,
+      'Agora Mobile',
+      localize.getLocalizedString('_logoutConfirmBtnText_'));
+
+  }
+
+  function onConfirm(buttonIndex){
+    if(buttonIndex == 1){
+      logoutProcess();
+    }
+  }
+
+  function logoutProcess(){
     var tempAffiliation = StorageService.get('lastAffiliation');//not clear last login affiliation for user
+
     LoginService.logOut().then(function(rep){
       console.log(rep);
       GroupService.clear();//Clears webstorage and runtime memory;
@@ -76,6 +93,6 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
       navigator.notification.alert(localize.getLocalizedString('_LogOutErrorTitle_'), function(){
       }, "Agora Mobile", "OK");
     });
-
   }
+
 })
