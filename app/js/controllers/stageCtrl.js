@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService,localize){
+app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService,localize,snapRemote){
     
     StateService.stateVariablesOn();
 
@@ -59,38 +59,12 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         $scope.show10Btn = false;
     }
 
-    //Hide menu on swype gesture
-    $scope.$on("swipeleft",function(e,data){
-        if(data.id == "application" && $scope.menuVar == 'menu'){
-            $scope.toggleMenu();
-        }
-        /*
-        else if(data.id == "application" && !$scope.menuVar){
-            $scope.toggleSearch();
-        }
-        */
-    });
-
-    $scope.$on("swiperight",function(e,data){
-        if(data.id == "application" && !$scope.menuVar){
-            $scope.toggleMenu();
-        }
-    });
-
 	$scope.toggleMenu = function(){
-        if(!$scope.menuVar){
-            $scope.menuVar = 'menu';
-        }else{
-            $scope.menuVar = undefined;
-        }
+        snapRemote.toggle("left","stage");
 	}
 
     $scope.toggleSearch = function(){
-        if(!$scope.menuVar){
-            $scope.menuVar = 'search';
-        }else{
-            $scope.menuVar = undefined;
-        }
+        snapRemote.toggle("right","stage");
     }
 
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
