@@ -383,5 +383,15 @@
         "key":"_groupShowAllButtonText_",
         "value":"Show All",
         "description":"Menu page show all group button text"
+    },
+    {
+        "key":"_logoutMessageText_",
+        "value":"Log Out?",
+        "description":"Log out confirm dialog text"
+    },
+    {
+        "key":"_logoutConfirmBtnText_",
+        "value":"Yes,Cancel",
+        "description":"Log out confirm dialog button text"
     }
 ]

@@ -383,5 +383,15 @@
         "key":"_groupShowAllButtonText_",
         "value":"Vis Alle",
         "description":"Menu page show all group button text"
+    },
+    {
+        "key":"_logoutMessageText_",
+        "value":"Logge Av?",
+        "description":"Log out confirm dialog text"
+    },
+    {
+        "key":"_logoutConfirmBtnText_",
+        "value":"Ja,Avbryt",
+        "description":"Log out confirm dialog button text"
     }
 ]
