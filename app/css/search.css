@@ -1,4 +1,9 @@
 /* search view css stylesheet */
+#search{
+  color:#454545;
+  border-left: 2px solid #A2A2A2;
+}
+
 #search #searchHeader{
   vertical-align: middle;
   display: table-cell;
@@ -27,7 +32,7 @@
 }
 
 #searchForm{
-  width: 85%;
+  width: 90%;
   float: left;
   margin-right: 0px;
   padding-right: 0px;
@@ -36,6 +41,7 @@
 
 #searchInput{
   width: 60%;
+  margin-left: 5px;
 }
 
 #searchResultDiv{
