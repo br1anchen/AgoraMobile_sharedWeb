@@ -22,7 +22,7 @@
                         <li class="ListOptionBtn" data-ng-click="showAllGroups()" ng-show="showAllBtn">
                             {{ '_groupShowAllButtonText_' | i18n }}
                         </li>
-                        <li class="ListOptionBtn" data-ng-click="show10Groups()" ng-show="show10Btn">
+                        <li class="ListOptionBtn" data-ng-click="hideSomeGroups()" ng-show="hideSomeBtn">
                             <i class="icon-double-angle-up icon-2x"></i>
                         </li>
                     </ul>
@@ -47,8 +47,16 @@
             <header>
                 <div id="searchHeader">
                     <form id="searchForm">
-                        <input type="text" class="search-query" id="searchInput" ng-model="keyword" data-i18n-attr="_searchKeywordHint_|placeholder">
-                        <button type="submit" class="btn" ng-click="search()" data-i18n="_searchBtnText_"></button>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" class="search-query" id="searchInput" ng-model="keyword" data-i18n-attr="_searchKeywordHint_|placeholder">
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn" ng-click="search()" data-i18n="_searchBtnText_"></button>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
 
                 </div>

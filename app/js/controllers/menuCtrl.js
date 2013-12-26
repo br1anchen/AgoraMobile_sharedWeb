@@ -41,14 +41,17 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   $scope.showAllGroups = function(){
     $scope.displayGroups = $scope.groupsHolder.groups;
     $scope.showAllBtn = false;
-    $scope.show10Btn = true;
+    $scope.hideSomeBtn = true;
   }
 
-  $scope.show10Groups = function(){
-    $scope.displayGroups = $scope.groupsHolder.groups.slice(0,9);
-    $scope.showAllBtn = $scope.groupsHolder.groups.length > 9 ? true : false;
-    $scope.showAllBtn = true;
-    $scope.show10Btn = false;
+  $scope.hideSomeGroups = function(){
+    var ui_list_height = $(window).height() - 68 - 34;
+    console.log("list height:" + ui_list_height);
+    var li_number = parseInt(Number(ui_list_height)/40);
+    console.log("list element number:" + li_number);
+    $scope.displayGroups = $scope.groupsHolder.groups.slice(0,li_number - 2);
+    $scope.showAllBtn = $scope.groupsHolder.groups.length > li_number - 2 ? true : false;
+    $scope.hideSomeBtn = false;
   }
 
   $scope.goToPage = function(state){

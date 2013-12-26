@@ -32,7 +32,7 @@
 }
 
 #searchForm{
-  width: 90%;
+  width: 100%;
   float: left;
   margin-right: 0px;
   padding-right: 0px;
@@ -40,7 +40,7 @@
 }
 
 #searchInput{
-  width: 60%;
+  width: 80%;
   margin-left: 5px;
 }
 

@@ -175,6 +175,7 @@
 #login #loginPwdInput{
 	width: 45%;
 	margin: 0px auto;
+	margin-top: 5px; 
 }
 
 #login .labelShow{
