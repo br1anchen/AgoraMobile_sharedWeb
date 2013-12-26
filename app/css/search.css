@@ -1,7 +1,8 @@
 /* search view css stylesheet */
 #search{
   color:#454545;
-  border-left: 2px solid #A2A2A2;
+  max-width: 265px;
+  box-shadow:2px 0px 2px  white inset;
 }
 
 #search #searchHeader{

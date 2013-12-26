@@ -10,6 +10,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
   background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
   background: -moz-linear-gradient(top,#ed1c24,#be1527);
+  z-index: 4;
 }
 #notifier>*{
   display: inline-block;

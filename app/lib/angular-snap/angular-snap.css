@@ -35,6 +35,7 @@ snap-drawer,
   top: 0;
   bottom: 0;
   overflow: auto;
+  overflow-y:hidden;
   -webkit-transition: top 0.2s linear;
   -moz-transition: top 0.2s linear;
   -o-transition: top 0.2s linear;
@@ -43,7 +44,7 @@ snap-drawer,
   -moz-transition: bottom 0.2s linear;
   -o-transition: bottom 0.2s linear;
   transition: bottom 0.2s linear;
-  -webkit-overflow-scrolling: touch;
+  /*-webkit-overflow-scrolling: touch;*/
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
   overflow-scrolling: touch;
@@ -51,6 +52,7 @@ snap-drawer,
 }
 .snap-content {
   z-index: 2;
+  overflow-y:hidden;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
