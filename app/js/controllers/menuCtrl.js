@@ -45,7 +45,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   }
 
   $scope.hideSomeGroups = function(){
-    var ui_list_height = $(window).height() - 68 - 34;
+    var ui_list_height = $(window).height() - 70 - 35;//screen size minus two menu header height
     console.log("list height:" + ui_list_height);
     var li_number = parseInt(Number(ui_list_height)/40);
     console.log("list element number:" + li_number);

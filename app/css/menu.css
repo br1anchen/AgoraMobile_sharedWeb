@@ -31,8 +31,8 @@
 }
 
 #menu .groups li, #menu .footer li{
-	line-height: 2.5em;
-	height: 2.5em;
+	line-height: 40px;
+	height: 40px;
 	font-size: 16px;
 	padding-left: 0.6em;
 	border-top: 1px solid #eff1f1;

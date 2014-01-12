@@ -393,5 +393,15 @@
         "key":"_logoutConfirmBtnText_",
         "value":"Yes,Cancel",
         "description":"Log out confirm dialog button text"
+    },
+    {
+        "key":"_DCFoldersTitle_",
+        "value":"FOLDERS",
+        "description":"Document page folders title text"
+    },
+    {
+        "key":"_DCFilesTitle_",
+        "value":"FILES",
+        "description":"Log out confirm dialog button text"
     }
 ]

@@ -30,13 +30,13 @@
                 <tab heading="{{'_menuConfigureTab_' | i18n}}">
                     <ul class="nav nav-list footer">
                         <li data-ng-click="goToPage('stage.settings')">
-                            <i class="icon-cogs"></i>{{ '_menuSettingsTag_' | i18n }}
+                            <i class="icon-cogs"></i>&nbsp;&nbsp;{{ '_menuSettingsTag_' | i18n }}
                         </li>
                         <li data-ng-click="logout()">
-                            <i class="icon-signout"></i>{{ '_menuLogoutTag_' | i18n }}
+                            <i class="icon-signout"></i>&nbsp;&nbsp;{{ '_menuLogoutTag_' | i18n }}
                         </li>
                         <li data-ng-click="goToPage('stage.about')">
-                            <i class="icon-info-sign"></i>{{ '_menuAboutTag_' | i18n }}
+                            <i class="icon-info-sign"></i>&nbsp;&nbsp;{{ '_menuAboutTag_' | i18n }}
                         </li>
                     </ul>
                 </tab>
@@ -85,7 +85,7 @@
     </div>
 
     <div snap-content snap-id="'stage'">
-        <header>
+        <header data-snap-ignore="true">
             <div id="headerCell">
                 <table>
                     <tr>

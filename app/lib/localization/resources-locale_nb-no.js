@@ -61,7 +61,7 @@
     },
     {
         "key":"_menuLogoutTag_",
-        "value":"Logge Av",
+        "value":"Logg Ut",
         "description":"menu bar log out button tag"
     },
     {
@@ -196,17 +196,17 @@
     },
     {
         "key":"_aboutPublishText_",
-        "value":"Utgitt 2013",
+        "value":"Utgitt 2014",
         "description":"about page publish date text"
     },
     {
         "key":"_aboutContactText_",
-        "value":"Support: ",
+        "value":"Brukerstøtte: ",
         "description":"about page contact info text"
     },
     {
         "key":"_aboutReferenceText_",
-        "value":"En UNINETT applikasjon",
+        "value":"En UNINETT-applikasjon",
         "description":"about page reference text"
     },
     {
@@ -386,12 +386,22 @@
     },
     {
         "key":"_logoutMessageText_",
-        "value":"Logge Av?",
+        "value":"Logg Ut?",
         "description":"Log out confirm dialog text"
     },
     {
         "key":"_logoutConfirmBtnText_",
         "value":"Ja,Avbryt",
+        "description":"Log out confirm dialog button text"
+    },
+    {
+        "key":"_DCFoldersTitle_",
+        "value":"MAPPER",
+        "description":"Document page folders title text"
+    },
+    {
+        "key":"_DCFilesTitle_",
+        "value":"FILER",
         "description":"Log out confirm dialog button text"
     }
 ]
