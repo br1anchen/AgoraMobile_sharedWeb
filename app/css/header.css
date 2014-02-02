@@ -1,12 +1,13 @@
 
 header{
-	background: #bf1527;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
+	background: #92ceef;
+	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ED1C24',endColorstr='#BE1527');
 	background: -webkit-gradient(linear,left top,left bottom,from(#ed1c24),to(#be1527));
 	background: -moz-linear-gradient(top,#ed1c24,#be1527);
+  */
 	text-align: center;
-	color: white;
-	text-shadow: #222 0px -1px 1px;
+	color: #7CAFCB;
+  text-shadow: 0 0.5px #000000;
 	left: 0;
 
 	height: 34px;
@@ -21,17 +22,13 @@ header #headerCell {
 }
 
 header #mainFunctions{
-	/*color: #ec7260;*/
-	color: #DF9084;
+	color: #7CAFCB;
 }
 
 header .activeLinkClass{
 	color:white;
 }
 
-header .menuButton .searchButton{
-  color:black;
-}
 header .menuButton, .searchButton{
   /*position: absolute;*/
   top: 0;
@@ -43,16 +40,16 @@ header .menuButton{
 
 header .sideButton:active,
 header .sideButton.is-active{
-	text-shadow: 0 1px #fff;
-  background-color: #ED4040;
+	text-shadow: 0 0.5px #fff;
+  background-color: #B0DBF3;
   -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
   box-shadow: inset 0 1px rgba(0,0,0,0.12);
 }
 
 header .centerButton:active,
 header .centerButton.is-active{
-  text-shadow: 0 2px #000000;
-  color: red;
+  text-shadow: #222 0px -1px 1px;
+  color: #6995AD;
 }
 
 header .searchButton{
@@ -72,6 +69,7 @@ header #mainFunctions :nth-child(3){
 
 header .searchButton, .menuButton{
   padding: 0.15em;
+  color:white;
 }
 
 header .menuButton .searchButton{

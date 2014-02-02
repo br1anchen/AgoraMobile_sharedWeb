@@ -11,8 +11,8 @@ app.directive('overflowBanner', function($log,$timeout) {
             duration:'=',
         },
         template:
-        '<div class="overflowBanner">'+
-        '   <span class="bannerContent" data-ng-transclude >'+
+        '<div class="overflowBanner" class="ng-cloak">'+
+        '   <span class="bannerContent ng-cloak" data-ng-transclude >'+
         '   </span>'+
         '</div>'
 

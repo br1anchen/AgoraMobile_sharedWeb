@@ -47,7 +47,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   $scope.hideSomeGroups = function(){
     var ui_list_height = $(window).height() - 70 - 35;//screen size minus two menu header height
     console.log("list height:" + ui_list_height);
-    var li_number = parseInt(Number(ui_list_height)/40);
+    var li_number = parseInt(Number(ui_list_height)/40) -1;
     console.log("list element number:" + li_number);
     $scope.displayGroups = $scope.groupsHolder.groups.slice(0,li_number - 2);
     $scope.showAllBtn = $scope.groupsHolder.groups.length > li_number - 2 ? true : false;

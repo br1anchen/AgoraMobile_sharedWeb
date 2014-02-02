@@ -39,6 +39,12 @@ app.controller('ActivityFeedCtrl',
 		});
 
 		if($state.is('stage.activityFeed')){
+			if($scope.currentGroup.name === undefined){// fix the rendering angular syntax bug because of the overflow banner directive
+				$scope.currentGroup = {
+			        name : 'Agora'
+			    };
+			}
+
 			var groupId = $state.params.groupId;
 			if($scope.currentGroup && groupId != $scope.currentGroup.id){
 				var group = $scope.getGroup(groupId);
