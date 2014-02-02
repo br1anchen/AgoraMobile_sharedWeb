@@ -162,22 +162,28 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 	}
 	var openFile = function(fileDir,fileUTI){
 
-		/* open file with third-party application
-		cordova.exec(function(rep){
-			console.log(rep);
-		},function(err){
-			console.log(err);
-			navigator.notification.alert(
-                localize.getLocalizedString('_NoAppOpenTitle_'),
-                function(){
+        if(fileDir.indexOf("file://") == -1){
+            fileDir = encodeURI('file://' + fileDir);
+        }
 
-                },
-                'Agora Mobile',
-                'OK'
-            );
-		}, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
-		*/
-		UtilityService.inAppBrowser.browser(encodeURI('file://' + fileDir));
+		/* open file with third-party application for android since chrome does not have pdf viewer*/
+		if(device.platform == 'Android'){
+		    cordova.exec(function(rep){
+            	console.log(rep);
+            	},function(err){
+            		console.log(err);
+            		navigator.notification.alert(
+                        localize.getLocalizedString('_NoAppOpenTitle_'),
+                        function(){
+
+                        },
+                        'Agora Mobile',
+                        'OK'
+                    );
+                }, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
+		}else{
+		    UtilityService.inAppBrowser.browser(fileDir);
+		}
 	}
 
 	$scope.deleteFile = function(file){
