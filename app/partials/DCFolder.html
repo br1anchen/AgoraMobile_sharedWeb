@@ -3,7 +3,7 @@
 	<div id="fixedContentHeader" data-ng-show="showConentHeader" data-ng-class="{'noNav':root}" class="nothingRight">
 		<div id="backBtn" class="leftHolder" data-ng-click="back()" ng-show="folderHolder.folder.folderId != 0" data-ng-hide="root">
 			<div class="content">
-				<i class="icon-long-arrow-left"></i></i>
+				<i class="fa fa-long-arrow-left"></i></i>
 				<!-- <span class="text">
 					{{folderHolder.folder.name}}
 				</span> -->
@@ -20,7 +20,7 @@
 	    </div>
 	    <div class="fadeContentRight"></div>
 	</div>
-	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="ed1c24" scroll-ease="30">
+	<div scrollable trigger-distance="200" loading="{{loading}}" loading-color="bababa" scroll-ease="30">
 		<div ng-show="showprogress">
         	<progress id="downloadFileProgressbar" percent="downloadProgress" class="progress-danger progress-striped active"></progress>
     	</div>
@@ -31,7 +31,7 @@
 			<li class="content row" data-ng-repeat="sub in folderHolder.folder.subFolders" data-ng-click="gotoFolder(sub)">
 				<div class="rowIcon">
 					<div class="iconHolder">
-						<i class="icon-folder-close-alt icon-2x"></i>
+						<i class="fa fa-folder-o fa-2x"></i>
 					</div>
 				</div>
 				
@@ -48,7 +48,7 @@
 				<div class="row" data-ng-click="showFile(file)">
 					<div class="rowIcon" >
 						<div class="iconHolder">
-							<i class="icon-file-alt icon-2x"></i>
+							<i class="fa fa-file-o fa-2x"></i>
 						</div>
 					</div>
 					
@@ -58,7 +58,7 @@
 				</div>
 				<div class="fileInfoTransition"></div>
 				<div class="fileInfo" data-ng-click="fileDetail(file)">
-					<i class="icon-info icon-2x" class="detailBtn" ></i>
+					<i class="fa fa-info fa-2x" class="detailBtn" ></i>
 				</div>
 			</li>
 		</ul>

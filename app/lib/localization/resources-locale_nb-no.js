@@ -326,7 +326,7 @@
     },
     {
         "key":"_ChangeGroupInfoText_",
-        "value":"Klikk på <i class='icon-align-justify'></i> for å endre gruppe",
+        "value":"Klikk på <i class='fa fa-bars'></i> for å endre gruppe",
         "description":"Change group info notification text"
     },
     {
@@ -403,5 +403,10 @@
         "key":"_DCFilesTitle_",
         "value":"FILER",
         "description":"Log out confirm dialog button text"
+    },
+    {
+        "key":"_ActivityLoadFailText_",
+        "value":"Feil ved innlasting",
+        "description":"Activity load failed text"
     }
 ]

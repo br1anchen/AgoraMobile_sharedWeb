@@ -15,7 +15,7 @@ app.directive('notifier', function($log,$q,$timeout,$rootScope) {
         template:
             '<div class="notifier" data-ng-click="delete()">'+
                 '<span class="que">'+
-                '   <i class="icon-exclamation-sign"></i>'+
+                '   <i class="fa fa-exclamation-circle"></i>'+
                 '   <span data-ng-bind="notificationQue.length" data-ng-hide="noQue"></span>'+
                 '</span>'+ 
                 '<span class="notification" ng-bind-html-unsafe="notification"></span>'+

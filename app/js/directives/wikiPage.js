@@ -26,10 +26,10 @@ app.directive('wikiPage', function factory($log,AppService) {
     '        <div class="iconHolder">'+
     '             <i'+
     '                id="icon_{{node.title}}"'+
-    '                data-ng-class="{\'icon-folder-open-alt\' : node.title==\'Tavle - Start\', \'icon-folder-close-alt\':node.title!=\'Tavle - Start\'}"'+
+    '                data-ng-class="{\'fa fa-folder-open-o\' : node.title==\'Tavle - Start\', \'fa fa-folder-close-o\':node.title!=\'Tavle - Start\'}"'+
     '                ng-show="node.childrenNodes.length > 0">'+
     '            </i>'+
-    '            <i class="icon-book" ng-show="node.childrenNodes.length == 0"></i>'+
+    '            <i class="fa fa-book" ng-show="node.childrenNodes.length == 0"></i>'+
     '        </div>'+
     '        <div class="text" data-ng-bind="node.title"></div>'+
     '    </span>'+
@@ -38,7 +38,7 @@ app.directive('wikiPage', function factory($log,AppService) {
     '        data-ng-show="node.childrenNodes.length > 0"'+
     '        data-ng-click="openChildren(node)"'+
     '    >'+
-    '        <i class="icon-level-down" class="detailBtn" ></i>'+
+    '        <i class="fa fa-level-down" class="detailBtn" ></i>'+
     '    </div>'+
     '    <div class="unfoldTransition" ng-show="node.childrenNodes.length > 0" >'+
     '    </div>'+

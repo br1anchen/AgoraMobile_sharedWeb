@@ -21,9 +21,9 @@ app.directive("tree", function($compile) {
             '       <div>'+
             '           <span class="iconHolder" data-ng-show="parent" data-ng-click="toggleChildren(root.title)" >'+
             // '           <span class="iconHolder">'+
-            // '               <i class="icon-file-text-alt"></i>'+
-            '              <i class="detailBtn icon-caret-down" ></i>'+
-            '              <i class="detailBtn icon-caret-up" data-ng-show="open"></i>'+
+            // '               <i class="fa fa-file-text-alt"></i>'+
+            '              <i class="detailBtn fa fa-caret-down" ></i>'+
+            '              <i class="detailBtn fa fa-caret-up" data-ng-show="open"></i>'+
             '           </span>'+
             '           <div class="titleHolder" data-ng-click="click(root.title)">'+
             '               <span class="title" data-ng-bind="root.title"></span>'+
@@ -31,8 +31,8 @@ app.directive("tree", function($compile) {
             '           </div>'+
             '       </div>'+
             // '       <span class="unfold iconHolder" data-ng-show="parent" data-ng-click="toggleChildren(root.title)">'+
-            // '           <i class="detailBtn icon-carret-down" data-ng-hide="open"></i>'+
-            // '           <i class="detailBtn icon-carret-up" data-ng-show="open"></i>'+
+            // '           <i class="detailBtn fa fa-carret-down" data-ng-hide="open"></i>'+
+            // '           <i class="detailBtn fa fa-carret-up" data-ng-show="open"></i>'+
             // '       </span>'+
             '   </div>'+
             '   <ul data-ng-show="open">' + 

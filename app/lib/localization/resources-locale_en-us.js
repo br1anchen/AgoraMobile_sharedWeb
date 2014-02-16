@@ -326,7 +326,7 @@
     },
     {
         "key":"_ChangeGroupInfoText_",
-        "value":"Click on <i class='icon-align-justify'></i> to change group",
+        "value":"Click on <i class='fa fa-bars'></i> to change group",
         "description":"Change group info notification text"
     },
     {
@@ -403,5 +403,10 @@
         "key":"_DCFilesTitle_",
         "value":"FILES",
         "description":"Log out confirm dialog button text"
+    },
+    {
+        "key":"_ActivityLoadFailText_",
+        "value":"Loading Failed",
+        "description":"Activity load failed text"
     }
 ]

@@ -190,7 +190,7 @@ app.directive('scrollable', function($log,$q,$timeout,$rootScope) {
                 corners: scope.corners, // Corner roundness (0..1)
                 rotate: scope.rotate, // The rotation offset
                 direction: scope.direction, // 1: clockwise, -1: counterclockwise
-                color: attrs.loadingColor ? ('#'+attrs.loadingColor) : '#000', // #rgb or #rrggbb
+                color: attrs.loadingColor ? ('#'+attrs.loadingColor) : '#bababa', // #rgb or #rrggbb
                 speed: scope.speed, // Rounds per second
                 trail: scope.trail, // Afterglow percentage
                 shadow: scope.shadow, // Whether to render a shadow
