@@ -128,7 +128,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
                     $scope.activities = activitiesHolder.activities;
                     $scope.loading = false;
                     if(activitiesHolder.activities.length == 0){
-                        $rootScope.$broadcast("notification","No activities");
+                        $rootScope.$broadcast("notification",localize.getLocalizedString('_NoActsText_'));
                     }
                     $rootScope.$broadcast("removeNotification",localize.getLocalizedString('_LoadingText_'));
                     deffer.resolve();
