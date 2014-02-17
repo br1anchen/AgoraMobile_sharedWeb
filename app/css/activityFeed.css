@@ -3,10 +3,6 @@
 	border-image: none;
 }
 
-#activityFeed #fixedContentHeader .ng-cloak{
-  display: none !important;
-}
-
 /*To make space for the content header*/
 #activityFeed .content .scrollableContent{
 	margin-top:34px;
