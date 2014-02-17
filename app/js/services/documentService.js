@@ -327,7 +327,9 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 							var uri = encodeURI(DownloadApiUrl + groupUrl + '/document_library' + file.remoteFileDir);
 
 							var localFileDir = file.remoteFileDir.replace(/\s+/g,'');
-							if(localFileDir.split('.').pop() == localFileDir){
+							if(localFileDir.split('.').pop() == ""){
+								localFileDir = localFileDir + file.extension;
+							}else if(localFileDir.split('.').pop() != file.extension){
 								localFileDir = localFileDir + '.' + file.extension;
 							}
 
