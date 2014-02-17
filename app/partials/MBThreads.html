@@ -9,10 +9,9 @@
 	    	<div class="fadeSuroundingsLeft"></div>
 	    	
 	    	<div class="currentGroup">
+	    		<div ng-show="currentGroup.name != 'Agora'">{{currentGroup.name}}</div>
+	    		<div ng-show="currentGroup.name == 'Agora'"><img id="topGroupLogo" src="./img/UNINETT_logo.png"/></div>
 	    		<span>
-	    			<span class="groupName">
-	    				{{currentGroup.name}}
-    				</span>
     				<span class="category" data-ng-show="rootCategory.name">
     					: {{rootCategory.name}}
     				</span>

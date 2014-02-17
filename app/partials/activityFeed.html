@@ -2,7 +2,8 @@
 	<div id="fixedContentHeader" data-ng-show="showConentHeader">
 
 	    	<overflow-banner class="currentGroup" duration="3000" data-ng-click="goToActivityFeed()">
-	    		{{currentGroup.name}}
+	    		<div ng-show="currentGroup.name != 'Agora'">{{currentGroup.name}}</div>
+	    		<div ng-show="currentGroup.name == 'Agora'"><img id="topGroupLogo" src="./img/UNINETT_logo.png"/></div>
 	        	<div class="fadeContentRight"></div>
 	    	</overflow-banner>
 	    

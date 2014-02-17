@@ -13,9 +13,8 @@
 	    	<div class="fadeSuroundingsLeft"></div>
 	    	
 	    	<div class="currentGroup">
-	    		<span>
-	    			{{currentGroup.name}}
-	        	</span>
+	    		<div ng-show="currentGroup.name != 'Agora'">{{currentGroup.name}}</div>
+	    		<div ng-show="currentGroup.name == 'Agora'"><img id="topGroupLogo" src="./img/UNINETT_logo.png"/></div>
 	    	</div>
 	    </div>
 	    <div class="fadeContentRight"></div>
