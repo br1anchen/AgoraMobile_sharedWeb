@@ -74,7 +74,8 @@
 	width: 50px;
 	height:3.5em;
 	position: absolute;
-	right: 50px;
+	/*right: 50px; for file info icon button*/
+	right: 0px;
 	top:0;
 	z-index:1;
     /*background-image: -webkit-gradient(
