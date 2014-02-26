@@ -61,12 +61,12 @@
     },
     {
         "key":"_menuLogoutTag_",
-        "value":"Logg Ut",
+        "value":"Logg ut",
         "description":"menu bar log out button tag"
     },
     {
         "key":"_menuAboutTag_",
-        "value":"Om Agora",
+        "value":"Om AgoraMobile",
         "description":"menu bar about button tag"
     },
     {

@@ -66,7 +66,7 @@
     },
     {
         "key":"_menuAboutTag_",
-        "value":"About Agora",
+        "value":"About AgoraMobile",
         "description":"menu bar about button tag"
     },
     {
