@@ -53,6 +53,7 @@ snap-drawer,
 .snap-content {
   z-index: 2;
   overflow-y:hidden;
+  position: fixed;/*fix the whole view vertical scrolling problem*/
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
