@@ -1,6 +1,7 @@
 #settings summary{
 	padding:0.6em;
-	font-size:1.2em;
+	font-size:16px;
+	line-height: 40px;
 	background-color: #D1D1D1;
 }
 #settings .detailsContent{
