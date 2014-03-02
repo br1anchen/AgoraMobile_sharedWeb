@@ -3,11 +3,12 @@
 	font-size: 1.2em;
 }
 
-#about h3{
+#about #agoramobile_text{
 	margin-top: 10%;
+	width: 50%;
 }
 
-#about img{
+#about #uninett_logo{
 	margin-top: 10%;
 	width: 45%;
 }
