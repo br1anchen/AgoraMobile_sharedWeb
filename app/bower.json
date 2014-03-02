@@ -1,0 +1,33 @@
+{
+  "name": "Agora Mobile",
+  "version": "0.8.11",
+  "homepage": "https://github.com/br1anchen/AgoraMobile_sharedWeb",
+  "authors": [
+    "Brian Chen <brianchen8990@gmail.com>",
+    "Stian Borgesen <stianborgesen@gmail.com>"
+  ],
+  "description": "Agora Mobile App Web Content",
+  "main": "index.html",
+  "keywords": [
+    "Agora",
+    "AngularJs",
+    "Phonegap"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.0.8",
+    "angular-cookies": "1.0.8",
+    "angular-touch": "1.2.11",
+    "angular-ui-router": "0.2.0",
+    "angular-bootstrap": "0.10.0",
+    "angular-snap": "*",
+    "underscore": "1.4.4",
+    "jquery": "1.10.1",
+    "jquery-hammerjs": "*",
+    "momentjs": "2.1.0",
+    "snapjs": "*",
+    "font-awesome": "4.0.3",
+    "bootstrap": "*",
+    "spinjs": "*"
+  }
+}

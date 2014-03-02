@@ -24,9 +24,21 @@
         </div>
     </script>
     
+    <script type="text/ng-template" id="feideLoginMsg.html">
+        <div class="modal-header">
+            <h3>{{feideLoginMsg.title}}</h3>
+        </div>
+        <div id="feideLoginMsgBody" class="modal-body">
+            <p>{{feideLoginMsg.msg}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
     <progress id="loginprogressbar" percent="loginProgress" class="progress-bar-info progress-striped active"></progress>
     
-    <img id="agora_logo" src="img/agora_logo.png"></img>
+    <img id="agora_logo" src="img/agoramobile_text.png"></img>
     
     <div id="affiliationBar">
         <button id="choiceBtn" class="btn" data-ng-bind="affiliationText" ng-click="showAffiliations()"></button>
@@ -47,10 +59,10 @@
     </form>
     
     <div id="loginFooter">
-        <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
         <div id="feideLoginBtnDiv">
-            <i class="fa fa-info-circle"></i><span id="feideLogin" in-app-browser url="feideLoginUrl" data-i18n="_FEIDELoginBtn_"></span>
+            <span id="feideLogin" ng-click="showFeideLoginMsg()" data-i18n="_FEIDELoginBtn_"></span>
         <div>
+        <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
     </div>
     <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
 </div>

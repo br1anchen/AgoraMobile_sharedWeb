@@ -30,9 +30,19 @@
         "description":"Login page regular login button"
     },
     {
+        "key":"_FEIDELoginHeader_",
+        "value":"Instruksjon",
+        "description":"Login page feide login header"
+    },
+    {
+        "key":"_FEIDELoginContent_",
+        "value":"FEIDE Bruker: Klikk her for å tilbakestille Agora brukerpassord gjennom din FEIDE konto.",
+        "description":"Login page feide login content"
+    },
+    {
         "key":"_FEIDELoginBtn_",
-        "value":"FEIDE Bruker; Klikk her for å tilbakestille Agora brukerpassord gjennom din FEIDE konto.",
-        "description":"Login page regular login button"
+        "value":"Ny bruker ? Klikk her.",
+        "description":"Login page feide login button"
     },
     {
         "key":"_loginFailedMsg_",

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,$state,$timeout,$rootScope,$modal,localize){
+app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,UtilityService,$state,$timeout,$rootScope,$modal,localize){
 
 	$scope.affiliationText = (!StorageService.get('lastAffiliation')) ? localize.getLocalizedString('_LoginAffiliationSelectName_') : StorageService.get('lastAffiliation').name;
 	$scope.loading = true;
@@ -37,6 +37,40 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,$sta
 	    		StorageService.store('lastAffiliation',selectedItem);
 	    	}
 	    	
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
+	    });
+	}
+
+	$scope.showFeideLoginMsg = function(){
+
+		var feideLoginInstance = $modal.open({
+	      templateUrl: 'feideLoginMsg.html',
+	      controller: FeideLoginInstanceCtrl,
+	      resolve: {
+	        feideLoginMsg: function(){
+	        	return{
+	        		title : localize.getLocalizedString('_FEIDELoginHeader_'),
+	        		msg : localize.getLocalizedString('_FEIDELoginContent_')
+	        	}
+	        } 
+	      }
+	    });
+
+	    feideLoginInstance.result.then(function () {
+	    	console.log('open feide login window');
+	    	var ref = UtilityService.inAppBrowser.browser($scope.feideLoginUrl);
+            ref.addEventListener('exit', function(){
+                console.log('close feide login window');
+
+                cordova.exec(function(rep){
+                  console.log(rep);
+                }, function(error) {
+                  console.log(error);
+                }, "cookieManager","deleteCookies",[]);
+            
+            });
+
 	    }, function () {
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });
@@ -139,6 +173,15 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,$sta
 
 		$scope.select = function (option) {
 			$modalInstance.close(option);
+		}
+	}
+
+	var FeideLoginInstanceCtrl = function($scope, $modalInstance, feideLoginMsg){
+
+		$scope.feideLoginMsg = feideLoginMsg;
+
+		$scope.ok = function(){
+			$modalInstance.close();
 		}
 	}
 

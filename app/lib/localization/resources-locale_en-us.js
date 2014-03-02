@@ -30,9 +30,19 @@
         "description":"Login page regular login button"
     },
     {
-        "key":"_FEIDELoginBtn_",
+        "key":"_FEIDELoginHeader_",
+        "value":"Instruction",
+        "description":"Login page feide login header"
+    },
+    {
+        "key":"_FEIDELoginContent_",
         "value":"FEIDE User: Click To Reset Agora Password using Your FEIDE Account.",
-        "description":"Login page regular login button"
+        "description":"Login page feide login content"
+    },
+    {
+        "key":"_FEIDELoginBtn_",
+        "value":"New user ? Click here.",
+        "description":"Login page feide login button"
     },
     {
         "key":"_loginFailedMsg_",
