@@ -29,7 +29,8 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
       }
   }
 
-  $scope.$on("swipeup", function(event, data){
+  $('#menu .groups').hammer().on("swipeup", function(event){
+    console.log("group scroll touch");
     if(!$scope.hideSomeBtn && $scope.showAllBtn){
       $scope.showAllGroups();
     }
@@ -45,18 +46,20 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   }
 
   $scope.showAllGroups = function(){
-    $scope.displayGroups = $scope.groupsHolder.groups;
-    $scope.showAllBtn = false;
-    $scope.hideSomeBtn = true;
+    if(!$scope.hideSomeBtn && $scope.showAllBtn){
+      $scope.displayGroups = $scope.groupsHolder.groups;
+      $scope.showAllBtn = false;
+      $scope.hideSomeBtn = true;
+    }
   }
 
   $scope.hideSomeGroups = function(){
     var ui_list_height = $(window).height() - 70 - 35;//screen size minus two menu header height
-    console.log("list height:" + ui_list_height);
-    var li_number = parseInt(Number(ui_list_height)/40) -1;
-    console.log("list element number:" + li_number);
+    //console.log("list height:" + ui_list_height);
+    var li_number = parseInt(Number(ui_list_height)/40);
+    //console.log("list element number:" + li_number);
     $scope.displayGroups = $scope.groupsHolder.groups.slice(0,li_number - 1);
-    $scope.showAllBtn = $scope.groupsHolder.groups.length > li_number - 1 ? true : false;
+    $scope.showAllBtn = $scope.groupsHolder.groups.length > li_number? true : false;
     $scope.hideSomeBtn = false;
   }
 
