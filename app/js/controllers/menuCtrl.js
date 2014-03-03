@@ -30,7 +30,9 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
   }
 
   $scope.$on("swipeup", function(event, data){
-    $scope.showAllGroups();
+    if(!$scope.hideSomeBtn && $scope.showAllBtn){
+      $scope.showAllGroups();
+    }
   });
 
   $scope.switchGroup = function(group){
