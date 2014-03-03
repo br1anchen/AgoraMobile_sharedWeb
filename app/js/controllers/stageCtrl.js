@@ -56,10 +56,10 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     function toggleShowAllGroups(groupsHolder) {
         var ui_list_height = $(window).height() - 70 - 35;//count the height for display groups list
         //console.log("list height:" + ui_list_height);
-        var li_number = parseInt(Number(ui_list_height)/40) -1;
+        var li_number = parseInt(Number(ui_list_height)/40);
         //console.log("list element number:" + li_number);
         $scope.displayGroups = groupsHolder.groups.slice(0,li_number - 1);
-        $scope.showAllBtn = groupsHolder.groups.length > li_number - 1 ? true : false;
+        $scope.showAllBtn = groupsHolder.groups.length > li_number? true : false;
         $scope.hideSomeBtn = false;
     }
 
