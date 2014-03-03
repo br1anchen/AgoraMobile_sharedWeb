@@ -28,6 +28,7 @@
     "snapjs": "*",
     "font-awesome": "4.0.3",
     "bootstrap": "*",
-    "spinjs": "*"
+    "spinjs": "*",
+    "ngInfiniteScroll": "~1.0.0"
   }
 }

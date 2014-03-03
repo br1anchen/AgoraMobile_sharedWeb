@@ -11,21 +11,22 @@
             </div>
             <tabset class="content">
                 <tab heading="{{'_menuGroupTab_' | i18n}}">
-                    <ul class="nav nav-list groups">
-                        <li data-ng-click="switchGroup()">
-                            {{ '_groupAgoraHomeTag_' | i18n }} 
-                        </li>
-                        <li data-ng-repeat="group in displayGroups" data-ng-click="switchGroup(group)">
-                            {{group.name}}
-                            <div class="fadeContentRight"></div>
-                        </li>
-                        <li class="ListOptionBtn" data-ng-click="showAllGroups()" ng-show="showAllBtn">
-                            {{ '_groupShowAllButtonText_' | i18n }}
-                        </li>
-                        <li class="ListOptionBtn" data-ng-click="hideSomeGroups()" ng-show="hideSomeBtn">
-                            <i class="fa fa-angle-double-up fa-2x"></i>
-                        </li>
-                    </ul>
+                  <ul class="nav nav-list groups">
+                      <li data-ng-click="switchGroup()">
+                          {{ '_groupAgoraHomeTag_' | i18n }} 
+                      </li>
+                      <li data-ng-repeat="group in displayGroups" data-ng-click="switchGroup(group)">
+                          {{group.name}}
+                          <div class="fadeContentRight"></div>
+                      </li>
+                      <!--
+                      <li class="ListOptionBtn" data-ng-click="showAllGroups()" ng-show="showAllBtn">
+                          {{ '_groupShowAllButtonText_' | i18n }}
+                      </li>-->
+                      <li class="ListOptionBtn" data-ng-click="hideSomeGroups()" ng-show="hideSomeBtn">
+                          <i class="fa fa-angle-double-up fa-2x"></i>
+                      </li>
+                  </ul>
                 </tab>
                 <tab heading="{{'_menuConfigureTab_' | i18n}}">
                     <ul class="nav nav-list footer">

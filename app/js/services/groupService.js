@@ -38,6 +38,9 @@ angular.module('app.groupService',['app.storageService','app.httpService','app.a
             }
             else if(g.site){
               groups.push(group);
+              groups.push(group);
+              groups.push(group);
+              groups.push(group);
             }
           })
           setGroups(groups);

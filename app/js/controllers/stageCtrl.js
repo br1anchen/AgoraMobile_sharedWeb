@@ -58,8 +58,8 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         //console.log("list height:" + ui_list_height);
         var li_number = parseInt(Number(ui_list_height)/40) -1;
         //console.log("list element number:" + li_number);
-        $scope.displayGroups = groupsHolder.groups.slice(0,li_number - 2);
-        $scope.showAllBtn = groupsHolder.groups.length > li_number - 2 ? true : false;
+        $scope.displayGroups = groupsHolder.groups.slice(0,li_number - 1);
+        $scope.showAllBtn = groupsHolder.groups.length > li_number - 1 ? true : false;
         $scope.hideSomeBtn = false;
     }
 
