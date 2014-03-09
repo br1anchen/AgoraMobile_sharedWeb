@@ -41,7 +41,7 @@
     },
     {
         "key":"_FEIDELoginBtn_",
-        "value":"New user ? Click here.",
+        "value":"New user? Click here.",
         "description":"Login page feide login button"
     },
     {

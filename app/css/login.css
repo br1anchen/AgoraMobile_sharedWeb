@@ -130,6 +130,14 @@
 	text-align: center;
 }
 
+#login #affiliationBar #choiceBtn{
+
+}
+
+#login #affiliationBar #choiceBtn-icon{
+	margin-left: 8px;
+}
+
 #affiliationSelect{
 	display: block;
 	margin: 0 auto;

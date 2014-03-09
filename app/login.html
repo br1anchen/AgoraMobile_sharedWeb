@@ -41,7 +41,7 @@
     <img id="agora_logo" src="img/agoramobile_text.png"></img>
     
     <div id="affiliationBar">
-        <button id="choiceBtn" class="btn" data-ng-bind="affiliationText" ng-click="showAffiliations()"></button>
+        <div id="choiceBtn" class="btn" ng-click="showAffiliations()">{{affiliationText}}<i id="choiceBtn-icon" class="fa fa-caret-down"></i></div>
     </div>
 
     <form id="loginForm">
