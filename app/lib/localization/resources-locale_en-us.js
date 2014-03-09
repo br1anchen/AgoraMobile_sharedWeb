@@ -206,7 +206,7 @@
     },
     {
         "key":"_aboutPublishText_",
-        "value":"Published 2013",
+        "value":"Published 2014",
         "description":"about page publish date text"
     },
     {
@@ -216,7 +216,7 @@
     },
     {
         "key":"_aboutReferenceText_",
-        "value":"A UNINETT application",
+        "value":"A UNINETT-application",
         "description":"about page reference text"
     },
     {
@@ -400,9 +400,14 @@
         "description":"Log out confirm dialog text"
     },
     {
-        "key":"_logoutConfirmBtnText_",
-        "value":"Yes,Cancel",
-        "description":"Log out confirm dialog button text"
+        "key":"_logoutConfirmYesBtnText_",
+        "value":"Yes",
+        "description":"Log out confirm dialog yes button text"
+    },
+    {
+        "key":"_logoutConfirmCancelBtnText_",
+        "value":"Cancel",
+        "description":"Log out confirm dialog cancel button text"
     },
     {
         "key":"_DCFoldersTitle_",

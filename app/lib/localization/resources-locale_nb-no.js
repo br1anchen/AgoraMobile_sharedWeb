@@ -400,9 +400,14 @@
         "description":"Log out confirm dialog text"
     },
     {
-        "key":"_logoutConfirmBtnText_",
-        "value":"Ja,Avbryt",
-        "description":"Log out confirm dialog button text"
+        "key":"_logoutConfirmYesBtnText_",
+        "value":"Ja",
+        "description":"Log out confirm dialog yes button text"
+    },
+    {
+        "key":"_logoutConfirmCancelBtnText_",
+        "value":"Avbryt",
+        "description":"Log out confirm dialog cancel button text"
     },
     {
         "key":"_DCFoldersTitle_",

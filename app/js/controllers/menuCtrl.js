@@ -74,7 +74,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
       localize.getLocalizedString('_logoutMessageText_'),
       onConfirm,
       'Agora Mobile',
-      localize.getLocalizedString('_logoutConfirmBtnText_'));
+      [localize.getLocalizedString('_logoutConfirmYesBtnText_'),localize.getLocalizedString('_logoutConfirmCancelBtnText_')]);
 
   }
 
