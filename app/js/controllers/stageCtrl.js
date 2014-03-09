@@ -64,6 +64,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
     }
 
 	$scope.toggleMenu = function(){
+        toggleShowAllGroups($scope.groupsHolder);
         snapRemote.toggle("left","stage");
 	}
 
