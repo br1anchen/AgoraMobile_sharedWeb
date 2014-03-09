@@ -36,7 +36,7 @@
     },
     {
         "key":"_FEIDELoginContent_",
-        "value":"FEIDE Bruker: Klikk her for å tilbakestille Agora brukerpassord gjennom din FEIDE konto.",
+        "value":"FEIDE Bruker: Logg inn med din FEIDE konto for å lage en egen bruker for Agora Mobile, husk riktig tilknytning.",
         "description":"Login page feide login content"
     },
     {

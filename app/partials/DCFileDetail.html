@@ -25,12 +25,14 @@
         <progress id="downloadFileProgressbar" percent="downloadProgress" class="progress-bar-info progress-striped active"></progress>
     </div>
 	<div class = "content">
+		<!--
 		<div ng-show="fileHolder.file.ifSupport">
 			{{ '_DCOfflineBtn_' | i18n }} <div ng-change="switchOffline(fileHolder.file.offline)" btn-switch ng-model="fileHolder.file.offline"></div>
 		</div>
 		<div ng-show="!fileHolder.file.ifSupport">
 			{{ '_DCNotSupportText_' | i18n }}
 		</div>
+		-->
 		<p>
 			{{ '_DCFileTypeText_' | i18n }}: {{fileHolder.file.extension}} {{ '_DCFileVersionText_' | i18n }}:{{fileHolder.file.version}}
 		</p>
@@ -44,6 +46,9 @@
 			{{ '_DCLastModByText_' | i18n }}: {{fileHolder.file.versionUserName}}<br />
 			{{ '_DCATText_' | i18n }} {{fileHolder.file.modifiedDate}}
 		</p>
-		<button class="btn" data-ng-click="showFile(fileHolder.file)" ng-show="fileHolder.file.offline">{{ '_DCOpenFileBtn_' | i18n }}</button>
+		<button class="btn" data-ng-click="showFile(fileHolder.file)" ng-show="fileHolder.file.ifSupport">{{ '_DCOpenFileBtn_' | i18n }}</button>
+		<div ng-show="!fileHolder.file.ifSupport">
+			{{ '_DCNotSupportText_' | i18n }}
+		</div>
 	</div>
 </div>

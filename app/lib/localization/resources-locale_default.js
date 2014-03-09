@@ -36,7 +36,7 @@
     },
     {
         "key":"_FEIDELoginContent_",
-        "value":"FEIDE User: Click To Reset Agora Password using Your FEIDE Account.",
+        "value":"FEIDE User: Log in with your FEIDE account to create a separate login for Agora Mobile. NB: Pick your institution.",
         "description":"Login page feide login content"
     },
     {
