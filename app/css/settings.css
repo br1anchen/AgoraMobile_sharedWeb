@@ -1,7 +1,8 @@
 #settings summary{
-	padding:0.6em;
+	padding-left:0.6em;
 	font-size:16px;
 	line-height: 40px;
+	height: 40px;
 	background-color: #D1D1D1;
 }
 #settings .detailsContent{
@@ -23,7 +24,7 @@
 }
 #settings button{
 	width:100%;
-	padding:1em;
+	height: 40px;
 }
 #settings .switch{
 	position:absolute;

@@ -127,7 +127,7 @@
 }
 
 #menu .nav-tabs li a{
-	background-color: #BABABA;
+	background-color: #7CAFCB;
 	color: black;
 	font-weight: bold;
 	padding-top: 4px;
@@ -142,7 +142,7 @@
 }
 
 #menu .nav-tabs .active a{
-	background-color: #8a8a8a;
+	background-color: #92ceef;
 }
 
 #menu .ListOptionBtn{
