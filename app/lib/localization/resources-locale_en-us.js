@@ -101,7 +101,7 @@
     },
     {
         "key":"_settingsStorageTag_",
-        "value":"Application storage settings (memory usage)",
+        "value":"Storage settings (memory usage)",
         "description":"Settings page manage storage tag"
     },
     {
