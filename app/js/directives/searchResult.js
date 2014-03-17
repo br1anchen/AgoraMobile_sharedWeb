@@ -1,7 +1,7 @@
 'use strict';
 //Search Result Directive
 
-app.directive('searchResult', function factory($log, AppService, $state, MessageBoardService,$rootScope, $q, StorageService, ContentService) {
+app.directive('searchResult', function factory($log, AppService, $state, MessageBoardService,$rootScope, $q, StorageService, ContentService,localize) {
   var directiveObj = {
     priority: 0,
     replace: true,
@@ -10,7 +10,7 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
     controller:function($scope){
       
       $scope.open = function(){
-        $rootScope.$broadcast("notification","Loading...");
+        $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingText_'));
         
         var initialGroup = $scope.currentGroup;
         //Custom function to open search result, set below depending on result type
@@ -18,7 +18,7 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
 
         //User error message
         var failed = function(){
-          $rootScope.$broadcast("notification","Open faild");
+          $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingErrorText_'));
           $scope.openGroup(initialGroup);
         }
 
@@ -108,10 +108,11 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
     '<div class="searchResult" data-ng-click="open()">'+
         '<div class="result">'+
         '   <div class="resultTitle">{{result.shownText}}<br /></div>'+
-        '   {{result.type}}<span class="reference"> in {{result.gName}}<br /></span>'+
-        '   <div class="snippet" >"{{result.snippet}}"</div>'+
+        '   <p class="reference"> {{result.gName}}<br /></p>'+
+        '   <div class="snippet" ><p>"{{result.snippet}}"</p></div>'+
         '</div>'+
         '<div class="date">{{result.modifiedDate}}</div>' +
+        '<div class="resultType">{{result.type}}</div>' +
     '</div>'
   };
   return directiveObj;
