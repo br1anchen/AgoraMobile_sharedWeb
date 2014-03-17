@@ -4,7 +4,7 @@
 
 angular.module('app.searchService',['app.storageService','app.httpService','app.appService']).
 
-factory('SearchService',function ($log,$q,StorageService,HttpService,AppService){
+factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,localize){
 
 	//class entity in SearchService
 	var apiSearch = AppService.getBaseURL() + "/api/secure/jsonws/agora-simple-search-portlet.searcher/";//get-any,get-dl-file-entry,get-message-board,get-wiki/uid/250919/from/0/to/20/keywords/agora
@@ -43,6 +43,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
     				case "WikiPage":
 
     					result.type = "Wiki";
+                        result.typeText = localize.getLocalizedString('_searchWikiText_');
     					result.nodeId = object.nodeId;
 		    			result.title = object.title;
                         result.shownText = object.title;
@@ -51,6 +52,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
     				case "DLFileEntry":
 
     					result.type = "File";
+                        result.typeText = localize.getLocalizedString('_searchFileText_');
     					result.folderId = object.folderId;
     					result.fileName = object.title;
                         result.shownText = object.title;
@@ -60,6 +62,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService)
     				case "MBMessage":
 
     					result.type = "Message";
+                        result.typeText = localize.getLocalizedString('_searchMsgText_');
     					result.threadId = object.threadId;
     					result.categoryId = object.categoryId;
                         //result.shownText = object.title.replace(/\[(.*?)+\]/,"");

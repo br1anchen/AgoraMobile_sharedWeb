@@ -112,7 +112,7 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
         '   <div class="snippet" ><p>"{{result.snippet}}"</p></div>'+
         '</div>'+
         '<div class="date">{{result.modifiedDate}}</div>' +
-        '<div class="resultType">{{result.type}}</div>' +
+        '<div class="resultType">{{result.typeText}}</div>' +
     '</div>'
   };
   return directiveObj;
