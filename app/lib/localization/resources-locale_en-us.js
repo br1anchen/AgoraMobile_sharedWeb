@@ -40,8 +40,13 @@
         "description":"Login page feide login content"
     },
     {
+        "key":"_FEIDELoginInfo_",
+        "value":" New user?",
+        "description":"Login page feide login button"
+    },
+    {
         "key":"_FEIDELoginBtn_",
-        "value":"New user? Click here.",
+        "value":"Click here.",
         "description":"Login page feide login button"
     },
     {
