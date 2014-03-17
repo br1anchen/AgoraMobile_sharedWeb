@@ -13,7 +13,7 @@ app.controller('AboutCtrl',
 		getVersionFromApp();
 
 		$scope.load = function(url){
-			UtilityService.inAppBrowser.browser(url);
+			UtilityService.inAppBrowser.browser(url,'_system');
 		}
 
 		$scope.compserEmail = function(){

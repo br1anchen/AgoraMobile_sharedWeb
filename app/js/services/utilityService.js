@@ -467,8 +467,8 @@ factory('UtilityService',['$log','$q','$timeout',function($log,$q,$timeout){
 		},
 
 		inAppBrowser:{
-			browser: function(url){
-				var ref = window.open(url, '_blank', 'location=yes,EnableViewPortScale=yes');
+			browser: function(url,option){
+				var ref = window.open(url, option, 'location=yes,EnableViewPortScale=yes');
 				ref.addEventListener('loadstart', function(event) { console.log('in app browser start'); });
         		ref.addEventListener('loadstop', function(event) { console.log('in app browser stop'); });
         		ref.addEventListener('loaderror', function(event) { console.log('in app browser error'); });

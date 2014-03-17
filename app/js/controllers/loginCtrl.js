@@ -59,7 +59,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 
 	    feideLoginInstance.result.then(function () {
 	    	console.log('open feide login window');
-	    	var ref = UtilityService.inAppBrowser.browser($scope.feideLoginUrl);
+	    	var ref = UtilityService.inAppBrowser.browser($scope.feideLoginUrl,'_blank');
             ref.addEventListener('exit', function(){
                 console.log('close feide login window');
 

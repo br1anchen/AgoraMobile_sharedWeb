@@ -10,7 +10,7 @@ app.directive('inAppBrowser', function(UtilityService) {
         controller:function($scope){
             $scope.launch = function(){
                 var url = $scope.url ? $scope.url : $scope.href;
-                var ref = UtilityService.inAppBrowser.browser(url);
+                var ref = UtilityService.inAppBrowser.browser(url,'_blank');
                 ref.addEventListener('exit', function(){
                     console.log('close feide login window');
 

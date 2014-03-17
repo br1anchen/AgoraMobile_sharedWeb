@@ -182,7 +182,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
                     );
                 }, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
 		}else{
-		    UtilityService.inAppBrowser.browser(fileDir);
+		    UtilityService.inAppBrowser.browser(fileDir,'_blank');
 		}
 	}
 

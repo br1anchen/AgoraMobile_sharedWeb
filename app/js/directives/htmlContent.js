@@ -58,7 +58,7 @@ app.directive('htmlContent', function factory($compile,StorageService,UtilitySer
 		},
 		controller: function($scope){
 			$scope.load = function(url){
-				UtilityService.inAppBrowser.browser(url);
+				UtilityService.inAppBrowser.browser(url,'_blank');
 			}
 
 			$scope.path = function(path) {
