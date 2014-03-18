@@ -15,7 +15,8 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
 		results :[],
 		number : undefined,
 		keyword : undefined,
-		searchType : undefined
+		searchType : undefined,
+        end: false
 	};
 
     function JSON2Results(results){//parse json to result obj
@@ -30,11 +31,11 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
 
     		var result = undefined;
 
-    		if(ifAccess.length != 0){
+    		if(ifAccess.length != 0 || object.groupId == "10157"){
     			result = {};
 
     			result.groupId = object.groupId;
-    			result.gName = ifAccess[0].name;
+    			result.gName = ifAccess[0] != undefined ? ifAccess[0].name : "Agora";
     			result.snippet = object.snippet == undefined ? "..." : stripHTML(object.snippet) + "...";
     			result.relateUser = object.userName;
     			result.modifiedDate = object.modified.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,"$1/$2/$3 $4:$5:$6");
@@ -95,10 +96,18 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
 
 		var amount = number ? number : appendIncrement;
 
-		var promise = HttpService.request(apiSearch + searchType + '/uid/' + user.id + '/from/0/to/'+ amount + '/keywords/' + keyword,'','GET');
+		var promise = HttpService.request(apiSearch + searchType + '/from/0/to/'+ amount + '/keywords/' + keyword,'','GET');
 
 		promise.then(function(res){
-			setResults(number,keyword,searchType,JSON2Results(res.data));
+            var tempResults = JSON2Results(res.data);
+            var end = false;
+
+            if(tempResults.length < amount){
+                end = true;
+                console.log(tempResults.length);
+            }
+
+			setResults(tempResults.length,keyword,searchType,tempResults,end);
           
 			deffered.resolve(resultsHolder);
 
@@ -108,25 +117,25 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
 
 		return deffered.promise;
 	}
-	function setResults(number,keyword,searchType,results){
+	function setResults(number,keyword,searchType,results,end){
 		resultsHolder.results = results;//Replacing old data
 		resultsHolder.number = number;
 		resultsHolder.keyword = keyword;
 		resultsHolder.searchType = searchType;
+        resultsHolder.end = end;
 	}
 
     //return value in Search Service
 	return {
 		getMoreResults : function(){
-			var amount = resultsHolder.results.length <= appendIncrement ? appendIncrement : resultsHolder.results.length;
 
-			return searchResults(amount + appendIncrement,resultsHolder.keyword,resultsHolder.searchType);
+			return searchResults(resultsHolder.number + appendIncrement,resultsHolder.keyword,resultsHolder.searchType);
 		},
 		getResults : function(number,keyword,searchType){
-			var amount = number ? number : appendIncrement;
-			amount = amount <= appendIncrement ? appendIncrement : amount;
+            
+            setResults(0,'','',null,false);
 			
-			return searchResults(amount,keyword,searchType);
+			return searchResults(number,keyword,searchType);
 		}
 	}
 })

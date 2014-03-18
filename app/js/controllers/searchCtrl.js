@@ -12,10 +12,12 @@ app.controller('SearchCtrl',
 		};
 		$scope.searchOptionsShowing = false;
 		$scope.searchProgress = 0;
+		$scope.endSearch = false;
 
+		/*
 		$scope.$on('scrollableUpdate',function(){
 
-			if($scope.keyword && $scope.searchType.value && $scope.menuVar == 'search'){
+			if($scope.keyword && $scope.searchType.value && $scope.menuVar){
 				$scope.loading = true;
 
 				//Updating content
@@ -33,10 +35,11 @@ app.controller('SearchCtrl',
 			}
 
 		});
+		*/
 
 		$scope.$on('scrollableAppend',function(){
 
-			if($scope.keyword && $scope.searchType.value && $scope.menuVar == 'search'){
+			if($scope.keyword && $scope.searchType.value && $scope.menuVar && !$scope.endSearch){
 				$scope.loading = true;
 
 				//Appending content
@@ -44,6 +47,7 @@ app.controller('SearchCtrl',
 					function(resultsHolder){
 						$scope.loading = false;
 						$scope.results = resultsHolder.results;
+						$scope.endSearch = resultsHolder.end;
 					},
 					function(error){
 						console.error("SearchCtrl: Append failed");
@@ -77,6 +81,7 @@ app.controller('SearchCtrl',
 						$scope.searchProgress = 100;
 						$scope.loading = false;
 						$scope.results = resultsHolder.results;
+						$scope.endSearch = resultsHolder.end;
 						$timeout(function(){
 							$scope.showprogress = false;
 							$scope.searchProgress = 0;

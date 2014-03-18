@@ -77,10 +77,8 @@
                 </accordion-group>
             </accordion>
             <div class="expand" scrollable trigger-distance="200" loading="{{loading}}" loading-color="bababa" scroll-ease="30">
-                <div id="searchResultDiv">
-                    <div data-ng-repeat="result in results | orderBy:'modifiedDate':true">
-                        <search-result result="result"></activity-block>
-                    </div>
+                <div data-ng-repeat="result in results | orderBy:'modifiedDate':true">
+                    <search-result result="result"></activity-block>
                 </div>
             </div>
         </div>

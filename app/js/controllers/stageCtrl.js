@@ -7,6 +7,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     //Fetches groups when this controller is loaded, and navigates to activities when groups are present
     $scope.loading = true;
+    $scope.menuVar = false;
     $scope.gettingGroupsPromise = GroupService.getGroups().then(function(groupsHolder){
         $scope.loading = false;
         $scope.groupsHolder = groupsHolder;
@@ -63,12 +64,14 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         $scope.hideSomeBtn = false;
     }
 
-	$scope.toggleMenu = function(){
-        toggleShowAllGroups($scope.groupsHolder);
-        snapRemote.toggle("left","stage");
-	}
+  	$scope.toggleMenu = function(){
+          $scope.menuVar = !$scope.menuVar;
+          toggleShowAllGroups($scope.groupsHolder);
+          snapRemote.toggle("left","stage");
+  	}
 
     $scope.toggleSearch = function(){
+        $scope.menuVar = !$scope.menuVar;
         snapRemote.toggle("right","stage");
     }
 

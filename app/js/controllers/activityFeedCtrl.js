@@ -5,37 +5,43 @@ app.controller('ActivityFeedCtrl',
 		$scope.loading = true;
 
 		$scope.$on('scrollableUpdate',function(){
-			$scope.loading = true;
+			if(!$scope.menuVar){
+				$scope.loading = true;
 
-			//Updating content
-			ActivityService.updateActivities($scope.currentGroup).then(
-				function(activitiesHolder){
-					$scope.loading = false;
-					$scope.activities = activitiesHolder.activities;
-				},
-				function(error){
-					console.error("ActivityCtrl: Update failed");
-					$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
-					$scope.loading = false;
-				}
-			);
+				//Updating content
+				ActivityService.updateActivities($scope.currentGroup).then(
+					function(activitiesHolder){
+						$scope.loading = false;
+						$scope.activities = activitiesHolder.activities;
+					},
+					function(error){
+						console.error("ActivityCtrl: Update failed");
+						$rootScope.$broadcast("notification",localize.getLocalizedString('_UpdateFailNotificationText_'));
+						$scope.loading = false;
+					}
+				);
+			}
+			
 		});
 
 		$scope.$on('scrollableAppend',function(){
-			$scope.loading = true;
+			if(!$scope.menuVar){
+				$scope.loading = true;
 
-			//Appending content
-			ActivityService.getMoreActivities($scope.currentGroup).then(
-				function(activitiesHolder){
-					$scope.loading = false;
-					$scope.activities = activitiesHolder.activities;
-				},
-				function(error){
-					console.error("Append failed");
-					$rootScope.$broadcast("notification",localize.getLocalizedString('_AppendFailNotificationText_'));
-					$scope.loading = false;
-				}
-			)
+				//Appending content
+				ActivityService.getMoreActivities($scope.currentGroup).then(
+					function(activitiesHolder){
+						$scope.loading = false;
+						$scope.activities = activitiesHolder.activities;
+					},
+					function(error){
+						console.error("Append failed");
+						$rootScope.$broadcast("notification",localize.getLocalizedString('_AppendFailNotificationText_'));
+						$scope.loading = false;
+					}
+				);
+			}
+			
 		});
 
 		if($state.is('stage.activityFeed')){
