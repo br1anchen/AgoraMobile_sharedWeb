@@ -51,7 +51,9 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	        feideLoginMsg: function(){
 	        	return{
 	        		title : localize.getLocalizedString('_FEIDELoginHeader_'),
-	        		msg : localize.getLocalizedString('_FEIDELoginContent_')
+	        		msg1 : localize.getLocalizedString('_FEIDELoginContentPart1_'),
+	        		msg2 : localize.getLocalizedString('_FEIDELoginContentPart2_'),
+	        		msg3 : localize.getLocalizedString('_FEIDELoginContentPart3_')
 	        	}
 	        } 
 	      }

@@ -16,12 +16,12 @@
     },
     {
         "key":"_LoginNameTitle_",
-        "value":"Brukernavn",
+        "value":"Agora Mobile Brukernavn",
         "description":"Login page username text"
     },
     {
         "key":"_LoginPwdTitle_",
-        "value":"Passord",
+        "value":"Agora Mobile Passord",
         "description":"Login page password text"
     },
     {
@@ -31,13 +31,23 @@
     },
     {
         "key":"_FEIDELoginHeader_",
-        "value":"Instruksjon",
+        "value":"Agora Mobile Bruker",
         "description":"Login page feide login header"
     },
     {
-        "key":"_FEIDELoginContent_",
-        "value":"FEIDE Bruker: Logg inn med din FEIDE konto for å lage en egen bruker for Agora Mobile, husk riktig tilknytning.",
-        "description":"Login page feide login content"
+        "key":"_FEIDELoginContentPart1_",
+        "value":"Du trenger en egen bruker for Agora Mobile. For å lage dette må du nå først logge inn med din Feide-bruker for å identifisere deg selv.",
+        "description":"Login page feide login content part1"
+    },
+    {
+        "key":"_FEIDELoginContentPart2_",
+        "value":"Du får videre beskjed om å sette \"Nytt passord\". Dette er et lokalt passord for din Agora Mobile-bruker - dette endrer ikke noe på din Feide-bruker. Når du har satt passordet lukker du vinduet (trykker på \"Ferdig\").",
+        "description":"Login page feide login content part2"
+    },
+    {
+        "key":"_FEIDELoginContentPart3_",
+        "value":"Tilbake på forsiden logger du inn med din virksomhet, ditt brukernavn og ditt nylig satte passord. Dermed er du inne i applikasjonen inntil du en gang eventuelt logger deg ut igjen.",
+        "description":"Login page feide login content part3"
     },
     {
         "key":"_FEIDELoginInfo_",
@@ -46,7 +56,7 @@
     },
     {
         "key":"_FEIDELoginBtn_",
-        "value":"Klikk her.",
+        "value":"Lag egen Agora Mobile bruker HER",
         "description":"Login page feide login button"
     },
     {

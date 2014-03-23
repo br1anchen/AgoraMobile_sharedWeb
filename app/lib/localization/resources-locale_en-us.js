@@ -16,12 +16,12 @@
     },
     {
         "key":"_LoginNameTitle_",
-        "value":"Screen Name",
+        "value":"Agora Mobile Screen Name",
         "description":"Login page username text"
     },
     {
         "key":"_LoginPwdTitle_",
-        "value":"Password",
+        "value":"Agora Mobile Password",
         "description":"Login page password text"
     },
     {
@@ -31,13 +31,23 @@
     },
     {
         "key":"_FEIDELoginHeader_",
-        "value":"Instruction",
+        "value":"Agora Mobile User",
         "description":"Login page feide login header"
     },
     {
-        "key":"_FEIDELoginContent_",
-        "value":"FEIDE User: Log in with your FEIDE account to create a separate login for Agora Mobile. NB: Pick your institution.",
-        "description":"Login page feide login content"
+        "key":"_FEIDELoginContentPart1_",
+        "value":"You need a separate user for Agora Mobile. To make this, you must now log in with your Feide user to identify yourself first.",
+        "description":"Login page feide login content part1"
+    },
+    {
+        "key":"_FEIDELoginContentPart2_",
+        "value":"You need also set the \"New Password\". This is a local password for your Agora Mobile user - this does not change anything on your Feide user. After setting the password, close the window (press \"Done\").",
+        "description":"Login page feide login content part2"
+    },
+    {
+        "key":"_FEIDELoginContentPart3_",
+        "value":"Back on the original screen, log in with your affiliation, your username and your newly set password. Then, you keep login the app until you log out again.",
+        "description":"Login page feide login content part3"
     },
     {
         "key":"_FEIDELoginInfo_",
@@ -46,7 +56,7 @@
     },
     {
         "key":"_FEIDELoginBtn_",
-        "value":"Click here.",
+        "value":"Create your own Agora Mobile User HERE",
         "description":"Login page feide login button"
     },
     {

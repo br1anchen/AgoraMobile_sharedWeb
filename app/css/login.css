@@ -9,7 +9,7 @@
 #login #agora_logo{
 	display: block;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 8%;
     width: 55%;
 }
 
@@ -39,7 +39,7 @@
 	margin-top: 10px;
 }
 
-#login #loginFooter  #feideLoginBtnDiv{
+#login #feideLoginBtnDiv{
 	text-align: center;
 	border-width: 1px 0 0 0;
 	margin: 0 auto;
@@ -116,6 +116,7 @@
 	text-decoration:underline;
 }
 #login #regularLogin{
+	width: 205px;
 	margin: 0 auto;
 }
 #login footer {
@@ -126,13 +127,13 @@
 }
 
 #login #affiliationBar{
-	margin-top: 10px;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	text-align: center;
 }
 
 #login #affiliationBar #choiceBtn{
-
+	width: 180px;
 }
 
 #login #affiliationBar #choiceBtn-icon{
@@ -163,7 +164,7 @@
 }
 
 #login #loginForm{
-	margin-top: 8px;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	text-align: center;
 }
@@ -176,15 +177,13 @@
 }
 
 #login #loginNameInput{
-	width: 45%;
+	width: 190px;
 	margin: 0px auto;
-	margin-top: 5px;
 }
 
 #login #loginPwdInput{
-	width: 45%;
+	width: 190px;
 	margin: 0px auto;
-	margin-top: 5px; 
 }
 
 #login .labelShow{

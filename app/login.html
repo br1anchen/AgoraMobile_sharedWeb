@@ -29,7 +29,11 @@
             <h3>{{feideLoginMsg.title}}</h3>
         </div>
         <div id="feideLoginMsgBody" class="modal-body">
-            <p>{{feideLoginMsg.msg}}</p>
+            <p>
+                {{feideLoginMsg.msg1}}<br />
+                {{feideLoginMsg.msg2}}<br />
+                {{feideLoginMsg.msg3}}<br />
+            </p>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -39,7 +43,9 @@
     <progress id="loginprogressbar" percent="loginProgress" class="progress-bar-info progress-striped active"></progress>
     
     <img id="agora_logo" src="img/agoramobile_text.png"></img>
-    
+    <div id="feideLoginBtnDiv">
+        <i class="fa fa-info-circle"><sapn data-i18n="_FEIDELoginInfo_"><span></i><span id="feideLogin" ng-click="showFeideLoginMsg()" data-i18n="_FEIDELoginBtn_"></span>
+    <div>
     <div id="affiliationBar">
         <div id="choiceBtn" class="btn" ng-click="showAffiliations()">{{affiliationText}}<i id="choiceBtn-icon" class="fa fa-caret-down"></i></div>
     </div>
@@ -59,9 +65,6 @@
     </form>
     
     <div id="loginFooter">
-        <div id="feideLoginBtnDiv">
-            <i class="fa fa-info-circle"><sapn data-i18n="_FEIDELoginInfo_"><span></i><span id="feideLogin" ng-click="showFeideLoginMsg()" data-i18n="_FEIDELoginBtn_"></span>
-        <div>
         <img id="uninett_logo" src="img/UNINETT_logo.png"></img>
     </div>
     <notifier id="notifier" animation="'slideVertical'" height="4em"></notifier>
