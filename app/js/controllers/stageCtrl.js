@@ -201,11 +201,16 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     $scope.getGroup = function(groupId){
         var topGroup = StorageService.get('TopGroup');
-        if(topGroup.id == groupId) return topGroup;
+        if(topGroup){
+            if(topGroup.id == groupId) return topGroup;
+        }
 
-        angular.forEach($scope.groupsHolder.groups,function(group,k){
-            if(groupId == group.id) return group;
-        })
+        if($scope.groupsHolder){
+            angular.forEach($scope.groupsHolder.groups,function(group,k){
+                if(groupId == group.id) return group;
+            });
+        }
+
         return undefined;
     }
 })
