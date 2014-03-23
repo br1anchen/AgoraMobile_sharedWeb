@@ -21,6 +21,10 @@ body {
     tap-highlight-color: rgba(0,0,0,0);
 }
 
+.ng-cloak {
+  display: none !important;
+}
+
 .page-wrap{
   position: fixed;
   width:100%;
