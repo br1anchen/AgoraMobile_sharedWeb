@@ -49,16 +49,8 @@
             <header>
                 <div id="searchHeader">
                     <form id="searchForm">
-                        <table>
-                            <tr>
-                                <td>
-                                    <input type="text" class="search-query" id="searchInput" ng-model="keyword" data-i18n-attr="_searchKeywordHint_|placeholder">
-                                </td>
-                                <td>
-                                    <button type="submit" class="btn" ng-click="search()" data-i18n="_searchBtnText_"></button>
-                                </td>
-                            </tr>
-                        </table>
+                            <input type="text" class="search-query" id="searchInput" ng-model="keyword" data-i18n-attr="_searchKeywordHint_|placeholder">
+                            <button type="submit" class="btn" id="searchBtn" ng-click="search()" data-i18n="_searchBtnText_"></button>
                     </form>
 
                 </div>

@@ -122,31 +122,42 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 				$timeout(function(){
 					$scope.downloadProgress = 50;
 				},200);
-				DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
-					$scope.downloadProgress = 100;
-					//Making sure UI knows loading finished
-					$timeout(function(){
-						$scope.showprogress = false;
-						$scope.downloadProgress = 0;
-					},1000);
-					//$scope.loading = false;
-					openFile(dir,file.uti);
-				},function(err){
-					console.log(err);
-					//Making sure UI knows loading finished
-					//$scope.loading = false;
-					$timeout(function(){
-						$scope.showprogress = false;
-						$scope.downloadProgress = 0;
-					},1000);
-					navigator.notification.alert(
-	                    localize.getLocalizedString('_FileDownloadFailTitle_'),
-	                    function(){
-	                    },
-	                    'Agora Mobile',
-	                    'OK'
-	                );
-				});
+
+				if(UtilityService.internetConnection.checkConnection(navigator.connection.type) != 'No network connection'){
+
+					DocumentService.downloadFile($scope.currentGroup.friendlyURL,file).then(function(dir){
+						$scope.downloadProgress = 100;
+						//Making sure UI knows loading finished
+						$timeout(function(){
+							$scope.showprogress = false;
+							$scope.downloadProgress = 0;
+						},1000);
+						//$scope.loading = false;
+						openFile(dir,file.uti);
+					},function(err){
+						console.log(err);
+						//Making sure UI knows loading finished
+						//$scope.loading = false;
+						$timeout(function(){
+							$scope.showprogress = false;
+							$scope.downloadProgress = 0;
+						},1000);
+						navigator.notification.alert(
+		                    localize.getLocalizedString('_FileDownloadFailTitle_'),
+		                    function(){
+		                    },
+		                    'Agora Mobile',
+		                    'OK'
+		                );
+					});
+
+				}else{
+					$scope.showprogress = false;
+					$scope.downloadProgress = 0;
+
+					$rootScope.$broadcast("notification",localize.getLocalizedString('_AppNoInternetInfo_'));
+				}
+
 			}
 		}else{
 			navigator.notification.alert(

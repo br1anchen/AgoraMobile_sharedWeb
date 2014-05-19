@@ -27,6 +27,14 @@
   margin-left: 5px;
 }
 
+#searchBtn {
+  visibility:hidden;
+  width: 0px !important;
+  height: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
 #search #searchprogressbar{
   height: 5px;
   margin: 0 auto;
@@ -41,8 +49,7 @@
 }
 
 #searchInput{
-  width: 80%;
-  margin-left: 5px;
+  width: 85%;
 }
 
 #searchResultDiv{

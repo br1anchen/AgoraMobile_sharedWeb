@@ -71,6 +71,8 @@ app.controller('SearchCtrl',
 		$scope.search = function(){
 			$scope.showprogress = true;
 			$scope.searchProgress = 30;
+			$("#searchInput").blur();
+
 			if($scope.keyword && $scope.searchType.value){
 				$scope.loading = true;
 
