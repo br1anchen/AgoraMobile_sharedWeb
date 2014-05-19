@@ -72,10 +72,20 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     $scope.toggleSearch = function(){
         $scope.menuVar = !$scope.menuVar;
-        snapRemote.toggle("right","stage");
-        if($scope.menuVar){
-            $("#searchInput").focus();
-        } 
+        //snapRemote.toggle("right","stage");
+
+        
+        if(!$scope.menuVar){
+          $("#searchInput").focusout();
+          snapRemote.toggle("right","stage");
+          $timeout(function(){
+            window.scrollTo(0, 0);
+          }, 10);
+        }else{
+          snapRemote.toggle("right","stage");
+          $("#searchInput").focus();
+        }
+        
     }
 
     //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
