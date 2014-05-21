@@ -438,5 +438,10 @@
         "key":"_ActivityLoadFailText_",
         "value":"Loading Failed",
         "description":"Activity load failed text"
+    },
+    {
+        "key":"_DCOffLineTitle_",
+        "value":"OFFLINE FILES",
+        "description":"Document page off line files title text"
     }
 ]

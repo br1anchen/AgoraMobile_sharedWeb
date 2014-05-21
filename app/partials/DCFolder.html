@@ -63,6 +63,25 @@
 				!-->
 			</li>
 		</ul>
+		<ul class="fileList" id= "offLineFiles" data-ng-show="root">
+			<li id="savedfiles" ng-show="offLineFilesHolder.savedFiles.length != 0">
+				<span class="text">{{ '_DCOffLineTitle_' | i18n }}</span>
+			</li>
+			<li class="content" data-ng-repeat="file in offLineFilesHolder.savedFiles" >
+				<div class="row" data-ng-click="showFile(file)">
+					<div class="rowIcon" >
+						<div class="iconHolder">
+							<i class="fa fa-file-o fa-2x"></i>
+						</div>
+					</div>
+					
+					<div class="textHolder" >
+							<span class="rowText">{{file.title}}</span>
+					</div>
+				</div>
+				<div class="fileInfoTransition"></div>
+			</li>
+		</ul>
 
 	</div>
 </div>

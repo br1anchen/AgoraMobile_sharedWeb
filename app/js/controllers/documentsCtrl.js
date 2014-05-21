@@ -18,6 +18,16 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	}
 
+	function renderOffLineFiles(){
+
+		console.log('render Offline Files');
+
+		if($stateParams.root)$scope.root = true;
+
+		$scope.offLineFilesHolder = DocumentService.getSavedFiles();
+
+	}
+
 	function renderFolder(group,folderId){
 		console.log('render Folder Content');
 		//Making sure UI knows we are loading data
@@ -49,6 +59,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
 
 	if($state.is('stage.documents.root')){
 		renderDirectory();
+		renderOffLineFiles();
 	}
 
 	if($state.is('stage.documents.folder')){

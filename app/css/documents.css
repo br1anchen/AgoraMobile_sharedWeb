@@ -87,14 +87,14 @@
       to(rgba(255, 255, 255, 0))
     );
 }
-#documents #files , #documents #folders {
+#documents #files , #documents #folders, #documents #savedfiles{
 	font-weight: bold;
 	background-color: #D1D1D1;
 	font-size: 1.2em;
 	line-height: 1.8em;
 	border-bottom: none;
 }
-#documents #files .text, #documents #folders .text{
+#documents #files .text, #documents #folders .text, #documents #savedfiles .text{
 	padding-top: 0.75em;
 	padding-left: 0.3em;
 	color: #5b677d;

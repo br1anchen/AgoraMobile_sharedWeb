@@ -438,5 +438,10 @@
         "key":"_ActivityLoadFailText_",
         "value":"Feil ved innlasting",
         "description":"Activity load failed text"
+    },
+    {
+        "key":"_DCOffLineTitle_",
+        "value":"FRAKOBLEDE FILER",
+        "description":"Document page off line files title text"
     }
 ]
