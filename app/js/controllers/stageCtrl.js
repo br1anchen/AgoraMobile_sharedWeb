@@ -1,6 +1,6 @@
 'use strict';
 app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService,localize,snapRemote){
-    
+
     StateService.stateVariablesOn();
 
     $scope.showConentHeader = true;
@@ -74,7 +74,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         $scope.menuVar = !$scope.menuVar;
         //snapRemote.toggle("right","stage");
 
-        
+
         if(!$scope.menuVar){
           $("#searchInput").focusout();
           snapRemote.toggle("right","stage");
@@ -85,10 +85,10 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
           snapRemote.toggle("right","stage");
           $("#searchInput").focus();
         }
-        
+
     }
 
-    //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work. 
+    //If some conent controllers need to change this behaviour, overwriting the scope variable showContentHeader should work.
     //The event listeners should also work, because the scrolling directive broadcast on the root scope.
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         $scope.showConentHeader = true;
@@ -118,7 +118,7 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
 
     //Function to change the active group in the application
     $scope.goToGroup = function(group){
-        
+
         $scope.showGroup(group).then(
             function(){
                 $state.transitionTo('stage.activityFeed',{groupId:$scope.currentGroup.id});
@@ -185,15 +185,15 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
         }
         else{
             $scope.currentGroup = group;
-           
+
             ContentService.loadGroupContent(group).then(function(){
                 deffer.resolve();
             });
         }
-        
+
         return deffer.promise;
     }
-    
+
     $scope.goToActivityFeed = function(){
         if(!$scope.currentGroup)return;
 
