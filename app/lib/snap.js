@@ -12,6 +12,8 @@
 /*global define, module, ender*/
 (function(win, doc) {
     'use strict';
+    var maxwidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
     var Snap = Snap || function(userOpts) {
         var settings = {
             element: null,
@@ -24,7 +26,7 @@
             transitionSpeed: 0.3,
             easing: 'ease',
             maxPosition: 266,
-            minPosition: -320,//-266
+            minPosition: -maxwidth,//-266
             tapToClose: false,
             touchToDrag: false,
             slideIntent: 40, // degrees

@@ -1,7 +1,7 @@
 /* search view css stylesheet */
 #search{
   color:#454545;
-  width:320px !important;
+  width:100% !important;
   box-shadow:2px 0px 2px  white inset;
 }
 
