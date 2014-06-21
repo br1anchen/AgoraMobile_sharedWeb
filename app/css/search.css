@@ -1,7 +1,7 @@
 /* search view css stylesheet */
 #search{
   color:#454545;
-  max-width: 265px;
+  width:320px !important;
   box-shadow:2px 0px 2px  white inset;
 }
 
@@ -17,10 +17,11 @@
 
 #backToMainBtn{
   margin-left: 10px;
-  margin-right: 10px;
   width: 5%;
   vertical-align: middle;
   float: left;
+  color: white;
+  margin-top: 5px;
 }
 
 #search .btn{
@@ -55,7 +56,7 @@
 #searchResultDiv{
   width: 100%;
   height: 90%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 #search .searchResult{
