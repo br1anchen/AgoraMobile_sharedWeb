@@ -8,10 +8,10 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
     transclude: true,
     restrict: 'E',
     controller:function($scope){
-      
+
       $scope.open = function(){
         $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingText_'));
-        
+
         var initialGroup = $scope.currentGroup;
         //Custom function to open search result, set below depending on result type
         var open;
@@ -30,7 +30,7 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
               ContentService.getMBTPromise().then(function(){
                 var thread = MessageBoardService.getThread($scope.result.groupId,$scope.result.threadId);
                 if(thread){
-                   $state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId, threadId:thread.threadId}); 
+                   $state.transitionTo('stage.messageBoard.messages',{categoryId:thread.categoryId, threadId:thread.threadId});
                 }
                 else{
                   failed();
@@ -49,7 +49,7 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
                   failed();
                 }
               )
-            }          
+            }
           break;
           case "Wiki":
             open = function(){
@@ -104,11 +104,11 @@ app.directive('searchResult', function factory($log, AppService, $state, Message
     link: function postLink(scope, iElement, iAttrs) {
 
     },
-    template: 
+    template:
     '<div class="searchResult" data-ng-click="open()">'+
         '<div class="result">'+
         '   <div class="resultTitle">{{result.shownText}}<br /></div>'+
-        '   <p class="reference"> {{result.gName}}<br /></p>'+
+        '   <div class="reference">{{result.gName}}<br /></div>'+
         '   <div class="snippet" ><p>"{{result.snippet}}"</p></div>'+
         '</div>'+
         '<div class="date">{{result.modifiedDate}}</div>' +

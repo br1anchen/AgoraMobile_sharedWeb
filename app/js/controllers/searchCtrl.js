@@ -56,7 +56,7 @@ app.controller('SearchCtrl',
 					}
 				)
 			}
-			
+
 		});
 
 		$scope.setSearchType = function(name,value){
@@ -67,6 +67,12 @@ app.controller('SearchCtrl',
 				$scope.search();
 			}
 		}
+
+		$("#searchInput").blur(function(){
+			$timeout(function(){
+      	window.scrollTo(0, 0);
+      }, 10);
+		});
 
 		$scope.search = function(){
 			$scope.showprogress = true;
