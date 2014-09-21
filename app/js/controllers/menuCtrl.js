@@ -9,6 +9,13 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
     cacheImage($scope.user.portraitImgUrl);
   }
 
+  $rootScope.$on("event:auth-loginRequired",function(e){
+    console.log("login required!");
+    navigator.notification.alert(localize.getLocalizedString('_RequireLoginTitle_'), function(){
+      logoutProcess();
+    }, "Agora Mobile", "OK");
+  })
+
   function cacheImage(url){//cache image at localstorage
       var img = new Image();
       img.src = $scope.user.portraitImgUrl;
@@ -38,7 +45,7 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
 
   $scope.switchGroup = function(group){
     $scope.toggleMenu();
-    
+
     $timeout(function(){
       $rootScope.$broadcast("notification",localize.getLocalizedString('_LoadingText_'));
       $scope.goToGroup(group);

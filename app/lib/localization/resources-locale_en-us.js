@@ -443,5 +443,10 @@
         "key":"_DCOffLineTitle_",
         "value":"OFFLINE FILES",
         "description":"Document page off line files title text"
+    },
+    {
+        "key":"_RequireLoginTitle_",
+        "value":"Session Expired! Login Required!",
+        "description":"Login required text title"
     }
 ]

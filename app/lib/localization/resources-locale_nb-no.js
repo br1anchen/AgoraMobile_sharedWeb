@@ -443,5 +443,10 @@
         "key":"_DCOffLineTitle_",
         "value":"FRAKOBLEDE FILER",
         "description":"Document page off line files title text"
+    },
+    {
+        "key":"_RequireLoginTitle_",
+        "value":"Økten Utløpt og Pålogging Kreves!",
+        "description":"Login required text title"
     }
 ]
