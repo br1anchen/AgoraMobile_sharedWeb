@@ -173,7 +173,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 						}
 					});
 				}
-				
+
 				//update parentFolder with subfolders
 				var parentFolder = StorageService.get('Group' + gId + '_Folder' + folderId);
 				parentFolder.subFolders = subfolders;
@@ -215,10 +215,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 				console.log("documentService.getSubContent: sub files failed to fetch");
 				deffered.reject("documentService.getSubContent: sub files failed to fetch");
 			});
-			
+
 			promiseObjects.push(filePromise);
 		}
-		
+
 		getSubContent(fId);
 
 		$q.all(promiseObjects).then(function(){
@@ -252,7 +252,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			//Returning whatever is in the runtime memory if the groupe is the same
 			if(folderHolder.groupId == group.id && folderHolder.folder.folderId == folderId){
 				deffered.resolve(folderHolder);
-				
+
 				//Updates in the background even if it has folder content localy
 				fetchFolderContent(group.id,folderId);
 				return deffered.promise;
@@ -262,7 +262,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			if(folder){
 				setFolder(group.id,folderId,folder);
 				deffered.resolve(folderHolder);
-				
+
 				//Updates in the background even if it has folder content localy
 				fetchFolderContent(group.id,folderId);
 				return deffered.promise;
@@ -278,7 +278,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			//Returning whatever is in the runtime memory if the groupe is the same
 			if(fileHolder.groupId == group.id && fileHolder.file && fileHolder.file.folderId == folderId && fileHolder.file.title == fileTitle){
 				deffered.resolve(fileHolder);
-				
+
 				return deffered.promise;
 			}
 
@@ -287,7 +287,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			if(file){
 				setFile(group.id,folderId,file);
 				deffered.resolve(fileHolder);
-				
+
 				return deffered.promise;
 			}
 			else{//init directory if no localstorage to show single file detail
@@ -310,14 +310,14 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			var downloadURL= "";
 
 			fetchFileInfo(file).then(function(f){
-				
+
 				var storedFile = StorageService.get('Group' + f.groupId + '_Folder' + f.folderId + '_FileTitle:' + f.title);
 
 				if(f.version <= storedFile.version && storedFile.offline == true){
 					console.log('use downloaded file');
 
 					deffered.resolve(storedFile.localFileDir);
-				
+
 				}else{
 
 					rootFS.getDirectory("Files", {create: true, exclusive: false},
@@ -337,7 +337,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 							    uri,
 							    filesDir.fullPath + '/' + file.groupId + localFileDir,
 							    function(entry) {
-							    	
+
 							        console.log("download complete: " + entry.fullPath);
 
 							        downloadURL = entry.fullPath;
@@ -368,7 +368,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 							        $timeout(function(){
 							    		deffered.reject("file download failed");
 							    	});
-							        
+
 							    },
 							    false,
 							    {
@@ -385,14 +385,14 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 					        $timeout(function(){
 					    		deffered.reject("Directory created failed");
 					    	});
-					        
+
 					    }
 					);
 				}
 			},function(err){
 				deffered.reject(err);
 			});
-			
+
 			return deffered.promise;
 		},
 
@@ -420,11 +420,11 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 					savedList = jQuery.grep(savedList , function (f,k) {
 					    return f.remoteFileDir != file.remoteFileDir;
 					});
-					
+
 					setSavedList(savedList);
 					storeSavedList(savedList);
 
-    				
+
     				$timeout(function(){
 		    			deffered.resolve("delete file success");
 		    		});
@@ -467,7 +467,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 							storeFile(storedFile.groupId,storedFile.folderId,storedFile.title,storedFile);
 						});
 					}
-					
+
 					savedList = [];
 					setSavedList(savedList);
 					storeSavedList(savedList);
@@ -487,6 +487,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 			});
 
 			return deffered.promise;
+		},
+
+		getRootFS: function(){
+			return rootFS.fullPath;
 		}
 
 	}
