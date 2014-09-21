@@ -204,12 +204,7 @@ app.controller('DocumentsCtrl',function($scope,$log,$timeout,$q,DocumentService,
                     );
                 }, "ExternalFileUtil", "openWith",[encodeURI(fileDir), fileUTI]);
 		}else{
-				var URIAppIndex = fileDir.indexOf("Application");
-				var URIDocIndex = fileDir.indexOf('Documents');
-				var newRoot = DocumentService.getRootFS();
-				var ROOTAppIndex = newRoot.indexOf("Application");
-				var ROOTDocIndex = newRoot.indexOf('Documents');
-				fileDir = fileDir.substring(0,URIAppIndex + 12) + newRoot.substring(ROOTAppIndex + 12,ROOTDocIndex) + fileDir.substring(URIDocIndex);
+				fileDir = DocumentService.getCurrentFileDir(fileDir);
 				console.log('open file in: ' + fileDir);
 		    UtilityService.inAppBrowser.browser(fileDir,'_blank');
 		}

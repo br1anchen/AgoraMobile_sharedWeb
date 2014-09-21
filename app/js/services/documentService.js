@@ -244,6 +244,15 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 		return deffered.promise;
 	}
 
+	function generateDynamicFilePath(fileDir){
+		var URIAppIndex = fileDir.indexOf("Application");
+		var URIDocIndex = fileDir.indexOf('Documents');
+		var ROOTAppIndex = rootFS.fullPath.indexOf("Application");
+		var ROOTDocIndex = rootFS.fullPath.indexOf('Documents');
+		fileDir = fileDir.substring(0,URIAppIndex + 12) + rootFS.fullPath.substring(ROOTAppIndex + 12,ROOTDocIndex) + fileDir.substring(URIDocIndex);
+		return fileDir;
+	}
+
     //return value in Document Service
 	return {
 		getDirectory : function (group,folderId) {
@@ -402,6 +411,7 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 			if(file.localFileDir.indexOf('/') == 0){// set file uri path for different os
 				fileURI = 'file://' + file.localFileDir; //for ios
+				fileURI = generateDynamicFilePath(fileURI);
 			}else{
 				fileURI = file.localFileDir; //for android
 			}
@@ -491,6 +501,10 @@ factory('DocumentService',['$log','$q','StorageService','HttpService','AppServic
 
 		getRootFS: function(){
 			return rootFS.fullPath;
+		},
+
+		getCurrentFileDir: function(fileDir){
+			return generateDynamicFilePath(fileDir);
 		}
 
 	}
