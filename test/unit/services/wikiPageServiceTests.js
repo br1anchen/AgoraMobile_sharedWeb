@@ -21,7 +21,7 @@ describe('WikiPageService',function(){
 		$http = $injector.get('$http');
 		AppService = $injector.get('AppService');
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/wikinode/get-node/group-id/10157/name/Main'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/wikinode/get-node/group-id/10157/name/Main'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -31,7 +31,7 @@ describe('WikiPageService',function(){
         			]
         });
 
-    	$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/wikipage/get-node-pages/node-id/10758/max/100'
+    	$httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/wikipage/get-node-pages/node-id/10758/max/100'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -41,7 +41,7 @@ describe('WikiPageService',function(){
         			]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/wikipage/get-page/node-id/10758/title/Dokumenter'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/wikipage/get-page/node-id/10758/title/Dokumenter'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

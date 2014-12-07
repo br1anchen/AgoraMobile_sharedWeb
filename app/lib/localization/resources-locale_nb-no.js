@@ -448,5 +448,15 @@
         "key":"_RequireLoginTitle_",
         "value":"Økten Utløpt og Pålogging Kreves!",
         "description":"Login required text title"
+    },
+    {
+      "key":"_UpgradingText_",
+      "value":"System Oppgradering! Vil enkelte funksjoner ikke fungerer.",
+      "description":"Upgrading system notification"
+    },
+    {
+      "key":"_GoToWebsite_",
+      "value":"Gå til Agora Nettside",
+      "description":"Upgrading system notification button"
     }
 ]

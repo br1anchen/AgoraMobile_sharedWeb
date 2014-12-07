@@ -1,7 +1,5 @@
-'use strict';
-
 app.controller('ActivityFeedCtrl',
-	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state,localize){
+	function($scope,$log,$timeout,ActivityService,$rootScope, ContentService,$state,localize,UtilityService,AppService){
 		$scope.loading = true;
 
 		$scope.$on('scrollableUpdate',function(){
@@ -12,6 +10,7 @@ app.controller('ActivityFeedCtrl',
 				ActivityService.updateActivities($scope.currentGroup).then(
 					function(activitiesHolder){
 						$scope.loading = false;
+						delete $scope.activities;
 						$scope.activities = activitiesHolder.activities;
 					},
 					function(error){
@@ -21,7 +20,7 @@ app.controller('ActivityFeedCtrl',
 					}
 				);
 			}
-			
+
 		});
 
 		$scope.$on('scrollableAppend',function(){
@@ -32,6 +31,7 @@ app.controller('ActivityFeedCtrl',
 				ActivityService.getMoreActivities($scope.currentGroup).then(
 					function(activitiesHolder){
 						$scope.loading = false;
+						delete $scope.activities;
 						$scope.activities = activitiesHolder.activities;
 					},
 					function(error){
@@ -41,14 +41,29 @@ app.controller('ActivityFeedCtrl',
 					}
 				);
 			}
-			
+
 		});
 
 		if($state.is('stage.activityFeed')){
+
 			if($scope.currentGroup === undefined || $scope.currentGroup.name === undefined){// fix the rendering angular syntax bug because of the overflow banner directive
 				$scope.currentGroup = {
 			        name : 'Agora'
 			    };
+
+				navigator.notification.confirm(
+					localize.getLocalizedString('_UpgradingText_'),
+					function(buttonIndex){
+						switch(buttonIndex){
+						case 1:
+							break;
+						case 2:
+							UtilityService.inAppBrowser.browser(AppService.getBaseURL(),'_system');
+							break;
+						}
+					},
+					'Agora Mobile',
+					['OK',localize.getLocalizedString('_GoToWebsite_')]);
 			}
 
 			var groupId = $state.params.groupId;
@@ -64,6 +79,7 @@ app.controller('ActivityFeedCtrl',
 				ActivityService.updateActivities({id:groupId}).then(
 					function(activitiesHolder){
 						$scope.loading = false;
+						delete $scope.activities;
 						$scope.activities = activitiesHolder.activities;
 					},
 					function(error){
@@ -72,7 +88,7 @@ app.controller('ActivityFeedCtrl',
 						$scope.loading = false;
 					}
 				);
-			
+
 			}
 		}
 	}

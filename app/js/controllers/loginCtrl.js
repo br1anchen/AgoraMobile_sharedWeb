@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,UtilityService,$state,$timeout,$rootScope,$modal,localize){
+app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,UtilityService,$state,$timeout,$rootScope,$modal,localize,AppService){
 
 	$scope.affiliationText = (!StorageService.get('lastAffiliation')) ? localize.getLocalizedString('_LoginAffiliationSelectName_') : StorageService.get('lastAffiliation').name;
 	$scope.loading = true;
@@ -11,7 +11,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	LoginService.getFeideLoginUrl().then(function(url){
 		$scope.feideLoginUrl = url;
 	});
-	
+
 	LoginService.getAffiliations().then(function(affiliations){
 		$scope.affiliations = affiliations
 	});
@@ -24,7 +24,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	      resolve: {
 	        options: function(){
 	        	return $scope.affiliations;
-	        } 
+	        }
 	      }
 	    });
 
@@ -36,7 +36,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	    	}else{
 	    		StorageService.store('lastAffiliation',selectedItem);
 	    	}
-	    	
+
 	    }, function () {
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });
@@ -55,7 +55,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	        		msg2 : localize.getLocalizedString('_FEIDELoginContentPart2_'),
 	        		msg3 : localize.getLocalizedString('_FEIDELoginContentPart3_')
 	        	}
-	        } 
+	        }
 	      }
 	    });
 
@@ -70,7 +70,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
                 }, function(error) {
                   console.log(error);
                 }, "cookieManager","deleteCookies",[]);
-            
+
             });
 
 	    }, function () {
@@ -81,7 +81,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	$scope.login = function(){
 
 		$scope.affiliation = StorageService.get('lastAffiliation');
-		var username = (!$scope.affiliation || typeof $scope.affiliation == 'string' ) ? $scope.username : $scope.username + '__' + $scope.affiliation.domain;
+		var username = (!$scope.affiliation || typeof $scope.affiliation === 'string' || $scope.affiliation.name === 'No Affiliation' ) ? $scope.username : $scope.username + '__' + $scope.affiliation.domain;
 		$scope.loginProgress = 30;
 		LoginService.login(username,$scope.password).then(
 			function(rep){
@@ -90,6 +90,19 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 					$scope.loginProgress = 100;
 					console.log('Login success!')
 					$state.transitionTo('stage.activityFeed');
+					navigator.notification.confirm(
+						localize.getLocalizedString('_UpgradingText_'),
+						function(buttonIndex){
+							switch(buttonIndex){
+							case 1:
+								break;
+							case 2:
+								UtilityService.inAppBrowser.browser(AppService.getBaseURL(),'_system');
+								break;
+							}
+						},
+						'Agora Mobile',
+						['OK',localize.getLocalizedString('_GoToWebsite_')]);
 				},function(reason){
 					console.error("Login failed:"+JSON.stringify(reason));
 					$state.transitionTo('login');
@@ -126,7 +139,7 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	        		title : localize.getLocalizedString('_loginStuckTitle_'),
 	        		msg : localize.getLocalizedString('_loginStuckMsg_')
 	        	}
-	        } 
+	        }
 	      }
 	    });
 
@@ -147,12 +160,12 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 	        		title : localize.getLocalizedString('_loginFailedTitle_'),
 	        		msg : localize.getLocalizedString('_loginFailedMsg_')
 	        	}
-	        } 
+	        }
 	      }
 	    });
 
 	    dialogInstance.result.then(function () {
-	    	
+
 	    }, function () {
 	      $log.info('Modal dismissed at: ' + new Date());
 	    });

@@ -1,5 +1,3 @@
-"use strict"
-
 //Search Service
 
 angular.module('app.searchService',['app.storageService','app.httpService','app.appService']).
@@ -7,7 +5,7 @@ angular.module('app.searchService',['app.storageService','app.httpService','app.
 factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,localize){
 
 	//class entity in SearchService
-	var apiSearch = AppService.getBaseURL() + "/api/secure/jsonws/agora-simple-search-portlet.searcher/";//get-any,get-dl-file-entry,get-message-board,get-wiki/uid/250919/from/0/to/20/keywords/agora
+	var apiSearch = AppService.getBaseURL() + "/api/jsonws/agora-simple-search-portlet.searcher/";//get-any,get-dl-file-entry,get-message-board,get-wiki/uid/250919/from/0/to/20/keywords/agora
 
 	var appendIncrement = 20;
 
@@ -39,7 +37,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
     			result.snippet = object.snippet == undefined ? "..." : stripHTML(object.snippet) + "...";
     			result.relateUser = object.userName;
     			result.modifiedDate = object.modified.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,"$1/$2/$3 $4:$5:$6");
-                
+
     			switch(entryType){
     				case "WikiPage":
 
@@ -48,7 +46,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
     					result.nodeId = object.nodeId;
 		    			result.title = object.title;
                         result.shownText = object.title;
-    				
+
     					break;
     				case "DLFileEntry":
 
@@ -75,7 +73,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
 
     					break;
     			}
-    			
+
     		}
 
     		if(result){
@@ -108,7 +106,7 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
             }
 
 			setResults(tempResults.length,keyword,searchType,tempResults,end);
-          
+
 			deffered.resolve(resultsHolder);
 
         },function(err){
@@ -132,9 +130,9 @@ factory('SearchService',function ($log,$q,StorageService,HttpService,AppService,
 			return searchResults(resultsHolder.number + appendIncrement,resultsHolder.keyword,resultsHolder.searchType);
 		},
 		getResults : function(number,keyword,searchType){
-            
+
             setResults(0,'','',null,false);
-			
+
 			return searchResults(number,keyword,searchType);
 		}
 	}

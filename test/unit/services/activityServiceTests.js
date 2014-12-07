@@ -40,7 +40,7 @@ describe('ActivityService',function(){
     	StorageService.store('User',testUser);
 
 		//Fetch with group Id and invalid auth token
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/'+appendIncrement
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/'+appendIncrement
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -52,7 +52,7 @@ describe('ActivityService',function(){
         }); 
 
 		//Fetch with group Id
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/'+appendIncrement
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/'+appendIncrement
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -64,7 +64,7 @@ describe('ActivityService',function(){
 		});
 
         //Fetch with group Id and invalid auth token
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/'+appendIncrement*2
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/'+appendIncrement*2
             ,function(headers){
                 return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -76,7 +76,7 @@ describe('ActivityService',function(){
         }); 
 
         //Fetch with group Id
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/' +appendIncrement*2
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/489185/gid/250926/from/0/to/' +appendIncrement*2
             ,function(headers){
                 return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -88,7 +88,7 @@ describe('ActivityService',function(){
         });
 
 		//Fetch without group Id and invalid token
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/'+appendIncrement
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/'+appendIncrement
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -100,7 +100,7 @@ describe('ActivityService',function(){
         }); 
 
 		//Fetch without group Id
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/'+appendIncrement
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/'+appendIncrement
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -112,7 +112,7 @@ describe('ActivityService',function(){
 		});
 
 		//Fetch without group Id and invalid token
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/'+appendIncrement*2
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/'+appendIncrement*2
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -124,7 +124,7 @@ describe('ActivityService',function(){
         }); 
 
 		//Fetch without group Id
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/20'+appendIncrement*2
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/489185/from/0/to/20'+appendIncrement*2
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

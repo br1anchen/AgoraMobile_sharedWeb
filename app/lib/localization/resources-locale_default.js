@@ -448,5 +448,15 @@
         "key":"_RequireLoginTitle_",
         "value":"Session Expired! Login Required!",
         "description":"Login required text title"
+    },
+    {
+      "key":"_UpgradingText_",
+      "value":"System Upgrading, some functions will not work",
+      "description":"Upgrading system notification"
+    },
+    {
+      "key":"_GoToWebsite_",
+      "value":"Go to Agora Website",
+      "description":"Upgrading system notification button"
     }
 ]

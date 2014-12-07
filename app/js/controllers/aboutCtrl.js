@@ -18,7 +18,7 @@ app.controller('AboutCtrl',
 
 		$scope.compserEmail = function(){
 			cordova.exec(function () {
-        			
+
     			}, null, 'EmailComposer', 'open', [{
     												subject: 'Feedback About Agora Mobile',
     												recipients: ['adam@uninett.no']}]);

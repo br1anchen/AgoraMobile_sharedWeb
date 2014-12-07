@@ -1,6 +1,3 @@
-"use strict"
-
-
 angular.module('app.filters.camelcase',[]).
 
 filter('camelcase', function() {

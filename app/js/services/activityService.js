@@ -1,5 +1,3 @@
-"use strict"
-
 //Activity Service
 
 angular.module('app.activityService',['app.storageService','app.httpService','app.appService']).
@@ -7,8 +5,8 @@ angular.module('app.activityService',['app.storageService','app.httpService','ap
 factory('ActivityService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in ActivityService
-	var apiUser = AppService.getBaseURL() +  "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
-	var apiGroup = AppService.getBaseURL() + "/api/secure/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
+	var apiUser = AppService.getBaseURL() +  "/api/jsonws/agora-activities-portlet.activities/get-fmt-users-group-and-orgs-activity3/uid/";//489185/from/0/to/100
+	var apiGroup = AppService.getBaseURL() + "/api/jsonws/agora-activities-portlet.activities/get-fmt-group-activity2/uid/";//489185/gid/10157/from/0/to/100";
 	var appendIncrement = 20;
 
 	var activitiesHolder = {
@@ -21,13 +19,19 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
     	angular.forEach(activities, function(object, key){
     		if(object.body){
     			var body = stripHTML(object.body);
+					var bodyStrArr = body.split(",");
+					angular.forEach(bodyStrArr,function(string,index){
+						if(string === ' '){
+							bodyStrArr.splice(index,1);
+						}
+					});
 			  	var activity = {
 			      	timestamp:object.date,
 			      	pic:object.pict != undefined ? object.pict.substring(0,object.pict.indexOf('&')) : AppService.getBaseURL() + "/image/user_male_portrait?img_id=0",
 			      	user:object.user,
 			      	groupId:parseInt(object.groupId),
-			      	action:body.substring(0,body.indexOf(',')),
-			      	reference:body.substring(body.indexOf(',')+2)
+			      	action:bodyStrArr[0],
+			      	reference:bodyStrArr.slice(1).join(',')
 				}
 			    if(object.WikiPage_nodeid){
 					activity.type = "wiki";
@@ -77,7 +81,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 		promise.then(function(res){
 			setActivities(groupId,JSON2Activities(res.data));//Replacing old data
 			storeActivities(groupId,res.data);
-          
+
 			deffered.resolve(activitiesHolder);
 
         },function(err){
@@ -104,7 +108,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 			//console.log("success:"+JSON.stringify(res));
 			var topGroup = StorageService.get('TopGroup');
 			if(!topGroup){
-				console.error("ActivityService:Could not find TopGroup");	
+				console.error("ActivityService:Could not find TopGroup");
 			}
 			else{
 				setActivities(topGroup.id,JSON2Activities(res.data));//Replacing old data
@@ -113,7 +117,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 
 			}
 			deffered.resolve(activitiesHolder);
-			
+
         },function(err){
         	// alert("ish");
 			console.error("ActivitySerceice:fetchingTopActivities() failed:"+JSON.stringify(err));
@@ -152,7 +156,7 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 				//The update can be snatched from the array object as 'activities.promise'
 				activitiesHolder.promise = this.updateActivities(group);
 				deffered.resolve(activitiesHolder);
-				
+
 				return deffered.promise;
 			}
 			//Fetching activities from webstorage if present in webstorage
@@ -169,9 +173,9 @@ factory('ActivityService',function ($log,$q,StorageService,HttpService,AppServic
 					//Because we don't know if the stored activities are up to date, we start a background update against the server as well
 					activitiesHolder.promise = this.updateActivities(group);
 					deffered.resolve(activitiesHolder);
-					
+
 					return deffered.promise;
-					
+
 				}
 				var user = StorageService.get('User');
 		    	if(!user || !user.id){

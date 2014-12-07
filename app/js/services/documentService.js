@@ -1,5 +1,3 @@
-"use strict"
-
 //Document Service
 
 angular.module('app.documentService',['app.storageService','app.httpService','app.appService','app.utilityService']).
@@ -7,10 +5,10 @@ angular.module('app.documentService',['app.storageService','app.httpService','ap
 factory('DocumentService',['$log','$q','StorageService','HttpService','AppService','$timeout','UtilityService',function ($log,$q,StorageService,HttpService,AppService,$timeout,UtilityService){
 
 	//class entity in DocumentService
-	var FoldersApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-folders/repository-id/";
-	var FilesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entries/repository-id/";
-	var SingleFileApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/dlapp/get-file-entry/file-entry-id/";
-	var DownloadApiUrl = AppService.getBaseURL() + "/api/secure/webdav";
+	var FoldersApiUrl = AppService.getBaseURL() + "/api/jsonws/dlapp/get-folders/repository-id/";
+	var FilesApiUrl = AppService.getBaseURL() + "/api/jsonws/dlapp/get-file-entries/repository-id/";
+	var SingleFileApiUrl = AppService.getBaseURL() + "/api/jsonws/dlapp/get-file-entry/file-entry-id/";
+	var DownloadApiUrl = AppService.getBaseURL() + "/api/webdav";
 
 	var folderHolder = {
 		folder : {},

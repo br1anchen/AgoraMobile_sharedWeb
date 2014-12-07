@@ -17,7 +17,7 @@ describe('HttpService',function(){
 		$httpBackend = $injector.get('$httpBackend');
 		
 		//No Authorization header
-		$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
+		$httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
 			,function(headers){
         		return headers['Authorization'] == undefined ? true :false;
         })
@@ -29,7 +29,7 @@ describe('HttpService',function(){
     	});
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -41,7 +41,7 @@ describe('HttpService',function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -60,7 +60,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login request returns a promise object',inject(function(HttpService){
 		//set request url and request method
-		var promise = HttpService.request(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
+		var promise = HttpService.request(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
 		
 		$httpBackend.flush();
 
@@ -70,7 +70,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login gets resolved with correct login info',inject(function(HttpService){
 		//set request url customized authorization and request method
-		var promise = HttpService.request(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic dGVzdFVzZXI6ZGVtbw==','GET');
+		var promise = HttpService.request(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic dGVzdFVzZXI6ZGVtbw==','GET');
 
 		var validRequest;
 		promise.then(function(data){validRequest = true;});
@@ -81,7 +81,7 @@ describe('HttpService',function(){
 
 	it('Testing if the login get rejected with wrong login info',inject(function(HttpService){
 		//set request url customized authorization and request method
-		var promise = HttpService.request(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic ','GET');
+		var promise = HttpService.request(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','Basic ','GET');
 
 		var unvalidRequest;
 		promise.then(function(){unvalidRequest = true});
@@ -106,7 +106,7 @@ describe('HttpService',function(){
     	//store all usefull info in local storage
     	StorageService.store('User',testUser);
 
-    	var promise = HttpService.request(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
+    	var promise = HttpService.request(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/agora.uninett.no','','GET');
 
 		var validRequest;
 		promise.then(function(data){validRequest = true;});

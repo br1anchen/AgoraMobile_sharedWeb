@@ -105,7 +105,9 @@ app.controller('MenuCtrl',function($scope,$log,$location,StorageService,GroupSer
         console.log(err);
       });
 
-      StorageService.store('lastAffiliation',tempAffiliation);
+      if(tempAffiliation){
+        StorageService.store('lastAffiliation',tempAffiliation);
+      }
       $state.transitionTo('login');
     },function(err){
       console.log(err);

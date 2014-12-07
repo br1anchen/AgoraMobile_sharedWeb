@@ -4,7 +4,7 @@ angular.module('app.httpService',['app.storageService'])
 .factory('HttpService', function ($http,$log,$q,StorageService,$timeout,$rootScope) {
 
 	 //class entity in HttpService
-  	//var domainUrl = "https://agora.uninett.no/api/secure/jsonws/";
+  	//var domainUrl = "https://agora.uninett.no/api/jsonws/";
 
   	//return value from HttpService
   	return{

@@ -17,8 +17,8 @@ describe('LoginService',function(){
 
 		//Invalid auth token by test user info
 
-        // dump(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,""))
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,"")	
+        // dump(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,""))
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,"")	
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -31,7 +31,7 @@ describe('LoginService',function(){
 
 		//Valid login for test
 		var virtualHost = 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,"")
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,"")
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -41,7 +41,7 @@ describe('LoginService',function(){
 			]
 		});
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/user/get-user-by-screen-name/company-id/10132/screen-name/testUser'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/user/get-user-by-screen-name/company-id/10132/screen-name/testUser'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

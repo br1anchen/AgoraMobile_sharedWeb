@@ -21,7 +21,7 @@ describe('GroupService',function(){
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/group/get-user-places/-class-names/max/10'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/group/get-user-places/-class-names/max/10'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -33,7 +33,7 @@ describe('GroupService',function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/group/get-user-places/-class-names/max/10'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/group/get-user-places/-class-names/max/10'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

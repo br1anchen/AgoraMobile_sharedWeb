@@ -27,7 +27,7 @@ describe('MessageBoardService',function(){
 		$httpBackend = $injector.get('$httpBackend');
 
 		//Invalid auth token by test user info
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbcategory/get-categories/group-id/10157'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/mbcategory/get-categories/group-id/10157'
         	,function(headers){
         		return headers['Authorization'] != 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -39,7 +39,7 @@ describe('MessageBoardService',function(){
         }); 
 
 		//Valid login for test
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbcategory/get-categories/group-id/10157'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/mbcategory/get-categories/group-id/10157'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -49,7 +49,7 @@ describe('MessageBoardService',function(){
 				]
 		});
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbthread/get-threads/group-id/10157/category-id/19297/status/0/start/0/end/20'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/mbthread/get-threads/group-id/10157/category-id/19297/status/0/start/0/end/20'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -61,7 +61,7 @@ describe('MessageBoardService',function(){
 		
 		for(var index = 0; index < 4; index ++){
 			var ct = index;
-			$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbmessage/get-message/message-id/'+rootMsgIds[index]
+			$httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/mbmessage/get-message/message-id/'+rootMsgIds[index]
 	        	,function(headers){
 	        		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
 	        })
@@ -72,7 +72,7 @@ describe('MessageBoardService',function(){
 			});
 		}
 
-		$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/40'
+		$httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/mbmessage/get-thread-messages/group-id/10157/category-id/19297/thread-id/19300/status/0/start/0/end/40'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

@@ -1,5 +1,3 @@
-"use strict"
-
 angular.module('app.filters.timeago',[]).
 
 filter('timeago', function() {
@@ -37,12 +35,12 @@ filter('timeago', function() {
             hours = minutes / 60,
             days = hours / 24,
             years = days / 365,
-            separator = strings.wordSeparator === undefined ?  " " : strings.wordSeparator, 
-        
+            separator = strings.wordSeparator === undefined ?  " " : strings.wordSeparator,
+
             // var strings = this.settings.strings;
             prefix = strings.prefixAgo,
             suffix = strings.suffixAgo;
-            
+
         if (allowFuture) {
             if (dateDifference < 0) {
                 prefix = strings.prefixFromNow;

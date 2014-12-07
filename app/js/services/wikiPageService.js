@@ -1,5 +1,3 @@
-"use strict"
-
 //Wiki Page Service
 
 angular.module('app.wikiPageService',['app.storageService','app.httpService','app.appService']).
@@ -7,9 +5,9 @@ angular.module('app.wikiPageService',['app.storageService','app.httpService','ap
 factory('WikiPageService',['$log','$q','StorageService','HttpService','AppService',function ($log,$q,StorageService,HttpService,AppService){
 
 	//class entity in Wiki Page Service
-	var NodeApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikinode/get-node/group-id/";
-	var PagesApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikipage/get-node-pages/node-id/";
-	var PageApiUrl = AppService.getBaseURL() + "/api/secure/jsonws/wikipage/get-page/node-id/";
+	var NodeApiUrl = AppService.getBaseURL() + "/api/jsonws/wikinode/get-node/group-id/";
+	var PagesApiUrl = AppService.getBaseURL() + "/api/jsonws/wikipage/get-node-pages/node-id/";
+	var PageApiUrl = AppService.getBaseURL() + "/api/jsonws/wikipage/get-page/node-id/";
 
 	var wikiPageHolder = {
 		page : {},
@@ -84,7 +82,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 
 		angular.forEach(data,function(p,k){
 			if(p.redirectTitle == ""){
-			
+
 				var page = JSON2Page(p);
 
 				pages.push(page);
@@ -114,9 +112,9 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 	}
 
 	function generateWikiTree(pages) {
-		
+
 		var recursiveNode = function(parentTitle) {
-	  
+
 	  		var nodes = [];
 
 	  		angular.forEach(pages,function(p,k){
@@ -132,7 +130,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 
 	  		return nodes;
 	 	}
-		
+
 		return recursiveNode("");
 	}
 
@@ -194,13 +192,13 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 	return {
 
 		getWikiContentTree : function(group) {
-			
+
 			var deffered = $q.defer();
 
 			//Returning whatever is in the runtime memory if the groupe is the same
 			if(wikiTreeHolder.groupId == group.id){
 				deffered.resolve(wikiTreeHolder);
-				
+
 				//Updates in the background even if it has content Tree localy
 				fetchContentTree(group.id);
 				return deffered.promise;
@@ -212,7 +210,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			if(contentTree && mainNode){
 				setWikiTree(group.id,mainNode,contentTree);
 				deffered.resolve(wikiTreeHolder);
-				
+
 				//Updates in the background even if it has content Tree localy
 				fetchContentTree(group.id);
 				return deffered.promise;
@@ -229,7 +227,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			//Returning whatever is in the runtime memory if the groupe is the same
 			if(wikiPageHolder.groupId == group.id && wikiPageHolder.page.title == title){
 				deffered.resolve(wikiPageHolder);
-				
+
 				//Updates in the background even if it has page localy
 				fetchWikiPage(group.id,nodeId,title);
 				return deffered.promise;
@@ -240,7 +238,7 @@ factory('WikiPageService',['$log','$q','StorageService','HttpService','AppServic
 			if(page){
 				setWikiPage(group.id,nodeId,page);
 				deffered.resolve(wikiPageHolder);
-				
+
 				//Updates in the background even if it has page localy
 				fetchWikiPage(group.id,nodeId,title);
 				return deffered.promise;

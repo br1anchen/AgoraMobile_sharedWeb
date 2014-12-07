@@ -20,7 +20,7 @@ describe('DocumentService',function(){
 		$httpBackend = $injector.get('$httpBackend');
 		AppService = $injector.get('AppService');
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/0'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/0'
         	,function(headers){
         		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -30,7 +30,7 @@ describe('DocumentService',function(){
         			]
         });
 
-    	$httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/257002'
+    	$httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/257002'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -40,7 +40,7 @@ describe('DocumentService',function(){
         			]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/345064'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/345064'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -50,7 +50,7 @@ describe('DocumentService',function(){
         			]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/345001'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-folders/repository-id/250926/parent-folder-id/345001'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -60,7 +60,7 @@ describe('DocumentService',function(){
         			]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-group-file-entries-count/group-id/250926/user-id/0'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-group-file-entries-count/group-id/250926/user-id/0'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -70,7 +70,7 @@ describe('DocumentService',function(){
         			]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-group-file-entries/group-id/250926/user-id/0/root-folder-id/0/start/0/end/5'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-group-file-entries/group-id/250926/user-id/0/root-folder-id/0/start/0/end/5'
     	,function(headers){
     		return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -80,7 +80,7 @@ describe('DocumentService',function(){
         			]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/0'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/0'
         ,function(headers){
             return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -90,7 +90,7 @@ describe('DocumentService',function(){
                     ]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/257002'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/257002'
         ,function(headers){
             return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -100,7 +100,7 @@ describe('DocumentService',function(){
                     ]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/345064'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/345064'
         ,function(headers){
             return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })
@@ -110,7 +110,7 @@ describe('DocumentService',function(){
                     ]
         });
 
-        $httpBackend.whenGET(AppService.getBaseURL() + '/api/secure/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/345001'
+        $httpBackend.whenGET(AppService.getBaseURL() + '/api/jsonws/dlapp/get-file-entries/repository-id/250926/folder-id/345001'
         ,function(headers){
             return headers['Authorization'] == 'Basic dGVzdFVzZXI6ZGVtbw==' ? true :false;
         })

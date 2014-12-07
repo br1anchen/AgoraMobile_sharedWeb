@@ -14,7 +14,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       emailAddress : "",
       companyId : ""
     };
-    var serviceLoginUrl = AppService.getBaseURL() + '/api/secure/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,"");
+    var serviceLoginUrl = AppService.getBaseURL() + '/api/jsonws/company/get-company-by-virtual-host/virtual-host/' + AppService.getBaseURL().replace(/.*\/\//,"");
     var feideRequestUrl = AppService.getBaseURL() + '/c/portal/feide/loginurl?redirect=%2Fgroup%2Fagora%2Fdokumenter%3Fp_p_id%3Dagoramypassword_WAR_agoramypasswordportlet%26p_p_state%3Dpop_up%26p_p_mode%3Dedit%26p_p_lifecycle%30%26controlPanelCategory%3portlet_agoramypassword_WAR_agoramypasswordportlet';
     // var feideRequestUrl = 'https://agora-test.uninett.no/c/portal/feide/loginurl?redirect=%2Fgroup%2Fagora%2Fdokumenter%3Fp_p_id%3Dagoramypassword_WAR_agoramypasswordportlet%26p_p_state%3Dpop_up%26p_p_mode%3Dedit%26p_p_lifecycle%30%26controlPanelCategory%3portlet_agoramypassword_WAR_agoramypasswordportlet';
 
@@ -32,7 +32,7 @@ angular.module('app.loginService',['app.httpService','app.utilityService','app.s
       getUserInfo : function(screenName,companyId){
         var deffered = $q.defer();
 
-        var userInfoUrl = AppService.getBaseURL() + '/api/secure/jsonws/user/get-user-by-screen-name/company-id/'+ companyId + '/screen-name/' + screenName;
+        var userInfoUrl = AppService.getBaseURL() + '/api/jsonws/user/get-user-by-screen-name/company-id/'+ companyId + '/screen-name/' + screenName;
         var promise = HttpService.request(userInfoUrl,user.auth,"GET");
         promise.then(function(rep){
 
