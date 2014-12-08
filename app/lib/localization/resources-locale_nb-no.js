@@ -451,8 +451,13 @@
     },
     {
       "key":"_UpgradingText_",
-      "value":"System Oppgradering! Vil enkelte funksjoner ikke fungerer.",
+      "value":"Agora hjemmeside nå mobilvennlig, Agora Mobile midlertidig begrenset",
       "description":"Upgrading system notification"
+    },
+    {
+      "key":"_UseAnyWayText_",
+      "value":"Bruk Agora Mobile likevel",
+      "description":"Upgrading system notification button"
     },
     {
       "key":"_GoToWebsite_",

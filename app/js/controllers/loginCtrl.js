@@ -90,19 +90,6 @@ app.controller('LoginCtrl',function($scope,$log,LoginService,StorageService,Util
 					$scope.loginProgress = 100;
 					console.log('Login success!')
 					$state.transitionTo('stage.activityFeed');
-					navigator.notification.confirm(
-						localize.getLocalizedString('_UpgradingText_'),
-						function(buttonIndex){
-							switch(buttonIndex){
-							case 1:
-								break;
-							case 2:
-								UtilityService.inAppBrowser.browser(AppService.getBaseURL(),'_system');
-								break;
-							}
-						},
-						'Agora Mobile',
-						['OK',localize.getLocalizedString('_GoToWebsite_')]);
 				},function(reason){
 					console.error("Login failed:"+JSON.stringify(reason));
 					$state.transitionTo('login');

@@ -446,8 +446,13 @@
     },
     {
       "key":"_UpgradingText_",
-      "value":"System Upgrading, some functions will not work",
+      "value":"Agora website now mobile-friendly, Agora Mobile temporarily limited",
       "description":"Upgrading system notification"
+    },
+    {
+      "key":"_UseAnyWayText_",
+      "value":"Use Agora Mobile anyway",
+      "description":"Upgrading system notification button"
     },
     {
       "key":"_GoToWebsite_",

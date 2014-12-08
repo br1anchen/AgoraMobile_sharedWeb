@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService,localize,snapRemote){
+app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$state,GroupService,StorageService,ActivityService,ContentService,$q,StateService,localize,snapRemote,UtilityService,AppService){
 
     StateService.stateVariablesOn();
 
@@ -53,6 +53,20 @@ app.controller('StageCtrl',function($scope,$log,$location,$timeout,$rootScope,$s
             });
         }
     }
+
+    navigator.notification.confirm(
+      localize.getLocalizedString('_UpgradingText_'),
+      function(buttonIndex){
+        switch(buttonIndex){
+        case 1:
+          break;
+        case 2:
+          UtilityService.inAppBrowser.browser(AppService.getBaseURL(),'_system');
+          break;
+        }
+      },
+      'Agora Mobile',
+      [localize.getLocalizedString('_UseAnyWayText_'),localize.getLocalizedString('_GoToWebsite_')]);
 
     function toggleShowAllGroups(groupsHolder) {
         var ui_list_height = $(window).height() - 70 - 35;//count the height for display groups list

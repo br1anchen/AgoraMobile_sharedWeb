@@ -50,20 +50,6 @@ app.controller('ActivityFeedCtrl',
 				$scope.currentGroup = {
 			        name : 'Agora'
 			    };
-
-				navigator.notification.confirm(
-					localize.getLocalizedString('_UpgradingText_'),
-					function(buttonIndex){
-						switch(buttonIndex){
-						case 1:
-							break;
-						case 2:
-							UtilityService.inAppBrowser.browser(AppService.getBaseURL(),'_system');
-							break;
-						}
-					},
-					'Agora Mobile',
-					['OK',localize.getLocalizedString('_GoToWebsite_')]);
 			}
 
 			var groupId = $state.params.groupId;
